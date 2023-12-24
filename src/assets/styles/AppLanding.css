@@ -1,0 +1,37 @@
+.app-landing-page {
+	background-image: url(../app-landing-page-bg.png);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+    min-height: 92vh;
+}
+
+.landing-banner {
+	font-family: 'DM Sans', sans-serif;
+}
+
+.landing-banner > h2 {
+	font-size: 2em !important;
+	color: #4D4C4C !important;
+	text-align: center;
+}
+
+.landing-banner > p {
+	font-size: 1em !important;
+	color: #8F8E8E !important;
+	text-align: center;
+}
+
+.app-landing-category {
+	font-family: 'DM Sans', sans-serif;
+	border-radius: 20px !important;
+	color: #8F8E8E !important;
+	background-color: #ECECEC;
+}
+
+.app-landing-search {
+	background-color: #FF851A !important;
+	text-align: center !important;
+	color: #3c3c3c !important;
+	border-radius: 20px !important;
+}

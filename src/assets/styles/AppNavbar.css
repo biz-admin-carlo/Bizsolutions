@@ -1,0 +1,15 @@
+.app-navbar{
+	background-color: #FF851A !important;
+}
+
+.navbar-logo-name {
+	font-family: 'League Spartan', sans-serif;
+	font-size: 1.2em !important;
+	color: #1e1e1e !important;
+}
+
+.navbar-options {
+	font-family: 'Poppins', sans-serif;
+	font-size: .9em !important;
+	color: #3c3c3c !important;
+}
