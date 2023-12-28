@@ -14,7 +14,7 @@ export default function AppNavbar() {
     <>
       <Navbar expand="lg" className="app-navbar pt-1 py-0">
         <Container>
-          <Nav.Link as={Link} to="/" className="navbar-logo-name">Bizsolutions LLC.</Nav.Link>
+          <Nav.Link as={Link} to="/" className="navbar-logo-name">Bizsolution</Nav.Link>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -29,6 +29,7 @@ export default function AppNavbar() {
                   </>
                 ) : (
                   <>
+                    <Nav.Link className="navbar-options">Search</Nav.Link>
                     <Nav.Link as={Link} to={user.id ? "/account" : "/login"} className="navbar-options">Log In</Nav.Link>
                     <Nav.Link as={Link} to="/sign-up" className="navbar-options">Sign Up</Nav.Link>
                   </>

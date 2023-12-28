@@ -1,6 +1,6 @@
 import '../assets/styles/AppLanding.css'
 import { PiEye, PiEyeSlash } from 'react-icons/pi';
-import { Form, Row, Col, Button } from 'react-bootstrap';
+import { Form, Row, Col, Button, Card } from 'react-bootstrap';
 import { useState, useContext } from 'react';
 import axios from 'axios';
 import UserContext from '../UserContext';
@@ -84,59 +84,66 @@ export default function Login() {
     }; 
 
   return (
-      <div className="app-landing-page">
-        <Row className="landing-banner py-5 w-100">
-          <h2>Login</h2>
-          <p><span>Already Have an Account?</span> <span>Login</span></p>
+    <Card>
+    <div className="app-landing-page">
+      <Row className="py-5 w-100">
+        <div className="pt-3">
+          <Col xs={9} sm={10} md={8} lg={6} xl={4} className="landing-banner custom-card p-5 mx-auto">
+            <h2>Login</h2>
+            <p><span>Already Have an Account?</span> <span>Login</span></p>
 
-          <div className="pt-3">
-            <Col xs={12} md={8} lg={5} className="mx-auto">
-              <Form onSubmit={event => authenticate(event)}>
+            <Form onSubmit={event => authenticate(event)}>
 
-                <Form.Group controlId="email">
-                  <Form.Label className="text-uppercase">Email</Form.Label>
+              <Form.Group controlId="email">
+                <Form.Label className="text-uppercase">Email</Form.Label>
+                <Form.Control
+                  className="app-landing-category px-3 mb-2"
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={event => setEmail(event.target.value)}
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group controlId="password1">
+                <Form.Label className="text-uppercase">Password</Form.Label>
+                <div style={{ position: 'relative' }}>
                   <Form.Control
-                    className="app-landing-category px-3 mb-2" 
-                    type="email" 
-                    placeholder="Email"
-                    value={email} 
-                    onChange={event => setEmail(event.target.value)}
+                    className="app-landing-category px-3 mb-2"
+                    type={isPassword1Visible ? "text" : "password"}
+                    placeholder="Password"
+                    value={password1}
+                    onChange={event => setPassword1(event.target.value)}
                     required
                   />
-                </Form.Group>
-
-                <Form.Group controlId="password1">
-                  <Form.Label className="text-uppercase">Password</Form.Label>
-                  <div style={{ position: 'relative' }}>
-                    <Form.Control
-                      className="app-landing-category px-3 mb-2"
-                      type={isPassword1Visible ? "text" : "password"}
-                      placeholder="Password"
-                      value={password1}
-                      onChange={event => setPassword1(event.target.value)}
-                      required
-                    />
-                    <div 
-                      style={{
-                        position: 'absolute', 
-                        top: '50%', 
-                        right: '10px', 
-                        cursor: 'pointer',
-                        transform: 'translateY(-50%)'
-                      }}
-                      onClick={() => setIsPassword1Visible(!isPassword1Visible)}
-                    >
-                      {isPassword1Visible ? <PiEye /> : <PiEyeSlash />}
-                    </div>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      right: '10px',
+                      cursor: 'pointer',
+                      transform: 'translateY(-50%)'
+                    }}
+                    onClick={() => setIsPassword1Visible(!isPassword1Visible)}
+                  >
+                    {isPassword1Visible ? <PiEye /> : <PiEyeSlash />}
                   </div>
-                </Form.Group>
+                </div>
+              </Form.Group>
 
-                <Button variant="link" type="submit" className="app-landing-search my-2">Log In</Button>
+              <div className="d-flex justify-content-center">
+                <Button type="submit" className="app-landing-search my-2">
+                  Login
+                </Button>
+              </div>
 
-              </Form>
-            </Col>
-          </div>
-        </Row>
-      </div>
+            </Form>
+          </Col>
+        </div>
+      </Row>
+    </div>
+  </Card>
+
   )
 }

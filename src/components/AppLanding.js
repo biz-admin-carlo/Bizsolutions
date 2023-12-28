@@ -1,4 +1,4 @@
-import { Form, Row, Col, Button } from 'react-bootstrap';
+import { Form, Row, Col, Button, Card } from 'react-bootstrap';
 import { useState, useContext } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import axios from 'axios';
@@ -74,27 +74,28 @@ export default function Login() {
     (user.id !==null) ?
       <Navigate to="/"/>
     :
+    <Card>
+      <div className="app-landing-page">
+        <Row className="py-5 w-100">
+          <div className="pt-3 d-flex justify-content-between">
+            
+            <Col xs={9} sm={10} md={8} lg={6} xl={4} className="landing-banner custom-card p-5 mx-auto">
+              <h2>Find and Discover</h2>
+              <h2>Local Business</h2>
+              <p><span>Already Registered?</span> <span>Login</span></p>
 
-  <div className="app-landing-page">
-		<Row className="landing-banner py-5 w-100">
-			<h2>Find and Discover</h2>
-			<h2>Local Business</h2>
-			<p><span>Already Registered?</span> <span>Login</span></p>
+              <Form onSubmit={event => registerUser(event)}>
 
-			<div className="pt-3">
-				<Col xs={12} md={8} lg={5} className="mx-auto">
-					<Form onSubmit={event => registerUser(event)}>
-
-						<Form.Group controlId="catergory">
-							<Form.Label className="text-uppercase">Category</Form.Label>
-							<Form.Select 
-							  className="app-landing-category ps-3 mb-2" 
-							  value={category} 
-							  onChange={event => setCategory(event.target.value)}
-							  required
-							>
-								<option value="">Find a business</option>
-						        <option value="Restaurants">Restaurants</option>
+                <Form.Group controlId="category">
+                  <Form.Label className="text-uppercase">Category</Form.Label>
+                  <Form.Select 
+                    className="app-landing-category ps-3 mb-2" 
+                    value={category} 
+                    onChange={event => setCategory(event.target.value)}
+                    required
+                  >
+                    <option value="">Find a business</option>
+                    <option value="Restaurants">Restaurants</option>
 						        <option value="Dentists">Dentists</option>
 						        <option value="Plumbers">Plumbers</option>
 						        <option value="Contractors">Contractors</option>
@@ -103,28 +104,36 @@ export default function Login() {
 						        <option value="Roofing">Roofing</option>
 						        <option value="Attorneys">Attorneys</option>
 						        <option value="Hotel">Hotel</option>
-						    </Form.Select>
-						</Form.Group>
+                  </Form.Select>
+                </Form.Group>
 
-						<Form.Group controlId="location">
-							<Form.Label className="text-uppercase">Location</Form.Label>
-							<Form.Select 
-							  className="app-landing-category ps-3 mb-2" 
-							  value={location} 
-							  onChange={event => setLocation(event.target.value)}
-							  required
-							>
-						        <option value="Technology"> Use my location</option>
+                <Form.Group controlId="location">
+                  <Form.Label className="text-uppercase">Location</Form.Label>
+                  <Form.Select 
+                    className="app-landing-category ps-3 mb-2" 
+                    value={location} 
+                    onChange={event => setLocation(event.target.value)}
+                    required
+                  >
+                    <option value="Select"> Find my location</option>
+                    <option value="UseMyLocation"> Use my location</option>
 						        <option value="Health">Nationwide</option>
-						    </Form.Select>
-						</Form.Group>
+                  </Form.Select>
+                </Form.Group>
 
-						<Button variant="link" className="app-landing-search my-2">Link</Button>
+                <div className="d-flex justify-content-center">
+                  <Button type="submit" className="app-landing-search my-2">
+                    Search
+                  </Button>
+                </div>
 
-					</Form>
-				</Col>
-			</div>
-		</Row>
-	</div>
+              </Form>
+            </Col>
+            
+          </div>
+        </Row>
+      </div>
+    </Card>
+
   )
 }
