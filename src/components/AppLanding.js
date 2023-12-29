@@ -18,58 +18,6 @@ export default function Login() {
   const [ category, setCategory ] = useState('')
   const [ location, setLocation ] = useState('')
 
-  function registerUser(event) {
-    event.preventDefault();
-
-    axios.post(`${apiUrl}/users/check-email`, {
-      category: category
-    })
-    .then(response => {
-      const result = response.data;
-      console.log(result);
-
-      if(result === true) {
-        Swal.fire({
-          title: 'Oops!',
-          icon: 'error',
-          text: 'Email already exists!'
-        });
-        navigate('/login');
-      } else {
-        return axios.post(`${apiUrl}/users/register`, {
-          category: category,
-          location: location,
-        });
-      }
-    })
-    .then(response => {
-      if(response) {
-        const result = response.data;
-        console.log(result);
-
-        setCategory('');
-        setLocation('');
-
-        if(result.error) {
-          Swal.fire({
-            title: 'Registration Failed',
-            text: "Error creating an account!"
-          });
-          navigate('/register');
-        } else {
-          Swal.fire({
-            title: 'Register Successful!',
-            text: 'You may now login!'
-          });
-          navigate('/login');
-        }
-      }
-    })
-    .catch(error => {
-      console.error("There was an error!", error);
-    });
-  }
-
   return (
     (user.id !==null) ?
       <Navigate to="/"/>
@@ -82,10 +30,8 @@ export default function Login() {
             <Col xs={9} sm={10} md={8} lg={6} xl={4} className="landing-banner custom-card p-5 mx-auto">
               <h2>Find and Discover</h2>
               <h2>Local Business</h2>
-              <p><span>Already Registered?</span> <span>Login</span></p>
 
-              <Form onSubmit={event => registerUser(event)}>
-
+              <Form className='py-3'>
                 <Form.Group controlId="category">
                   <Form.Label className="text-uppercase">Category</Form.Label>
                   <Form.Select 

@@ -1,89 +1,131 @@
 import '../assets/styles/AppLanding.css'
 import { PiEye, PiEyeSlash } from 'react-icons/pi';
 import { Form, Row, Col, Button, Card } from 'react-bootstrap';
-import { useState, useContext } from 'react';
+import { useNavigate, Navigate, Link } from 'react-router-dom';
+import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import UserContext from '../UserContext';
 import Swal from 'sweetalert2';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function SignUp() {
 
   const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const [ attempt, setAttempt ] = useState(0);
+
   const [ isPassword1Visible, setIsPassword1Visible ] = useState(false);
+
+  const [ captchaValue, setCaptchaValue ] = useState(null);
+
+  const [ alertMessage, setAlertMessage ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ firstName, setFirstName ] = useState('');
   const [ lastName, setLastName ] = useState('');
   const [ password1, setPassword1 ] = useState('');
+  const [ agree, setAgree ] = useState('');
 
-  const retrieveUser = async (token) => {
-    try {
-      const response = await axios.get(`${apiUrl}/users/details`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+  const [ isActive, setIsActive ] = useState(false);
 
-      const result = response.data;
-        console.log(result);
+  const onChange = (value) => {
+    setCaptchaValue(value);
+  }
 
-      setUser({
-        id: result._id,
-        isAdmin: result.isAdmin,
-        email: result.email
-      });
-    } catch (error) {
-      console.error('An error occured while retrieving the user: ', error);
-    }
-  };
-
-  const authenticate = async (event) => {
+  function registerUser(event) {
     event.preventDefault();
 
-    try {
-      const response = await axios.post(`${apiUrl}/users/login`, {
-        email: email,
-        password: password1
-      });
+    setAttempt(attempt + 1);
 
+    if(!captchaValue){
+
+      Swal.fire({
+        title: 'Verification required',
+        icon: 'warning',
+        text: 'Please complete the Captcha to proceed!',
+      });
+      return;
+    }
+
+    axios.post(`${apiUrl}/users/check-email`, {
+      email: email
+    })
+    .then(response => {
       const result = response.data;
 
-      if (typeof result.accessToken !== 'undefined') {
-          localStorage.setItem('token', result.accessToken);
-          await retrieveUser(result.accessToken);
+      if(result.exists === true) {
+        Swal.fire({
+          title: 'Oops!',
+          icon: 'error',
+          text: 'Email already exists!'
+        });
+        navigate('/login');
+      } else {
+        return axios.post(`${apiUrl}/users/register`, {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password1
+        });
+      }
+    })
+    .then(response => {
+      if(response) {
+        const result = response.data;
+        console.log(result);
 
+        setEmail('');
+        setPassword1('');
+        setFirstName('');
+        setLastName('');
+        setAgree('');
+
+        if(result.error) {
           Swal.fire({
-            title: 'Login Successful!',
-            text: 'Welcome to Bizsolutions LLC!',
-            confirmButtonText: 'OK!'
+            title: 'Registration Failed',
+            text: "Error creating an account!"
           });
-
+          navigate('/register');
         } else {
           Swal.fire({
-            title: 'Authentication Failed!',
-            text: 'Incorrect email or password!',
-            confirmButtonColor: '#ff0000',
-            confirmButtonText: 'Again!'
+            title: 'Register Successful!',
+            text: 'You may now login!'
           });
-          setEmail('');
-          setPassword1('');
+          navigate('/login');
         }
+      }
+    })
+    .catch(error => {
+      console.error("There was an error!", error);
+    });
+  };
 
-      } catch (error) {
+  useEffect(() => {
+    let alert = '';
 
-          Swal.fire({
-            title: 'Authentication Failed!',
-            text: 'An error occurred!',
-            confirmButtonColor: '#ff0000',
-            confirmButtonText: 'Again!'
-          });
+    if (firstName === '' || lastName === '' || email === '' || password1 === '') {
+      alert = 'All fields are required!';
+    } else if (password1.length <= 7){
+      alert = 'Password must be atleast 8 characters or more';
+    }else if (!agree) {
+      alert = 'You must agree to the terms and conditions';
+    } else {
+      alert = '';
+    }
 
-          setEmail('');
-          setPassword1('');
-          console.error('An error occurred during authentication:', error);
-        }
-    }; 
+    setAlertMessage(alert);
+
+    console.log(alert)
+
+    if (alert === '') {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [firstName, lastName, email, password1, agree]);
+
 
   return (
     <Card>
@@ -98,7 +140,7 @@ export default function SignUp() {
               <span>Already Have an Account?</span> <span>Login</span>
             </p>
 
-              <Form onSubmit={event => authenticate(event)}>
+              <Form onSubmit={event => registerUser(event)}>
                 <Form.Group controlId="formFirstName">
                   <Form.Label className="text-uppercase">First Name</Form.Label>
                   <Form.Control
@@ -117,7 +159,7 @@ export default function SignUp() {
                     className="app-landing-category px-3 mb-2"
                     type="text"
                     placeholder="Last Name"
-                    value={lastName} // Change to a state variable specific to last name
+                    value={lastName}
                     onChange={event => setLastName(event.target.value)}
                     required
                   />
@@ -134,7 +176,7 @@ export default function SignUp() {
                     required
                   />
                 </Form.Group>
-      
+
                 <Form.Group controlId="formPassword1">
                   <Form.Label className="text-uppercase">Password</Form.Label>
                   <div style={{ position: 'relative' }}>
@@ -159,13 +201,40 @@ export default function SignUp() {
                       {isPassword1Visible ? <PiEye /> : <PiEyeSlash />}
                     </div>
                   </div>
+                  {password1.length > 0 && password1.length < 8 && (
+                    <p className="text-danger loginText">
+                      Password must be 8 characters or more!
+                    </p>
+                  )}
                 </Form.Group>
-      
+
+                <Form.Group controlId="agree">
+                    {['checkbox'].map((type) => (
+                          <div key={`default-${type}`} className="loginText my-3">
+                            <Form.Check 
+                              required
+                              label={` By clicking this, you are agreeing to the Terms & Conditions and the Privacy Policy.`}
+                              onChange={e => setAgree(e.target.checked)}
+                            />
+                          </div>
+                    ))}
+                  </Form.Group>
+
+                { attempt > 0 && <p className="text-danger loginText">{alertMessage}</p> }
+
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <ReCAPTCHA
+                    sitekey="6Ld69z4pAAAAAPgXp2Bl0XE5md1bRcCKy-tPF7U3"
+                    onChange={onChange}
+                  />
+                </div>
+
                 <div className="d-flex justify-content-center">
-                  <Button type="submit" className="app-landing-search my-2">
+                  <Button type="submit" className="app-landing-search my-2" disabled={!isActive}>
                     Sign Up
                   </Button>
                 </div>
+                
               </Form>
             </Col>
           </div>

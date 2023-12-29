@@ -1,7 +1,8 @@
-import '../assets/styles/AppLanding.css'
+import '../assets/styles/AppLanding.css';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { PiEye, PiEyeSlash } from 'react-icons/pi';
 import { Form, Row, Col, Button, Card } from 'react-bootstrap';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import UserContext from '../UserContext';
 import Swal from 'sweetalert2';
@@ -11,9 +12,16 @@ const apiUrl = process.env.REACT_APP_API_URL;
 export default function Login() {
 
   const { setUser } = useContext(UserContext);
+  const navigate = useNavigate(); // Hook for redirection
+  const location = useLocation();
+
   const [ isPassword1Visible, setIsPassword1Visible ] = useState(false);
   const [ email, setEmail ] = useState('');
   const [ password1, setPassword1 ] = useState('');
+  
+  const onChange = () => {
+
+  }
 
   const retrieveUser = async (token) => {
     try {
@@ -131,7 +139,11 @@ export default function Login() {
                   </div>
                 </div>
               </Form.Group>
-
+              
+              <div>
+                <p><span>Forgot Password?</span></p>
+              </div>
+              
               <div className="d-flex justify-content-center">
                 <Button type="submit" className="app-landing-search my-2">
                   Login
