@@ -15,13 +15,49 @@ export default function Login() {
   const { user } = useContext(UserContext)
   const navigate = useNavigate()
 
-  const [ category, setCategory ] = useState('')
-  const [ location, setLocation ] = useState('')
+  const [ category, setCategory ] = useState('');
+  const [ location, setLocation ] = useState('');
+  const [ ipAddress, setIpAddress ] = useState('');
+
+  // Fetch IP Address when 'Use My Location' is selected
+  const handleLocationChange = (event) => {
+    const selectedLocation = event.target.value;
+    setLocation(selectedLocation);
+
+    if (selectedLocation === 'UseMyLocation') {
+      fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => setIpAddress(data.ip))
+        .catch(error => console.error('Error fetching IP:', error));
+    }
+  };
+
+  // Handle form submission
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (location === 'UseMyLocation') {
+      console.log("User's IP Address:", ipAddress);
+      // You might want to do something with the IP Address here
+      // For instance, sending it along with other form data to your server
+    }
+    // By this time, ipAddress is already collected
+
+    const primaryKey = "20a9643361bc4a74a351551da209e2e7";
+    console.log(primaryKey);
+
+    const options = {method: 'GET'};
+
+    fetch(`https://ipgeolocation.abstractapi.com/v1?api_key=${primaryKey}&ip_address=${ipAddress}`, options)
+      .then(response => response.json())
+      .then(response => console.log(response))
+      .catch(err => console.error(err));
+
+    // Include the rest of your form submission logic here...
+  };
+
 
   return (
-    (user.id !==null) ?
-      <Navigate to="/"/>
-    :
     <Card>
       <div className="app-landing-page">
         <Row className="py-5 w-100">
@@ -31,7 +67,7 @@ export default function Login() {
               <h2>Find and Discover</h2>
               <h2>Local Business</h2>
 
-              <Form className='py-3'>
+              <Form className='py-3' onSubmit={handleSubmit}>
                 <Form.Group controlId="category">
                   <Form.Label className="text-uppercase">Category</Form.Label>
                   <Form.Select 
@@ -55,15 +91,14 @@ export default function Login() {
 
                 <Form.Group controlId="location">
                   <Form.Label className="text-uppercase">Location</Form.Label>
-                  <Form.Select 
-                    className="app-landing-category ps-3 mb-2" 
-                    value={location} 
-                    onChange={event => setLocation(event.target.value)}
-                    required
-                  >
+                  <Form.Select
+                      className="app-landing-category ps-3 mb-2"
+                      value={location}
+                      onChange={handleLocationChange} // Updated handler
+                      required
+                    >
                     <option value="Select"> Find my location</option>
                     <option value="UseMyLocation"> Use my location</option>
-						        <option value="Health">Nationwide</option>
                   </Form.Select>
                 </Form.Group>
 

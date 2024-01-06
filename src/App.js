@@ -2,7 +2,6 @@ import { useState, Suspense } from 'react';
 import { UserProvider } from './UserContext';
 
 import AppNavbar from './components/AppNavbar';
-import ScrollToTop from './components/ScrollToTop';
 
 import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -26,7 +25,6 @@ function App() {
     <>
       <UserProvider value={{ user, setUser, unsetUser }}>
         <Router>
-          <ScrollToTop />
           <AppNavbar />
           <Container />
               <Suspense fallback={<div>Loading...</div>}>

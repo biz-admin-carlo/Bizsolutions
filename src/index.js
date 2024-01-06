@@ -11,7 +11,5 @@ AOS.init();
 const container = document.getElementById('root');
 const root = createRoot(container); // Updated usage of createRoot
 root.render(
-  <React.StrictMode>
     <App />
-  </React.StrictMode>
 );

@@ -1,18 +1,22 @@
 import { Navbar, Nav, Container, Form, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
+import { FiX } from 'react-icons/fi';
 
 import UserContext from '../UserContext';
-
-
-import { FiSearch, FiX } from 'react-icons/fi';
 
 import '../assets/styles/AppNavbar.css'
 
 export default function AppNavbar() {
 
-  const { user } = useContext(UserContext);
+  const { user, unsetUser } = useContext(UserContext);
   const [ searchBarVisible, setSearchBarVisible ] = useState(false);
+
+   // Define a function to handle logout
+  const handleLogout = () => {
+    unsetUser(); // Call the function to unset the user
+    window.location.reload(); // Reload the window to reflect changes
+  };
 
   return (
     <>
@@ -26,9 +30,8 @@ export default function AppNavbar() {
                 {/* Render based on user.isAdmin and user.id status */}
                 {user.isAdmin ? (
                   <>
-                    {/* Assume Admin is logged in so provide a logout option */}
                     <Nav.Link as={Link} to="/admin" className="navbar-options">Admin</Nav.Link>
-                    <Nav.Link as={Link} to="/logout" className="navbar-options">Logout</Nav.Link>
+                    <Nav.Link as={Link} to="/logout" className="navbar-options" onClick={handleLogout}>>Logout</Nav.Link>
                   </>
                 ) : (
                   <>
@@ -41,7 +44,7 @@ export default function AppNavbar() {
                       <>
                         {/* User is logged in, show logout option */}
                         <Nav.Link as={Link} to="/account" className="navbar-options">Account</Nav.Link>
-                        <Nav.Link as={Link} to="/logout" className="navbar-options">Logout</Nav.Link>
+                        <Nav.Link as={Link} to="/logout" className="navbar-options" onClick={handleLogout}>Logout</Nav.Link>
                       </>
                     ) : (
                       <>

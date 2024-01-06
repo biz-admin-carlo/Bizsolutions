@@ -1,10 +1,9 @@
 import '../assets/styles/AppLanding.css'
 import { PiEye, PiEyeSlash } from 'react-icons/pi';
 import { Form, Row, Col, Button, Card } from 'react-bootstrap';
-import { useNavigate, Navigate, Link } from 'react-router-dom';
-import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import UserContext from '../UserContext';
 import Swal from 'sweetalert2';
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -12,7 +11,6 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function SignUp() {
 
-  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [ attempt, setAttempt ] = useState(0);
@@ -124,7 +122,7 @@ export default function SignUp() {
     } else {
       setIsActive(false);
     }
-  }, [firstName, lastName, email, password1, agree]);
+  }, [ firstName, lastName, email, password1, agree ]);
 
 
   return (
