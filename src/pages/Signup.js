@@ -37,15 +37,15 @@ export default function SignUp() {
 
     setAttempt(attempt + 1);
 
-    if(!captchaValue){
+    // if(!captchaValue){
 
-      Swal.fire({
-        title: 'Verification required',
-        icon: 'warning',
-        text: 'Please complete the Captcha to proceed!',
-      });
-      return;
-    }
+    //   Swal.fire({
+    //     title: 'Verification required',
+    //     icon: 'warning',
+    //     text: 'Please complete the Captcha to proceed!',
+    //   });
+    //   return;
+    // }
 
     axios.post(`${apiUrl}/users/check-email`, {
       email: email
