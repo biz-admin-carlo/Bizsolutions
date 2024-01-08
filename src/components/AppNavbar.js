@@ -31,7 +31,7 @@ export default function AppNavbar() {
                 {user.isAdmin ? (
                   <>
                     <Nav.Link as={Link} to="/admin" className="navbar-options">Admin</Nav.Link>
-                    <Nav.Link as={Link} to="/logout" className="navbar-options" onClick={handleLogout}>>Logout</Nav.Link>
+                    <Nav.Link as={Link} to="/logout" className="navbar-options" onClick={handleLogout}>Logout</Nav.Link>
                   </>
                 ) : (
                   <>
@@ -43,6 +43,7 @@ export default function AppNavbar() {
                     {user.id ? (
                       <>
                         {/* User is logged in, show logout option */}
+                        <Nav.Link as={Link} to="/account" className="navbar-options">Be on the Map</Nav.Link>
                         <Nav.Link as={Link} to="/account" className="navbar-options">Account</Nav.Link>
                         <Nav.Link as={Link} to="/logout" className="navbar-options" onClick={handleLogout}>Logout</Nav.Link>
                       </>
