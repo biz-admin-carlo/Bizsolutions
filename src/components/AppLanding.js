@@ -211,6 +211,7 @@ export default function Landing() {
                   onChange={handleLocationChange}
                   required
                 >
+                  <option disabled>─── Select Here ───</option>
                   <option value="UseMyLocation">Get Current Locations</option>
                   <option disabled>─── Locations ───</option>
                   {modifiedStates.map((state) => (
