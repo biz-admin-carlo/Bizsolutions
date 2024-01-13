@@ -1,105 +1,193 @@
+// // Import necessary modules and components
+// import { Form, Row, Col, Button, Card } from 'react-bootstrap';
+// import { useState, useContext, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import UserContext from '../UserContext';
+// import states from 'states-us';
+// import '../assets/styles/AppLanding.css';
+
+// export default function Landing() {
+//   // Accessing user context and navigation hook
+//   const navigate = useNavigate();
+  
+//   const modifiedStates = states
+//     .filter(state => state.name !== 'Hawaii') // Exclude Hawaii
+//     .sort((a, b) => {
+//       if (a.name === 'California') return -1;
+//       if (b.name === 'California') return 1;
+//       return 0;
+//     });
+
+//   // State management for various components
+//   const [category, setCategory] = useState('');
+//   const [location, setLocation] = useState('');
+  
+
+
+
+//   // Handler for location dropdown change
+//   const handleLocationChange = (event) => {
+//     const selectedLocation = event.target.value;
+//     setLocation(selectedLocation);
+    
+//   };
+// }
+//   // Form submission handler
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+// };
+//   return (
+//     <Card>
+//       <div className="app-landing-page">
+//         <Row className="py-5 w-100">
+//           <Col xs={9} sm={10} md={8} lg={6} xl={4} className="landing-banner custom-card p-5 mx-auto">
+//             <h2>Find and Discover</h2>
+//             <h2>Local Business</h2>
+
+//             {/* Form for handling the search functionality */}
+//             <Form className='py-3' onSubmit={handleSubmit}>
+//               {/* Category Selector */}
+//               <Form.Group controlId="category">
+//                 <Form.Label className="text-uppercase">Category</Form.Label>
+//                 <Form.Select 
+//                   className="app-landing-category ps-3 mb-2" 
+//                   value={category} 
+//                   onChange={event => setCategory(event.target.value)}
+//                   required
+//                 >
+//                   <option value="">Find a business</option>
+//                   <option value="Restaurants">Restaurants</option>
+//                   <option value="Dentists">Dentists</option>
+//                   <option value="Plumbers">Plumbers</option>
+//                   <option value="Contractors">Contractors</option>
+//                   <option value="Electricians">Electricians</option>
+//                   <option value="Auto Repair">Auto Repair</option>
+//                   <option value="Roofing">Roofing</option>
+//                   <option value="Attorneys">Attorneys</option>
+//                   <option value="Hotel">Hotel</option>
+//                 </Form.Select>
+//               </Form.Group>
+
+//               {/* Location Selector */}
+//               <Form.Group controlId="location">
+//                 <Form.Label className="text-uppercase">Location</Form.Label>
+//                 <Form.Select
+//                   className="app-landing-category ps-3 mb-2"
+//                   value={location}
+//                   onChange={handleLocationChange}
+//                   required
+//                 >
+//                   <option value="UseMyLocation">Get my location</option>
+//                   {modifiedStates.map((state) => (
+//                     <option key={state.abbreviation} value={state.name}>
+//                       {state.name}
+//                     </option>
+//                   ))}
+
+//                 </Form.Select>
+//               </Form.Group>
+
+//               {/* Submit Button */}
+//               <div className="d-flex justify-content-center">
+//                 <Button type="submit" className="app-landing-search my-2">
+//                   Search
+//                 </Button>
+//               </div>
+//             </Form>
+//           </Col>
+//         </Row>
+//       </div>
+//     </Card>
+//   );
+// };
 // Import necessary modules and components
-import { Form, Row, Col, Button, Card } from 'react-bootstrap';
-import { useState, useContext } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UserContext from '../UserContext';
-import Swal from 'sweetalert2';
+import { Form, Row, Col, Button, Card } from 'react-bootstrap';
+import states from 'states-us';
+
 import '../assets/styles/AppLanding.css';
 
-// Environment variable for API URL
-const apiUrl = process.env.REACT_APP_API_URL;
-
 export default function Landing() {
-  // Accessing user context and navigation hook
-  const { user } = useContext(UserContext);
   const navigate = useNavigate();
-
+  
   // State management for various components
-  const [category, setCategory] = useState('');
-  const [location, setLocation] = useState('');
-  const [ipAddress, setIpAddress] = useState('');
-  const [longLat, setLongLat] = useState({ latitude: null, longitude: null, error: null });
-  const [cityDetails, setCityDetails] = useState({ city: '', country: '', country_code: '', region: '' });
+  const [ category, setCategory ] = useState('');
+  const [ location, setLocation ] = useState('');
+  const [ userCoordinates, setUserCoordinates ] = useState(null); 
 
-  // Function to retrieve user's current location
-  const getLocation = () => {
+  const handleLocationChange = (event) => {
+    if(event.target.value === 'UseMyLocation'){
+      getUserLocation();
+    };
+
+    setLocation(event.target.value);
+  };
+
+  const getUserLocation = () => {
+    const cachedCoords = localStorage.getItem('userCoordinates');
+    console.log(cachedCoords);
+    if (cachedCoords) {
+      setUserCoordinates(JSON.parse(cachedCoords));
+      console.log('Using cached coordinates:', JSON.parse(cachedCoords));
+      return;
+    }
+  
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setLongLat({
+          const coords = {
             latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            error: null,
-          });
+            longitude: position.coords.longitude
+          };
+          setUserCoordinates(coords);
+          localStorage.setItem('userCoordinates', JSON.stringify(coords));
+          console.log('Retrieved and stored your coordinates:', coords);
         },
         (error) => {
-          setLongLat({
-            latitude: null,
-            longitude: null,
-            error: error.message,
-          });
-        },
-        { enableHighAccuracy: true }
+          console.error('Error getting location:', error);
+        }
       );
     } else {
-      setLongLat({ latitude: null, longitude: null, error: "Geolocation is not supported by this browser." });
+      console.error('Geolocation is not supported by this browser.');
     }
   };
 
-  // Handler for location dropdown change
-  const handleLocationChange = (event) => {
-    const selectedLocation = event.target.value;
-    setLocation(selectedLocation);
-    // Other specific actions based on location can be added here
-  };
-
-  // Form submission handler
   const handleSubmit = (event) => {
     event.preventDefault();
-    getLocation(); // Initiate getting location
+    
+    const queryParams = new URLSearchParams({
+      category: category,
+      location: location === 'UseMyLocation' && userCoordinates 
+      ? `Lat:${userCoordinates.latitude},Long:${userCoordinates.longitude}` 
+      : location
+    }).toString();
 
-    if (location === 'UseMyLocation') {
-      // Replace this with the specific functionality needed for using the user's location
-    }
-
-    // Replace this with your actual API key handling strategy
-    const primaryKey = "20a9643361bc4a74a351551da209e2e7";
-
-    const options = { method: 'GET' };
-
-    // Fetching city details using geolocation API
-    fetch(`https://ipgeolocation.abstractapi.com/v1?api_key=${primaryKey}&ip_address=${ipAddress}`, options)
-      .then(response => response.json())
-      .then(response => setCityDetails({
-        city: response.city,
-        country: response.country,
-        country_code: response.country_code,
-        region: response.region
-      }))
-      .catch(err => console.error(err));
+    navigate(`/search?${queryParams}`);
   };
 
-  console.log( longLat );
-  console.log( category );
-  console.log( cityDetails );
+  // Filtering states and prioritizing California
+  const modifiedStates = useMemo(() => {
+    return states
+      .filter(state => state.name !== 'Hawaii' && state.name !== 'American Samoa')
+      .sort((a, b) => (a.name === 'California' ? -1 : b.name === 'California' ? 1 : 0));
+  }, []);
 
   return (
     <Card>
       <div className="app-landing-page">
         <Row className="py-5 w-100">
           <Col xs={9} sm={10} md={8} lg={6} xl={4} className="landing-banner custom-card p-5 mx-auto">
-            <h2>Find and Discover</h2>
-            <h2>Local Business</h2>
+          <h2>Find and Discover</h2>
+          <h2>Local Business</h2>
 
-            {/* Form for handling the search functionality */}
             <Form className='py-3' onSubmit={handleSubmit}>
-              {/* Category Selector */}
               <Form.Group controlId="category">
                 <Form.Label className="text-uppercase">Category</Form.Label>
                 <Form.Select 
                   className="app-landing-category ps-3 mb-2" 
                   value={category} 
-                  onChange={event => setCategory(event.target.value)}
+                  onChange={(e) => setCategory(e.target.value)}
                   required
                 >
                   <option value="">Find a business</option>
@@ -108,14 +196,13 @@ export default function Landing() {
                   <option value="Plumbers">Plumbers</option>
                   <option value="Contractors">Contractors</option>
                   <option value="Electricians">Electricians</option>
-                  <option value="Auto Repair">Auto Repair</option>
+                  <option value="Auto Repair">Auto Repair</option>/                   
                   <option value="Roofing">Roofing</option>
                   <option value="Attorneys">Attorneys</option>
                   <option value="Hotel">Hotel</option>
                 </Form.Select>
               </Form.Group>
 
-              {/* Location Selector */}
               <Form.Group controlId="location">
                 <Form.Label className="text-uppercase">Location</Form.Label>
                 <Form.Select
@@ -124,11 +211,16 @@ export default function Landing() {
                   onChange={handleLocationChange}
                   required
                 >
-                  <option value="UseMyLocation"> Get my location</option>
+                  <option value="UseMyLocation">Get Current Locations</option>
+                  <option disabled>─── Locations ───</option>
+                  {modifiedStates.map((state) => (
+                    <option key={state.abbreviation} value={state.name}>
+                      {state.name}
+                    </option>
+                  ))}
                 </Form.Select>
               </Form.Group>
 
-              {/* Submit Button */}
               <div className="d-flex justify-content-center">
                 <Button type="submit" className="app-landing-search my-2">
                   Search

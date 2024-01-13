@@ -20,9 +20,11 @@
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
+    "states-us": "^1.0.4",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.5.2",
     "swiper": "^10.2.0",
+    "usa-states": "^0.0.6",
     "web-vitals": "^2.1.4",
     "webfontloader": "^1.6.28"
   },

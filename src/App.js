@@ -9,12 +9,14 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/Signup';
+import Search from './pages/Search';
 
 function App() {
   
   const [ user, setUser ] = useState({
     id: null,
     isAdmin: null,
+    details: {}
   });
 
   const unsetUser = () => {
@@ -34,6 +36,7 @@ function App() {
                     <Route path="/home" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/sign-up" element={<SignUp/>}/>
+                    <Route path="/search" element={<Search/>}/>
                 </Routes>
               </Suspense>
             <Container />

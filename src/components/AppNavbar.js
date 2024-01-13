@@ -26,6 +26,7 @@ export default function AppNavbar() {
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+            
             <Nav className="ms-auto nav-link">
                 {/* Render based on user.isAdmin and user.id status */}
                 {user.isAdmin ? (
