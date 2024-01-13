@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { FiX } from 'react-icons/fi';
 
+import logo from '../assets/app-logo.jpg'
+
 import UserContext from '../UserContext';
 
 import '../assets/styles/AppNavbar.css'
@@ -20,9 +22,10 @@ export default function AppNavbar() {
 
   return (
     <>
-      <Navbar expand="lg" className="app-navbar pt-1 py-0">
+      <Navbar expand="lg" className="app-navbar px-5">
         <Container>
-          <Nav.Link as={Link} to="/" className="navbar-logo-name">Bizsolution</Nav.Link>
+          <img src={logo} width={50} height={50} className='mx-3'/> 
+          <Nav.Link as={Link} to="/" className="navbar-logo-name">BizSolutions</Nav.Link>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
