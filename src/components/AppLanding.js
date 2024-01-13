@@ -212,6 +212,7 @@ export default function Landing() {
                   required
                 >
                   <option disabled>─── Select Here ───</option>
+                  <option value="Nationwide">Nationwide</option>
                   <option value="UseMyLocation">Get Current Locations</option>
                   <option disabled>─── Locations ───</option>
                   {modifiedStates.map((state) => (
