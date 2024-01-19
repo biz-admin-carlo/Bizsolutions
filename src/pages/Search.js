@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import { Form, Container, Navbar, FormControl, Breadcrumb, Card, Button } from 'react-bootstrap';
+import { Form, Container, Navbar, FormControl, Breadcrumb, Card, Button, Badge } from 'react-bootstrap';
+import Rating from 'react-rating-stars-component';
 
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -15,6 +18,8 @@ export default function Search() {
   const [ coordinates, setCoordinates ] = useState({});
   const [ userCoordinates, setUserCoordinates ] = useState(null); 
   const [ state, setState ] = useState(undefined);
+
+  const [ loading, setLoading ] = useState(true);
 
   const [ displayCount, setDisplayCount ] = useState(10);
 
@@ -90,24 +95,28 @@ export default function Search() {
   useEffect(() => {
     if (coordinates && coordinates.latitude && coordinates.longitude) {
       // Call API with coordinates
-      const api = `https://bizsolutions-api-development.onrender.com/business/search/v1?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&term=${category}`;
+      const api = `${apiUrl}/business/search/v1?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&term=${category}`;
       axios.get(api)
         .then(response => {
           console.log('Data with coordinates:', response.data);
           setResultState(response.data);
+          setLoading(false);
         })
         .catch(error => {
           console.error('Error fetching data with coordinates:', error);
+          setLoading(false);
         });
     } else if (locationParam) {
       // Call API with location parameter
-      const api = `https://bizsolutions-api-development.onrender.com/business/search/v2/?state=${locationParam}&category=${category}`;
+      const api = `${apiUrl}/business/search/v2/?state=${locationParam}&category=${category}`;
       axios.get(api)
         .then(response => {
           setResultState(response.data);
+          setLoading(false);
         })
         .catch(error => {
           console.error('Error fetching data with locationParam:', error);
+          setLoading(false);
         });
     }
   }, [coordinates, locationParam, category]);
@@ -136,24 +145,32 @@ export default function Search() {
       </Container>
 
     <Container>
+        
         <h1>Top 10 Best {category} Near {locationParam}</h1>
 
         {resultState && resultState.businesses && resultState.businesses.slice(0, displayCount).map((business, index) => (
-          <Card className="my-2" key={business.id || index}>
+          <Card className="my-2 p-3" key={business.id || index} data-aos="fade-up">
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <div style={{ marginRight: 10 }}>
                 <img
                   src={business.image_url} // URL of the image
                   alt={business.name}
-                  style={{ width: '150px', height: '100%', objectFit: 'cover' }}
+                  style={{ width: '150px', height: '100%', objectFit: 'cover', borderRadius: '3%' }}
                 />
               </div>
-              <Card.Body>
-                <Card.Title></Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">{index + 1}. {business.name}</Card.Subtitle>
-                <Card.Subtitle className="mb-2 text-muted">Average Rating of: {business.rating}</Card.Subtitle>
-                <Card.Subtitle className="mb-2 text-muted">Contact Number: {business.display_phone}</Card.Subtitle>
-                <Card.Subtitle className="mb-2 text-muted">{business.categories[0].title} | {business.location.city}, {business.location.state}</Card.Subtitle>
+              <Card.Body className='my-3'>
+                <Card.Title>{index + 1}. {business.name}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Average Rating:
+                    <Rating 
+                      value={business.rating}
+                      readOnly
+                      size={20}
+                    />
+                  </Card.Subtitle>
+                <Card.Subtitle className="mb-2">Contact Number: {business.display_phone}</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted"><Badge bg="warning">{business.categories[0].title}</Badge> </Card.Subtitle>
+                <Card.Subtitle className="mb-2">Location: {business.location.city}, {business.location.state}</Card.Subtitle>
               </Card.Body>
             </div>
           </Card>
