@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { Form, Container, Navbar, FormControl, Breadcrumb } from 'react-bootstrap';
+
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -12,37 +14,27 @@ export default function Search() {
   const [ locationParam, setLocationParam ] = useState(query.get('location'));
   const [ coordinates, setCoordinates ] = useState({});
   const [ userCoordinates, setUserCoordinates ] = useState(null); 
+  const [ state, setState ] = useState(undefined);
 
   console.log(coordinates.latitude);
   console.log(coordinates.longitude);
+  console.log(locationParam);
   console.log(category);
-
-  const yelpAPI = () => {
-    const API_KEY = 'pdHWvLb13V6ePwANpAoN4Tgwpn3OM0t4i8IT9Iz6hqtptyoCOcjUfnjs_1OhhoCxxaUROFXVHBrZkbOjdWtT9KyKoshBujNf4Xv7eP36DcjYYdIq0lckjeLD6PKbZXYx';
-
-    const latitude = coordinates.latitude;
-    const longitude = coordinates.longitude;
-    const keyTerm = category;
-
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization: `Bearer ${API_KEY}`
-      }
-    };
-    
-    fetch(`https://api.yelp.com/v3/businesses/search?latitude=${latitude}&${longitude}&term=${keyTerm}&radius=8046&sort_by=distance&limit=20`, options)
-      .then(response => response.json())
-      .then(response => console.log(response))
-      .catch(err => console.error(err));
-  }
 
   useEffect(() => {
 
     setCategory(query.get('category'));
-    setLocationParam(query.get('location'));
-    yelpAPI();
+    // setLocationParam(query.get('location'));
+
+    const newLocationParam = query.get('location');
+
+    if (typeof newLocationParam === 'string') {
+      setLocationParam(newLocationParam);
+      setState(newLocationParam); // Set the state if newLocationParam is a string
+    } else {
+      setLocationParam(null);
+      setState(null); // Set the state to null otherwise
+    }
 
   }, [query]);
 
@@ -85,7 +77,40 @@ export default function Search() {
       console.error('Geolocation is not supported by this browser.');
     }
   };
-  
+
+  useEffect(() => {
+    // ... existing useEffect logic ...
+
+    // New API call logic
+    if (coordinates.latitude && coordinates.longitude) {
+      // If coordinates are available
+      // const url = `/api/endpoint-coordinates?lat=${coordinates.latitude}&lng=${coordinates.longitude}`;
+      const api = `https://bizsolutions-api-development.onrender.com/business/search/v1?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&term=${category}`
+      axios.get(api)
+        .then(response => {
+          // Handle successful response
+          console.log('Data with coordinates:', response.data);
+        })
+        .catch(error => {
+          // Handle error
+          console.error('Error fetching data with coordinates:', error);
+        });
+    } else if (locationParam) {
+      // If location parameter is available
+      // const url = `/api/endpoint-location?location=${locationParam}`;
+      const api = `https://bizsolutions-api-development.onrender.com/business/search/v2/?state=${locationParam}&category=${category}`
+      axios.get(api)
+        .then(response => {
+          // Handle successful response
+          console.log('Data with locationParam:', response.data);
+        })
+        .catch(error => {
+          // Handle error
+          console.error('Error fetching data with locationParam:', error);
+        });
+    }
+  }, [coordinates, locationParam]);
+
   
   return (
     <>
