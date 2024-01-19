@@ -19,6 +19,7 @@ export default function Search() {
   const [ displayCount, setDisplayCount ] = useState(10);
 
   const [ resultState, setResultState ] = useState(null);
+  const [ resultCoords, setResultCoords ] = useState(null);
 
   console.log(coordinates.latitude);
   console.log(coordinates.longitude);
@@ -87,46 +88,30 @@ export default function Search() {
   };
 
   useEffect(() => {
-    // ... existing useEffect logic ...
-
-    // New API call logic
-    // iif (coordinates.latitude && coordinates.longitude) {
-    //   // If coordinates are available
-    //   // const url = `/api/endpoint-coordinates?lat=${coordinates.latitude}&lng=${coordinates.longitude}`;
-    //   const api = `https://bizsolutions-api-development.onrender.com/business/search/v1?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&term=${category}`
-    //   axios.get(api)
-    //     .then(response => {
-    //       // Handle successful response
-    //       console.log('Data with coordinates:', response.data);
-    //     })
-    //     .catch(error => {
-    //       // Handle error
-    //       console.error('Error fetching data with coordinates:', error);
-    //     });
-    // } else 
-    if (locationParam) {
-      // If location parameter is available
-      // const url = `/api/endpoint-location?location=${locationParam}`;
-      const api = `https://bizsolutions-api-development.onrender.com/business/search/v2/?state=${locationParam}&category=${category}`
+    if (coordinates && coordinates.latitude && coordinates.longitude) {
+      // Call API with coordinates
+      const api = `https://bizsolutions-api-development.onrender.com/business/search/v1?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&term=${category}`;
       axios.get(api)
         .then(response => {
-          // Handle successful response
-          console.log('Data with locationParam:', response.data);
-          console.log(response.data.businesses[0].name);
-          console.log(response.data.businesses[0].rating);
-          console.log(response.data.businesses[0].image_url);
-          console.log(response.data.businesses[0].display_phone);
-          console.log(response.data.businesses[0].location.display_address[0]);
-          console.log(response.data.businesses[0].location.display_address[1]);
-
-          setResultState(response.data)
+          console.log('Data with coordinates:', response.data);
+          setResultState(response.data);
         })
         .catch(error => {
-          // Handle error
+          console.error('Error fetching data with coordinates:', error);
+        });
+    } else if (locationParam) {
+      // Call API with location parameter
+      const api = `https://bizsolutions-api-development.onrender.com/business/search/v2/?state=${locationParam}&category=${category}`;
+      axios.get(api)
+        .then(response => {
+          setResultState(response.data);
+        })
+        .catch(error => {
           console.error('Error fetching data with locationParam:', error);
         });
     }
-  }, [coordinates, locationParam]);
+  }, [coordinates, locationParam, category]);
+  
 
   console.log(resultState);
 
