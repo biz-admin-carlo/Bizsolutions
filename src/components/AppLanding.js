@@ -66,7 +66,7 @@ export default function Landing() {
   // Filtering states and prioritizing California
   const modifiedStates = useMemo(() => {
     return states
-      .filter(state => state.name !== 'Hawaii' && state.name !== 'American Samoa')
+      .filter(state => state.name !== 'Hawaii' && state.name !== 'American Samoa' && state.name !== 'Guam' && state.name !== 'Puerto Rico')
       .sort((a, b) => (a.name === 'California' ? -1 : b.name === 'California' ? 1 : 0));
   }, []);
 

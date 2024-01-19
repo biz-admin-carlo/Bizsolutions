@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import { Form, Container, Navbar, FormControl, Breadcrumb } from 'react-bootstrap';
+import { Form, Container, Navbar, FormControl, Breadcrumb, Card, Button } from 'react-bootstrap';
 
 
 function useQuery() {
@@ -16,10 +16,18 @@ export default function Search() {
   const [ userCoordinates, setUserCoordinates ] = useState(null); 
   const [ state, setState ] = useState(undefined);
 
+  const [ displayCount, setDisplayCount ] = useState(10);
+
+  const [ resultState, setResultState ] = useState(null);
+
   console.log(coordinates.latitude);
   console.log(coordinates.longitude);
   console.log(locationParam);
   console.log(category);
+
+  const handleSeeMore = () => {
+    setDisplayCount(resultState.businesses.length);
+  };
 
   useEffect(() => {
 
@@ -82,20 +90,21 @@ export default function Search() {
     // ... existing useEffect logic ...
 
     // New API call logic
-    if (coordinates.latitude && coordinates.longitude) {
-      // If coordinates are available
-      // const url = `/api/endpoint-coordinates?lat=${coordinates.latitude}&lng=${coordinates.longitude}`;
-      const api = `https://bizsolutions-api-development.onrender.com/business/search/v1?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&term=${category}`
-      axios.get(api)
-        .then(response => {
-          // Handle successful response
-          console.log('Data with coordinates:', response.data);
-        })
-        .catch(error => {
-          // Handle error
-          console.error('Error fetching data with coordinates:', error);
-        });
-    } else if (locationParam) {
+    // iif (coordinates.latitude && coordinates.longitude) {
+    //   // If coordinates are available
+    //   // const url = `/api/endpoint-coordinates?lat=${coordinates.latitude}&lng=${coordinates.longitude}`;
+    //   const api = `https://bizsolutions-api-development.onrender.com/business/search/v1?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&term=${category}`
+    //   axios.get(api)
+    //     .then(response => {
+    //       // Handle successful response
+    //       console.log('Data with coordinates:', response.data);
+    //     })
+    //     .catch(error => {
+    //       // Handle error
+    //       console.error('Error fetching data with coordinates:', error);
+    //     });
+    // } else 
+    if (locationParam) {
       // If location parameter is available
       // const url = `/api/endpoint-location?location=${locationParam}`;
       const api = `https://bizsolutions-api-development.onrender.com/business/search/v2/?state=${locationParam}&category=${category}`
@@ -103,6 +112,14 @@ export default function Search() {
         .then(response => {
           // Handle successful response
           console.log('Data with locationParam:', response.data);
+          console.log(response.data.businesses[0].name);
+          console.log(response.data.businesses[0].rating);
+          console.log(response.data.businesses[0].image_url);
+          console.log(response.data.businesses[0].display_phone);
+          console.log(response.data.businesses[0].location.display_address[0]);
+          console.log(response.data.businesses[0].location.display_address[1]);
+
+          setResultState(response.data)
         })
         .catch(error => {
           // Handle error
@@ -110,6 +127,8 @@ export default function Search() {
         });
     }
   }, [coordinates, locationParam]);
+
+  console.log(resultState);
 
   
   return (
@@ -123,7 +142,7 @@ export default function Search() {
       </Navbar>
 
       <Container>
-        <Breadcrumb className='py-3'>
+        <Breadcrumb className='py-2'>
           <Breadcrumb.Item href="/" className="breadcrumb-item-nonlink">Home</Breadcrumb.Item>
           <Breadcrumb.Item active>
             Results for {category} in {locationParam}
@@ -131,6 +150,34 @@ export default function Search() {
         </Breadcrumb>
       </Container>
 
+    <Container>
+        <h1>Top 10 Best {category} Near {locationParam}</h1>
+
+        {resultState && resultState.businesses && resultState.businesses.slice(0, displayCount).map((business, index) => (
+          <Card className="my-2" key={business.id || index}>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <div style={{ marginRight: 10 }}>
+                <img
+                  src={business.image_url} // URL of the image
+                  alt={business.name}
+                  style={{ width: '150px', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              <Card.Body>
+                <Card.Title></Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">{index + 1}. {business.name}</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted">Average Rating of: {business.rating}</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted">Contact Number: {business.display_phone}</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted">{business.categories[0].title} | {business.location.city}, {business.location.state}</Card.Subtitle>
+              </Card.Body>
+            </div>
+          </Card>
+        ))}
+
+        {resultState && resultState.businesses && resultState.businesses.length > 10 && displayCount < resultState.businesses.length && (
+          <Button variant="primary" onClick={handleSeeMore}>See More</Button>
+        )}
+      </Container>
     </>
   );
 }
