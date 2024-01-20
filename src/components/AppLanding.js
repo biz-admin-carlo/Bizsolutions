@@ -86,6 +86,7 @@ export default function Landing() {
                   value={category} 
                   onChange={(e) => setCategory(e.target.value)}
                   required
+                  placeholder='Find a business'
                 >
                   <option value="">Find a business</option>
                   <option value="Restaurants">Restaurants</option>
@@ -107,9 +108,10 @@ export default function Landing() {
                   value={location}
                   onChange={handleLocationChange}
                   required
+                  placeholder='Select Location'
                 >
                   <option disabled>─── Select Here ───</option>
-                  <option value="Nationwide">Nationwide</option>
+                  <option value="">Select Location</option>
                   <option value="UseMyLocation">Get Current Locations</option>
                   <option disabled>─── Locations ───</option>
                   {modifiedStates.map((state) => (
@@ -121,10 +123,15 @@ export default function Landing() {
               </Form.Group>
 
               <div className="d-flex justify-content-center">
-                <Button type="submit" className="app-landing-search my-2">
+                <Button 
+                  type="submit" 
+                  className="app-landing-search my-2"
+                  disabled={!location || location === ""}
+                >
                   Search
                 </Button>
               </div>
+              
             </Form>
           </Col>
         </Row>
