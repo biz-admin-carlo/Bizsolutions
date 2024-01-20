@@ -1,0 +1,40 @@
+.business-card-div {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+  }
+  
+  .business-card-img {
+    width: 100%;
+    max-width: 150px; /* Limit the maximum size */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover;
+    border-radius: 3%;
+    margin-right: 10px;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) { /* Adjust for tablets */
+    .business-card-div {
+      flex-direction: column;
+    }
+  
+    .business-card-img {
+      width: auto;
+      max-width: 100%; /* Full width on smaller screens */
+      margin-bottom: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) { /* Adjust for mobile phones */
+    .business-card-div {
+      flex-direction: column;
+    }
+  
+    .business-card-img {
+      max-width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+  

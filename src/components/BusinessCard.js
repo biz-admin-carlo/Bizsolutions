@@ -1,10 +1,12 @@
 import React from 'react';
 import { Card, Badge } from 'react-bootstrap';
 import Rating from 'react-rating-stars-component';
+import '../assets/styles/BusinessCard.css';
+
 
 const BusinessCard = ({ business, index }) => {
   const handleImageError = (e) => {
-    e.target.src = '../assets/app-logo.jpg';
+    e.target.src = 'https://www.feednavigator.com/var/wrbm_gb_food_pharma/storage/images/_aliases/news_large/9/2/8/5/235829-6-eng-GB/Feed-Test-SIC-Feed-20142.jpg';
   };
 
   return (

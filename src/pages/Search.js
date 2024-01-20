@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import { Form, Container, Navbar, FormControl, Breadcrumb, Card, Button, Badge } from 'react-bootstrap';
-import Rating from 'react-rating-stars-component';
+import { Form, Container, Navbar, FormControl, Breadcrumb, Card, Button } from 'react-bootstrap';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import '../assets/styles/Search.css';
+import BusinessCard from '../components/BusinessCard'
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -53,12 +53,8 @@ export default function Search() {
   const [loading, setLoading] = useState(true);
   const [displayCount, setDisplayCount] = useState(10);
   const [resultState, setResultState] = useState(null);
-
   const [locationState, setLocationState] = useState(null);
   const [coordinates, setCoordinates] = useState(null);
-
-  console.log(locationState);
-  console.log(coordinates);
 
   const parseLocation = (location) => {
     if (location && location.includes('Lat') && location.includes('Long')) {
@@ -91,16 +87,19 @@ export default function Search() {
       return `Results for ${category} in ${locationState}`;
     }
     return `Results for ${category}`;
-  };
+  }
+  
+  const renderBusinessCards = () => {
+    return resultState && resultState.businesses
+      ? resultState.businesses.slice(0, displayCount).map((business, index) => (
+          <BusinessCard business={business} index={index} key={business.id || index} />
+        ))
+      : null;
+  };  
 
   useEffect(() => {
     setCategory(query.get('category'));
     parseLocation(query.get('location'));
-  }, [query]);
-
-  useEffect(() => {
-    setCategory(query.get('category'));
-    setLocationParam(query.get('location'));
   }, [query]);
 
   useEffect(() => {
@@ -161,11 +160,12 @@ export default function Search() {
         ) : (
           <div>
             
-            {resultState && resultState.businesses && resultState.businesses.slice(0, displayCount).map((business, index) => (
-              <BusinessCard business={business} index={index} key={business.id || index} />
-            ))}
+            {renderBusinessCards()}
+
             {resultState && resultState.businesses && resultState.businesses.length > 10 && displayCount < resultState.businesses.length && (
-              <Button variant="primary" onClick={() => setDisplayCount(resultState.businesses.length)}>See More</Button>
+              <div className="center-content">
+                <Button className='mb-5 mt-3' variant="warning" onClick={() => setDisplayCount(resultState.businesses.length)}>See More</Button>
+            </div>
             )}
           </div>
         )}
@@ -175,35 +175,6 @@ export default function Search() {
   );
 }
 
-const BusinessCard = ({ business, index }) => (
-
-  <Card className="my-2 p-3" data-aos="fade-up">
-    <div className='business-card-div'> 
-      <div style={{ marginRight: 10 }}>
-        <img
-          src={business.image_url}
-          alt={business.name}
-          className='business-card-img'
-        />
-      </div>
-      <Card.Body className='my-3'>
-        <Card.Title>{index + 1}. {business.name}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">
-          Average Rating:
-          <Rating
-            value={business.rating}
-            readOnly
-            size={20}
-          />
-        </Card.Subtitle>
-        <Card.Subtitle className="mb-2">Contact Number: {business.display_phone}</Card.Subtitle>
-        <Card.Subtitle className="mb-2 text-muted"><Badge bg="warning">{business.categories[0].title}</Badge></Card.Subtitle>
-        <Card.Subtitle className="mb-2">Location: {business.location.city}, {business.location.state}</Card.Subtitle>
-      </Card.Body>
-    </div>
-  </Card>
-);
-
 const BusinessCardSkeleton = () => (
   <Card className="my-2 p-3">
     <Skeleton height={150} />
@@ -212,4 +183,3 @@ const BusinessCardSkeleton = () => (
     </Card.Body>
   </Card>
 );
-
