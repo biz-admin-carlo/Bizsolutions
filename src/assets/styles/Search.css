@@ -1,0 +1,35 @@
+.app-background {
+	background-image: url(../app-landing-page-bg.png);
+	background-size: cover; /* Cover the entire area */
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Optional: to fix the background during scroll */
+    background-position: center;
+    min-height: 100vh;
+}
+
+.navbar-search {
+    background: #FF851A;
+}
+
+.navbar-form {
+    display: flex;
+    align-items: center;
+    width: 100%
+}
+
+.navbar-form-control {
+    width: 100%;
+    border: none;
+}
+
+.business-card-div {
+    display: flex;
+    flex-direction: row;
+}
+
+.business-card-img {
+    width: 150px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 3%;
+}
