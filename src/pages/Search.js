@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
-import { Form, Container, Navbar, FormControl, Breadcrumb, Card, Button } from 'react-bootstrap';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Form, Container, Navbar, FormControl, Breadcrumb, Card, Pagination } from 'react-bootstrap';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import '../assets/styles/Search.css';
-import BusinessCard from '../components/BusinessCard'
+import BusinessCard from '../components/BusinessCard';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -47,14 +47,17 @@ const getUserCoordinates = (setUserCoordinates) => {
 
 export default function Search() {
   const query = useQuery();
+  const navigate = useNavigate();
   const [category, setCategory] = useState(query.get('category'));
   const [locationParam, setLocationParam] = useState(query.get('location'));
   const [userCoordinates, setUserCoordinates] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [displayCount, setDisplayCount] = useState(10);
   const [resultState, setResultState] = useState(null);
   const [locationState, setLocationState] = useState(null);
   const [coordinates, setCoordinates] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  
 
   const parseLocation = (location) => {
     if (location && location.includes('Lat') && location.includes('Long')) {
@@ -82,7 +85,7 @@ export default function Search() {
 
   const generateBreadcrumbText = () => {
     if (coordinates) {
-      return `Results for ${category} near my location`;
+      return `Results for ${category} Near Me`;
     } else if (locationState) {
       return `Results for ${category} in ${locationState}`;
     }
@@ -91,11 +94,17 @@ export default function Search() {
   
   const renderBusinessCards = () => {
     return resultState && resultState.businesses
-      ? resultState.businesses.slice(0, displayCount).map((business, index) => (
-          <BusinessCard business={business} index={index} key={business.id || index} />
-        ))
+      ? resultState.businesses
+          .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+          .map((business, index) => (
+            <BusinessCard business={business} index={index} key={business.id || index} />
+          ))
       : null;
-  };  
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     setCategory(query.get('category'));
@@ -113,10 +122,10 @@ export default function Search() {
 
   useEffect(() => {
     if (userCoordinates && userCoordinates.latitude && userCoordinates.longitude) {
-      const api = `${apiUrl}/business/search/v1?latitude=${userCoordinates.latitude}&longitude=${userCoordinates.longitude}&term=${category}`;
+      const api = `${apiUrl}/api/v1/location/search/v1?latitude=${userCoordinates.latitude}&longitude=${userCoordinates.longitude}&term=${category}`;
       fetchApiData(api, setResultState, setLoading);
     } else if (locationParam) {
-      const api = `${apiUrl}/business/search/v2/?state=${locationParam}&category=${category}`;
+      const api = `${apiUrl}/api/v1/location/search/v2/?state=${locationParam}&category=${category}`;
       fetchApiData(api, setResultState, setLoading);
     }
   }, [userCoordinates, locationParam, category]);
@@ -138,7 +147,7 @@ export default function Search() {
 
       <Container>
         <Breadcrumb className='pt-2'>
-          <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+          <Breadcrumb.Item onClick={() => navigate('/')}>Home</Breadcrumb.Item>
           <Breadcrumb.Item active>
             {generateBreadcrumbText()}
           </Breadcrumb.Item>
@@ -146,7 +155,7 @@ export default function Search() {
 
       <h3>
         {coordinates ?
-          `Top 10 Best ${category} Near My Location` :
+          `Top 10 Best ${category} Near Me` :
           `Top 10 Best ${category} in ${locationState}`
         }
       </h3>
@@ -162,10 +171,24 @@ export default function Search() {
             
             {renderBusinessCards()}
 
-            {resultState && resultState.businesses && resultState.businesses.length > 10 && displayCount < resultState.businesses.length && (
+            {resultState && resultState.businesses && resultState.businesses.length > itemsPerPage && (
               <div className="center-content">
-                <Button className='mb-5 mt-3' variant="warning" onClick={() => setDisplayCount(resultState.businesses.length)}>See More</Button>
-            </div>
+                <nav aria-label="Page navigation example">
+                  <ul className="pagination">
+                    {[...Array(Math.ceil(resultState.businesses.length / itemsPerPage)).keys()].map(page => (
+                      <li className={`page-item ${page + 1 === currentPage ? 'active' : ''}`} key={page + 1}>
+                        <a
+                          className="page-link"
+                          href="#"
+                          onClick={() => handlePageChange(page + 1)}
+                        >
+                          {page + 1}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </div>
             )}
           </div>
         )}

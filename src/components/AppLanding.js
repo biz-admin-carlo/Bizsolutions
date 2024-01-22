@@ -1,7 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Row, Col, Button, Card } from 'react-bootstrap';
 import states from 'states-us';
+import axios from 'axios';
 
 import '../assets/styles/AppLanding.css';
 
@@ -12,6 +13,8 @@ export default function Landing() {
   const [ category, setCategory ] = useState('');
   const [ location, setLocation ] = useState('');
   const [ userCoordinates, setUserCoordinates ] = useState(null); 
+  const [ retrieveData, setRetrieveData ] = useState({});
+  console.log(retrieveData);
 
   const handleLocationChange = (event) => {
     if(event.target.value === 'UseMyLocation'){
@@ -50,9 +53,14 @@ export default function Landing() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
+    const response = await axios.get('https://api.ipgeolocation.io/ipgeo?apiKey=1980c15e535246a9a96ffc34be4b5fb9');
+    const data = response.data;
+    console.log(data);
+    setRetrieveData(data);
+
     const queryParams = new URLSearchParams({
       category: category,
       location: location === 'UseMyLocation' && userCoordinates 
@@ -62,6 +70,10 @@ export default function Landing() {
 
     navigate(`/search?${queryParams}`);
   };
+
+  useEffect(() => {
+      console.log("Updated retrieveData:", retrieveData);
+  }, []);
 
   // Filtering states and prioritizing California
   const modifiedStates = useMemo(() => {

@@ -14,6 +14,8 @@ export default function AppNavbar() {
   const { user, unsetUser } = useContext(UserContext);
   const [ searchBarVisible, setSearchBarVisible ] = useState(false);
 
+  console.log(user);
+
    // Define a function to handle logout
   const handleLogout = () => {
     unsetUser(); // Call the function to unset the user

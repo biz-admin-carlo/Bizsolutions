@@ -21,18 +21,30 @@ const BusinessCard = ({ business, index }) => {
           />
         </div>
         <Card.Body className='my-3'>
-          <Card.Title>{index + 1}. {business.name}</Card.Title>
+          <Card.Title> {business.name}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
             Average Rating:
             <Rating
               value={business.rating}
               readOnly
               size={20}
+              activeColor='#FF851A'
+              isHalf
             />
           </Card.Subtitle>
-          <Card.Subtitle className="mb-2">Contact Number: {business.display_phone}</Card.Subtitle>
-          <Card.Subtitle className="mb-2 text-muted"><Badge bg="warning">{business.categories[0].title}</Badge></Card.Subtitle>
-          <Card.Subtitle className="mb-2">Location: {business.location.city}, {business.location.state}</Card.Subtitle>
+          <Card.Subtitle className="mb-2 text-muted custom-inline ">
+            <Badge bg="warning">{business.categories[0].title}</Badge>
+          </Card.Subtitle>
+
+          <Card.Subtitle className="mb-2 text-muted custom-inline px-2">
+            <Badge bg="danger">{business.display_phone}</Badge>
+          </Card.Subtitle>
+
+          <Card.Subtitle className="mb-2 text-muted custom-inline">
+            <Badge bg="success">{business.location.display_address[2]}</Badge>
+          </Card.Subtitle>
+
+          <Card.Subtitle className="my-2">Location: {business.location.city}, {business.location.state}</Card.Subtitle>
         </Card.Body>
       </div>
     </Card>

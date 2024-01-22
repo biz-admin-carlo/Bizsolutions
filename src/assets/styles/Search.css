@@ -26,4 +26,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }  
+} 
+
+  
+.pagination .page-link {
+    color: black; /* Default text color */
+    transition: color 0.3s ease-in-out; /* Add a smooth transition for color changes */
+}
+
+.pagination .page-item:hover .page-link {
+    color: #FF851A ;
+}
+  
