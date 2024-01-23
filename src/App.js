@@ -10,7 +10,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/Signup';
 import Search from './pages/Search';
-import Account from './pages/Account'
+import Account from './pages/Account';
+import Pricing from './pages/Pricing';
 
 function App() {
   
@@ -39,6 +40,7 @@ function App() {
                     <Route path="/sign-up" element={<SignUp/>}/>
                     <Route path="/search" element={<Search/>}/>
                     <Route path="/account" element={<Account/>}/>
+                    <Route path="/pricing" element={<Pricing/>}/>
                 </Routes>
               </Suspense>
             <Container />

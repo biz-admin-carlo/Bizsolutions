@@ -44,12 +44,13 @@ export default function AppNavbar() {
                     <div onClick={() => setSearchBarVisible(!searchBarVisible)}>
                       <Nav.Link as={Link} to="/" className="navbar-options">Search</Nav.Link>
                     </div>
+                    <Nav.Link as={Link} to="/pricing" className="navbar-options">Pricing</Nav.Link>
                     
                     {/* Check if user is logged in (assuming user.id would be set if logged in) */}
                     {user.id ? (
                       <>
                         {/* User is logged in, show logout option */}
-                        <Nav.Link as={Link} to="/account" className="navbar-options">Be on the Map</Nav.Link>
+                        {Link} <Nav.Link as={Link} to="/account" className="navbar-options">Be on the Map</Nav.Link>
                         <Nav.Link as={Link} to="/account" className="navbar-options">Account</Nav.Link>
                         <Nav.Link as={Link} to="/logout" className="navbar-options" onClick={handleLogout}>Logout</Nav.Link>
                       </>

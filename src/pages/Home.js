@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import UserContext from '../UserContext';
 
 import AppLanding from '../components/AppLanding.js';
+import AppInformation from '../components/AppInformation.js'
 
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       ) : (
         <>
           <div data-aos="fade-up"><AppLanding /></div>
+          {/* <div><AppInformation /></div> */}
         </>
       )}
     </div>

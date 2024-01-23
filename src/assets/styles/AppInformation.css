@@ -1,0 +1,79 @@
+.app-landing-page {
+	background-image: url(../app-landing-page-bg.png);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: #FF851A;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    color: #060606;
+    font-size: 18px;
+}
+
+.lower-case {
+    font-size: 13px;
+    color: #40A2D8;
+    vertical-align: middle;
+}
+
+/* Button CSS */
+.custom-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center; /* Aligns items vertically in the center */
+    justify-content: center; /* Centers content horizontally */
+    vertical-align: middle; /* Ensure text alignment */
+    transition: background-color 0.3s;
+}
+
+
+.custom-btn-light {
+    background-color: #FFECD6;
+    color: #333;
+    font-weight: bold;
+}
+
+.custom-btn-secondary {
+    background-color: rgba(0, 0, 0, 0.1);;
+    color: #FBF9F1;
+    font-weight: bold;
+    width: auto; /* Adjust width as needed */
+    margin: 5px; /* Space between buttons */
+}
+
+.custom-btn-selected {
+    background-color: #FFA543; /* Selected button color */
+    color: #333;
+    font-weight: bold;
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 24px; /* Smaller font size for h1 on smaller screens */
+    }
+    p {
+        font-size: 16px; /* Adjust paragraph font size as needed */
+    }
+    .custom-btn {
+        font-size: 14px; /* Smaller button text */
+        padding: 8px 10px; /* Adjust padding for smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .app-landing-page {
+        background-position: top; /* Adjust as necessary */
+    }
+}
