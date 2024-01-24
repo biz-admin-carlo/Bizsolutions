@@ -86,3 +86,19 @@ p {
         padding-right: 0;
     }
 }
+
+.my-container {
+    padding: 20px;
+}
+
+.card-container {
+    flex: 1;
+    padding: 10px;
+    min-width: 400px; /* adjust as needed */
+}
+
+.card-container-three {
+    flex: 1;
+    padding: 10px;
+    min-width: 200px; /* adjust as needed */
+}

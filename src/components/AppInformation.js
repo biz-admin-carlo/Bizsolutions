@@ -50,11 +50,9 @@ export default function Pricing() {
                         <h4>Free Trial Package</h4>
                     </div>
 
-                    <Row>
-                        <Col lg={2}>
-                        
-                        </Col>
-                        <Col lg={4}>
+                    <div className='d-flex flex-wrap justify-content-around'>
+
+                        <div className='card-container'>
                             <Card>
                                 <Card.Body className='ms-3'>
                                     <Card.Title>Free Trial</Card.Title>
@@ -77,9 +75,9 @@ export default function Pricing() {
 
                                 </Card.Body>
                             </Card>
-                        </Col>
+                        </div>
 
-                        <Col lg={4}>
+                        <div className='card-container'>
                             <Card>
                                 <Card.Body className='ms-3'>
                                     <Card.Title>15-Day Trial</Card.Title>
@@ -118,19 +116,15 @@ export default function Pricing() {
 
                                 </Card.Body>
                             </Card>
-                        </Col>
-
-                        <Col lg={2}>
-                        
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
                     <hr />
                     <div className='text-center py-3'>
+                        <h2>Business Listing & Website Development</h2>
                         <h4>Monthly Package</h4>
                     </div>
-
-                    <Row>
-                        <Col lg={4}>
+                    <div className='d-flex flex-wrap justify-content-around'>
+                        <div className='card-container-three'>
                             <Card>
                                 <Card.Body>
                                     <Card.Title>Starter Setup</Card.Title>
@@ -185,9 +179,9 @@ export default function Pricing() {
                                     </div>
                                 </Card.Body>
                             </Card>
-                        </Col>
+                        </div>
 
-                        <Col lg={4}>
+                        <div className='card-container-three'>
                             <Card>
                                 <Card.Body>
                                     <Card.Title>Starter Setup</Card.Title>
@@ -243,9 +237,9 @@ export default function Pricing() {
                                     </div>
                                 </Card.Body>
                             </Card>
-                        </Col>
+                        </div>
 
-                        <Col lg={4}>
+                        <div className='card-container-three'>
                             <Card>
                                 <Card.Body>
                                     <Card.Title>Custom Enterprise Setup Contact Sales</Card.Title>
@@ -303,8 +297,10 @@ export default function Pricing() {
 
                                 </Card.Body>
                             </Card>
-                        </Col>
-                    </Row>
+                        </div>
+
+                    </div>
+
                 </Container>
             </div>
 
