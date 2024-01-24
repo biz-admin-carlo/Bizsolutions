@@ -155,13 +155,18 @@ export default function Pricing() {
 
                                     <h6>Local Website</h6>
                                     <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
                                             <div><GoCheckCircleFill />Up to 5 pages (Home, About Us, Services, Blog, Contact)</div>
                                             <div><GoCheckCircleFill />Business Email: 5</div>
+                                        </IconContext.Provider>
+                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>   
                                             <div><GoCheckCircleFill />Responsive design</div>
                                             <div><GoCheckCircleFill />Social Media Links</div>
                                             <div><GoCheckCircleFill />Search Engine Optimization (SEO)</div>
                                             <div><GoCheckCircleFill />Free Hosting</div>
+                                        </IconContext.Provider> 
+
+                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
                                             <div><GoCheckCircleFill />Ongoing maintenance and support</div>
                                             <div><GoCheckCircleFill />Directory Submissions</div>
                                             <div><GoCheckCircleFill />Security Measures: Standard</div>
@@ -170,7 +175,7 @@ export default function Pricing() {
 
                                     <h6>Social Media Management</h6>
                                     <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
                                             <div><GoCheckCircleFill />Facebook Account </div>
                                             <div><GoCheckCircleFill />X Account </div>
                                             <div><GoCheckCircleFill />Instagram Account</div>
@@ -208,13 +213,18 @@ export default function Pricing() {
 
                                     <h6>Local Website</h6>
                                     <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
                                             <div><GoCheckCircleFill />Up to 10 pages (Home, About Us, Services, Blog, Contact)</div>
-                                            <div><GoCheckCircleFill />Business Email: 10 (Custom Email)</div>
+                                            <div><GoCheckCircleFill />Business Email: 10 Custom Email</div>
+                                        </IconContext.Provider>
+                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>   
                                             <div><GoCheckCircleFill />Responsive design</div>
                                             <div><GoCheckCircleFill />Social Media Links</div>
                                             <div><GoCheckCircleFill />Search Engine Optimization (SEO)</div>
-                                            <div><GoCheckCircleFill />Custom Domain</div>
+                                            <div><GoCheckCircleFill />Free Hosting</div>
+                                        </IconContext.Provider> 
+
+                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
                                             <div><GoCheckCircleFill />Ongoing maintenance and support</div>
                                             <div><GoCheckCircleFill />Directory Submissions</div>
                                             <div><GoCheckCircleFill />Security Measures: Standard</div>
@@ -223,7 +233,7 @@ export default function Pricing() {
 
                                     <h6>Social Media Management</h6>
                                     <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
                                             <div><GoCheckCircleFill />Facebook Account </div>
                                             <div><GoCheckCircleFill />X Account </div>
                                             <div><GoCheckCircleFill />Instagram Account</div>
@@ -261,24 +271,28 @@ export default function Pricing() {
 
                                     <h6>Local Website</h6>
                                     <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
                                             <div><GoCheckCircleFill />Unlimited pages (Home, About Us, Services, Blog, Contact)</div>
                                             <div><GoCheckCircleFill />Business Email: 30 (Custom Email)</div>
+                                        </IconContext.Provider>
+                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
                                             <div><GoCheckCircleFill />Responsive design</div>
                                             <div><GoCheckCircleFill />Social Media Links</div>
                                             <div><GoCheckCircleFill />Search Engine Optimization (SEO): Advanced</div>
                                             <div><GoCheckCircleFill />Custom Domain</div>
                                             <div><GoCheckCircleFill />Ongoing maintenance and support</div>
                                             <div><GoCheckCircleFill />Directory Submissions</div>
+                                        </IconContext.Provider> 
+                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
                                             <div><GoCheckCircleFill />Security Measures: Premium</div>
                                             <div><GoCheckCircleFill />Comprehensive e-commerce solutions</div>
                                             <div><GoCheckCircleFill />Integrated Payment Processing System</div>
-                                        </IconContext.Provider>                               
+                                        </IconContext.Provider>                              
                                     </div>
 
                                     <h6>Social Media Management</h6>
                                     <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
                                             <div><GoCheckCircleFill />Facebook Account </div>
                                             <div><GoCheckCircleFill />X Account </div>
                                             <div><GoCheckCircleFill />Instagram Account</div>
