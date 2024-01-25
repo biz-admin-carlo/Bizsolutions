@@ -108,7 +108,7 @@ export default function LoginInterface() {
                 </Form.Group>
                   {!emailExists && (
                       <div className='text-danger pb-2'>
-                        <h6>The email that you've entered does not exist.</h6>
+                        The email that you've entered does not exist.
                       </div>
                   )}
 
@@ -139,6 +139,10 @@ export default function LoginInterface() {
                     </div>
                   </Form.Group>
                   
+                  
+                  <div className='text-danger'>
+                    The password that you've entered is incorrect.
+                  </div>
                   <div className='pt-3'>
                     <p><span>Forgot Password?</span></p>
                   </div>

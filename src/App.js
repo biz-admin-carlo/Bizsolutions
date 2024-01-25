@@ -12,6 +12,9 @@ import SignUp from './pages/Signup';
 import Search from './pages/Search';
 import Account from './pages/Account';
 import Pricing from './pages/Pricing';
+import Spinner from './components/BarSpinner';
+
+import ReLogin from './components/ReLogin';
 
 function App() {
   
@@ -37,10 +40,12 @@ function App() {
                     <Route path="*" element={<Home/>}/>
                     <Route path="/home" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>
+                    <Route path="/re-login" element={<ReLogin/>}/>
                     <Route path="/sign-up" element={<SignUp/>}/>
                     <Route path="/search" element={<Search/>}/>
                     <Route path="/account" element={<Account/>}/>
                     <Route path="/pricing" element={<Pricing/>}/>
+                    <Route path="/spinner" element={<Spinner/>}/>
                 </Routes>
               </Suspense>
             <Container />
