@@ -65,13 +65,14 @@ export default function LoginInterface() {
       if (result.accessToken) {
         localStorage.setItem('token', result.accessToken);
         await retrieveUser(result.accessToken);
-        navigate('/'); // Redirect to home/dashboard if login is successful
+        navigate('/'); 
+        window.location.reload();
       } else {
-        navigate('/re-login'); // Redirect to login if email or password is incorrect
+        navigate('/re-login'); 
       }
     } catch (error) {
       console.error('An error occurred during authentication:', error);
-      navigate('/re-login'); // Redirect to login on error (you might want to change this behavior)
+      navigate('/re-login'); 
     } finally {
       setLoading(false);
     }

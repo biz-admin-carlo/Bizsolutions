@@ -1,6 +1,6 @@
 import { Navbar, Nav, Container, Form, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { FiX } from 'react-icons/fi';
 
 import logo from '../assets/app-logo.jpg'
@@ -14,62 +14,73 @@ export default function AppNavbar() {
   const { user, unsetUser } = useContext(UserContext);
   const [ searchBarVisible, setSearchBarVisible ] = useState(false);
 
-  console.log(user);
+  const [isTokenPresent, setIsTokenPresent] = useState(false);
 
-   // Define a function to handle logout
+  console.log(isTokenPresent);
+
+  useEffect(() => {
+    const checkToken = () => {
+      const token = localStorage.getItem('token');
+      setIsTokenPresent(!!token);
+    };
+  
+    checkToken();
+  
+    window.addEventListener('storage', checkToken);
+  
+    return () => {
+      window.removeEventListener('storage', checkToken);
+    };
+  }, []);
+
   const handleLogout = () => {
-    unsetUser(); // Call the function to unset the user
-    window.location.reload(); // Reload the window to reflect changes
+    unsetUser();
+    window.location.reload();
   };
 
   return (
     <>
       <Navbar expand="lg" className="app-navbar px-5">
         <Container>
-          <img src={logo} width={50} height={50} className='mx-3'/> 
+          <Link to="/">
+            <img src={logo} width={50} height={50} className='mx-3'/> 
+          </Link>
           <Nav.Link as={Link} to="/" className="navbar-logo-name">BizSolutions</Nav.Link>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             
-            <Nav className="ms-auto nav-link">
-                {/* Render based on user.isAdmin and user.id status */}
-                {user.isAdmin ? (
-                  <>
-                    <Nav.Link as={Link} to="/admin" className="navbar-options">Admin</Nav.Link>
-                    <Nav.Link as={Link} to="/logout" className="navbar-options" onClick={handleLogout}>Logout</Nav.Link>
-                  </>
-                ) : (
-                  <>
-                    <div onClick={() => setSearchBarVisible(!searchBarVisible)}>
-                      <Nav.Link as={Link} to="/" className="navbar-options">Search</Nav.Link>
-                    </div>
-                    <Nav.Link as={Link} to="/pricing" className="navbar-options">Pricing</Nav.Link>
-                    
-                    {/* Check if user is logged in (assuming user.id would be set if logged in) */}
-                    {user.id ? (
-                      <>
-                        {/* User is logged in, show logout option */}
-                        {Link} <Nav.Link as={Link} to="/account" className="navbar-options">Be on the Map</Nav.Link>
-                        <Nav.Link as={Link} to="/account" className="navbar-options">Account</Nav.Link>
-                        <Nav.Link as={Link} to="/logout" className="navbar-options" onClick={handleLogout}>Logout</Nav.Link>
-                      </>
-                    ) : (
-                      <>
-                        {/* User not logged in, show login and sign up */}
-                        <Nav.Link as={Link} to="/login" className="navbar-options">Log In</Nav.Link>
-                        <Nav.Link as={Link} to="/sign-up" className="navbar-options">Sign Up</Nav.Link>
-                      </>
-                    )}
-                  </>
-                )}
-            </Nav>
+          <Nav className="ms-auto nav-link">
+            {/* Search link - always visible */}
+            <div onClick={() => setSearchBarVisible(!searchBarVisible)}>
+              <Nav.Link as={Link} to="/" className="navbar-options">Search</Nav.Link>
+            </div>
+
+            {/* Pricing link - always visible */}
+            <Nav.Link as={Link} to="/pricing" className="navbar-options">Pricing</Nav.Link>
+            
+            {/* Conditional rendering based on isTokenPresent */}
+            {isTokenPresent ? (
+              <>
+                {/* These links are shown only when isTokenPresent is true */}
+                <Nav.Link as={Link} to="/account" className="navbar-options">Be on the Map</Nav.Link>
+                <Nav.Link as={Link} to="/account" className="navbar-options">Account</Nav.Link>
+                <Nav.Link as={Link} to="/logout" className="navbar-options" onClick={handleLogout}>Logout</Nav.Link>
+              </>
+            ) : (
+              <>
+                {/* These links are shown only when isTokenPresent is false */}
+                <Nav.Link as={Link} to="/login" className="navbar-options">Log In</Nav.Link>
+                <Nav.Link as={Link} to="/sign-up" className="navbar-options">Sign Up</Nav.Link>
+              </>
+            )}
+          </Nav>
+
           </Navbar.Collapse>
 
         </Container>
       </Navbar>
 
-      {/* Conditional rendering for the search navbar */}
       {searchBarVisible && (
         <Navbar style={{ background: '#FF851A' }} expand="lg" data-aos="fade-down">
           <Container>
@@ -77,7 +88,7 @@ export default function AppNavbar() {
               <FormControl type="text" placeholder="Search" style={{ width: '100%', border: 'none' }} />
               <FiX
                 style={{ marginLeft: '10px', cursor: 'pointer' }}
-                onClick={() => setSearchBarVisible(false)} // Hide the search bar
+                onClick={() => setSearchBarVisible(false)}
               />
             </Form>
           </Container>

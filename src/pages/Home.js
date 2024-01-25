@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div>
       {user.isAdmin ? (
-        {/*<AdminPanel data-aos="fade-up" />*/}
+        <div>Admin Panel Placeholder</div>
       ) : (
         <>
           <div data-aos="fade-up"><AppLanding /></div>

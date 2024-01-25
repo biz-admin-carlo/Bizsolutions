@@ -8,20 +8,15 @@ import LoginInterface from '../components/LoginInterface';
 export default function Login() {
   const { setUser } = useContext(UserContext);
 
-  // Function to check if the user is logged in
   const isLoggedIn = () => {
-    const token = localStorage.getItem('token'); // Replace 'token' with the actual token key you use
+    const token = localStorage.getItem('token');
     return token != null;
   };
 
-  // Effect to update user context if needed based on token existence
   useEffect(() => {
     if (isLoggedIn()) {
-      // Implement logic to set user details in context
-      // It might involve decoding the token or making an API call to get user data
-      // setUser(...) 
     }
-  }, []); // Empty dependency array means it only runs once on mount
+  }, []);
 
   return (
     isLoggedIn() ? <Navigate to="/" /> : <LoginInterface />
