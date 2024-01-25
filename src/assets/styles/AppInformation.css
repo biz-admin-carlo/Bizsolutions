@@ -102,7 +102,7 @@ p {
     flex: 1;
     padding: 10px;
     min-width: 200px; /* adjust as needed */
-    height: 1200px;
+    height: 1260px;
     overflow-y: auto;
 }
 
