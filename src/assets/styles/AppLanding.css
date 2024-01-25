@@ -17,10 +17,52 @@
 	text-align: center;
 }
 
+.italic-text {
+	font-style: italic;
+	font-size: 12px;
+}
+
+
 .landing-banner > p {
 	font-size: 1em !important;
 	color: #8F8E8E !important;
 	text-align: center;
+}
+
+.paragraph-2 {
+	color: #776B5D;
+}
+
+.sm-center .button-section .custom-btn {
+    text-align: left;
+}
+
+.button-section .lower-case {
+	display: inline;
+}
+
+.custom-btn {
+    display: flex; /* Enables Flexbox */
+    align-items: center; /* Vertically centers items */
+    justify-content: center; /* Horizontally centers items (optional) */
+}
+
+@media (max-width: 991px) {
+    .sm-center {
+        text-align: center;
+    }
+
+	.button-section .custom-btn {
+        text-align: center;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .button-section .custom-btn button {
+        margin-top: 10px; /* Adjust as needed for spacing between buttons */
+    }
+
 }
 
 .app-landing-category {
