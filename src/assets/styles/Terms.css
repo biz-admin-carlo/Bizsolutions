@@ -1,0 +1,20 @@
+.text-intro {
+    font-style: italic;
+}
+
+.children-card{
+    color: #4d4d4d;
+    font-style: 'Arial Narrow' !important;
+}
+
+.app-landing-page {
+	background-image: url(../app-landing-page-bg.png);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+    min-height: 90vh;
+}
+
+.no-underline {
+    text-decoration: none;
+}

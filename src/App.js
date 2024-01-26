@@ -12,7 +12,10 @@ import SignUp from './pages/Signup';
 import Search from './pages/Search';
 import Account from './pages/Account';
 import Pricing from './pages/Pricing';
-import Spinner from './components/BarSpinner';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
+import AppFooter from './components/AppFooter';
+import Check from './components/CheckButton';
 
 import ReLogin from './components/ReLogin';
 
@@ -45,11 +48,13 @@ function App() {
                     <Route path="/search" element={<Search/>}/>
                     <Route path="/account" element={<Account/>}/>
                     <Route path="/pricing" element={<Pricing/>}/>
-                    <Route path="/spinner" element={<Spinner/>}/>
+                    <Route path="/terms" element={<Terms/>}/>
+                    <Route path="/privacy" element={<Privacy/>}/>
+                    {/* <Route path="/check" element={<Check/>}/> */}
                 </Routes>
               </Suspense>
             <Container />
-            <AppNavbar />
+            <AppFooter />
         </Router>
       </UserProvider>
     </>

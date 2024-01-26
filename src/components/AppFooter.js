@@ -1,15 +1,22 @@
-import { Navbar } from 'react-bootstrap';
+import { Container, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+
+import '../assets/styles/AppFooter.css';
+
 
 export default function AppFooter() {
   return (
-    <Navbar className="pb-0">
-         <Navbar.Brand as={Link} to="/about"> 
-          About Bizsolutions LLC
-        </Navbar.Brand>
-          <Navbar.Text className="ms-auto">
-            © {new Date().getFullYear()} All Rights Reserved. Bizsolutions LLC. 
+    <Navbar className="app-footer pb-0 my-2">
+      <Container>
+          <Navbar.Text className="me-auto">
+              <Link to="/terms" className="no-underline">Terms </Link> 
+              | 
+              <Link to="/privacy" className="no-underline"> Privacy </Link> 
           </Navbar.Text>
+          <Navbar.Text className="ms-auto">
+                © {new Date().getFullYear()} All Rights Reserved. Bizsolutions LLC. 
+          </Navbar.Text>
+      </Container>
     </Navbar>
   )
 }
