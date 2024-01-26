@@ -49,7 +49,7 @@ function App() {
                 </Routes>
               </Suspense>
             <Container />
-          <AppNavbar />
+            <AppNavbar />
         </Router>
       </UserProvider>
     </>

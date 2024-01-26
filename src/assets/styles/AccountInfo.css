@@ -1,0 +1,13 @@
+.custom-list-group-item {
+    color: #FF851A !important; /* Change text color */
+  }
+  
+  .custom-list-group-item:hover, .custom-list-group-item:focus {
+    background-color: #FF851A !important; /* Change background color on hover/focus */
+    color: white; /* Optional: change text color on hover/focus */
+  }
+
+  body {
+    background-color: #f6f6f6;
+  }
+  
