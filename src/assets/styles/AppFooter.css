@@ -13,3 +13,11 @@
     background-color: #f5f5f5; 
     line-height: 50px; 
 }  
+
+.no-underline{
+    font-size: 12px;
+}
+
+.text-left {
+    font-size: 10px;
+}
