@@ -58,7 +58,6 @@ export default function Search() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   
-
   const parseLocation = (location) => {
     if (location && location.includes('Lat') && location.includes('Long')) {
       const coords = location.split(',').reduce((acc, curr) => {
@@ -97,9 +96,28 @@ export default function Search() {
       ? resultState.businesses
           .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
           .map((business, index) => (
-            <BusinessCard business={business} index={index} key={business.id || index} />
+            <BusinessCard state={coordinates} business={business} index={index} key={business.id || index} />
           ))
       : null;
+  };
+
+  const generateHeaderTitle = () => {
+    // Base title
+    let title = `Best ${category}`;
+
+    // If on the first page, prepend "Top 10" to the title
+    if (currentPage === 1) {
+      title = `Top 10 ${title}`;
+    }
+
+    // Adding location description
+    if (coordinates) {
+      title += ` Near Me`;
+    } else if (locationState) {
+      title += ` in ${locationState}`;
+    }
+
+    return title;
   };
 
   const handlePageChange = (pageNumber) => {
@@ -107,9 +125,13 @@ export default function Search() {
   };
 
   useEffect(() => {
-    setCategory(query.get('category'));
-    parseLocation(query.get('location'));
-  }, [query]);
+    const newCategory = query.get('category');
+    const newLocation = query.get('location');
+    if (newCategory !== category) {
+      setCategory(newCategory);
+    }
+    parseLocation(newLocation);
+  }, [query.get('category'), query.get('location')]);
 
   useEffect(() => {
     const storedCoords = localStorage.getItem('userCoordinates');
@@ -152,13 +174,8 @@ export default function Search() {
             {generateBreadcrumbText()}
           </Breadcrumb.Item>
         </Breadcrumb>
-
-      <h3>
-        {coordinates ?
-          `Top 10 Best ${category} Near Me` :
-          `Top 10 Best ${category} in ${locationState}`
-        }
-      </h3>
+      
+      <h3>{generateHeaderTitle()}</h3>
 
         {loading ? (
           <>
