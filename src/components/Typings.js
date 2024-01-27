@@ -1,7 +1,7 @@
 import { ReactTyped } from "react-typed";
 
 const Typings = () => (
-  <div className="text-italic">
+  <div className="text-secondary">
     <h4>
         <ReactTyped strings={[
             "Discover Local Businesses",
