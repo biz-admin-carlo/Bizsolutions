@@ -40,7 +40,8 @@ export default function Pricing() {
                     </div>
 
                     <div className="content-container">
-                        <video width="320" height="240" controls className="img-fluid d-none d-md-block" src={tiktok}/>
+                        <video width="320" height="240" className="img-fluid d-none d-md-block" src={tiktok} autoPlay loop muted></video>
+
                     </div>
                 </div>
 
