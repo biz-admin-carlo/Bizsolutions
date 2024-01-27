@@ -10,7 +10,10 @@ import '../assets/styles/AccountInfo.css';
 
 import AccountDetails from './AccountDetails.js'
 import Messages from './Messages.js'
+import NewsFeed from './NewsFeed.js'
+import Feedbacks from './Feedbacks.js'
 import logo from '../assets/round-image.png'
+import AppFooter from '../components/AppFooter';
 
 
 
@@ -60,12 +63,12 @@ export default function AccountInfo() {
 
   return (
     <>
-      <Container>
+      <Container style={{ minHeight: '85vh' }}>
         <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
           <Row>
             <Col sm={3}>
               <ListGroup>
-                <h3 className='mt-3'>User Account</h3>
+                <h3 className='my-4'>User Account</h3>
                 <div className='mb-3 py-1 d-flex align-items-center'>
                   <img src={logo} width={50} height={50} className='mx-3'/> 
                   <div>
@@ -80,10 +83,10 @@ export default function AccountInfo() {
                 <ListGroup.Item action href="#messages">
                   Messages
                 </ListGroup.Item>
-                <ListGroup.Item action href="#link3">
+                <ListGroup.Item action href="#news-feed">
                   News Feed
                 </ListGroup.Item>
-                <ListGroup.Item action href="#link4">
+                <ListGroup.Item action href="#feedback">
                   Your Feedback
                 </ListGroup.Item>
                 <ListGroup.Item action href="#link5">
@@ -106,8 +109,12 @@ export default function AccountInfo() {
                 <Tab.Pane eventKey="#messages">
                   <Messages user={user} />
                 </Tab.Pane>
-                <Tab.Pane eventKey="#link3">Tab pane content 3</Tab.Pane>
-                <Tab.Pane eventKey="#link4">Tab pane content 4</Tab.Pane>
+                <Tab.Pane eventKey="#news-feed">
+                  <NewsFeed user={user} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="#feedback">
+                  <Feedbacks user={user} />
+                </Tab.Pane>
                 <Tab.Pane eventKey="#link5">Tab pane content 5</Tab.Pane>
                 <Tab.Pane eventKey="#link6">Tab pane content 6</Tab.Pane>
                 <Tab.Pane eventKey="#link7">Tab pane content 7</Tab.Pane>
@@ -118,7 +125,7 @@ export default function AccountInfo() {
       
         
     </Container>
-
+    <AppFooter />
     </>
   );
 }

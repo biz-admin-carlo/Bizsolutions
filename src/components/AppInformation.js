@@ -6,6 +6,7 @@ import useCountingEffect from './useCountingEffect';
 import '../assets/styles/AppInformation.css';
 
 import tiktok from '../assets/tiktok.mp4'
+import Typings from './Typings.js'
 
 export default function Pricing() {
     const [ selected, setSelected ] = useState('annual');
@@ -27,14 +28,19 @@ export default function Pricing() {
                 <div className="content-container d-flex align-items-center pb-lg-5">
                     <div className="text-section">
                         <h1 className='pt-lg-4 sm-center'>Biz is the Perfect Plan For You</h1>
+                                <Typings />
+
+                                <hr />
                             <p className="pt-2 pb-lg-3 sm-center">An online platform that prioritizes providing information about local businesses, including restaurants, bars, cafes, hotels, shops, salons, and more, in addition to user-generated reviews and ratings.</p>
                             <p className="pt-2 pb-lg-3 sm-center">An online platform that prioritizes providing information about local businesses, including restaurants, bars, cafes, hotels, shops, salons, and more, in addition to user-generated reviews and ratings.</p>
                             <p className="pt-2 pb-lg-3 sm-center">An online platform that prioritizes providing information about local businesses, including restaurants, bars, cafes, hotels, shops, salons, and more, in addition to user-generated reviews and ratings.</p>
-                            <p className='paragraph-2 text-center'>No Large Setup Fee. No Ridiculous Contracts. No Hidden Charges. 100% Satisfaction Guaranteed.</p>
+                            <hr />
+                                <p className='paragraph-2 text-center'>No Large Setup Fee. No Ridiculous Contracts. No Hidden Charges. 100% Satisfaction Guaranteed.</p>
+                            <hr />
                     </div>
 
                     <div className="content-container">
-                        <video width="320" height="240" controls className="img-fluid d-none d-md-block" src={tiktok} autoPlay="true" />
+                        <video width="320" height="240" controls className="img-fluid d-none d-md-block" src={tiktok}/>
                     </div>
                 </div>
 

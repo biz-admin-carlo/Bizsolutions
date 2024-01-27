@@ -4,6 +4,7 @@ import UserContext from '../UserContext';
 
 import AppLanding from '../components/AppLanding.js';
 import AppInformation from '../components/AppInformation.js'
+import AppFooter from '../components/AppFooter';
 
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       ) : (
         <>
             <div><AppInformation /></div>
+            <AppFooter />
         </>
       )}
     </div>
