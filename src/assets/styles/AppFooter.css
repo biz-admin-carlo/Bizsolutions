@@ -1,7 +1,6 @@
-/* Style for the main content area */
 .main-content {
-    min-height: 100vh; /* Full height of the viewport */
-    padding-bottom: 50px; /* Adjust this value based on the actual height of your footer */
+    min-height: 100vh;
+    padding-bottom: 50px;
 }
 
 .app-footer {

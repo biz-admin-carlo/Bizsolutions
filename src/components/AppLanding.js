@@ -1,5 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+
 import { Form, Row, Col, Button, Card } from 'react-bootstrap';
 import states from 'states-us';
 import axios from 'axios';
@@ -58,8 +60,6 @@ export default function Landing() {
 
     const response = await axios.get('https://api.ipgeolocation.io/ipgeo?apiKey=1980c15e535246a9a96ffc34be4b5fb9');
     const data = response.data;
-    console.log(data);
-    setRetrieveData(data);
 
     const queryParams = new URLSearchParams({
       category: category,
@@ -71,9 +71,6 @@ export default function Landing() {
     navigate(`/search?${queryParams}`);
   };
 
-  useEffect(() => {
-      console.log("Updated retrieveData:", retrieveData);
-  }, []);
 
   // Filtering states and prioritizing California
   const modifiedStates = useMemo(() => {

@@ -47,9 +47,7 @@ export default function SignUp() {
     //   return;
     // }
 
-    axios.post(`${apiUrl}/users/check-email`, {
-      email: email
-    })
+    axios.get(`${apiUrl}/api/v1/users/check-email/${email}`)
     .then(response => {
       const result = response.data;
 
@@ -61,7 +59,7 @@ export default function SignUp() {
         });
         navigate('/login');
       } else {
-        return axios.post(`${apiUrl}/users/register`, {
+        return axios.post(`${apiUrl}/api/v1/users/register`, {
           firstName: firstName,
           lastName: lastName,
           email: email,
@@ -220,12 +218,12 @@ export default function SignUp() {
 
                 { attempt > 0 && <p className="text-danger loginText">{alertMessage}</p> }
 
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                {/* <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <ReCAPTCHA
                     sitekey="6Ld69z4pAAAAAPgXp2Bl0XE5md1bRcCKy-tPF7U3"
                     onChange={onChange}
                   />
-                </div>
+                </div> */}
 
                 <div className="d-flex justify-content-center">
                   <Button type="submit" className="app-landing-search my-2" disabled={!isActive}>

@@ -48,7 +48,6 @@ function App() {
                     <Route path="/pricing" element={<Pricing/>}/>
                     <Route path="/terms" element={<Terms/>}/>
                     <Route path="/privacy" element={<Privacy/>}/>
-                    {/* <Route path="/check" element={<Check/>}/> */}
                 </Routes>
               </Suspense>
             <Container />
