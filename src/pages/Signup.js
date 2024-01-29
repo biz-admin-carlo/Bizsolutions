@@ -37,16 +37,6 @@ export default function SignUp() {
 
     setAttempt(attempt + 1);
 
-    // if(!captchaValue){
-
-    //   Swal.fire({
-    //     title: 'Verification required',
-    //     icon: 'warning',
-    //     text: 'Please complete the Captcha to proceed!',
-    //   });
-    //   return;
-    // }
-
     axios.get(`${apiUrl}/api/v1/users/check-email/${email}`)
     .then(response => {
       const result = response.data;
@@ -143,7 +133,7 @@ export default function SignUp() {
                     className="app-landing-category px-3 mb-2"
                     type="text"
                     placeholder="First Name"
-                    value={firstName} // Change to a state variable specific to first name
+                    value={firstName}
                     onChange={event => setFirstName(event.target.value)}
                     required
                   />
@@ -217,13 +207,6 @@ export default function SignUp() {
                   </Form.Group>
 
                 { attempt > 0 && <p className="text-danger loginText">{alertMessage}</p> }
-
-                {/* <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <ReCAPTCHA
-                    sitekey="6Ld69z4pAAAAAPgXp2Bl0XE5md1bRcCKy-tPF7U3"
-                    onChange={onChange}
-                  />
-                </div> */}
 
                 <div className="d-flex justify-content-center">
                   <Button type="submit" className="app-landing-search my-2" disabled={!isActive}>

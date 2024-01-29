@@ -27,7 +27,7 @@ export default function Landing() {
   };
 
   const getUserLocation = () => {
-    const cachedCoords = localStorage.getItem('userCoordinates');
+    const cachedCoords = sessionStorage.getItem('userCoordinates');
     console.log(cachedCoords);
     if (cachedCoords) {
       setUserCoordinates(JSON.parse(cachedCoords));
@@ -43,7 +43,7 @@ export default function Landing() {
             longitude: position.coords.longitude
           };
           setUserCoordinates(coords);
-          localStorage.setItem('userCoordinates', JSON.stringify(coords));
+          sessionStorage.setItem('userCoordinates', JSON.stringify(coords));
           console.log('Retrieved and stored your coordinates:', coords);
         },
         (error) => {

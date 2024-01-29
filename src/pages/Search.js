@@ -34,7 +34,7 @@ const getUserCoordinates = (setUserCoordinates) => {
           longitude: position.coords.longitude
         };
         setUserCoordinates(coords);
-        localStorage.setItem('userCoordinates', JSON.stringify(coords));
+        sessionStorage.setItem('userCoordinates', JSON.stringify(coords));
       },
       (error) => {
         console.error('Error getting location:', error);
@@ -134,7 +134,7 @@ export default function Search() {
   }, [query.get('category'), query.get('location')]);
 
   useEffect(() => {
-    const storedCoords = localStorage.getItem('userCoordinates');
+    const storedCoords = sessionStorage.getItem('userCoordinates');
     if (!storedCoords) {
       getUserCoordinates(setUserCoordinates);
     } else {
