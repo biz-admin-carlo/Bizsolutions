@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import ReCAPTCHA from "react-google-recaptcha";
+import BarSpinner from '../components/BarSpinner';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -25,6 +26,7 @@ export default function SignUp() {
   const [ lastName, setLastName ] = useState('');
   const [ password1, setPassword1 ] = useState('');
   const [ agree, setAgree ] = useState('');
+  const [ isLoading, setIsLoading ] = useState(false);
 
   const [ isActive, setIsActive ] = useState(false);
 
@@ -34,7 +36,7 @@ export default function SignUp() {
 
   function registerUser(event) {
     event.preventDefault();
-
+    setIsLoading(true);
     setAttempt(attempt + 1);
 
     axios.get(`${apiUrl}/api/v1/users/check-email/${email}`)
@@ -42,12 +44,8 @@ export default function SignUp() {
       const result = response.data;
 
       if(result.exists === true) {
-        Swal.fire({
-          title: 'Oops!',
-          icon: 'error',
-          text: 'Email already exists!'
-        });
-        navigate('/login');
+
+        navigate('/login-user');
       } else {
         return axios.post(`${apiUrl}/api/v1/users/register`, {
           firstName: firstName,
@@ -75,16 +73,16 @@ export default function SignUp() {
           });
           navigate('/register');
         } else {
-          Swal.fire({
-            title: 'Register Successful!',
-            text: 'You may now login!'
-          });
+          
           navigate('/login');
         }
       }
     })
     .catch(error => {
       console.error("There was an error!", error);
+    })
+    .finally(() => {
+      setIsLoading(false);
     });
   };
 
@@ -114,6 +112,9 @@ export default function SignUp() {
 
 
   return (
+    <>
+    {isLoading && <BarSpinner isVisible={isLoading} />} 
+
     <Card>
       <div className="app-landing-page">
         <Row className="py-5 w-100">      
@@ -188,7 +189,7 @@ export default function SignUp() {
                     </div>
                   </div>
                   {password1.length > 0 && password1.length < 8 && (
-                    <p className="text-danger loginText">
+                    <p className="text-danger text-center loginText">
                       Password must be 8 characters or more!
                     </p>
                   )}
@@ -220,5 +221,6 @@ export default function SignUp() {
         </Row>
     </div> 
     </Card> 
+    </>
   )
 }

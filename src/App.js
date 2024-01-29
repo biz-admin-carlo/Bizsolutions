@@ -16,6 +16,7 @@ import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import Check from './components/CheckButton';
 import ReLogin from './components/ReLogin';
+import LoginUser from './components/LoginUser';
 
 function App() {
   
@@ -42,6 +43,7 @@ function App() {
                     <Route path="/home" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/re-login" element={<ReLogin/>}/>
+                    <Route path="/login-user" element={<LoginUser/>}/>
                     <Route path="/sign-up" element={<SignUp/>}/>
                     <Route path="/search" element={<Search/>}/>
                     <Route path="/account" element={<Account/>}/>
