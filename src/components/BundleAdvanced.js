@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; 
-import { Card, Button, Badge } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { Card, Button, Badge, Collapse } from 'react-bootstrap';
 import { GoCheckCircleFill } from "react-icons/go";
+import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
 import { IconContext } from "react-icons";
 import useCountingEffect from './useCountingEffect';
 import '../assets/styles/AppInformation.css';
 import VerifyModal from './VerifyModal';
-
 import Axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -15,6 +15,7 @@ export default function BundleAdvanced({ selected }) {
     const advanceSetup = useCountingEffect(selected === 'annual' ? 89.99 : 99.99);
 
     const [ transactionDate, setTransactionDate ] = useState(null);
+    const [ open, setOpen ] = useState(false);
 
     const [ showModal, setShowModal ] = useState(false);
     const [ user, setUser ] = useState({});
@@ -129,24 +130,74 @@ export default function BundleAdvanced({ selected }) {
                     }</p>
                 </h3>
                 <Card.Subtitle className="mb-2 text-muted">Broaden Reach, Enhance Engagement</Card.Subtitle>
-                <Button variant="warning" className='my-3 full-width-button' onClick={handleModalToggle}>Get Started</Button>
-                <Card.Text> Features included:</Card.Text>
-                
-                {featureList.map((section, index) => (
-                    <div key={index}>
-                        <h6>{section.title}</h6>
-                        <div className='pb-5'>
-                            {section.features.map((feature, featureIndex) => (
-                                <IconContext.Provider key={featureIndex} value={{ color: feature.color, className: "me-2" }}>
-                                    <div><GoCheckCircleFill />{feature.name}</div>
-                                </IconContext.Provider>
-                            ))}
-                        </div>
-                    </div>
-                ))}
 
-                <div>
-                    <div className='italic-text'>*This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
+                {/* Collapsible Section for sm screens */}
+                <div className="d-block d-md-none">
+                    <Button 
+                        variant="warning" 
+                        className='my-3 full-width-button' 
+                        onClick={handleModalToggle}
+                        aria-controls="collapse-features-advanced-sm"
+                        aria-expanded={open}
+                    >
+                        Get Started
+                    </Button>
+
+                    <Collapse in={open}>
+                        <div id="collapse-features-advanced-sm">
+                            <Card.Text> Features included: </Card.Text>
+                                {featureList.map((section, index) => (
+                                    <div key={index}>
+                                        <h6>{section.title}</h6>
+                                        <div className='pb-5'>
+                                            {section.features.map((feature, featureIndex) => (
+                                                <IconContext.Provider key={featureIndex} value={{ color: feature.color, className: "me-2" }}>
+                                                    <div><GoCheckCircleFill />{feature.name}</div>
+                                                </IconContext.Provider>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                        </div>
+                    </Collapse>
+                                        
+                    <div className='text-center'>
+                        <Button 
+                            variant="link" 
+                            onClick={() => setOpen(!open)}
+                            className="view-more-button text-decoration-none text-secondary"
+                        >
+                            {open ? 
+                                <>View Less <IoMdArrowDropup className={`icon-transition ${open ? 'icon-up' : 'icon-down'}`} /></> : 
+                                <>View More <IoMdArrowDropdown className={`icon-transition ${open ? 'icon-down' : 'icon-up'}`} /></>
+                            }
+                        </Button>           
+                    </div>
+                </div>
+
+                {/* Regular display for md and larger screens */}
+                <div className="d-none d-md-block">
+                    <Button variant="warning" className='my-3 full-width-button' onClick={handleModalToggle}>Get Started</Button>
+
+                    <Card.Text> Features included:</Card.Text>
+
+                    {featureList.map((section, index) => (
+                        <div key={index}>
+                            <h6>{section.title}</h6>
+                            <div className='pb-5'>
+                                {section.features.map((feature, featureIndex) => (
+                                    <IconContext.Provider key={featureIndex} value={{ color: feature.color, className: "me-2" }}>
+                                        <div><GoCheckCircleFill />{feature.name}</div>
+                                    </IconContext.Provider>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+             
+                    <div>
+                        <div className='italic-text'>*This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
+                    </div>
+
                 </div>
 
                 <VerifyModal 

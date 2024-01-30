@@ -138,3 +138,15 @@ p {
 	font-style: italic;
 	font-size: 12px;
 }
+
+.icon-transition {
+    transition: transform 0.3s ease-in-out;
+}
+
+.icon-up {
+    transform: rotate(0deg);
+}
+
+.icon-down {
+    transform: rotate(180deg);
+}

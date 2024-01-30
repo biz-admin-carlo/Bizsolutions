@@ -1,11 +1,13 @@
-import React from 'react';
-import { Card, Button, Badge } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Card, Button, Badge, Collapse } from 'react-bootstrap';
 import { GoCheckCircleFill } from "react-icons/go";
+import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
 import { IconContext } from "react-icons";
-import useCountingEffect from './useCountingEffect';
 import '../assets/styles/AppInformation.css';
 
 export default function BundleExpert() {
+    const [ open, setOpen ] = useState(false);
+
 
     const featureList = [
         { 
@@ -51,6 +53,8 @@ export default function BundleExpert() {
     ];
 
     return (
+        <>
+
         <Card className='card-shadow'>
             <Card.Body>
                 <Card.Title>Expert Setup</Card.Title>
@@ -58,26 +62,83 @@ export default function BundleExpert() {
                     Let's Talk!<p>chat with us <Badge pill bg="warning" text="dark"> email@mail.com </Badge></p>
                 </h3>
                 <Card.Subtitle className="mb-2 text-muted">Custom Solutions for Peak Potential</Card.Subtitle>
-                <Button variant="outline-warning" className='my-3 full-width-button'>Get Started</Button>
-                <Card.Text> Features included: </Card.Text>
-                
-                {featureList.map((section, index) => (
-                    <div key={index}>
-                        <h6>{section.title}</h6>
-                        <div className='pb-5'>
-                            {section.features.map((feature, featureIndex) => (
-                                <IconContext.Provider key={featureIndex} value={{ color: feature.color, className: "me-2" }}>
-                                    <div><GoCheckCircleFill />{feature.name}</div>
-                                </IconContext.Provider>
-                            ))}
-                        </div>
-                    </div>
-                ))}
 
-                <div>
-                    <div className='italic-text'>*This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
+                {/* Button and collapsible for sm screens */}
+                <div className="d-block d-md-none">
+                    <Button 
+                        variant="outline-warning" 
+                        className='my-3 full-width-button'
+                        aria-controls="collapse-features-sm"
+                        aria-expanded={open}
+                    >
+                        Get Started
+                    </Button>
+
+                    <Collapse in={open}>
+                        <div id="collapse-features-sm">
+                            <Card.Text> Features included: </Card.Text>
+                    
+                            {featureList.map((section, index) => (
+                                <div key={index}>
+                                    <h6>{section.title}</h6>
+                                    <div className='pb-5'>
+                                        {section.features.map((feature, featureIndex) => (
+                                            <IconContext.Provider key={featureIndex} value={{ color: feature.color, className: "me-2" }}>
+                                                <div><GoCheckCircleFill />{feature.name}</div>
+                                            </IconContext.Provider>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+
+                            <div>
+                                <div className='italic-text'>*This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
+                            </div>
+                        </div>
+                    </Collapse>
+                    
+                    <div className='text-center'>
+                        <Button 
+                            variant="link" 
+                            onClick={() => setOpen(!open)}
+                            className="view-more-button text-decoration-none text-secondary"
+                        >
+                            {open ? 
+                                <>View Less <IoMdArrowDropup className={`icon-transition ${open ? 'icon-up' : 'icon-down'}`} /></> : 
+                                <>View More <IoMdArrowDropdown className={`icon-transition ${open ? 'icon-down' : 'icon-up'}`} /></>
+                            }
+                        </Button>           
+                    </div>
                 </div>
+
+                {/* Regular display for md and larger screens */}
+                <div className="d-none d-md-block">
+                    <Button variant="outline-warning" className='my-3 full-width-button'>
+                        Get Started
+                    </Button>
+                    
+                    <Card.Text> Features included: </Card.Text>
+                
+                    {featureList.map((section, index) => (
+                        <div key={index}>
+                            <h6>{section.title}</h6>
+                            <div className='pb-5'>
+                                {section.features.map((feature, featureIndex) => (
+                                    <IconContext.Provider key={featureIndex} value={{ color: feature.color, className: "me-2" }}>
+                                        <div><GoCheckCircleFill />{feature.name}</div>
+                                    </IconContext.Provider>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+
+                    <div>
+                        <div className='italic-text'>*This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
+                    </div>
+                </div>
+                
             </Card.Body>
         </Card>
+        </>
     );
 }
