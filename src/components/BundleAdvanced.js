@@ -56,25 +56,6 @@ export default function BundleAdvanced({ selected }) {
         }
     };
 
-    const formatDateToPacificTime = (date) => {
-        if (!date) return '';
-        
-        return date.toLocaleString('en-US', {
-            timeZone: 'America/Los_Angeles',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true
-        });
-    };
-
-    const formatPrice = (price) => {
-        return price.toFixed(2);
-    };
-
     const featureList = [
         { 
             title: "Priority Business Listing", 

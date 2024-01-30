@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import { Card, Button, Badge, Modal } from 'react-bootstrap';
+import { Card, Button, Badge, Collapse } from 'react-bootstrap';
 import { GoCheckCircleFill } from "react-icons/go";
+import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
 import { IconContext } from "react-icons";
 import useCountingEffect from './useCountingEffect';
 import VerifyModal from './VerifyModal';
-
 import Axios from 'axios';
 
 import '../assets/styles/AppInformation.css';
@@ -16,6 +16,7 @@ export default function BundleStarter({ selected }) {
 
     const starterSetup = useCountingEffect(selected === 'annual' ? 44.99 : 49.99);
     const [ transactionDate, setTransactionDate ] = useState(null);
+    const [ open, setOpen ] = useState(false);
 
     const [ showModal, setShowModal ] = useState(false);
     const [ user, setUser ] = useState({});
@@ -54,25 +55,6 @@ export default function BundleStarter({ selected }) {
             setTransactionDate(new Date());
             setShowModal(!showModal);
         }
-    };
-
-    const formatDateToPacificTime = (date) => {
-        if (!date) return '';
-        
-        return date.toLocaleString('en-US', {
-            timeZone: 'America/Los_Angeles',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true
-        });
-    };
-
-    const formatPrice = (price) => {
-        return price.toFixed(2);
     };
 
     const featureList = [
@@ -130,25 +112,74 @@ export default function BundleStarter({ selected }) {
                     }</p>
                 </h3>
                 <Card.Subtitle className="mb-2 text-muted">Elevate Productivity, Unlock Performance</Card.Subtitle>
-                <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleModalToggle}>Get Started</Button>
 
-                <Card.Text> Features included:</Card.Text>
-                
-                {featureList.map((section, index) => (
-                    <div key={index}>
-                        <h6>{section.title}</h6>
-                        <div className='pb-5'>
-                            {section.features.map((feature, featureIndex) => (
-                                <IconContext.Provider key={featureIndex} value={{ color: feature.color, className: "me-2" }}>
-                                    <div><GoCheckCircleFill />{feature.name}</div>
-                                </IconContext.Provider>
-                            ))}
+                {/* Collapsible Section for sm screens */}
+                <div className="d-block d-md-none">
+                    <Button 
+                        variant="outline-warning" 
+                        className='my-3 full-width-button' 
+                        onClick={handleModalToggle}
+                        aria-controls="collapse-features-advanced-sm"
+                        aria-expanded={open}
+                    >
+                        Get Started
+                    </Button>
+
+                    <Collapse in={open}>
+                        <div id="collapse-features-advanced-sm">
+                            <Card.Text> Features included: </Card.Text>
+                                {featureList.map((section, index) => (
+                                    <div key={index}>
+                                        <h6>{section.title}</h6>
+                                        <div className='pb-5'>
+                                            {section.features.map((feature, featureIndex) => (
+                                                <IconContext.Provider key={featureIndex} value={{ color: feature.color, className: "me-2" }}>
+                                                    <div><GoCheckCircleFill />{feature.name}</div>
+                                                </IconContext.Provider>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
                         </div>
+                    </Collapse>
+                                        
+                    <div className='text-center'>
+                        <Button 
+                            variant="link" 
+                            onClick={() => setOpen(!open)}
+                            className="view-more-button text-decoration-none text-secondary"
+                        >
+                            {open ? 
+                                <>View Less <IoMdArrowDropup className={`icon-transition ${open ? 'icon-up' : 'icon-down'}`} /></> : 
+                                <>View More <IoMdArrowDropdown className={`icon-transition ${open ? 'icon-down' : 'icon-up'}`} /></>
+                            }
+                        </Button>           
                     </div>
-                ))}
+                </div>
 
-                <div>
-                    <div className='italic-text'>*This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
+                {/* Regular display for md and larger screens */}
+                <div className="d-none d-md-block">
+                    <Button variant="warning" className='my-3 full-width-button' onClick={handleModalToggle}>Get Started</Button>
+
+                    <Card.Text> Features included:</Card.Text>
+
+                    {featureList.map((section, index) => (
+                        <div key={index}>
+                            <h6>{section.title}</h6>
+                            <div className='pb-5'>
+                                {section.features.map((feature, featureIndex) => (
+                                    <IconContext.Provider key={featureIndex} value={{ color: feature.color, className: "me-2" }}>
+                                        <div><GoCheckCircleFill />{feature.name}</div>
+                                    </IconContext.Provider>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+             
+                    <div>
+                        <div className='italic-text'>*This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
+                    </div>
+
                 </div>
 
                 <VerifyModal 
@@ -157,7 +188,7 @@ export default function BundleStarter({ selected }) {
                     user={user}
                     selected={selected}
                     starterSetup={starterSetup}
-                    bundleSetup="Starter Setup" // Or any other bundle name as per your context
+                    bundleSetup="Starter Setup"
                     transactionDate={transactionDate}
                 />
 

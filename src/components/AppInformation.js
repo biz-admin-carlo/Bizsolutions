@@ -14,9 +14,6 @@ import BundleExpert from './BundleExpert.js';
 export default function Pricing() {
     const [ selected, setSelected ] = useState('annual');
     
-    const starterSetup = useCountingEffect(selected === 'annual' ? 44.99 : 49.99);
-    const advanceSetup = useCountingEffect(selected === 'annual' ? 89.99 : 99.99);
-
     const packageOne = useCountingEffect(selected === 'annual' ? 989.99 : 1099.99)
     
 
@@ -155,18 +152,21 @@ export default function Pricing() {
                         </div>
                     </div>
 
-                    <div className='d-flex flex-wrap justify-content-around'>
+                    <div className='container'>
+                        <div className='row justify-content-around'>
 
-                        <div className='card-container-three'>
-                            <BundleStarter selected={selected} setSelected={setSelected} />
-                        </div>
+                            <div className='col-sm-12 col-md-4 mb-3'>
+                                <BundleStarter selected={selected} setSelected={setSelected} />
+                            </div>
 
-                        <div className='card-container-three'>
-                            <BundleAdvanced selected={selected} setSelected={setSelected} />
-                        </div>
+                            <div className='col-sm-12 col-md-4 mb-3'>
+                                <BundleAdvanced selected={selected} setSelected={setSelected} />
+                            </div>
 
-                        <div className='card-container-three'>
-                            <BundleExpert />
+                            <div className='col-sm-12 col-md-4 mb-3'>
+                                <BundleExpert />
+                            </div>
+
                         </div>
                     </div>
 
