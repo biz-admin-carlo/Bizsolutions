@@ -10,10 +10,12 @@ import Typings from './Typings.js'
 import BundleStarter from './BundleStarter.js';
 import BundleAdvanced from './BundleAdvanced.js';
 import BundleExpert from './BundleExpert.js';
+import FreeTrial from './FreeTrial.js';
+import Trial15 from './Trial15.js';
 
 export default function Pricing() {
     const [ selected, setSelected ] = useState('annual');
-    
+
     const packageOne = useCountingEffect(selected === 'annual' ? 989.99 : 1099.99)
     
 
@@ -56,77 +58,19 @@ export default function Pricing() {
                         <h4>Free Trial Package</h4>
                     </div>
 
-                    <div className='d-flex flex-wrap justify-content-around'>
+                    <div className='container'>
+                        <div className='row justify-content-around'>
 
-                        <div className='card-container'>
-                            <Card className='card-shadow'>
-                                <Card.Body className='ms-3'>
-                                    <Card.Title>Free Trial</Card.Title>
-                                    <h3 className='card-text-amount'>Free</h3>
-                                    <Card.Subtitle className="mb-2 text-muted">Initiate Your Business Communications</Card.Subtitle>
-                                    <Button variant="outline-warning" className='my-3 full-width-button'>Get Started</Button>
-                                    <Card.Text> Features included:</Card.Text>
-                                    <h6>Priority Business Listing</h6>
-                                    <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Business Profile </div>
-                                            <div><GoCheckCircleFill />Contact Information</div>
-                                            <div><GoCheckCircleFill />Physical Address</div>
-                                            <div><GoCheckCircleFill />Store Hours and Availability</div>
-                                            <div><GoCheckCircleFill />Map Integration</div>
-                                            <div><GoCheckCircleFill />Payment Methods Accepted</div>
-                                            <div><GoCheckCircleFill />Links to Your Other Sites</div>
-                                        </IconContext.Provider>                               
-                                    </div>
+                            <div className='col-sm-12 col-md-6 mb-3'>
+                                <FreeTrial selected={selected} setSelected={setSelected} />
+                            </div>
 
-                                </Card.Body>
-                            </Card>
-                        </div>
-
-                        <div className='card-container'>
-                            <Card className='card-shadow'>
-                                <Card.Body className='ms-3'>
-                                    <Card.Title>15-Day Trial</Card.Title>
-                                    <h3 className='card-text-amount'>$6.99</h3>
-                                    <Card.Subtitle className="mb-2 text-muted">Boost Business with Key Features</Card.Subtitle>
-                                    <Button variant="warning" className='my-3 full-width-button'>Get Started</Button>
-                                    <Card.Text> Features included:</Card.Text>
-                                    <h6>Priority Business Listing</h6>
-                                    <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Business Profile</div>
-                                            <div><GoCheckCircleFill />Contact Information</div>
-                                            <div><GoCheckCircleFill />Physical Address</div>
-                                            <div><GoCheckCircleFill />Store Hours and Availability</div>
-                                            <div><GoCheckCircleFill />Map Integration</div>
-                                            <div><GoCheckCircleFill />Payment Methods Accepted</div>
-                                            <div><GoCheckCircleFill />Links to Your Other Sites</div>
-                                        </IconContext.Provider>  
-                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Embed Videos</div>
-                                            <div><GoCheckCircleFill />Photo Gallery</div>
-                                        </IconContext.Provider>                               
-                                    </div>
-
-                                    <h6>Local Website</h6>
-                                    <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Up to 5 pages*</div>
-                                            <div><GoCheckCircleFill />1 Business Email</div>
-                                            <div><GoCheckCircleFill />Responsive design</div>
-                                            <div><GoCheckCircleFill />Social Media Links</div>
-                                            <div><GoCheckCircleFill />Search Engine Optimization (SEO)</div>
-                                            <div><GoCheckCircleFill />Free Hosting</div>
-                                        </IconContext.Provider>                               
-                                    </div>
-
-                                    <div>
-                                        <div className='italic-text'>* This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
-                                    </div>
-                                </Card.Body>
-                            </Card>
+                            <div className='col-sm-12 col-md-6 mb-3'>
+                                <Trial15 selected={selected} setSelected={setSelected} />
+                            </div>
                         </div>
                     </div>
+
                     <hr />
                     <div className='text-center py-3 '>
                         <h2>Business Listing & Website Development</h2>

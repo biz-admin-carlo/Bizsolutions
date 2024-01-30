@@ -159,7 +159,7 @@ export default function BundleStarter({ selected }) {
 
                 {/* Regular display for md and larger screens */}
                 <div className="d-none d-md-block">
-                    <Button variant="warning" className='my-3 full-width-button' onClick={handleModalToggle}>Get Started</Button>
+                    <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleModalToggle}>Get Started</Button>
 
                     <Card.Text> Features included:</Card.Text>
 
