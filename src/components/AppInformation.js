@@ -7,6 +7,9 @@ import '../assets/styles/AppInformation.css';
 
 import tiktok from '../assets/tiktok.mp4'
 import Typings from './Typings.js'
+import BundleStarter from './BundleStarter.js';
+import BundleAdvanced from './BundleAdvanced.js';
+import BundleExpert from './BundleExpert.js';
 
 export default function Pricing() {
     const [ selected, setSelected ] = useState('annual');
@@ -14,7 +17,7 @@ export default function Pricing() {
     const starterSetup = useCountingEffect(selected === 'annual' ? 44.99 : 49.99);
     const advanceSetup = useCountingEffect(selected === 'annual' ? 89.99 : 99.99);
 
-    const packageOne = useCountingEffect(selected === 'annual' ? 990.00 : 1099.99)
+    const packageOne = useCountingEffect(selected === 'annual' ? 989.99 : 1099.99)
     
 
     const handleSelect = (button) => {
@@ -64,7 +67,7 @@ export default function Pricing() {
                                     <Card.Title>Free Trial</Card.Title>
                                     <h3 className='card-text-amount'>Free</h3>
                                     <Card.Subtitle className="mb-2 text-muted">Initiate Your Business Communications</Card.Subtitle>
-                                    <Button variant="warning" className='my-3 full-width-button'>Get Started</Button>
+                                    <Button variant="outline-warning" className='my-3 full-width-button'>Get Started</Button>
                                     <Card.Text> Features included:</Card.Text>
                                     <h6>Priority Business Listing</h6>
                                     <div className='pb-5'>
@@ -89,7 +92,7 @@ export default function Pricing() {
                                     <Card.Title>15-Day Trial</Card.Title>
                                     <h3 className='card-text-amount'>$6.99</h3>
                                     <Card.Subtitle className="mb-2 text-muted">Boost Business with Key Features</Card.Subtitle>
-                                    <Button variant="outline-warning" className='my-3 full-width-button'>Get Started</Button>
+                                    <Button variant="warning" className='my-3 full-width-button'>Get Started</Button>
                                     <Card.Text> Features included:</Card.Text>
                                     <h6>Priority Business Listing</h6>
                                     <div className='pb-5'>
@@ -155,205 +158,15 @@ export default function Pricing() {
                     <div className='d-flex flex-wrap justify-content-around'>
 
                         <div className='card-container-three'>
-                            <Card className='card-shadow'>
-                                <Card.Body>
-                                    <Card.Title>Starter Setup</Card.Title>
-                                    <h3 className='card-text-amount'>
-                                        ${starterSetup}<p>per month {
-                                        selected === 'annual' ?
-                                            <Badge pill bg="warning" text="dark">billed annually</Badge> :
-                                            <Badge pill bg="light" text="warning">billed monthly</Badge>
-                                        }</p>
-                                    </h3>
-                                    <Card.Subtitle className="mb-2 text-muted">Elevate Productivity, Unlock Performance</Card.Subtitle>
-                                    <Button variant="outline-warning" className='my-3 full-width-button'>Get Started</Button>
-                                    <Card.Text> Features included:</Card.Text>
-                                    <h6>Priority Business Listing</h6>
-                                    <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Business Profile</div>
-                                            <div><GoCheckCircleFill />Contact Information</div>
-                                            <div><GoCheckCircleFill />Physical Address</div>
-                                            <div><GoCheckCircleFill />Store Hours and Availability</div>
-                                            <div><GoCheckCircleFill />Map Integration</div>
-                                            <div><GoCheckCircleFill />Payment Methods Accepted</div>
-                                            <div><GoCheckCircleFill />Links to Your Other Sites</div>
-                                            <div><GoCheckCircleFill />Embed Videos</div>
-                                            <div><GoCheckCircleFill />Photo Gallery</div>
-                                        </IconContext.Provider>                               
-                                    </div> 
-
-                                    <h6>Local Website</h6>
-                                    <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Up to 5 pages*</div>
-                                            <div><GoCheckCircleFill />5 Business Emails</div>
-                                        </IconContext.Provider>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>   
-                                            <div><GoCheckCircleFill />Responsive design</div>
-                                            <div><GoCheckCircleFill />Social Media Links</div>
-                                            <div><GoCheckCircleFill />Search Engine Optimization (SEO)</div>
-                                            <div><GoCheckCircleFill />Free Hosting</div>
-                                        </IconContext.Provider> 
-
-                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Ongoing maintenance and support</div>
-                                            <div><GoCheckCircleFill />Directory Submissions</div>
-                                            <div><GoCheckCircleFill />Standard Security Measures</div>
-                                        </IconContext.Provider>                               
-                                    </div>
-
-                                    <h6>Social Media Management</h6>
-                                    <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Facebook Account </div>
-                                            <div><GoCheckCircleFill />X Account </div>
-                                            <div><GoCheckCircleFill />Instagram Account</div>
-                                            <div><GoCheckCircleFill />Tiktok Account </div>
-                                            <div><GoCheckCircleFill />Automated Ads</div>
-                                        </IconContext.Provider>                               
-                                    </div>
-
-                                    <div>
-                                        <div className='italic-text'>* This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
-                                    </div>
-                                </Card.Body>
-                            </Card>
+                            <BundleStarter selected={selected} setSelected={setSelected} />
                         </div>
 
                         <div className='card-container-three'>
-                            <Card className='card-shadow'>
-                                <Card.Body>
-                                    <Card.Title>Advanced Setup</Card.Title>
-                                    <h3 className='card-text-amount'>
-                                        ${advanceSetup}<p>per month {
-                                        selected === 'annual' ?
-                                            <Badge pill bg="warning" text="dark">billed annually</Badge> :
-                                            <Badge pill bg="light" text="warning">billed monthly</Badge>
-                                        }</p>
-                                    </h3>
-                                    <Card.Subtitle className="mb-2 text-muted">Broaden Reach, Enhance Engagement</Card.Subtitle>
-                                    <Button variant="warning" className='my-3 full-width-button'>Get Started</Button>
-                                    <Card.Text> Features included:</Card.Text>
-
-                                    <h6>Priority Business Listing</h6>
-                                    <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Business Profile</div>
-                                            <div><GoCheckCircleFill />Contact Information</div>
-                                            <div><GoCheckCircleFill />Physical Address</div>
-                                            <div><GoCheckCircleFill />Store Hours and Availability</div>
-                                            <div><GoCheckCircleFill />Map Integration</div>
-                                            <div><GoCheckCircleFill />Payment Methods Accepted</div>
-                                            <div><GoCheckCircleFill />Links to Your Other Sites</div>
-                                            <div><GoCheckCircleFill />Embed Videos</div>
-                                            <div><GoCheckCircleFill />Photo Gallery</div>
-                                        </IconContext.Provider>                               
-                                    </div> 
-
-                                    <h6>Local Website</h6>
-                                    <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Up to 10 pages*</div>
-                                            <div><GoCheckCircleFill />10 Custom Business Emails</div>
-                                        </IconContext.Provider>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>   
-                                            <div><GoCheckCircleFill />Responsive design</div>
-                                            <div><GoCheckCircleFill />Social Media Links</div>
-                                            <div><GoCheckCircleFill />Search Engine Optimization (SEO)</div>
-                                        </IconContext.Provider>  
-                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
-       
-                                            <div><GoCheckCircleFill />Hosting with Custom Domain</div>
-                                            <div><GoCheckCircleFill />Ongoing maintenance and support</div>
-                                            <div><GoCheckCircleFill />Directory Submissions</div>
-                                            <div><GoCheckCircleFill />Standard Security Measures</div>
-                                        </IconContext.Provider>                               
-                                    </div>
-
-                                    <h6>Social Media Management</h6>
-                                    <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Facebook Account </div>
-                                            <div><GoCheckCircleFill />X Account </div>
-                                            <div><GoCheckCircleFill />Instagram Account</div>
-                                            <div><GoCheckCircleFill />Tiktok Account </div>
-                                            <div><GoCheckCircleFill />Automated Ads</div>
-                                        </IconContext.Provider>                               
-                                    </div>
-
-                                    <div>
-                                        <div className='italic-text'>* This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
-                                    </div>
-                                </Card.Body>
-                            </Card>
+                            <BundleAdvanced selected={selected} setSelected={setSelected} />
                         </div>
 
                         <div className='card-container-three'>
-                            <Card className='card-shadow'>
-                                <Card.Body>
-                                    <Card.Title>Expert Setup</Card.Title>
-                                    {/* <h3 className='card-text-amount'>Let's Talk!</h3> */}
-                                    <h3 className='card-text-amount'>
-                                        Let's Talk!<p>chat with us <Badge pill bg="warning" text="dark"> email@mail.com </Badge></p>
-                                    </h3>
-                                    <Card.Subtitle className="mb-2 text-muted">Custom Solutions for Peak Potential</Card.Subtitle>
-                                    <Button variant="outline-warning" className='my-3 full-width-button'>Get Started</Button>
-                                    <Card.Text> Features included: </Card.Text>
-
-                                    <h6>Priority Business Listing</h6>
-                                    <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Business Profile</div>
-                                            <div><GoCheckCircleFill />Contact Information</div>
-                                            <div><GoCheckCircleFill />Physical Address</div>
-                                            <div><GoCheckCircleFill />Store Hours and Availability</div>
-                                            <div><GoCheckCircleFill />Map Integration</div>
-                                            <div><GoCheckCircleFill />Payment Methods Accepted</div>
-                                            <div><GoCheckCircleFill />Links to Your Other Sites</div>
-                                            <div><GoCheckCircleFill />Embed Videos</div>
-                                            <div><GoCheckCircleFill />Photo Gallery</div>
-                                        </IconContext.Provider>                               
-                                    </div> 
-
-                                    <h6>Local Website</h6>
-                                    <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Unlimited pages*</div>
-                                            <div><GoCheckCircleFill />30 Custom Business Emails</div>
-                                        </IconContext.Provider>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Responsive design</div>
-                                            <div><GoCheckCircleFill />Social Media Links</div>
-                                        </IconContext.Provider>
-                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Advanced Search Engine Optimization (SEO)</div>
-                                            <div><GoCheckCircleFill />Hosting with Custom Domain</div>
-                                            <div><GoCheckCircleFill />Ongoing maintenance and support</div>
-                                            <div><GoCheckCircleFill />Directory Submissions</div>
-                                            <div><GoCheckCircleFill />Premium Security Measures</div>
-                                            <div><GoCheckCircleFill />Comprehensive e-commerce solutions</div>
-                                            <div><GoCheckCircleFill />Integrated Payment Processing System</div>
-                                        </IconContext.Provider>                              
-                                    </div>
-
-                                    <h6>Social Media Management</h6>
-                                    <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "orange", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Facebook Account </div>
-                                            <div><GoCheckCircleFill />X Account </div>
-                                            <div><GoCheckCircleFill />Instagram Account</div>
-                                            <div><GoCheckCircleFill />Tiktok Account </div>
-                                            <div><GoCheckCircleFill />Automated Ads</div>
-                                        </IconContext.Provider>                               
-                                    </div>
-
-                                    <div>
-                                        <div className='italic-text'>* This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
-                                    </div>
-
-                                </Card.Body>
-                            </Card>
+                            <BundleExpert />
                         </div>
                     </div>
 
@@ -425,7 +238,7 @@ export default function Pricing() {
                                 <Card.Body className='ms-3'>
                                     <Card.Title>Advanced Package + Commission per Collection Rep</Card.Title>
                                     <h3 className='card-text-amount'>
-                                        ${packageOne} + 30% Commission<p>per month{
+                                        ${packageOne} + 30% Commission<p>per month {
                                         selected === 'annual' ?
                                             <Badge pill bg="warning" text="dark">billed annually</Badge> :
                                             <Badge pill bg="light" text="warning">billed monthly</Badge>

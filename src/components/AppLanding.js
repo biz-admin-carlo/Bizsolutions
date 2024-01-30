@@ -16,7 +16,7 @@ export default function Landing() {
   const [ location, setLocation ] = useState('');
   const [ userCoordinates, setUserCoordinates ] = useState(null); 
   const [ retrieveData, setRetrieveData ] = useState({});
-  console.log(retrieveData);
+    // console.log(retrieveData);
 
   const handleLocationChange = (event) => {
     if(event.target.value === 'UseMyLocation'){
@@ -28,10 +28,10 @@ export default function Landing() {
 
   const getUserLocation = () => {
     const cachedCoords = sessionStorage.getItem('userCoordinates');
-    console.log(cachedCoords);
+      // console.log(cachedCoords);
     if (cachedCoords) {
       setUserCoordinates(JSON.parse(cachedCoords));
-      console.log('Using cached coordinates:', JSON.parse(cachedCoords));
+       // console.log('Using cached coordinates:', JSON.parse(cachedCoords));
       return;
     }
   

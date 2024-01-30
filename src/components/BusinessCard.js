@@ -40,7 +40,7 @@ const BusinessCard = ({ state, business, index }) => {
   };
 
   return (
-    <Card className="my-2 p-3" data-aos="fade-up">
+    <Card className="my-3" data-aos="fade-up">
       <div className='business-card-div'> 
         <div style={{ marginRight: 10 }}>
           <img
@@ -50,7 +50,7 @@ const BusinessCard = ({ state, business, index }) => {
             onError={handleImageError}
           />
         </div>
-        <Card.Body className='my-3'>
+        <Card.Body>
           <Card.Title> {business.name}</Card.Title>
             <a href={business.url} target="_blank" className='text-secondary url-link'>
                 <p className='text-secondary url-link'>{getBaseUrl(business.url)}</p>

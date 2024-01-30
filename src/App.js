@@ -17,7 +17,7 @@ import Privacy from './pages/Privacy';
 import Check from './components/CheckButton';
 import ReLogin from './components/ReLogin';
 import LoginUser from './components/LoginUser';
-
+import LoginPricing from './components/LoginPricing';
 function App() {
   
   const [ user, setUser ] = useState({
@@ -44,12 +44,14 @@ function App() {
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/re-login" element={<ReLogin/>}/>
                     <Route path="/login-user" element={<LoginUser/>}/>
+                    <Route path="/login/pricing" element={<LoginPricing/>}/>
                     <Route path="/sign-up" element={<SignUp/>}/>
                     <Route path="/search" element={<Search/>}/>
                     <Route path="/account" element={<Account/>}/>
                     <Route path="/pricing" element={<Pricing/>}/>
                     <Route path="/terms" element={<Terms/>}/>
                     <Route path="/privacy" element={<Privacy/>}/>
+
                 </Routes>
               </Suspense>
             <Container />

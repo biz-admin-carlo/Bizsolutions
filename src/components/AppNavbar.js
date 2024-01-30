@@ -16,7 +16,7 @@ export default function AppNavbar() {
 
   const [isTokenPresent, setIsTokenPresent] = useState(false);
 
-  console.log(isTokenPresent);
+  // console.log(isTokenPresent);
 
   useEffect(() => {
     const checkToken = () => {
