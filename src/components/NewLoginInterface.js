@@ -13,7 +13,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function NewLogin() {
     const navigate = useNavigate();
-    const [ message, setMessage ] = useState('Create an Account First!')
+    const [ message, setMessage ] = useState('')
     const { setUser } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -23,12 +23,12 @@ export default function NewLogin() {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            navigate('/pricing');
+            navigate('/home');
         }
     }, [navigate]);
 
     useEffect(() => {
-        if (email !== '' || message !== '') {
+        if (email !== '') {
             checkEmail(email);
         } else {
             setMessage('');
@@ -63,14 +63,13 @@ export default function NewLogin() {
             if (result.accessToken) {
                 window.location.reload();
                 localStorage.setItem('token', result.accessToken);
-                navigate('/pricing');
+                navigate('/');
             } else {
                 setMessage('Password is incorrect!');
             }
         } catch (error) {
                 // console.error('An error occurred during authentication:', error);
-            navigate('/login/pricing');
-            setPassword('');
+            navigate('/login');
             setMessage('Password is incorrect!');
 
         } finally {

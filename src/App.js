@@ -15,9 +15,9 @@ import Pricing from './pages/Pricing';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import Check from './components/CheckButton';
-import ReLogin from './components/ReLogin';
-import LoginUser from './components/LoginUser';
 import LoginPricing from './components/LoginPricing';
+import ScrollToTop from './components/ScrollToTop';
+
 function App() {
   
   const [ user, setUser ] = useState({
@@ -34,6 +34,7 @@ function App() {
     <>
       <UserProvider value={{ user, setUser, unsetUser }}>
         <Router>
+        <ScrollToTop />
           <AppNavbar />
           <Container />
               <Suspense fallback={<div>Loading...</div>}>
@@ -42,8 +43,6 @@ function App() {
                     <Route path="*" element={<Home/>}/>
                     <Route path="/home" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>
-                    <Route path="/re-login" element={<ReLogin/>}/>
-                    <Route path="/login-user" element={<LoginUser/>}/>
                     <Route path="/login/pricing" element={<LoginPricing/>}/>
                     <Route path="/sign-up" element={<SignUp/>}/>
                     <Route path="/search" element={<Search/>}/>

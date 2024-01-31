@@ -24,7 +24,7 @@ export default function Pricing() {
   };
     return (
         <>
-        <div className='app-landing-page'>
+        <div className='app-landing-page-pricing'>
             <div className='pt-lg-5'>
                 <Container className='py-5'>
                 <div className="content-container d-flex align-items-center pb-lg-5">

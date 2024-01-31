@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import UserContext from '../UserContext';
 
-import LoginInterface from '../components/LoginInterface';
+import NewLoginInterface from '../components/NewLoginInterface';
 
 export default function Login() {
   const { setUser } = useContext(UserContext);
@@ -19,6 +19,7 @@ export default function Login() {
   }, []);
 
   return (
-    isLoggedIn() ? <Navigate to="/" /> : <LoginInterface />
+    isLoggedIn() ? <Navigate to="/" /> : <NewLoginInterface />
+    
   );
 }
