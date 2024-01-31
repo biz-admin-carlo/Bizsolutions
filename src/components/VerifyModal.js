@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Container, Form, Badge } from 'react-bootstrap';
 import { IoMdCheckmark } from "react-icons/io";
+import imgOne from '../assets/qr-sample.svg';
 
 import '../assets/styles/VerifyModal.css';
 
@@ -10,9 +11,20 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
     console.log(user);
 
     const [ subscriptionPeriod, setSubscriptionPeriod ] = useState(selected || 'monthly');
+    const [ showContent, setShowContent ] = useState(false);
+
 
     const handleSubscriptionChange = (event) => {
         setSubscriptionPeriod(event.target.value);
+    };
+
+    const resetContentAndToggleModal = () => {
+        setShowContent(false); 
+        handleModalToggle(); 
+    };
+
+    const handleContinueClick = () => {
+        setShowContent(true);
     };
 
     useEffect(() => {
@@ -37,38 +49,23 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
         });
     };
 
-    const formatDateToPacificTime = (date) => {
-        if (!date) return '';
-        
-        return date.toLocaleString('en-US', {
-            timeZone: 'America/Los_Angeles',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true
-        });
-    };
-
     return (
-        <Modal show={showModal} onHide={handleModalToggle} centered size="lg">
+        <Modal show={showModal} onHide={resetContentAndToggleModal} centered size="lg">
             <Modal.Body>
             <h3 className='modalTitle'>{bundleSetup} Bundle with BizSolutions!</h3>
             <hr />
                 <Container>
 
                     <div className='pb-3'>
-                        <IoMdCheckmark className='modalBodyDivCheck'/> Priority Business Listing <br />
-                        <IoMdCheckmark className='modalBodyDivCheck'/> Local Website <br />
-                        <IoMdCheckmark className='modalBodyDivCheck'/> Social Media Management <br />
-                    </div>
+                            <IoMdCheckmark className='modalBodyDivCheck'/> Priority Business Listing <br />
+                            <IoMdCheckmark className='modalBodyDivCheck'/> Local Website <br />
+                            <IoMdCheckmark className='modalBodyDivCheck'/> Social Media Management <br />
+                        </div>
 
-                <hr />
-
+                    <hr />
+                    
                     <Form>
-                        <div className="mb-3">
+                        <div className="mb-2">
                             <Form.Check 
                                 type="radio"
                                 id="annual-option"
@@ -117,9 +114,36 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
                             </div>
                         </div>
 
-                        <Button variant="success" style={{ width: '100%' }}>Continue</Button>
-                    </Form>
+                        {showContent && (
+                            <div className="content-wrapper">
+                                <div className="login-image">
+                                    <img className="img-fluid resized-image" src={imgOne} alt="Web Application" />
+                                </div>
 
+                                <p className='note'>
+                                    <em>
+                                        *Scan the QR Code and click 'Continue'. Our 
+                                        <span className="sales-team"> Sales Team </span> 
+                                        at 
+                                        <span className="bizsolutions"> BizSolutions </span> 
+                                        will then contact you at your registered email address.
+                                        <br/> <br/> 
+                                        **If you have a preferred payment method, please send us an email to communicate this properly. Our email is 
+                                        <span className="sales-team"> sales@bizsolutions.com</span>.
+                                    </em>
+                                </p>
+                            </div>
+                        )}
+
+                        <Button 
+                            variant="success" 
+                            style={{ width: '100%' }}
+                            onClick={handleContinueClick}
+                        >
+                            Continue
+                        </Button>
+                        
+                    </Form>
                 </ Container>
             </Modal.Body>
         </Modal>

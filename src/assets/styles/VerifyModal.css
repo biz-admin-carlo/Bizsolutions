@@ -37,3 +37,30 @@
     border-top: 5px dashed #000; 
     border-bottom: none;       
 }
+
+.resized-image {
+    width: 300px; 
+    height: auto;  
+}
+
+.note {
+    font-size: .8rem;
+}
+
+.sales-team, .bizsolutions {
+    color: #FF851A;
+}
+
+.content-wrapper {
+    display: flex;
+    align-items: center; /* Align vertically */
+    justify-content: center; /* Align horizontally */
+    gap: 20px; /* Optional: adds space between the image and the text */
+}
+
+/* Additional styles for responsiveness if needed */
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+}
