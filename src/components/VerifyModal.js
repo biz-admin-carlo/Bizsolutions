@@ -8,9 +8,6 @@ import '../assets/styles/VerifyModal.css';
 
 export default function VerifyModal({ showModal, handleModalToggle, user, selected, starterSetup, bundleSetup, transactionDate }) {
 
-    console.log(user);
-    console.log(bundleSetup);
-
     const [ subscriptionPeriod, setSubscriptionPeriod ] = useState(selected || 'monthly');
     const [ showContent, setShowContent ] = useState(false);
 
