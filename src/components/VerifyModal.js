@@ -9,10 +9,21 @@ import '../assets/styles/VerifyModal.css';
 export default function VerifyModal({ showModal, handleModalToggle, user, selected, starterSetup, bundleSetup, transactionDate }) {
 
     console.log(user);
+    console.log(bundleSetup);
 
     const [ subscriptionPeriod, setSubscriptionPeriod ] = useState(selected || 'monthly');
     const [ showContent, setShowContent ] = useState(false);
 
+    const getPrice = () => {
+        const basePrice = bundleSetup === 'Starter Setup' ? 49.99 : 99.99;
+        let price = subscriptionPeriod === 'annual' ? basePrice * 12 : basePrice;
+    
+        if (subscriptionPeriod === 'annual') {
+            price *= 0.9;
+        }
+    
+        return price;
+    };
 
     const handleSubscriptionChange = (event) => {
         setSubscriptionPeriod(event.target.value);
@@ -51,9 +62,10 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
 
     return (
         <Modal show={showModal} onHide={resetContentAndToggleModal} centered size="lg">
+            <Modal.Header closeButton className="modal-header-sm">
+                <h3 className='modalTitle'>{bundleSetup} Bundle with BizSolutions!</h3>
+            </Modal.Header>
             <Modal.Body>
-            <h3 className='modalTitle'>{bundleSetup} Bundle with BizSolutions!</h3>
-            <hr />
                 <Container>
 
                     <div className='pb-3'>
@@ -76,7 +88,12 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
                                 checked={subscriptionPeriod === 'annual'}
                             />
                             {subscriptionPeriod === 'annual' && (
-                                <p className='modalBodyDivOne'>{formatPrice(starterSetup * 12)} <span>({formatPrice(starterSetup)}/month)</span></p>
+                                <div>
+                                    <p className='modalBodyDivOne'>
+                                        Total Annual Cost: {formatPrice(getPrice())}
+                                        <span> ({formatPrice(getPrice() / 12)}/month)</span>
+                                    </p>
+                                </div>
                             )}
                         </div>
                         <div className="mb-3">
@@ -90,7 +107,7 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
                                 checked={subscriptionPeriod === 'monthly'}
                             />
                             {subscriptionPeriod === 'monthly' && (
-                                <p className='modalBodyDivOne'>{formatPrice(starterSetup)}</p>
+                                <p className='modalBodyDivOne'>{formatPrice(getPrice())}</p>
                             )}
                         </div>
                         
@@ -102,7 +119,7 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
                                 <p className='modalBodyDivOne'>Due Date: {calculateExpirationDate()}</p>
                             </div>
                             <div>
-                                <p className='modalBodyDivOne text-'>Amount: {formatPrice(subscriptionPeriod === 'annual' ? starterSetup * 12 : starterSetup)}</p>
+                                <p className='modalBodyDivOne text-'>Amount: {formatPrice(getPrice())}</p>
                             </div>
                         </div>
                         <div className='flexContainer'>

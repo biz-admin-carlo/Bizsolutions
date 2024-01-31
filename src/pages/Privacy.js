@@ -1,10 +1,7 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
-
-
+import { Card, Container } from 'react-bootstrap';
+import AppFooter from '../components/AppFooter';
 import '../assets/styles/Terms.css';
-import { Container } from 'react-bootstrap';
-
 
 export default function Privacy() {
 
@@ -116,6 +113,7 @@ export default function Privacy() {
 
   </Container>
   </div>
+  <AppFooter />
   </>
   );
 }

@@ -64,3 +64,13 @@
         flex-direction: column;
     }
 }
+
+.modal-header-sm {
+    display: none;
+}
+
+@media (max-width: 576px) { /* Bootstrap's sm breakpoint */
+    .modal-header-sm {
+        display: block;
+    }
+}
