@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 
 import '../assets/styles/AppFooter.css';
 
+import AppPreFooter from '../components/AppPreFooter.js';
 
 export default function AppFooter() {
   return (
+    <>
+    <AppPreFooter />
     <Navbar className="app-footer pb-0 my-2">
       <Container>
         <Navbar.Text className="me-auto footer-links d-sm-block d-none">
@@ -18,5 +21,6 @@ export default function AppFooter() {
         </Navbar.Text>
       </Container>
     </Navbar>
+    </>
   )
 }

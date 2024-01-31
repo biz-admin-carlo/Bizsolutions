@@ -1,0 +1,47 @@
+.app-pre-footer {
+    background-color: #f8f9fa;
+    color: #333; 
+}
+
+.align-items-start h6 {
+    font-size: 13px;
+}
+
+.footer-link {
+    color: inherit; 
+    text-decoration: none; 
+}
+
+.footer-link:hover {
+    color: #FF851A;
+}
+
+.newsletter-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media (max-width: 767px) {
+    .newsletter-col {
+    text-align: left;
+    margin-top: 20px;
+    }
+}  
+
+.app-pre-footer .footer-link, .app-pre-footer .footer-link:hover {
+    color: inherit; /* Inherits the color from the parent */
+    text-decoration: none; /* Removes underline from links */
+  }
+  
+  .app-pre-footer a, .app-pre-footer a:hover {
+    color: inherit; /* Set this to the desired color or 'inherit' */
+    text-decoration: none; /* Ensures no underline */
+  }
+  
+  /* Specific styles for social media icons, if needed */
+  .app-pre-footer .social-icon {
+    color: inherit; /* Or your preferred color */
+    margin-right: 0.5rem; /* Adjust spacing */
+  }
+  

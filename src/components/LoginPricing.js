@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Form } from 'react-bootstrap';
-import AppFooter from '../components/AppFooter';
 import imgOne from '../assets/app-landing-banner.png';
 import UserContext from '../UserContext';
 import BarSpinner from '../components/BarSpinner';
@@ -15,10 +14,10 @@ export default function NewLogin() {
     const navigate = useNavigate();
     const [ message, setMessage ] = useState('Create an Account First!')
     const { setUser } = useContext(UserContext);
-    const [loading, setLoading] = useState(false);
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [ loading, setLoading ] = useState(false);
+    const [ isPasswordVisible, setIsPasswordVisible ] = useState(false);
+    const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -149,7 +148,6 @@ export default function NewLogin() {
                     </div>
                 </Container>
             </div>
-            <AppFooter />
         </>
     );
 };
