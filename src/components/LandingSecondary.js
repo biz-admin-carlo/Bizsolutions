@@ -8,6 +8,8 @@ import BarSpinner from '../components/BarSpinner';
 export default function NewLogin() {
     const [ loading, setLoading ] = useState(false);
     const [ typedPlaceholder, setTypedPlaceholder ] = useState('');
+    const [ category, setCategory ] = useState('');
+    const [ location, setLocation ] = useState('');
 
     useEffect(() => {
         const typingStrings = [
@@ -91,7 +93,13 @@ export default function NewLogin() {
                                     </div>
                                 </Form.Group>
                                 
-                                <button type='submit' className="custom-button" >Search</button>
+                                <button 
+                                    type='submit' 
+                                    className="custom-button" 
+                                    disabled={!location || location === ""}
+                                >
+                                    Search
+                                </button>
 
                             </Form>
                         </div>
