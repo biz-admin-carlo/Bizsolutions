@@ -23,7 +23,7 @@ export default function BundleStarter({ selected }) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         if (token) {
             fetchUserDetails(token);
         }
@@ -48,7 +48,7 @@ export default function BundleStarter({ selected }) {
       };
 
     const handleModalToggle = () => {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         if (!token) {
             navigate('/login/pricing');
         } else if (!user.isAdmin) {

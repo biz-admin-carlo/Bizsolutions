@@ -21,7 +21,7 @@ export default function NewLogin() {
     const [password, setPassword] = useState('');
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         if (token) {
             navigate('/home');
         }
@@ -62,7 +62,7 @@ export default function NewLogin() {
 
             if (result.accessToken) {
                 window.location.reload();
-                localStorage.setItem('token', result.accessToken);
+                sessionStorage.setItem('token', result.accessToken);
                 navigate('/');
             } else {
                 setMessage('Password is incorrect!');

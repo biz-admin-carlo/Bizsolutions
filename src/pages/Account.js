@@ -10,7 +10,7 @@ export default function Account() {
   const { user, unsetUser } = useContext(UserContext);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
 
     if (!token) {

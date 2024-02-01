@@ -9,7 +9,7 @@ export default function Login() {
   const { setUser } = useContext(UserContext);
 
   const isLoggedIn = () => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     return token != null;
   };
 

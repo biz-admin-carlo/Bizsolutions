@@ -20,7 +20,7 @@ export default function AppNavbar() {
 
   useEffect(() => {
     const checkToken = () => {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       setIsTokenPresent(!!token);
     };
   
