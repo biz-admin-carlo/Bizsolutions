@@ -17,6 +17,7 @@ import Privacy from './pages/Privacy';
 import Check from './components/CheckButton';
 import LoginPricing from './components/LoginPricing';
 import ScrollToTop from './components/ScrollToTop';
+import NewHome from './pages/NewHome';
 
 function App() {
   
@@ -40,6 +41,7 @@ function App() {
               <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
+                    <Route path="/new" element={<NewHome/>}/>
                     <Route path="*" element={<Home/>}/>
                     <Route path="/home" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>

@@ -78,14 +78,14 @@
 	background-color: #FF851A !important;
 	text-align: center !important;
 	color: #3c3c3c !important;
-	border-radius: 25px !important;
+	/* border-radius: 20px !important; */
 	border: 2px solid #FF851A !important;
 	width: 50%;
 }
 
 .custom-card {
 	background-color: #f6f6f6;
-	border-radius: 30px; 
+	/* border-radius: 30px;  */
 }
 
 .landing-image {

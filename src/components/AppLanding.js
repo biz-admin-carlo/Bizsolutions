@@ -84,9 +84,7 @@ export default function Landing() {
       <div className="app-landing-page">
         <Row className="py-5 w-100">
           <Col xs={9} sm={10} md={8} lg={6} xl={4} className="landing-banner custom-card p-5 mx-auto">
-          <h2>Find and Discover</h2>
-          <h2>Local Business</h2>
-
+          <h1>Discover and Experience Local Businesses</h1>
             <Form className='py-3' onSubmit={handleSubmit}>
               <Form.Group controlId="category">
                 <Form.Label className="text-uppercase">Category</Form.Label>
