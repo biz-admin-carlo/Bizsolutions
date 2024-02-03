@@ -8,10 +8,11 @@ import Tab from 'react-bootstrap/Tab';
 
 import '../assets/styles/AccountInfo.css';
 
-import AccountDetails from './AccountDetails.js'
-import Messages from './Messages.js'
-import NewsFeed from './NewsFeed.js'
-import Feedbacks from './Feedbacks.js'
+import AccountDetails from './AccountDetails.js';
+import Messages from './Messages.js';
+import NewsFeed from './NewsFeed.js';
+import Feedbacks from './Feedbacks.js';
+import DeleteAccount from './DeleteAccount.js';
 import logo from '../assets/round-image.png'
 import AppFooter from '../components/AppFooter';
 
@@ -95,7 +96,7 @@ export default function AccountInfo() {
                 <ListGroup.Item action href="#link5">
                   Change Password
                 </ListGroup.Item>
-                <ListGroup.Item action href="#link6">
+                <ListGroup.Item action href="#delete-account">
                   Delete Account
                 </ListGroup.Item>
               </ListGroup>
@@ -119,7 +120,9 @@ export default function AccountInfo() {
                   <Feedbacks user={user} />
                 </Tab.Pane>
                 <Tab.Pane eventKey="#link5">Tab pane content 5</Tab.Pane>
-                <Tab.Pane eventKey="#link6">Tab pane content 6</Tab.Pane>
+                <Tab.Pane eventKey="#delete-account">
+                  <DeleteAccount user={user} />
+                </Tab.Pane>
                 <Tab.Pane eventKey="#link7">Tab pane content 7</Tab.Pane>
               </Tab.Content>
             </Col>
