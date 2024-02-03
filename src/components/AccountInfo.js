@@ -12,6 +12,7 @@ import AccountDetails from './AccountDetails.js';
 import Messages from './Messages.js';
 import NewsFeed from './NewsFeed.js';
 import Feedbacks from './Feedbacks.js';
+import ChangePassword from './ChangePassword.js';
 import DeleteAccount from './DeleteAccount.js';
 import logo from '../assets/round-image.png'
 import AppFooter from '../components/AppFooter';
@@ -93,7 +94,7 @@ export default function AccountInfo() {
                 <ListGroup.Item action href="#feedback">
                   Your Feedback
                 </ListGroup.Item>
-                <ListGroup.Item action href="#link5">
+                <ListGroup.Item action href="#change-password">
                   Change Password
                 </ListGroup.Item>
                 <ListGroup.Item action href="#delete-account">
@@ -119,11 +120,12 @@ export default function AccountInfo() {
                 <Tab.Pane eventKey="#feedback">
                   <Feedbacks user={user} />
                 </Tab.Pane>
-                <Tab.Pane eventKey="#link5">Tab pane content 5</Tab.Pane>
+                <Tab.Pane eventKey="#change-password">
+                  <ChangePassword user={user} />
+                </Tab.Pane>
                 <Tab.Pane eventKey="#delete-account">
                   <DeleteAccount user={user} />
                 </Tab.Pane>
-                <Tab.Pane eventKey="#link7">Tab pane content 7</Tab.Pane>
               </Tab.Content>
             </Col>
           </Row>

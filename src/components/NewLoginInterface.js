@@ -64,6 +64,8 @@ export default function NewLogin() {
                 window.location.reload();
                 sessionStorage.setItem('token', result.accessToken);
                 navigate('/');
+            } else if (result.status === 403) {
+                setMessage('Account is already inactive.');
             } else {
                 setMessage('Password is incorrect!');
             }
