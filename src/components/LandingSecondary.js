@@ -10,6 +10,68 @@ export default function NewLogin() {
     const [ typedPlaceholder, setTypedPlaceholder ] = useState('');
     const [ category, setCategory ] = useState('');
     const [ location, setLocation ] = useState('');
+    const [ userCoordinates, setUserCoordinates ] = useState(null); 
+    const [ selectedLocation, setSelectedLocation ] = useState('Location')
+
+    const handleCategoryChange = (event) => {
+        setCategory(event.target.value);
+    };
+
+    const handleLocationInput = (event) => {
+        setLocation(event.target.value);
+    };
+
+    const getUserLocation = () => {
+        setLoading(true);
+        const cachedCoords = sessionStorage.getItem('userCoordinates');
+          // console.log(cachedCoords);
+        if (cachedCoords) {
+          setUserCoordinates(JSON.parse(cachedCoords));
+           // console.log('Using cached coordinates:', JSON.parse(cachedCoords));
+          return;
+        }
+      
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const coords = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+              };
+              setUserCoordinates(coords);
+              setSelectedLocation('Use My Current Location')
+              sessionStorage.setItem('userCoordinates', JSON.stringify(coords));
+              console.log('Retrieved and stored your coordinates:', coords);
+              setLoading(false);
+            },
+            (error) => {
+              console.error('Error getting location:', error);
+              setLoading(false);
+            }
+          );
+        } else {
+          console.error('Geolocation is not supported by this browser.');
+          setLoading(false);
+        }
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault(); // Prevent the default form submission behavior
+
+        // Check if location input is not empty
+        if (location) {
+            console.log("Using manually entered location:", location);
+            // Here you can handle the location as per your logic
+        } else if (userCoordinates) {
+            console.log("Using geolocation coordinates:", userCoordinates);
+            // Here you can handle the coordinates as per your logic
+        } else {
+            // Handle case where neither location nor coordinates are available
+            console.error("No location information available");
+        }
+    };
+
+    
 
     useEffect(() => {
         const typingStrings = [
@@ -51,22 +113,24 @@ export default function NewLogin() {
             <Container>
                 <div className="login-container">
                     <div className="login-form">
-                        <Form>
+                        <Form onSubmit={handleSubmit}>
                             <div className='pb-3'>
                             <h1 style={{ fontSize: '2.8rem' }}>Discover and Experience</h1>
                             <h4 style={{ fontSize: '2rem' }} className='text-secondary'>Local Businesses</h4>
                             </div>
 
-                            <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Category</Form.Label>
-                                <Form.Control
-                                    required
-                                    name="category"
-                                    placeholder={typedPlaceholder}
-                                    type="text"
-                                    className='text-secondary'
-                                />
-                            </Form.Group>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Category</Form.Label>
+                                    <Form.Control
+                                        required
+                                        name="category"
+                                        placeholder={typedPlaceholder}
+                                        type="text"
+                                        className='text-secondary'
+                                        value={category}
+                                        onChange={handleCategoryChange}
+                                    />
+                                </Form.Group>
 
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -76,8 +140,10 @@ export default function NewLogin() {
                                             required
                                             name="location"
                                             type="text"
-                                            placeholder="Location"
+                                            placeholder={selectedLocation}
                                             className='text-secondary'
+                                            value={location} // Bind value to the location state
+                                            onChange={handleLocationInput} // Update state on change
                                         />
                                         <div
                                             style={{
@@ -87,16 +153,17 @@ export default function NewLogin() {
                                                 transform: 'translateY(-50%)',
                                                 cursor: 'pointer'
                                             }}
+                                            onClick={getUserLocation}
                                         >
-                                        <MdMyLocation />
+                                            <MdMyLocation />
                                         </div>
                                     </div>
                                 </Form.Group>
                                 
                                 <button 
                                     type='submit' 
-                                    className="custom-button" 
-                                    disabled={!location || location === ""}
+                                    className={`custom-button ${!location && !userCoordinates && !category ? 'disabled-hover' : ''}`}
+                                    disabled={!location && !userCoordinates || !category}
                                 >
                                     Search
                                 </button>
@@ -116,4 +183,4 @@ export default function NewLogin() {
             </div>
         </>
     );
-}
+};

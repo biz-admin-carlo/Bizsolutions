@@ -17,18 +17,27 @@ const BarSpinner = ({ isVisible }) => {
         zIndex: 9999 
       };
 
+    const bgStyle = {
+      minHeight: '100vh',
+    }
+
   return (
-    <div style={loaderStyle}>
-        <Bars
-        height="100"
-        width="100"
-        color="#FF851A"
-        ariaLabel="bars-loading"
-        wrapperStyle={{}}
-        wrapperClass=""
-        visible={isVisible}
-        />
-    </div>
+    <>
+      <div style={bgStyle}> 
+        <div style={loaderStyle}>
+          <Bars
+          height="100"
+          width="100"
+          color="#FF851A"
+          ariaLabel="bars-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={isVisible}
+          />
+        </div>
+      </div>
+    </>
+
   );
 };
 
