@@ -43,7 +43,7 @@ export default function AppNavbar() {
       <Navbar expand="lg" className="app-navbar px-5">
         <Container>
           <Link to="/">
-            <img src={logo} width={50} height={50} className='mx-3'/> 
+            <img src={logo} width={50} height={50} className='mx-3' alt='BizSolution Logo'/> 
           </Link>
           <Nav.Link as={Link} to="/" className="navbar-logo-name">BizSolutions</Nav.Link>
 
