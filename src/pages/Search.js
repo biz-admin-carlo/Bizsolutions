@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Form, Container, Navbar, FormControl, Breadcrumb, Card, Pagination } from 'react-bootstrap';
+import { Container, Breadcrumb, Card } from 'react-bootstrap';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import '../assets/styles/Search.css';
 import BusinessCard from '../components/BusinessCard';
+import SearchResult from '../components/SearchResult';
+import AppFooter from '../components/AppFooter';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -155,17 +157,7 @@ export default function Search() {
   return (
     <div className='app-background'>
     <>
-      <Navbar expand="lg" className='navbar-search'>
-        <Container>
-          <Form className='navbar-form'>
-            <FormControl
-              type="text"
-              placeholder={generatePlaceholder()}
-              className='navbar-form-control'
-            />
-          </Form>
-        </Container>
-      </Navbar>
+      <SearchResult />
 
       <Container>
         <Breadcrumb className='pt-2'>
@@ -210,6 +202,7 @@ export default function Search() {
           </div>
         )}
       </Container>
+      <AppFooter />
     </>
     </div>
   );

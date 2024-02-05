@@ -60,6 +60,10 @@
   align-items: start;
 }
 
+.map-container {
+  height: 250px; /* Fixed height, or you can make it responsive as well */
+  width: 100%; /* Responsive width */
+}
 
 @media (min-width: 768px) {
   .business-card-img {
@@ -67,8 +71,7 @@
   }
 
   .business-card-div {
-    display: flex; 
-    align-items: start;
+    flex-direction: column;
   }
 
   .business-card-img {
