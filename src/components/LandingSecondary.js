@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Form } from 'react-bootstrap';
 import { MdMyLocation } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 import imgOne from '../assets/img-app-vertical.png';
 import '../assets/styles/NewLoginInterface.css';
 import BarSpinner from '../components/BarSpinner';
 
 export default function NewLogin() {
+
+    const navigate = useNavigate();
+
     const [ loading, setLoading ] = useState(false);
     const [ typedPlaceholder, setTypedPlaceholder ] = useState('');
     const [ category, setCategory ] = useState('');
     const [ location, setLocation ] = useState('');
     const [ userCoordinates, setUserCoordinates ] = useState(null); 
-    const [ selectedLocation, setSelectedLocation ] = useState('Location')
+    const [ selectedLocation ] = useState('Location');
+    const [ typedLocation, setTypedLocation ] = useState(false);
 
     const handleCategoryChange = (event) => {
         setCategory(event.target.value);
@@ -19,15 +24,15 @@ export default function NewLogin() {
 
     const handleLocationInput = (event) => {
         setLocation(event.target.value);
+        setTypedLocation(true);
     };
 
     const getUserLocation = () => {
         setLoading(true);
         const cachedCoords = sessionStorage.getItem('userCoordinates');
-          // console.log(cachedCoords);
+    
         if (cachedCoords) {
           setUserCoordinates(JSON.parse(cachedCoords));
-           // console.log('Using cached coordinates:', JSON.parse(cachedCoords));
           return;
         }
       
@@ -38,10 +43,9 @@ export default function NewLogin() {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
               };
+              setLocation('My Current Location')
               setUserCoordinates(coords);
-              setSelectedLocation('Use My Current Location')
               sessionStorage.setItem('userCoordinates', JSON.stringify(coords));
-              console.log('Retrieved and stored your coordinates:', coords);
               setLoading(false);
             },
             (error) => {
@@ -54,26 +58,38 @@ export default function NewLogin() {
           setLoading(false);
         }
     };
-
+    
     const handleSubmit = (event) => {
-        event.preventDefault(); // Prevent the default form submission behavior
+        event.preventDefault(); 
 
-        // Check if location input is not empty
-        if (location) {
+        if (typedLocation === true) {
             console.log("Using manually entered location:", location);
-            // Here you can handle the location as per your logic
+            const queryParams = new URLSearchParams({
+                category: category,
+                location: location
+            }).toString();
+            sessionStorage.removeItem('userCoordinates');
+
+            navigate(`/search?${queryParams}`);
+
         } else if (userCoordinates) {
             console.log("Using geolocation coordinates:", userCoordinates);
-            // Here you can handle the coordinates as per your logic
+
+            const queryParams = new URLSearchParams({
+                category: category,
+                location: `Lat:${userCoordinates.latitude},Long:${userCoordinates.longitude}` 
+            }).toString();
+
+            navigate(`/search?${queryParams}`);
         } else {
-            // Handle case where neither location nor coordinates are available
+
             console.error("No location information available");
         }
     };
 
-    
-
     useEffect(() => {
+        sessionStorage.removeItem('userCoordinates');
+
         const typingStrings = [
             "Restaurants",
             "Hotel",
@@ -109,7 +125,7 @@ export default function NewLogin() {
     return (
         loading ? <BarSpinner /> :
         <>
-        <div className='app-landing-page'>
+            <div className='app-landing-page'>
             <Container>
                 <div className="login-container">
                     <div className="login-form">
@@ -142,8 +158,8 @@ export default function NewLogin() {
                                             type="text"
                                             placeholder={selectedLocation}
                                             className='text-secondary'
-                                            value={location} // Bind value to the location state
-                                            onChange={handleLocationInput} // Update state on change
+                                            value={location} 
+                                            onChange={handleLocationInput}
                                         />
                                         <div
                                             style={{
@@ -155,15 +171,18 @@ export default function NewLogin() {
                                             }}
                                             onClick={getUserLocation}
                                         >
-                                            <MdMyLocation />
+                                            {
+                                            userCoordinates
+                                                ? <MdMyLocation style={{ color: '#FF851A' }} />
+                                                : <MdMyLocation />
+                                            }
                                         </div>
                                     </div>
                                 </Form.Group>
                                 
                                 <button 
                                     type='submit' 
-                                    className={`custom-button ${!location && !userCoordinates && !category ? 'disabled-hover' : ''}`}
-                                    disabled={!location && !userCoordinates || !category}
+                                    className={`custom-button`}
                                 >
                                     Search
                                 </button>

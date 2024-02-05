@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
 
 import UserContext from '../UserContext';
-
-import AppLanding from '../components/AppLanding.js';
 import AppInformation from '../components/AppInformation.js'
 import AppFooter from '../components/AppFooter';
 

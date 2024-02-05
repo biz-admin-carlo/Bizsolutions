@@ -36,8 +36,11 @@ export default function AppPreFooter() {
 
           </Col>
           <Col xs={12} md={4} className="mb-3">
-            <Link to="/terms" className="footer-link"><h6>Terms of Service</h6></Link>
-            <Link to="/privacy" className="footer-link"><h6>Privacy Policy</h6></Link>
+            <Link to="/terms" className="footer-link"><h6>Website Development</h6></Link>
+            <Link to="/privacy" className="footer-link"><h6>Bookkeeping</h6></Link>
+            <Link to="/terms" className="footer-link"><h6>Technical & IT Support</h6></Link>
+            <Link to="/privacy" className="footer-link"><h6>Customer Service Support</h6></Link>
+            <Link to="/privacy" className="footer-link"><h6>Sales & Collections</h6></Link>
           </Col>
           <Col xs={12} md={4} className="newsletter-col">
 

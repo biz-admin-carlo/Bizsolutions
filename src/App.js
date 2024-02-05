@@ -6,7 +6,7 @@ import AppNavbar from './components/AppNavbar';
 import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import Home from './pages/Home';
+import Home from './pages/NewHome';
 import Login from './pages/Login';
 import SignUp from './pages/Signup';
 import Search from './pages/Search';
@@ -17,7 +17,6 @@ import Privacy from './pages/Privacy';
 import Check from './components/CheckButton';
 import LoginPricing from './components/LoginPricing';
 import ScrollToTop from './components/ScrollToTop';
-import NewHome from './pages/NewHome';
 
 function App() {
   
@@ -41,8 +40,7 @@ function App() {
               <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
-                    <Route path="/new" element={<NewHome/>}/>
-                    <Route path="*" element={<NewHome/>}/>
+                    <Route path="*" element={<Home/>}/>
                     <Route path="/home" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/login/pricing" element={<LoginPricing/>}/>
