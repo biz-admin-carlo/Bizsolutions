@@ -1,0 +1,45 @@
+.landing-container {
+    padding: 20px; 
+}
+
+.flex-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center; 
+    justify-content: center; 
+}
+
+.flex-col {
+    flex: 1; 
+    padding: 10px; 
+}
+
+.image-col {
+    max-width: 300px; 
+}
+
+.content-col {
+    max-width: 600px; 
+}
+
+@media (max-width: 768px) {
+    .flex-row {
+        flex-direction: column; 
+    }
+}
+
+.image-size {
+    height: 350px;
+    width: 300px;
+    max-width: 400px; 
+}
+
+.paragraph-text {
+    font-size: 14px;
+    text-align: end;
+}
+
+.title {
+    font-size: 3rem;
+    text-align: end;
+}

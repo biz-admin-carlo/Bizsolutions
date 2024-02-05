@@ -1,0 +1,45 @@
+.landing-container {
+    padding: 20px; /* Adjust as needed */
+}
+
+.flex-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+}
+
+.flex-col {
+    flex: 1; /* Flex grow */
+    padding: 10px; /* Spacing around items */
+}
+
+.image-col {
+    max-width: 300px; /* Adjust image column width */
+}
+
+.content-col {
+    max-width: 600px; /* Adjust content column width */
+}
+
+@media (max-width: 768px) {
+    .flex-row {
+        flex-direction: column; /* Stack items on smaller screens */
+    }
+}
+
+.image-size-two {
+    height: 250px;
+    width: 350px;
+    max-width: 400px; /* Adjust image column width */
+}
+
+.paragraph-text {
+    font-size: 14px;
+    text-align: start;
+}
+
+.title {
+    font-size: 3rem;
+    text-align: start;
+}
