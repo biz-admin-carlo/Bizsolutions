@@ -3,17 +3,22 @@
 }
 
 .navbar-logo-name {
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	font-size: 1.2em !important;
-	color: #1e1e1e !important;
-	font-weight: bold !important;
-
+    font-size: 1.2em !important;
+    color: #1e1e1e !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
 }
 
 .navbar-options {
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	font-size: .9em !important;
-	color: #3c3c3c !important;
+    font-size: .9em !important;
+    text-decoration: none;
+	color: #332941;
+}
+
+.navbar-options:hover {
+    border-bottom: 3px solid #d4d4d4; 
 }
