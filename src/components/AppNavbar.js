@@ -52,12 +52,13 @@ export default function AppNavbar() {
             
           <Nav className="ms-auto nav-link">
             {/* Search link - always visible */}
-            <div onClick={() => setSearchBarVisible(!searchBarVisible)}>
+            {/* <div onClick={() => setSearchBarVisible(!searchBarVisible)}>
               <Nav.Link as={Link} to="/" className="navbar-options">Search</Nav.Link>
-            </div>
+            </div> */}
 
             {/* Pricing link - always visible */}
             <Nav.Link as={Link} to="/pricing" className="navbar-options">Pricing</Nav.Link>
+            {/* <Nav.Link as={Link} to="/services" className="navbar-options">Services</Nav.Link> */}
             
             {/* Conditional rendering based on isTokenPresent */}
             {isTokenPresent ? (
