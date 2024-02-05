@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Container, Breadcrumb, Card } from 'react-bootstrap';
-import Skeleton from 'react-loading-skeleton';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { Container, Breadcrumb } from 'react-bootstrap';
 import 'react-loading-skeleton/dist/skeleton.css';
 import '../assets/styles/Search.css';
 import BusinessCard from '../components/BusinessCard';
 import SearchResult from '../components/SearchResult';
 import AppFooter from '../components/AppFooter';
+import BusinessCardSkeleton from '../components/BusinessCardSkeleton';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -59,6 +59,8 @@ export default function Search() {
   const [coordinates, setCoordinates] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [searchParams] = useSearchParams();
+  const categoryFromQuery = searchParams.get('category');
   
   const parseLocation = (location) => {
     if (location && location.includes('Lat') && location.includes('Long')) {
@@ -73,15 +75,6 @@ export default function Search() {
       setLocationState(location);
       setCoordinates(null);
     }
-  };
-
-  const generatePlaceholder = () => {
-    if (coordinates) {
-      return `Search results for ${category} Near My location`;
-    } else if (locationState) {
-      return `Search results for ${category} in ${locationState}`;
-    }
-    return `Search results for ${category}`;
   };
 
   const generateBreadcrumbText = () => {
@@ -104,21 +97,16 @@ export default function Search() {
   };
 
   const generateHeaderTitle = () => {
-    // Base title
     let title = `Best ${category}`;
 
-    // If on the first page, prepend "Top 10" to the title
     if (currentPage === 1) {
       title = `Top 10 ${title}`;
     }
-
-    // Adding location description
     if (coordinates) {
       title += ` Near Me`;
     } else if (locationState) {
       title += ` in ${locationState}`;
     }
-
     return title;
   };
 
@@ -145,14 +133,24 @@ export default function Search() {
   }, []);
 
   useEffect(() => {
-    if (userCoordinates && userCoordinates.latitude && userCoordinates.longitude) {
-      const api = `${apiUrl}/api/v1/location/search/v1?latitude=${userCoordinates.latitude}&longitude=${userCoordinates.longitude}&term=${category}`;
+    const queryLocation = query.get('location');
+    const queryCategory = query.get('category');
+  
+    const isCoordinates = queryLocation && queryLocation.includes('Lat') && queryLocation.includes('Long');
+  
+    if (isCoordinates) {
+      const [latPart, longPart] = queryLocation.split(',');
+      const latitude = latPart.split(':')[1];
+      const longitude = longPart.split(':')[1];
+  
+      const api = `${apiUrl}/api/v1/location/search/v1?latitude=${latitude}&longitude=${longitude}&term=${queryCategory}`;
       fetchApiData(api, setResultState, setLoading);
-    } else if (locationParam) {
-      const api = `${apiUrl}/api/v1/location/search/v2/?state=${locationParam}&category=${category}`;
+    } else {
+
+      const api = `${apiUrl}/api/v1/location/search/v2/?state=${queryLocation}&category=${queryCategory}`;
       fetchApiData(api, setResultState, setLoading);
     }
-  }, [userCoordinates, locationParam, category]);
+  }, []);
 
   return (
     <div className='app-background'>
@@ -161,8 +159,8 @@ export default function Search() {
 
       <Container>
         <Breadcrumb className='pt-2'>
-          <Breadcrumb.Item onClick={() => navigate('/')}>Home</Breadcrumb.Item>
-          <Breadcrumb.Item active>
+          <Breadcrumb.Item onClick={() => navigate('/')} className="no-text-decoration">Home</Breadcrumb.Item>
+          <Breadcrumb.Item active className="no-text-decoration">
             {generateBreadcrumbText()}
           </Breadcrumb.Item>
         </Breadcrumb>
@@ -171,7 +169,7 @@ export default function Search() {
 
         {loading ? (
           <>
-            {Array.from({ length: 5 }).map((_, index) => (
+            {Array.from({ length: 10 }).map((_, index) => (
               <BusinessCardSkeleton key={index} />
             ))}
           </>
@@ -206,13 +204,4 @@ export default function Search() {
     </>
     </div>
   );
-}
-
-const BusinessCardSkeleton = () => (
-  <Card className="my-2 p-3">
-    <Skeleton height={150} />
-    <Card.Body>
-      <Skeleton count={3} />
-    </Card.Body>
-  </Card>
-);
+};

@@ -36,11 +36,11 @@ export default function AppPreFooter() {
 
           </Col>
           <Col xs={12} md={4} className="mb-3">
-            <Link to="/terms" className="footer-link"><h6>Website Development</h6></Link>
-            <Link to="/privacy" className="footer-link"><h6>Bookkeeping</h6></Link>
-            <Link to="/terms" className="footer-link"><h6>Technical & IT Support</h6></Link>
-            <Link to="/privacy" className="footer-link"><h6>Customer Service Support</h6></Link>
-            <Link to="/privacy" className="footer-link"><h6>Sales & Collections</h6></Link>
+            <Link to="/website-development" className="footer-link"><h6>Website Development</h6></Link>
+            <Link to="/bookkeeping" className="footer-link"><h6>Bookkeeping</h6></Link>
+            <Link to="/technical-support" className="footer-link"><h6>Technical & IT Support</h6></Link>
+            <Link to="/customer-service" className="footer-link"><h6>Customer Service Support</h6></Link>
+            <Link to="/sales-collection" className="footer-link"><h6>Sales & Collections</h6></Link>
           </Col>
           <Col xs={12} md={4} className="newsletter-col">
 
@@ -63,7 +63,7 @@ export default function AppPreFooter() {
                 <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
                   <FaTiktok />
                 </a>
-                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
+                <a href="https://www.youtube.com/@BizSolutionsLLC" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
                   <FaYoutube />
                 </a>
                 <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="text-decoration-none">

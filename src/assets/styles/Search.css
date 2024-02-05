@@ -37,4 +37,8 @@
 .pagination .page-item:hover .page-link {
     color: #FF851A ;
 }
-  
+
+.no-text-decoration a {
+    text-decoration: none;
+    color: #9a9a9a;
+  }

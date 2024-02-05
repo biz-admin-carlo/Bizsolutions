@@ -46,7 +46,7 @@ const BusinessCard = ({ state, business, index }) => {
       <Container>
         <Card className="my-3" data-aos="fade-up">
           <div className='business-card-div'> 
-            <div style={{ marginRight: 10 }}>
+            <div>
               <img
                 src={business.image_url}
                 alt={business.name}
@@ -97,7 +97,7 @@ const BusinessCard = ({ state, business, index }) => {
             {/* Add MapContainer here */}
               <MapContainer
                 center={[business.coordinates.latitude, business.coordinates.longitude]}
-                zoom={13}
+                zoom={12}
                 className="map-container" // Added class for styling
                 whenCreated={mapInstance => { mapInstance.invalidateSize(); }}
               >
