@@ -42,3 +42,11 @@
     text-decoration: none;
     color: #9a9a9a;
   }
+
+  .card-container-new {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+  }
+  

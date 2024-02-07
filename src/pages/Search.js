@@ -176,7 +176,9 @@ export default function Search() {
         ) : (
           <div>
             
-            {renderBusinessCards()}
+            <div className="card-container-new">
+              {renderBusinessCards()}
+            </div>
 
             {resultState && resultState.businesses && resultState.businesses.length > itemsPerPage && (
               <div className="center-content">
