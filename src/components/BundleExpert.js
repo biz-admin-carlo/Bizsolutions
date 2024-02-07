@@ -59,7 +59,7 @@ export default function BundleExpert() {
             <Card.Body>
                 <Card.Title>Expert Setup</Card.Title>
                 <h3 className='card-text-amount'>
-                    Let's Talk!<p>chat with us <Badge pill bg="warning" text="dark"> email@mail.com </Badge></p>
+                    Let's Talk!<p>chat with us <Badge pill bg="warning" text="dark">supportus@mybizsolutions.us</Badge></p>
                 </h3>
                 <Card.Subtitle className="mb-2 text-muted">Custom Solutions for Peak Potential</Card.Subtitle>
 
