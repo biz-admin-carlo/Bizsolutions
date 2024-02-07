@@ -5,36 +5,38 @@ import Skeleton from 'react-loading-skeleton';
 const BusinessCardSkeleton = () => (
   <Card className="my-3" data-aos="fade-up">
     <div className='business-card-div'>
-      <div style={{ marginRight: 10 }}>
-        <Skeleton width={150} height={150} />
+      <div className='image-container-skeleton'>
+        <Skeleton width={'100%'} height={150} />
       </div>
       <Card.Body>
         <Card.Title>
-          <Skeleton width={200} />
+          <Skeleton width={'80%'} />
         </Card.Title>
-        <Skeleton width={100} />
+        <Skeleton width={'60%'} />
         <Card.Subtitle className="mb-2">
-          <Skeleton width={150} />
+          <Skeleton width={'70%'} />
         </Card.Subtitle>
 
-        <div className='text-center-sm'>
-          <Card.Subtitle className="mb-2 me-2 text-muted custom-inline">
-            <Skeleton width={200} />
-          </Card.Subtitle>
+        <div className='rating-row-skeleton'>
+          <Skeleton width={'50%'} />
+        </div>
 
-          {/* Repeat for other subtitles */}
-          <Card.Subtitle className="mb-2 text-muted custom-inline">
-            <Skeleton width={100} />
-          </Card.Subtitle>
+        <div className='badge-row-skeleton'>
+          <Skeleton width={'60%'} />
+        </div>
+
+        <div className='badges-container-skeleton'>
+          <Skeleton width={'30%'} />
+          <Skeleton width={'30%'} />
+          <Skeleton width={'30%'} />
         </div>
 
         <Card.Subtitle className="my-2 text-secondary">
-          <Skeleton width={250} />
+          <Skeleton width={'90%'} />
         </Card.Subtitle>
       </Card.Body>
 
-      {/* Placeholder for MapContainer */}
-      <div className="map-container">
+      <div className="map-container-skeleton">
         <Skeleton width={'100%'} height={200} />
       </div>
     </div>
