@@ -1,4 +1,4 @@
-import { Navbar, Nav, Container, Form, FormControl } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Container, Form, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import { FiX } from 'react-icons/fi';
@@ -11,7 +11,7 @@ import '../assets/styles/AppNavbar.css'
 
 export default function AppNavbar() {
 
-  const { user, unsetUser } = useContext(UserContext);
+  const { unsetUser } = useContext(UserContext);
   const [ searchBarVisible, setSearchBarVisible ] = useState(false);
 
   const [isTokenPresent, setIsTokenPresent] = useState(false);
@@ -56,9 +56,21 @@ export default function AppNavbar() {
               <Nav.Link as={Link} to="/" className="navbar-options">Search</Nav.Link>
             </div> */}
 
-            {/* Pricing link - always visible */}
             <Nav.Link as={Link} to="/pricing" className="navbar-options">Pricing</Nav.Link>
-            {/* <Nav.Link as={Link} to="/services" className="navbar-options">Services</Nav.Link> */}
+
+            <Nav>
+              <NavDropdown
+                id="nav-dropdown-dark-example"
+                title="Services"
+                className="navbar-options"
+              >
+                <NavDropdown.Item as={Link} to="/website-development">Website Development</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/bookkeeping">Bookkepping</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/technical-support">Technical & IT Support</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/customer-service">Customer Service Support</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/sales-collection">Sales & Collections</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
             
             {/* Conditional rendering based on isTokenPresent */}
             {isTokenPresent ? (
