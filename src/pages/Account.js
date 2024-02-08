@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../UserContext';
-
+import { Helmet } from 'react-helmet'; 
 import AccountInfo from '../components/AccountInfo';
 
 
@@ -14,12 +14,18 @@ export default function Account() {
 
 
     if (!token) {
-      console.log('Redirecting to login...'); // Check if this gets logged
+      // console.log('Redirecting to login...'); // Check if this gets logged
       navigate('/login');
     }
   }, [navigate]);
 
   return (
-      <AccountInfo />
+      <>
+        <Helmet>
+          <title>BizSolutions | Account Details</title>
+        </Helmet>
+
+        <AccountInfo />
+      </>
   );
 }

@@ -63,7 +63,7 @@ export default function NewLogin() {
         event.preventDefault(); 
 
         if (typedLocation === true) {
-            console.log("Using manually entered location:", location);
+            // console.log("Using manually entered location:", location);
             const queryParams = new URLSearchParams({
                 category: category,
                 location: location
@@ -73,7 +73,7 @@ export default function NewLogin() {
             navigate(`/search?${queryParams}`);
 
         } else if (userCoordinates) {
-            console.log("Using geolocation coordinates:", userCoordinates);
+            // console.log("Using geolocation coordinates:", userCoordinates);
 
             const queryParams = new URLSearchParams({
                 category: category,

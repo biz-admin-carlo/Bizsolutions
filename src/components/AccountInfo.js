@@ -31,8 +31,6 @@ export default function AccountInfo() {
   const { user, setUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log(user);
-
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     if (token) {

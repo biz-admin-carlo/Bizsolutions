@@ -1,6 +1,6 @@
 import { useState, Suspense } from 'react';
 import { UserProvider } from './UserContext';
-
+import { Helmet } from 'react-helmet'; 
 import AppNavbar from './components/AppNavbar';
 
 import { Container } from 'react-bootstrap';
@@ -17,6 +17,8 @@ import Privacy from './pages/Privacy';
 import LoginPricing from './components/LoginPricing';
 import ScrollToTop from './components/ScrollToTop';
 
+import PageWebDevelopment from './components/PageWebDevelopment';
+
 function App() {
   
   const [ user, setUser ] = useState({
@@ -31,6 +33,10 @@ function App() {
 
   return (
     <>
+      <Helmet>
+        <title>BizSolutions | Home</title>
+      </Helmet>
+
       <UserProvider value={{ user, setUser, unsetUser }}>
         <Router>
         <ScrollToTop />
@@ -49,6 +55,9 @@ function App() {
                     <Route path="/pricing" element={<Pricing/>}/>
                     <Route path="/terms" element={<Terms/>}/>
                     <Route path="/privacy" element={<Privacy/>}/>
+
+                    <Route path="/website-development" element={<PageWebDevelopment/>}/>
+                    
                 </Routes>
               </Suspense>
             <Container />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet'; 
 import { Container, Breadcrumb } from 'react-bootstrap';
 import 'react-loading-skeleton/dist/skeleton.css';
 import '../assets/styles/Search.css';
@@ -155,6 +156,10 @@ export default function Search() {
   return (
     <div className='app-background'>
     <>
+      <Helmet>
+        <title>Search Results</title>
+      </Helmet>
+
       <SearchResult />
 
       <Container>

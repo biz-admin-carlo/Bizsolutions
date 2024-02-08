@@ -1,5 +1,6 @@
 import '../assets/styles/AppLanding.css';
 import { useContext, useEffect } from 'react';
+import { Helmet } from 'react-helmet'; 
 import { Navigate } from 'react-router-dom';
 import UserContext from '../UserContext';
 
@@ -19,7 +20,14 @@ export default function Login() {
   }, []);
 
   return (
-    isLoggedIn() ? <Navigate to="/" /> : <NewLoginInterface />
+    isLoggedIn() ? <Navigate to="/" /> : 
+    <>
+      <Helmet>
+        <title>BizSolutions | Login</title>
+      </Helmet>
+      
+      <NewLoginInterface />
+    </>
     
   );
 }

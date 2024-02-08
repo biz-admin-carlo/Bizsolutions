@@ -1,0 +1,29 @@
+.services-container {
+    padding-top: 20px;
+}
+.text-services {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: grey;
+}
+
+h1 {
+    color: #FF851A;
+}
+
+.text-intro-landing {
+    font-size: 14px;
+    color: grey;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+.biz-color {
+    color: #FF851A;
+}
+
+.img-carousel {
+    height: 350px;
+    width: auto;
+    margin: auto;
+}
