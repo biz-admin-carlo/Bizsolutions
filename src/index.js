@@ -6,6 +6,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import 'leaflet/dist/leaflet.css';
 
+
 // Initialize AOS
 AOS.init();
 

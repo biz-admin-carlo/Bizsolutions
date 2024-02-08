@@ -2,6 +2,7 @@ import { useState, Suspense } from 'react';
 import { UserProvider } from './UserContext';
 import { Helmet } from 'react-helmet'; 
 import AppNavbar from './components/AppNavbar';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -57,12 +58,13 @@ function App() {
                     <Route path="/privacy" element={<Privacy/>}/>
 
                     <Route path="/website-development" element={<PageWebDevelopment/>}/>
-                    
+
                 </Routes>
               </Suspense>
             <Container />
         </Router>
       </UserProvider>
+      <SpeedInsights />
     </>
   );
 }
