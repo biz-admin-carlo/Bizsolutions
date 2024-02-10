@@ -22,7 +22,7 @@ const AboutUs = () => {
                             <div className='text-center'>
                                 <h1 className='py-3'>About<span className='text-dark'> Us</span></h1>
                                 
-                                <h6 className='text-services'>73455 Twentynine Palms Highway, Twentynine Palms CA 92277</h6>
+                                <h6 className='text-services'>20289 Stevens Creek BLVD #1039 Cupertino CA 95014</h6>
                                 
                                 <hr />
 
