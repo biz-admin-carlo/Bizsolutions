@@ -36,6 +36,7 @@ export default function AppPreFooter() {
 
           </Col>
           <Col xs={12} md={4} className="mb-3">
+            <h6>Services:</h6>
             <Link to="/website-development" className="footer-link"><h6>Website Development</h6></Link>
             <Link to="/bookkeeping" className="footer-link"><h6>Bookkeeping</h6></Link>
             <Link to="/technical-support" className="footer-link"><h6>Technical & IT Support</h6></Link>
