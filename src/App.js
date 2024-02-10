@@ -19,6 +19,10 @@ import LoginPricing from './components/LoginPricing';
 import ScrollToTop from './components/ScrollToTop';
 
 import PageWebDevelopment from './components/PageWebDevelopment';
+import PageBookkeeping from './components/PageBookkeeping';
+import PageTechnicalSupport from './components/PageTechnicalSupport';
+import PageCustomerService from './components/PageCustomerService';
+import PageSalesCollections from './components/PageSalesCollections';
 
 function App() {
   
@@ -58,6 +62,10 @@ function App() {
                     <Route path="/privacy" element={<Privacy/>}/>
 
                     <Route path="/website-development" element={<PageWebDevelopment/>}/>
+                    <Route path="/bookkeeping" element={<PageBookkeeping/>}/>
+                    <Route path="/technical-support" element={<PageTechnicalSupport/>}/>
+                    <Route path="/customer-service" element={<PageCustomerService/>}/>
+                    <Route path="/sales-collection" element={<PageSalesCollections/>}/>
 
                 </Routes>
               </Suspense>

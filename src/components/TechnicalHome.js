@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Image } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import web from '../assets/IT-Support.png';
 import '../assets/styles/TechnicalHome.css';
 
@@ -12,7 +13,7 @@ const TechnicalHome = () => {
                         <Image src={web} className='image-size-three' rounded alt="Web Development" />
                     </div>
                     <div className="flex-col content-col mx-3">
-                        <h1 className='title'>Technical & IT Support</h1>
+                        <h1 className='title text-center'><Link to="/technical-support" style={{ textDecoration: 'none', color: 'inherit' }}>Technical & IT Support</Link></h1>
                         <hr />
                         <p className="paragraph-text">
                         Navigate the complexities of technology with ease. Our technical and IT support services are here to resolve your tech challenges promptly, ensuring your operations run smoothly without any disruptions.
@@ -25,7 +26,7 @@ const TechnicalHome = () => {
             <Container className="landing-container d-lg-none">
                 <div className="flex-row">
                     <div className="flex-col content-col mx-3">
-                        <h1 className='title text-center'>Technical & IT Support</h1>
+                        <h1 className='title text-center'><Link to="/technical-support" style={{ textDecoration: 'none', color: 'inherit' }}>Technical & IT Support</Link></h1>
                         <hr />
                         <p className="paragraph-text text-center">
                         Navigate the complexities of technology with ease. Our technical and IT support services are here to resolve your tech challenges promptly, ensuring your operations run smoothly without any disruptions.

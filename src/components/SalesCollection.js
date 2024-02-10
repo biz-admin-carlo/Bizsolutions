@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Image } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import web from '../assets/Sales-Collection.png';
 import '../assets/styles/SalesCollection.css';
 
@@ -12,7 +13,7 @@ const SalesCollection = () => {
                         <Image src={web} className='image-size-three' rounded alt="Web Development" />
                     </div>
                     <div className="flex-col content-col mx-3">
-                        <h1 className='title'>Sales & Collections</h1>
+                        <h1 className='title text-center'><Link to="/sales-collection" style={{ textDecoration: 'none', color: 'inherit' }}>Sales & Collections</Link></h1>
                         <hr />
                         <p className="paragraph-text">
                         Boost your revenue with our expert sales and collections services. We combine strategic insight with persuasive communication skills to effectively manage sales and collections, driving better business outcomes for you.
@@ -25,7 +26,7 @@ const SalesCollection = () => {
             <Container className="landing-container d-lg-none">
                 <div className="flex-row">
                     <div className="flex-col content-col mx-3">
-                        <h1 className='title text-center'>Sales & Collections</h1>
+                        <h1 className='title text-center'><Link to="/sales-collection" style={{ textDecoration: 'none', color: 'inherit' }}>Sales & Collections</Link></h1>
                         <hr />
                         <p className="paragraph-text text-center">
                         Boost your revenue with our expert sales and collections services. We combine strategic insight with persuasive communication skills to effectively manage sales and collections, driving better business outcomes for you.

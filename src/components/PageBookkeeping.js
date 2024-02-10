@@ -3,11 +3,11 @@ import { Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; 
 import tiktok from '../assets/tiktok.mp4'
-import AppFooter from '../components/AppFooter';
+import AppFooter from './AppFooter';
 
 import '../assets/styles/PageWebDevelopment.css';
 
-const WebDevHome = () => {
+const Bookkeeping = () => {
 
     const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ const WebDevHome = () => {
     return (
         <>
             <Helmet>
-                <title>BizSolutions | Website Development</title>
+                <title>BizSolutions | Bookkeeping</title>
             </Helmet>
 
             <div className='app-landing-page-service'>
@@ -29,18 +29,20 @@ const WebDevHome = () => {
                         <div className='text-content pt-lg-5'>
                             <div className='text-center'>
                                 <h6 className='text-services'>Services</h6>
-                                <h1 className='py-3'>Web <span className='text-dark'>Development</span></h1>
+                                <h1 className='py-3'>Book<span className='text-dark'>keeping</span></h1>
                                 <hr />
 
                                 <div className='text-intro-landing pb-lg-5'>
 
-                                    <h5 className='pb-3 text-dark' style={{ fontStyle: 'italic' }}>Is your website failing to attract new customers and convert visitors into leads? </h5>
+                                    <h5 className='pb-3 text-dark' style={{ fontStyle: 'italic' }}>
+                                    Is my current bookkeeping system holding me back?
+                                    </h5>
 
-                                    <p className='text-intro-landing'><span className='biz-color'>BizSolutions</span>, we create websites that work, designed to boost your brand, engage your audience, and drive results. Our team of experts leverages the latest technologies and design trends to craft unique digital experiences that are easy to use, mobile-friendly, and SEO-optimized.</p>
+                                    <p className='text-intro-landing'>At <span className='biz-color'>BizSolutions</span>, we specialize in developing cutting-edge, user-friendly websites specifically tailored for bookkeeping services.</p>
 
-                                    <p className='text-intro-landing'>Here in <span className='biz-color'>BizSolutions</span>, where we blend innovation with functionality to create exceptional websites that resonate with your audience. Our dedicated team of skilled developers leverages the latest in technology and design trends to ensure your website isn't just a site, but a unique digital experience.</p>
+                                    <p className='text-intro-landing'>Here in <span className='biz-color'>BizSolutions</span>, Our mission is to enhance your brand's digital presence, engage your clients, and drive measurable results. Our expert team harnesses the latest technologies and design trends to create unique online experiences that are not only easy to navigate but also optimized for mobile use and search engine visibility.</p>
 
-                                    <p className='text-intro-landing text-danger'>Don't settle for an average website – contact us today for a free consultation and see how we can help you achieve your online goals.</p>
+                                    <p className='text-intro-landing text-danger'>Don't settle for outdated methods! Remember, even small improvements in your bookkeeping can lead to significant gains in efficiency, profitability, and peace of mind.</p>
                                 </div>
                             </div>
 
@@ -59,4 +61,4 @@ const WebDevHome = () => {
     );
 };
 
-export default WebDevHome;
+export default Bookkeeping;

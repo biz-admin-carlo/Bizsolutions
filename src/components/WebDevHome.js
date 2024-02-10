@@ -28,7 +28,7 @@ const WebDevHome = () => {
             <Container className="landing-container d-lg-none">
                 <div className="flex-row">
                     <div className="flex-col content-col">
-                        <h1 className='title text-center'>Web Development</h1>
+                        <h1 className='title text-center'><Link to="/website-development" style={{ textDecoration: 'none', color: 'inherit' }}>Web Development</Link></h1>
                         <hr />
                         <p className="paragraph-text text-center">
                             Unlock the potential of your online presence with our cutting-edge website 
