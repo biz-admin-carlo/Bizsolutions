@@ -1,3 +1,48 @@
+/* .services-container {
+    padding-top: 20px;
+}
+.text-services {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: grey;
+}
+
+h1 {
+    color: #FF851A;
+}
+
+.text-intro-landing {
+    font-size: 14px;
+    color: grey;
+}
+
+.biz-color {
+    color: #FF851A;
+}
+
+.img-carousel {
+    height: 350px;
+    width: auto;
+    margin: auto;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.text-content, .video-container {
+    flex: 1; 
+} */
+.app-landing-page-service {
+	background-image: url(../app-landing-page-bg.png);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+    min-height: 90vh;
+}
+
 .services-container {
     padding-top: 20px;
 }
@@ -14,8 +59,6 @@ h1 {
 .text-intro-landing {
     font-size: 14px;
     color: grey;
-    margin-left: 200px;
-    margin-right: 200px;
 }
 
 .biz-color {
@@ -26,4 +69,37 @@ h1 {
     height: 350px;
     width: auto;
     margin: auto;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between; /* Adjust as per your design */
+    align-items: center; /* Centers items vertically */
+    flex-wrap: wrap; /* Allows items to wrap in smaller screens */
+}
+
+.text-content, .video-container {
+    flex: 1; /* Adjust the flex grow factor as needed */
+    padding: 10px; /* Adds some spacing */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .flex-container {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+    }
+
+    .text-content, .video-container {
+        flex-basis: 100%; /* Each item takes full width on smaller screens */
+    }
+
+    .video-container {
+        padding-left: 0; /* Removes left padding on smaller screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .text-services, .text-intro-landing, h1 {
+        font-size: smaller; /* Adjust font size for smaller screens */
+    }
 }
