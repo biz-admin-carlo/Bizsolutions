@@ -50,7 +50,7 @@ const Bookkeeping = () => {
                         </div>
 
                         <div className="video-container ps-5">
-                            <video width="1920px" height="1080px" className="img-fluid" muted src={tiktok} autoPlay loop></video>
+                            <video width="960px" height="540px" className="img-fluid" muted src={tiktok} autoPlay loop></video>
                         </div>
 
                     </div>

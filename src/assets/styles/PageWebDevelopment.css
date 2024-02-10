@@ -37,7 +37,7 @@ h1 {
 .flex-container {
     display: flex;
     justify-content: space-between; /* Adjust as per your design */
-    align-items: center; /* Centers items vertically */
+    align-items: flex-start; /* Centers items vertically */
     flex-wrap: wrap; /* Allows items to wrap in smaller screens */
 }
 
