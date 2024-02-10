@@ -18,6 +18,10 @@ import Privacy from './pages/Privacy';
 import LoginPricing from './components/LoginPricing';
 import ScrollToTop from './components/ScrollToTop';
 
+import ContactUs from './pages/ContactUs';
+import AboutUs from './pages/AboutUs';
+import Career from './pages/Career'
+
 import PageWebDevelopment from './components/PageWebDevelopment';
 import PageBookkeeping from './components/PageBookkeeping';
 import PageTechnicalSupport from './components/PageTechnicalSupport';
@@ -60,6 +64,10 @@ function App() {
                     <Route path="/pricing" element={<Pricing/>}/>
                     <Route path="/terms" element={<Terms/>}/>
                     <Route path="/privacy" element={<Privacy/>}/>
+
+                    <Route path="/contact-us" element={<ContactUs/>}/>
+                    <Route path="/about-us" element={<AboutUs/>}/>
+                    <Route path="/careers" element={<Career/>}/>
 
                     <Route path="/website-development" element={<PageWebDevelopment/>}/>
                     <Route path="/bookkeeping" element={<PageBookkeeping/>}/>
