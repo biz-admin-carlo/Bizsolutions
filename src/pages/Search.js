@@ -157,7 +157,7 @@ export default function Search() {
     <div className='app-background'>
     <>
       <Helmet>
-        <title>Search Results</title>
+        <title>BizSolutions | Listings</title>
       </Helmet>
 
       <SearchResult />
