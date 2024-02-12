@@ -22,13 +22,16 @@ const ContactUs = () => {
                             <div className='text-center'>
                                 <h1 className='py-3'>Contact<span className='text-dark'> Us</span></h1>
                                                                 
-                                <h6><span className='biz-color'>supportus@mybizsolutions.us</span></h6>
+                                <h6>
+                                    <a href="mailto:supportus@mybizsolutions.us?subject=Contact%20Support&body=Hi%20there,%20I%20need%20help%20with...">
+                                        <span className='biz-color email-text'>supportus@mybizsolutions.us</span>
+                                    </a>
+                                </h6>
+                                
                                 <hr />
 
                             </div>
-
                         </div>
-
                     </div>
                 </Container>
             </div>

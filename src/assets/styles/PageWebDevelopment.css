@@ -66,3 +66,7 @@ h1 {
         font-size: smaller;
     }
 }
+
+h6 a .email-text, h6 a:link .email-text, h6 a:visited .email-text {
+    text-decoration: none;
+}
