@@ -1,0 +1,21 @@
+/* General styles for larger screens */
+.text-intro-landing, .text-services {
+    text-align: left;
+}
+
+/* Responsive styles for smaller screens */
+@media screen and (max-width: 768px) {
+    .text-intro-landing, .text-services {
+        font-size: 14px;
+    }
+}
+
+/* Additional responsive adjustments as needed */
+
+.text-services-email {
+    font-size: 12px;
+    color: grey;
+    text-decoration: none;
+    text-align: center;
+}
+

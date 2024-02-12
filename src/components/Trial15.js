@@ -53,7 +53,7 @@ export default function Trial15() {
         <Card className='card-shadow'>
             <Card.Body className='ms-3'>
                 <Card.Title>15-Day Trial</Card.Title>
-                <h3 className='card-text-amount'>$6.99</h3>
+                <h3 className='card-text-amount'>$5.99</h3>
                 <Card.Subtitle className="mb-2 text-muted">Boost Business with Key Features</Card.Subtitle>
                 <Button variant="warning" className='my-3 full-width-button'>Get Started</Button>
                 
