@@ -67,6 +67,11 @@ h1 {
     }
 }
 
-h6 a .email-text, h6 a:link .email-text, h6 a:visited .email-text {
-    text-decoration: none;
+h6 a .email-text, 
+h6 a:link .email-text, 
+h6 a:visited .email-text,
+h6 a:hover .email-text,
+h6 a:active .email-text {
+    text-decoration: underline;
+    text-decoration-color: #FF851A; 
 }
