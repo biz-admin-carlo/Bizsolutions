@@ -39,7 +39,7 @@ const TechnicalPage = () => {
 
                                     <p className='text-intro-landing'>At <span className='biz-color'>BizSolutions</span>, we specialize in creating sophisticated, user-friendly websites for Technical & IT Support sectors. Our primary goal is to expand your online presence, engage your customers, and deliver real-world results. </p>
 
-                                    <p className='text-intro-landing'>Here in <span className='biz-color'>BizSolutions</span>, we create user-friendly, mobile-optimized websites that rank well in search engines. Our focus is on secure, robust, and scalable web solutions tailored for the tech support industry, streamlining processes and enhancing customer engagement for a dynamic web presence.</p>
+                                    <p className='text-intro-landing'>Here in <span className='biz-color'>BizSolutions</span>, Empowering Your Success with Expert Technical and IT Support: At the Heart of Your Operations, We're Here to Ensure Your Technology Works as Hard as You Do. With round-the-clock availability, cutting-edge solutions, and a dedicated team of professionals, we're not just solving problems—we're preventing them, optimizing your systems for peak performance. Experience seamless operations with our proactive, personalized support designed to keep you ahead in a digital world.</p>
 
                                     <p className='text-intro-landing text-danger'>Upgrade your IT support systems for improved efficiency, enhanced performance, and greater peace of mind. Don't let outdated technology hold you back!</p>
                                 </div>

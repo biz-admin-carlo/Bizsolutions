@@ -14,7 +14,7 @@ const ContactUs = () => {
             </Helmet>
 
             <div className='app-landing-page-service'>
-                <Container className="services-container mb-3 d-none d-lg-block">
+                <Container className="services-container mb-3 d-lg-block">
                     
                     <div className="flex-container">
                         
