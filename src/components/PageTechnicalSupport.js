@@ -22,7 +22,7 @@ const TechnicalPage = () => {
             </Helmet>
 
             <div className='app-landing-page-service'>
-                <Container className="services-container mb-3 d-none d-lg-block">
+                <Container className="services-container mb-3 d-lg-block">
                     
                     <div className="flex-container">
                         
@@ -48,7 +48,7 @@ const TechnicalPage = () => {
                             <button className="custom-button" onClick={handleButtonClick}>Contact Us!</button>
                         </div>
 
-                        <div className="video-container ps-5">
+                        <div className="video-container ps-lg-5">
                             <video width="1920px" height="1080px" className="img-fluid" muted src={tiktok} autoPlay loop></video>
                         </div>
 

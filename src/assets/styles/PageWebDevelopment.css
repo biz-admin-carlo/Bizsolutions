@@ -36,33 +36,33 @@ h1 {
 
 .flex-container {
     display: flex;
-    justify-content: space-between; /* Adjust as per your design */
-    align-items: flex-start; /* Centers items vertically */
-    flex-wrap: wrap; /* Allows items to wrap in smaller screens */
+    justify-content: space-between; 
+    align-items: flex-start; 
+    flex-wrap: wrap; 
 }
 
 .text-content, .video-container {
-    flex: 1; /* Adjust the flex grow factor as needed */
-    padding: 10px; /* Adds some spacing */
+    flex: 1; 
+    padding: 10px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .flex-container {
-        flex-direction: column; /* Stack items vertically on smaller screens */
+        flex-direction: column; 
     }
 
     .text-content, .video-container {
-        flex-basis: 100%; /* Each item takes full width on smaller screens */
+        flex-basis: 100%; 
     }
 
     .video-container {
-        padding-left: 0; /* Removes left padding on smaller screens */
+        padding-left: 0; 
     }
 }
 
 @media (max-width: 576px) {
     .text-services, .text-intro-landing, h1 {
-        font-size: smaller; /* Adjust font size for smaller screens */
+        font-size: smaller;
     }
 }
