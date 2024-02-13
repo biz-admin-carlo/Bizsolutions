@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Modal, Button, Container, Form, Badge } from 'react-bootstrap';
 import { IoMdCheckmark } from "react-icons/io";
 import imgOne from '../assets/qr-sample.svg';
@@ -10,6 +11,26 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
 
     const [ subscriptionPeriod, setSubscriptionPeriod ] = useState(selected || 'monthly');
     const [ showContent, setShowContent ] = useState(false);
+    const [ isAgreed, setIsAgreed ] = useState(false);
+
+    const navigate = useNavigate();
+
+    const handleCheckboxChange = (e) => {
+        setIsAgreed(e.target.checked);
+    };
+
+    const handleTermsClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        navigate('/terms');
+    };
+
+    const handlePrivacyClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        navigate('/privacy');
+    };
+
 
     const getPrice = () => {
         const basePrice = bundleSetup === 'Starter Setup' ? 49.99 : 99.99;
@@ -46,9 +67,8 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
     const calculateExpirationDate = () => {
         const date = new Date(transactionDate);
         if (bundleSetup === 'Trial') {
-            date.setDate(date.getDate() + 15); // Add 15 days for the trial period
+            date.setDate(date.getDate() + 15);
         } else {
-            // Existing logic for regular subscriptions
             if (subscriptionPeriod === 'annual') {
                 date.setFullYear(date.getFullYear() + 1);
             } else {
@@ -64,7 +84,6 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
     
 
     return (
-
         
     <Modal show={showModal} onHide={resetContentAndToggleModal} centered size="lg">
 
@@ -149,6 +168,23 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
                     </div>
                 </div>
 
+                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Check 
+                        type="checkbox" 
+                        required 
+                        label={
+                            <span>
+                                I understand and agree to the 
+                                <a onClick={handleTermsClick}><span className='text-secondary'> Terms and Conditions </span></a> 
+                                and 
+                                <a onClick={handlePrivacyClick}><span className='text-secondary'> Privacy Policy</span></a>.
+                            </span>
+                        }
+                        onChange={handleCheckboxChange}
+                        checked={isAgreed}
+                    />
+                </Form.Group>
+
                 {showContent && (
                     <div className="content-wrapper">
                         <div className="login-image">
@@ -174,15 +210,16 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
                     variant="success" 
                     style={{ width: '100%' }}
                     onClick={handleContinueClick}
+                    disabled={!isAgreed} 
                 >
                     Continue
                 </Button>
+
 
             </Container>
         </Modal.Body>
 
     </Modal>
 
-    
     );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Card, Button, Badge } from 'react-bootstrap';
 import { GoCheckCircleFill } from "react-icons/go";
 import { IconContext } from "react-icons";
@@ -15,10 +16,37 @@ import Trial15 from './Trial15.js';
 
 export default function Pricing() {
     const [ selected, setSelected ] = useState('annual');
+    const navigate = useNavigate();
 
-    const packageOne = useCountingEffect(selected === 'annual' ? 989.99 : 1099.99)
+    const packageOne = useCountingEffect(selected === 'annual' ? 989.99 : 1099.99);
     
 
+    const handleGetStartedClick = () => {
+        const token = sessionStorage.getItem('token');
+        if (token)  {
+            const subject = encodeURIComponent("Interest in Starter Package");
+            const body = encodeURIComponent("I am interested in the Starter Package. Please provide me with more information.");
+
+            const mailtoLink = `mailto:supportus@mybizsolutions.us?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
+        } else {
+            navigate('/login'); 
+        }
+    };
+    
+    const handleGetStartedClickAdvanced = () => {
+        const token = sessionStorage.getItem('token');
+        if (token)  {
+            const subject = encodeURIComponent("Interest in Advanced Package + Commission per Collection Rep");
+            const body = encodeURIComponent("I am interested in the Advanced Package + Commission per Collection Rep. Please provide me with more information.");
+
+            const mailtoLink = `mailto:supportus@mybizsolutions.us?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
+        } else {
+            navigate('/login'); 
+        }
+    };
+    
     const handleSelect = (button) => {
       setSelected(button);
   };
@@ -156,7 +184,11 @@ export default function Pricing() {
                                         }</p>
                                     </h3>
                                     <Card.Subtitle className="mb-2 text-muted">Payroll $8 per employees/Month</Card.Subtitle>
-                                    <Button variant="outline-warning" className='my-3 full-width-button'>Get Started</Button>
+                                        
+                                        <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleGetStartedClick}>
+                                            Get Started
+                                        </Button>
+
                                     <Card.Text> Features included:</Card.Text>
                                     <div className='pb-5'>
                                         <IconContext.Provider value={{ color: "green", className: "me-2" }}>
@@ -189,7 +221,10 @@ export default function Pricing() {
                                         }</p>
                                     </h3>
                                     <Card.Subtitle className="mb-2 text-muted">Plus $100 & 30% Commission per Collection Rep</Card.Subtitle>
-                                    <Button variant="warning" className='my-3 full-width-button'>Get Started</Button>
+                                    
+                                        <Button variant="warning" className='my-3 full-width-button' onClick={handleGetStartedClickAdvanced}>
+                                            Get Started
+                                        </Button>           
                                     <Card.Text> Features included:</Card.Text>
                                     <div className='pb-5'>
                                         <IconContext.Provider value={{ color: "green", className: "me-2" }}>    

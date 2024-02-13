@@ -5,6 +5,7 @@ import web from '../assets/bookkeeping.png';
 import '../assets/styles/BookkeepingHome.css';
 
 const BookkeepingHome = () => {
+
     return (
         <>
             <Container className="landing-container my-3 d-none d-lg-block">
