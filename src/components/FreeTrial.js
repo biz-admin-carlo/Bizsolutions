@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, Button, Collapse } from 'react-bootstrap';
 import { GoCheckCircleFill } from "react-icons/go";
 import { IconContext } from "react-icons";
 import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
+import Axios from 'axios';
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function FreeTrialCard() {
+
+    const [ setUser ] = useState({});
+    const navigate = useNavigate();
 
     const isScreenSmall = () => {
         return window.innerWidth < 768;
@@ -20,6 +27,42 @@ export default function FreeTrialCard() {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            fetchUserDetails(token);
+        }
+    }, []);
+
+    const handleModalToggle = () => {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            navigate('/login/pricing');
+        } else {
+            navigate('/be-on-the-map');
+        }
+    };
+    
+        
+
+    const fetchUserDetails = async (token) => {
+        try {
+          const response = await Axios.get(`${apiUrl}/api/v1/users/details`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          if (response.status === 200) {
+            setUser(response.data);
+
+          } else {
+            console.error('Failed to fetch user details');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
 
     const featureList = [
         { 
@@ -42,8 +85,8 @@ export default function FreeTrialCard() {
                     <Card.Title>Free Trial</Card.Title>
                     <h3 className='card-text-amount'>Free</h3>
                     <Card.Subtitle className="mb-2 text-muted">Initiate Your Business With Us</Card.Subtitle>
-                    <Button variant="outline-warning" className='my-3 full-width-button'>Get Started</Button>
-                    
+
+                    <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleModalToggle}>Get Started</Button>
                     
                     {/* Collapsible Section */}
                     <Collapse in={open}>

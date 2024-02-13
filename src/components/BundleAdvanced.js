@@ -44,7 +44,7 @@ export default function BundleAdvanced({ selected }) {
         } catch (error) {
           console.error('Error:', error);
         }
-      };
+    };
 
     const handleModalToggle = () => {
         const token = sessionStorage.getItem('token');

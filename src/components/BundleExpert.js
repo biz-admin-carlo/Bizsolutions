@@ -1,13 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, Button, Badge, Collapse } from 'react-bootstrap';
 import { GoCheckCircleFill } from "react-icons/go";
 import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
 import { IconContext } from "react-icons";
 import '../assets/styles/AppInformation.css';
+import Axios from 'axios';
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function BundleExpert() {
     const [ open, setOpen ] = useState(false);
+    
+    const [ setUser] = useState({});
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            fetchUserDetails(token);
+        }
+    }, []);
+
+    const fetchUserDetails = async (token) => {
+        try {
+          const response = await Axios.get(`${apiUrl}/api/v1/users/details`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          if (response.status === 200) {
+            setUser(response.data);
+
+          } else {
+            console.error('Failed to fetch user details');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+    };
+
+    const handleGetStartedClick = () => {
+        const token = sessionStorage.getItem('token');
+        if (token)  {
+            const mailtoLink = `mailto:supportus@mybizsolutions.us?subject=Interest in Expert Bundle&body=I am interested in the Expert Bundle. Please provide me with more information.`;
+            window.location.href = mailtoLink;
+        } else {
+            navigate('/login'); 
+        }
+    };
 
     const featureList = [
         { 
@@ -59,18 +100,13 @@ export default function BundleExpert() {
             <Card.Body>
                 <Card.Title>Expert Setup</Card.Title>
                 <h3 className='card-text-amount'>
-                    Let's Talk!<p>chat with us <Badge pill bg="warning" text="dark">supportus@mybizsolutions.us</Badge></p>
+                    Let's Talk!<p><Badge pill bg="warning" text="dark">supportus@mybizsolutions.us</Badge></p>
                 </h3>
                 <Card.Subtitle className="mb-2 text-muted">Custom Solutions for Peak Potential</Card.Subtitle>
 
                 {/* Button and collapsible for sm screens */}
                 <div className="d-block d-md-none">
-                    <Button 
-                        variant="outline-warning" 
-                        className='my-3 full-width-button'
-                        aria-controls="collapse-features-sm"
-                        aria-expanded={open}
-                    >
+                    <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleGetStartedClick}>
                         Get Started
                     </Button>
 
@@ -113,7 +149,7 @@ export default function BundleExpert() {
 
                 {/* Regular display for md and larger screens */}
                 <div className="d-none d-md-block">
-                    <Button variant="outline-warning" className='my-3 full-width-button'>
+                    <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleGetStartedClick}>
                         Get Started
                     </Button>
                     

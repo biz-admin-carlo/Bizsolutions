@@ -45,10 +45,15 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
 
     const calculateExpirationDate = () => {
         const date = new Date(transactionDate);
-        if (subscriptionPeriod === 'annual') {
-            date.setFullYear(date.getFullYear() + 1);
+        if (bundleSetup === 'Trial') {
+            date.setDate(date.getDate() + 15); // Add 15 days for the trial period
         } else {
-            date.setMonth(date.getMonth() + 1);
+            // Existing logic for regular subscriptions
+            if (subscriptionPeriod === 'annual') {
+                date.setFullYear(date.getFullYear() + 1);
+            } else {
+                date.setMonth(date.getMonth() + 1);
+            }
         }
         return date.toLocaleDateString('en-US', { 
             year: 'numeric', 
@@ -56,23 +61,38 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
             day: 'numeric' 
         });
     };
+    
 
     return (
-        <Modal show={showModal} onHide={resetContentAndToggleModal} centered size="lg">
-            <Modal.Header closeButton className="modal-header-sm">
-                <h3 className='modalTitle'>{bundleSetup} Bundle with BizSolutions!</h3>
-            </Modal.Header>
-            <Modal.Body>
-                <Container>
 
-                    <div className='pb-3'>
-                            <IoMdCheckmark className='modalBodyDivCheck'/> Priority Business Listing <br />
-                            <IoMdCheckmark className='modalBodyDivCheck'/> Local Website <br />
-                            <IoMdCheckmark className='modalBodyDivCheck'/> Social Media Management <br />
-                        </div>
+        
+    <Modal show={showModal} onHide={resetContentAndToggleModal} centered size="lg">
 
-                    <hr />
-                    
+        <Modal.Header closeButton className="modal-header-sm">
+            <h3 className='modalTitle'>{bundleSetup} Bundle with BizSolutions!</h3>
+        </Modal.Header>
+            
+        <Modal.Body>
+            <Container>
+
+            <div className='pb-3'>
+                <IoMdCheckmark className='modalBodyDivCheck'/> Priority Business Listing <br />
+                <IoMdCheckmark className='modalBodyDivCheck'/> Local Website <br />
+                {bundleSetup !== 'Trial' && (
+                    <>
+                        <IoMdCheckmark className='modalBodyDivCheck'/> Social Media Management <br />
+                    </>
+                )}
+            </div>
+
+            <hr />
+
+                {bundleSetup === 'Trial' ? (
+                    <div>
+                        <p className='modalBodyDivOne'>Trial Price: {formatPrice(5.99)}</p>
+                        <p>Note: This is a one-time charge for the 15-day trial period.</p>
+                    </div>
+                ) : (
                     <Form>
                         <div className="mb-2">
                             <Form.Check 
@@ -107,59 +127,62 @@ export default function VerifyModal({ showModal, handleModalToggle, user, select
                                 <p className='modalBodyDivOne'>{formatPrice(getPrice())}</p>
                             )}
                         </div>
-                        
-                        <hr className="dashed-line" />
-
-
-                        <div className='flexContainer'>
-                            <div>
-                                <p className='modalBodyDivOne'>Due Date: {calculateExpirationDate()}</p>
-                            </div>
-                            <div>
-                                <p className='modalBodyDivOne text-'>Amount: {formatPrice(getPrice())}</p>
-                            </div>
-                        </div>
-                        <div className='flexContainer'>
-                            <div>
-                                <p className='modalBodyDivOne'> {user.firstName} {user.lastName} </p>
-                            </div>
-                            <div>
-                                <p className='modalBodyDivOne'> {user.email}</p>
-                            </div>
-                        </div>
-
-                        {showContent && (
-                            <div className="content-wrapper">
-                                <div className="login-image">
-                                    <img className="img-fluid resized-image" src={imgOne} alt="Web Application" />
-                                </div>
-
-                                <p className='note'>
-                                    <em>
-                                        *Scan the QR Code and click 'Continue'. Our 
-                                        <span className="sales-team"> Sales Team </span> 
-                                        at 
-                                        <span className="bizsolutions"> BizSolutions </span> 
-                                        will then contact you at your registered email address.
-                                        <br/> <br/> 
-                                        **If you have a preferred payment method, please send us an email to communicate this properly. Our email is 
-                                        <span className="sales-team"> sales@bizsolutions.com</span>.
-                                    </em>
-                                </p>
-                            </div>
-                        )}
-
-                        <Button 
-                            variant="success" 
-                            style={{ width: '100%' }}
-                            onClick={handleContinueClick}
-                        >
-                            Continue
-                        </Button>
-                        
                     </Form>
-                </ Container>
-            </Modal.Body>
-        </Modal>
+                )}
+
+                <hr className="dashed-line" />
+
+                <div className='flexContainer'>
+                    <div>
+                        <p className='modalBodyDivOne'>Due Date: {calculateExpirationDate()}</p>
+                    </div>
+                    <div>
+                        <p className='modalBodyDivOne text-'>Amount: {bundleSetup === 'Trial' ? formatPrice(5.99) : formatPrice(getPrice())}</p>
+                    </div>
+                </div>
+                <div className='flexContainer'>
+                    <div>
+                        <p className='modalBodyDivOne'> {user.firstName} {user.lastName} </p>
+                    </div>
+                    <div>
+                        <p className='modalBodyDivOne'> {user.email}</p>
+                    </div>
+                </div>
+
+                {showContent && (
+                    <div className="content-wrapper">
+                        <div className="login-image">
+                            <img className="img-fluid resized-image" src={imgOne} alt="Web Application" />
+                        </div>
+
+                        <p className='note'>
+                            <em>
+                                *Scan the QR Code and click 'Continue'. Our 
+                                <span className="sales-team"> Sales Team </span> 
+                                at 
+                                <span className="bizsolutions"> BizSolutions </span> 
+                                will then contact you at your registered email address.
+                                <br/> <br/> 
+                                **If you have a preferred payment method, please send us an email to communicate this properly. Our email is 
+                                <span className="sales-team"> sales@bizsolutions.com</span>.
+                            </em>
+                        </p>
+                    </div>
+                )}
+
+                <Button 
+                    variant="success" 
+                    style={{ width: '100%' }}
+                    onClick={handleContinueClick}
+                >
+                    Continue
+                </Button>
+
+            </Container>
+        </Modal.Body>
+
+    </Modal>
+
+    
     );
 };

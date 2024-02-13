@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, Button, Collapse } from 'react-bootstrap';
 import { GoCheckCircleFill } from "react-icons/go";
 import { IconContext } from "react-icons";
 import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
+import VerifyModal from './VerifyModal';
+import Axios from 'axios';
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function Trial15() {
+
+    const [ trialSetup, setTrialSetup ] = useState(5.99);
+    const [ transactionDate, setTransactionDate ] = useState(null);
+
+    const [ showModal, setShowModal ] = useState(false);
+
+    const [ user, setUser ] = useState({});
+    const navigate = useNavigate();
 
     const isScreenSmall = () => {
         return window.innerWidth < 768; 
@@ -20,6 +33,42 @@ export default function Trial15() {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            fetchUserDetails(token);
+        }
+    }, []);
+
+    const handleModalToggle = () => {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            navigate('/login/pricing');
+        } else {
+            setTransactionDate(new Date());
+            setShowModal(!showModal);
+        }
+    };
+
+
+    const fetchUserDetails = async (token) => {
+        try {
+          const response = await Axios.get(`${apiUrl}/api/v1/users/details`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          if (response.status === 200) {
+            setUser(response.data);
+
+          } else {
+            console.error('Failed to fetch user details');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+    };
 
     const featureList = [
         {
@@ -55,7 +104,8 @@ export default function Trial15() {
                 <Card.Title>15-Day Trial</Card.Title>
                 <h3 className='card-text-amount'>$5.99</h3>
                 <Card.Subtitle className="mb-2 text-muted">Boost Business with Key Features</Card.Subtitle>
-                <Button variant="warning" className='my-3 full-width-button'>Get Started</Button>
+
+                <Button variant="warning" className='my-3 full-width-button' onClick={handleModalToggle}>Get Started</Button>
                 
                 
                 {/* Collapsible Section */}
@@ -90,6 +140,17 @@ export default function Trial15() {
                     </Button>           
                 </div>
             </Card.Body>
+
+            <VerifyModal 
+                showModal={showModal}
+                handleModalToggle={handleModalToggle}
+                user={user}
+                selected={null} // This might need to be adjusted based on your logic
+                starterSetup={trialSetup}
+                bundleSetup="Trial" // Indicate that this is a trial setup
+                transactionDate={transactionDate}
+            />
+
         </Card>
     );
 }
