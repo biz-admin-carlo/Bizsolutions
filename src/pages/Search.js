@@ -23,7 +23,7 @@ const fetchApiData = (apiUrl, setData, setLoading) => {
       setLoading(false);
     })
     .catch(error => {
-      console.error('Error:', error);
+        // console.error('Error:', error);
       setLoading(false);
     });
 };
@@ -146,7 +146,7 @@ export default function Search() {
   
       const api = `${apiUrl}/api/v1/location/search/v1?latitude=${latitude}&longitude=${longitude}&term=${queryCategory}`;
       fetchApiData(api, setResultState, setLoading);
-      
+
     } else {
 
       const api = `${apiUrl}/api/v1/location/search/v2/?state=${queryLocation}&category=${queryCategory}`;

@@ -5,6 +5,10 @@ import { Helmet } from 'react-helmet';
 import tiktok from '../assets/tiktok.mp4'
 import AppFooter from './AppFooter';
 
+import imgOne from '../assets/gusto-logo.png';
+import imgTwo from '../assets/quickbooks-image.png';
+import imgThree from '../assets/xero-logo.png';
+
 import '../assets/styles/PageWebDevelopment.css';
 
 const Bookkeeping = () => {
@@ -47,6 +51,15 @@ const Bookkeeping = () => {
                             </div>
 
                             <button className="custom-button" onClick={handleButtonClick}>Contact Us!</button>
+
+                            <div className='py-5 center-images'>
+                                <h6 className='text-services'>Brand Partners</h6>
+
+                                <img className="py-lg-2 img-fluid custom-img-size" src={imgOne} alt="Web Application" />
+                                <img className="py-lg-2 img-fluid custom-img-size" src={imgTwo} alt="Web Application" />
+                                <img className="py-lg-2 img-fluid custom-img-size" src={imgThree} alt="Web Application" />
+                            </div>
+
                         </div>
 
                         <div className="video-container ps-lg-5">
