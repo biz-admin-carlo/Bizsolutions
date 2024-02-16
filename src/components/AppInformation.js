@@ -13,6 +13,7 @@ import BundleAdvanced from './BundleAdvanced.js';
 import BundleExpert from './BundleExpert.js';
 import FreeTrial from './FreeTrial.js';
 import Trial15 from './Trial15.js';
+import BookkeepingStarter from './BookkeepingStarter.js';
 
 export default function Pricing() {
     const [ selected, setSelected ] = useState('annual');
@@ -172,7 +173,7 @@ export default function Pricing() {
 
                     <div className='d-flex flex-wrap justify-content-around pb-5'>
 
-                        <div className='card-container'>
+                        {/* <div className='card-container'>
                             <Card className='card-shadow'>
                                 <Card.Body className='ms-3'>
                                     <Card.Title>Starter Package</Card.Title>
@@ -207,7 +208,14 @@ export default function Pricing() {
                                     </div>
                                 </Card.Body>
                             </Card>
-                        </div>
+                        </div> */}
+                        <BookkeepingStarter 
+                            selected={selected} 
+                            packageOne={packageOne} 
+                            handleGetStartedClick={handleGetStartedClick} 
+                        />
+
+
 
                         <div className='card-container'>
                             <Card className='card-shadow'>

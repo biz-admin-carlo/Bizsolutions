@@ -6,7 +6,7 @@ import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
 import { IconContext } from "react-icons";
 import useCountingEffect from './useCountingEffect';
 import '../assets/styles/AppInformation.css';
-import VerifyModal from './VerifyModal';
+// import VerifyModal from './VerifyModal';
 import Axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -14,10 +14,11 @@ const apiUrl = process.env.REACT_APP_API_URL;
 export default function BundleAdvanced({ selected }) {
     const advanceSetup = useCountingEffect(selected === 'annual' ? 89.99 : 99.99);
 
-    const [ transactionDate, setTransactionDate ] = useState(null);
+    // const [ transactionDate, setTransactionDate ] = useState(null);
+    // const [ showModal, setShowModal ] = useState(false);
+
     const [ open, setOpen ] = useState(false);
 
-    const [ showModal, setShowModal ] = useState(false);
     const [ user, setUser ] = useState({});
     const navigate = useNavigate();
 
@@ -39,20 +40,31 @@ export default function BundleAdvanced({ selected }) {
             setUser(response.data);
 
           } else {
-            console.error('Failed to fetch user details');
+            // console.error('Failed to fetch user details');
           }
         } catch (error) {
-          console.error('Error:', error);
+          // console.error('Error:', error);
         }
     };
 
     const handleModalToggle = () => {
         const token = sessionStorage.getItem('token');
+        
         if (!token) {
             navigate('/login/pricing');
-        } else if (!user.isAdmin) {
-            setTransactionDate(new Date());
-            setShowModal(!showModal);
+            return; 
+        }
+    
+        const stripePaymentLinks = {
+            monthly: "https://buy.stripe.com/eVa9BQcaL9xBaekcMN",
+            annual: "https://buy.stripe.com/14kdS6gr1259cmsaEJ"
+        };
+    
+        const paymentUrl = stripePaymentLinks[selected];
+        if (paymentUrl) {
+            window.location.href = paymentUrl;
+        } else {
+            // console.error('Invalid subscription type selected');
         }
     };
 
@@ -181,7 +193,7 @@ export default function BundleAdvanced({ selected }) {
 
                 </div>
 
-                <VerifyModal 
+                {/* <VerifyModal 
                     showModal={showModal}
                     handleModalToggle={handleModalToggle}
                     user={user}
@@ -189,7 +201,7 @@ export default function BundleAdvanced({ selected }) {
                     starterSetup={advanceSetup}
                     bundleSetup="Advanced Setup"
                     transactionDate={transactionDate}
-                />
+                /> */}
 
             </Card.Body>
         </Card>

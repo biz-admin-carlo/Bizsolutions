@@ -4,17 +4,16 @@ import { Card, Button, Collapse } from 'react-bootstrap';
 import { GoCheckCircleFill } from "react-icons/go";
 import { IconContext } from "react-icons";
 import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
-import VerifyModal from './VerifyModal';
+// import VerifyModal from './VerifyModal';
 import Axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function Trial15() {
 
-    const [ trialSetup, setTrialSetup ] = useState(5.99);
-    const [ transactionDate, setTransactionDate ] = useState(null);
-
-    const [ showModal, setShowModal ] = useState(false);
+    // const [ trialSetup, setTrialSetup ] = useState(5.99);
+    // const [ transactionDate, setTransactionDate ] = useState(null);
+    // const [ showModal, setShowModal ] = useState(false);
 
     const [ user, setUser ] = useState({});
     const navigate = useNavigate();
@@ -43,12 +42,14 @@ export default function Trial15() {
 
     const handleModalToggle = () => {
         const token = sessionStorage.getItem('token');
+        
         if (!token) {
             navigate('/login/pricing');
+            return; 
         } else {
-            setTransactionDate(new Date());
-            setShowModal(!showModal);
+            window.location.href = "https://buy.stripe.com/cN2eWa4IjcJNbiofZ0";
         }
+
     };
 
 
@@ -63,10 +64,10 @@ export default function Trial15() {
             setUser(response.data);
 
           } else {
-            console.error('Failed to fetch user details');
+            // console.error('Failed to fetch user details');
           }
         } catch (error) {
-          console.error('Error:', error);
+          // console.error('Error:', error);
         }
     };
 
@@ -141,7 +142,7 @@ export default function Trial15() {
                 </div>
             </Card.Body>
 
-            <VerifyModal 
+            {/* <VerifyModal 
                 showModal={showModal}
                 handleModalToggle={handleModalToggle}
                 user={user}
@@ -149,7 +150,7 @@ export default function Trial15() {
                 starterSetup={trialSetup}
                 bundleSetup="Trial" // Indicate that this is a trial setup
                 transactionDate={transactionDate}
-            />
+            /> */}
 
         </Card>
     );

@@ -5,7 +5,7 @@ import { GoCheckCircleFill } from "react-icons/go";
 import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
 import { IconContext } from "react-icons";
 import useCountingEffect from './useCountingEffect';
-import VerifyModal from './VerifyModal';
+// import VerifyModal from './VerifyModal';
 import Axios from 'axios';
 
 import '../assets/styles/AppInformation.css';
@@ -15,10 +15,11 @@ const apiUrl = process.env.REACT_APP_API_URL;
 export default function BundleStarter({ selected }) {
 
     const starterSetup = useCountingEffect(selected === 'annual' ? 44.99 : 49.99);
-    const [ transactionDate, setTransactionDate ] = useState(null);
+    // const [ transactionDate, setTransactionDate ] = useState(null);
+    // const [ showModal, setShowModal ] = useState(false);
+
     const [ open, setOpen ] = useState(false);
 
-    const [ showModal, setShowModal ] = useState(false);
     const [ user, setUser ] = useState({});
     const navigate = useNavigate();
 
@@ -40,23 +41,35 @@ export default function BundleStarter({ selected }) {
             setUser(response.data);
 
           } else {
-            console.error('Failed to fetch user details');
+            // console.error('Failed to fetch user details');
           }
         } catch (error) {
-          console.error('Error:', error);
+          // console.error('Error:', error);
         }
       };
 
     const handleModalToggle = () => {
         const token = sessionStorage.getItem('token');
+        
         if (!token) {
             navigate('/login/pricing');
-        } else if (!user.isAdmin) {
-            setTransactionDate(new Date());
-            setShowModal(!showModal);
+            return; 
+        }
+    
+        const stripePaymentLinks = {
+            monthly: "https://buy.stripe.com/3cs4hwfmXh033PWaEE",
+            annual: "https://buy.stripe.com/14k5lA5Mn9xBbio9AE"
+        };
+    
+        const paymentUrl = stripePaymentLinks[selected];
+        if (paymentUrl) {
+            window.location.href = paymentUrl;
+        } else {
+            // console.error('Invalid subscription type selected');
         }
     };
-
+    
+    
     const featureList = [
         { 
             title: "Priority Business Listing", 
@@ -182,7 +195,7 @@ export default function BundleStarter({ selected }) {
 
                 </div>
 
-                <VerifyModal 
+                {/* <VerifyModal 
                     showModal={showModal}
                     handleModalToggle={handleModalToggle}
                     user={user}
@@ -190,7 +203,7 @@ export default function BundleStarter({ selected }) {
                     starterSetup={starterSetup}
                     bundleSetup="Starter Setup"
                     transactionDate={transactionDate}
-                />
+                /> */}
 
             </Card.Body>
         </Card>
