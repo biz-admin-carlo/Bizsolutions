@@ -46,7 +46,7 @@ export default function BundleExpert() {
             const mailtoLink = `mailto:supportus@mybizsolutions.us?subject=Interest in Expert Bundle&body=I am interested in the Expert Bundle. Please provide me with more information.`;
             window.location.href = mailtoLink;
         } else {
-            navigate('/login'); 
+            navigate('/login/pricing'); 
         }
     };
 

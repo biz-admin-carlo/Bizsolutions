@@ -43,7 +43,7 @@ export default function NewLogin() {
                 setMessage('');
             }
         } catch (error) {
-            console.error('Error checking email:', error);
+            // console.error('Error checking email:', error);
         }
     };
 
@@ -63,6 +63,8 @@ export default function NewLogin() {
                 window.location.reload();
                 sessionStorage.setItem('token', result.accessToken);
                 navigate('/pricing');
+            } else if (result.status === 403) {
+                setMessage('Account is already inactive.');
             } else {
                 setMessage('Password is incorrect!');
             }

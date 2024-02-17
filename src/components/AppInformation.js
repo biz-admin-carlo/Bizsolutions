@@ -31,7 +31,7 @@ export default function Pricing() {
             const mailtoLink = `mailto:supportus@mybizsolutions.us?subject=${subject}&body=${body}`;
             window.location.href = mailtoLink;
         } else {
-            navigate('/login'); 
+            navigate('/login/pricing'); 
         }
     };
     
@@ -44,7 +44,7 @@ export default function Pricing() {
             const mailtoLink = `mailto:supportus@mybizsolutions.us?subject=${subject}&body=${body}`;
             window.location.href = mailtoLink;
         } else {
-            navigate('/login'); 
+            navigate('/login/pricing'); 
         }
     };
     

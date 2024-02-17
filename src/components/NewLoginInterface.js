@@ -44,7 +44,7 @@ export default function NewLogin() {
                 setMessage('');
             }
         } catch (error) {
-            console.error('Error checking email:', error);
+            // console.error('Error checking email:', error);
         }
     };
 
