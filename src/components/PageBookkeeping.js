@@ -63,7 +63,9 @@ const Bookkeeping = () => {
                         </div>
 
                         <div className="video-container ps-lg-5">
-                            <video width="960px" height="540px" className="img-fluid" muted src={tiktok} autoPlay loop></video>
+                            <a href="https://www.youtube.com/shorts/XcoLWjWWh7g" target="_blank" rel="noopener noreferrer">
+                                <video width="960px" height="540px" className="img-fluid" muted src={tiktok} autoPlay loop></video>
+                            </a>
                         </div>
 
                     </div>

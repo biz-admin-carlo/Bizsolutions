@@ -71,8 +71,9 @@ export default function Pricing() {
                     </div>
 
                     <div className="content-container">
-                        <video width="320" height="240" className="img-fluid" src={tiktok} autoPlay loop></video>
-
+                        <a href="https://www.youtube.com/shorts/XcoLWjWWh7g" target="_blank" rel="noopener noreferrer">
+                            <video width="320" height="240" className="img-fluid" src={tiktok} autoPlay loop></video>
+                        </a>
                     </div>
                 </div>
 
@@ -173,49 +174,11 @@ export default function Pricing() {
 
                     <div className='d-flex flex-wrap justify-content-around pb-5'>
 
-                        {/* <div className='card-container'>
-                            <Card className='card-shadow'>
-                                <Card.Body className='ms-3'>
-                                    <Card.Title>Starter Package</Card.Title>
-                                    <h3 className='card-text-amount'>
-                                        ${packageOne}<p>per month {
-                                        selected === 'annual' ?
-                                            <Badge pill bg="warning" text="dark">billed annually</Badge> :
-                                            <Badge pill bg="light" text="warning">billed monthly</Badge>
-                                        }</p>
-                                    </h3>
-                                    <Card.Subtitle className="mb-2 text-muted">Payroll $8 per employees/Month</Card.Subtitle>
-                                        
-                                        <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleGetStartedClick}>
-                                            Get Started
-                                        </Button>
-
-                                    <Card.Text> Features included:</Card.Text>
-                                    <div className='pb-5'>
-                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
-                                            <div><GoCheckCircleFill />Payroll</div>
-                                            <div><GoCheckCircleFill />5 Users of Accounting & Payroll Software </div>
-                                            <div><GoCheckCircleFill />Day to day Management of Accounts</div>
-                                            <div><GoCheckCircleFill />Manage Bank Feeds</div>
-                                            <div><GoCheckCircleFill />Handle Accounts Payable</div>
-                                            <div><GoCheckCircleFill />Manage Accounts Receivable*</div>
-                                            <div><GoCheckCircleFill />Preparing Management Reports and Financial Statements</div>
-                                        </IconContext.Provider>                               
-                                    </div>
-                                    
-                                    <div>
-                                        <div className='italic-text'>*This includes - Invoicing and Collections within 30 Days</div>
-                                    </div>
-                                </Card.Body>
-                            </Card>
-                        </div> */}
                         <BookkeepingStarter 
                             selected={selected} 
                             packageOne={packageOne} 
                             handleGetStartedClick={handleGetStartedClick} 
                         />
-
-
 
                         <div className='card-container'>
                             <Card className='card-shadow'>
