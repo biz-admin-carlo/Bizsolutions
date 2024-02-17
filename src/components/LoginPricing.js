@@ -28,24 +28,24 @@ export default function NewLogin() {
 
     useEffect(() => {
         if (email !== '' || message !== '') {
-            checkEmail(email);
+            // checkEmail(email);
         } else {
             setMessage('');
         }
     }, [email]);
 
-    const checkEmail = async (email) => {
-        try {
-            const response = await axios.get(`${apiUrl}/api/v1/users/check-email/${email}`);
-            if (response.data.exists === false) {
-                setMessage("The email address you entered isn't connected to an account.");
-            } else {
-                setMessage('');
-            }
-        } catch (error) {
-            // console.error('Error checking email:', error);
-        }
-    };
+    // const checkEmail = async (email) => {
+    //     try {
+    //         const response = await axios.get(`${apiUrl}/api/v1/users/check-email/${email}`);
+    //         if (response.data.exists === false) {
+    //             setMessage("The email address you entered isn't connected to an account.");
+    //         } else {
+    //             setMessage('');
+    //         }
+    //     } catch (error) {
+    //         // console.error('Error checking email:', error);
+    //     }
+    // };
 
     const authenticate = async (event) => {
         event.preventDefault();
@@ -104,7 +104,7 @@ export default function NewLogin() {
                                         value={email}
                                         onChange={event => {
                                             setEmail(event.target.value);
-                                            checkEmail(event.target.value);
+                                            // checkEmail(event.target.value);
                                           }}
                                         
                                     />
