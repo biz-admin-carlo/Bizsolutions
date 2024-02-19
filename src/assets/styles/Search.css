@@ -1,5 +1,5 @@
 .app-background {
-	background-image: url(../app-landing-page-bg.png);
+	background-image: url(../img-app-landing-page-bg.png);
 	background-size: cover; /* Cover the entire area */
     background-repeat: no-repeat;
     background-attachment: fixed; /* Optional: to fix the background during scroll */

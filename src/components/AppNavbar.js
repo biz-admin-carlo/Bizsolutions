@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import { FiX } from 'react-icons/fi';
 
-import logo from '../assets/app-logo.jpg'
+import logo from '../assets/icon-app-logo.jpg'
 
 import UserContext from '../UserContext';
 

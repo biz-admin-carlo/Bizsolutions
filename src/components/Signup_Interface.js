@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReCAPTCHA from "react-google-recaptcha";
-import imgTwo from '../assets/app-home-banner.png';
-import BarSpinner from '../components/BarSpinner';
+import imgTwo from '../assets/img-app-home-banner.png';
+import BarSpinner from './Reusable_BarSpinner';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 

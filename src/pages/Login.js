@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { Navigate } from 'react-router-dom';
 import UserContext from '../UserContext';
 
-import NewLoginInterface from '../components/NewLoginInterface';
+import LoginUserInterface from '../components/Login_UserInterface';
 
 export default function Login() {
   const { setUser } = useContext(UserContext);
@@ -26,7 +26,8 @@ export default function Login() {
         <title>BizSolutions | Login</title>
       </Helmet>
       
-      <NewLoginInterface />
+      <div data-aos="fade-up"><LoginUserInterface /></div>
+      
     </>
     
   );

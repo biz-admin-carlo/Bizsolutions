@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import web from '../assets/web-development.svg';
+import web from '../assets/img-web-development-stock.svg';
 import '../assets/styles/WebDevHome.css';
 
 const WebDevHome = () => {

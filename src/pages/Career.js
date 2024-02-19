@@ -10,7 +10,7 @@ const CareerPage = () => {
     return (
         <>
             <Helmet>
-                <title>BizSolutions | About Us</title>
+                <title>BizSolutions | Careers</title>
             </Helmet>
 
             <div className='app-landing-page-service'>

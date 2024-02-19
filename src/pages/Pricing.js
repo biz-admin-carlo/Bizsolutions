@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet'; 
 import UserContext from '../UserContext';
-import AppInformation from '../components/AppInformation.js'
+import PricingAppInformation from '../components/Pricing_AppInformation.js'
 import AppFooter from '../components/AppFooter';
 
 
@@ -15,12 +15,9 @@ export default function Home() {
         {/*<AdminPanel data-aos="fade-up" />*/}
       ) : (
         <>  
-          <Helmet>
-            <title>BizSolutions | Pricing</title>
-          </Helmet>
-
-            <div><AppInformation /></div>
-            <AppFooter />
+          <Helmet><title>BizSolutions | Pricing</title></Helmet>
+            <div data-aos="fade-up"><PricingAppInformation /></div>
+          <AppFooter />
         </>
       )}
     </div>

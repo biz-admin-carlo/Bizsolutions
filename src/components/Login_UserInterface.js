@@ -2,10 +2,10 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Form } from 'react-bootstrap';
-import AppFooter from '../components/AppFooter';
-import imgOne from '../assets/app-landing-banner.png';
+import AppFooter from './AppFooter';
+import imgOne from '../assets/img-app-landing-banner.png';
 import UserContext from '../UserContext';
-import BarSpinner from '../components/BarSpinner';
+import BarSpinner from './Reusable_BarSpinner';
 import { PiEye, PiEyeSlash } from 'react-icons/pi';
 import '../assets/styles/NewLoginInterface.css';
 

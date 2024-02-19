@@ -2,12 +2,12 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; 
-import tiktok from '../assets/tiktok.mp4'
+import tiktok from '../assets/video-are-you-ready-stock.mp4'
 import AppFooter from './AppFooter';
 
-import imgOne from '../assets/gusto-logo.png';
-import imgTwo from '../assets/quickbooks-image.png';
-import imgThree from '../assets/xero-logo.png';
+import imgOne from '../assets/icon-gusto-logo.png';
+import imgTwo from '../assets/icon-quickbooks-logo.png';
+import imgThree from '../assets/icon-xero-logo.png';
 
 import '../assets/styles/PageWebDevelopment.css';
 

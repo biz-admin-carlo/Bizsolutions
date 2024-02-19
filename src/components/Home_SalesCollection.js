@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import web from '../assets/IT-Support.png';
-import '../assets/styles/TechnicalHome.css';
+import web from '../assets/img-sales-collection-stock.png';
+import '../assets/styles/SalesCollection.css';
 
-const TechnicalHome = () => {
+const SalesCollection = () => {
     return (
         <>
             <Container className="landing-container my-3 d-none d-lg-block">
@@ -13,10 +13,10 @@ const TechnicalHome = () => {
                         <Image src={web} className='image-size-three' rounded alt="Web Development" />
                     </div>
                     <div className="flex-col content-col mx-3">
-                        <h1 className='title text-center'><Link to="/technical-support" style={{ textDecoration: 'none', color: 'inherit' }}>Technical & IT Support</Link></h1>
+                        <h1 className='title text-center'><Link to="/sales-collection" style={{ textDecoration: 'none', color: 'inherit' }}>Sales & Collections</Link></h1>
                         <hr />
                         <p className="paragraph-text">
-                        Navigate the complexities of technology with ease. Our technical and IT support services are here to resolve your tech challenges promptly, ensuring your operations run smoothly without any disruptions.
+                        Boost your revenue with our expert sales and collections services. We combine strategic insight with persuasive communication skills to effectively manage sales and collections, driving better business outcomes for you.
                         </p>
                     </div>
                     
@@ -26,10 +26,10 @@ const TechnicalHome = () => {
             <Container className="landing-container d-lg-none">
                 <div className="flex-row">
                     <div className="flex-col content-col mx-3">
-                        <h1 className='title text-center'><Link to="/technical-support" style={{ textDecoration: 'none', color: 'inherit' }}>Technical & IT Support</Link></h1>
+                        <h1 className='title text-center'><Link to="/sales-collection" style={{ textDecoration: 'none', color: 'inherit' }}>Sales & Collections</Link></h1>
                         <hr />
                         <p className="paragraph-text text-center">
-                        Navigate the complexities of technology with ease. Our technical and IT support services are here to resolve your tech challenges promptly, ensuring your operations run smoothly without any disruptions.
+                        Boost your revenue with our expert sales and collections services. We combine strategic insight with persuasive communication skills to effectively manage sales and collections, driving better business outcomes for you.
                         </p>
                     </div>
 
@@ -43,4 +43,4 @@ const TechnicalHome = () => {
     );
 };
 
-export default TechnicalHome;
+export default SalesCollection;

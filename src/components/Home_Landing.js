@@ -4,7 +4,7 @@ import { MdMyLocation } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import imgOne from '../assets/img-app-vertical.png';
 import '../assets/styles/NewLoginInterface.css';
-import BarSpinner from '../components/BarSpinner';
+import BarSpinner from './Reusable_BarSpinner';
 
 export default function NewLogin() {
 

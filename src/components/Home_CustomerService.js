@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import web from '../assets/CustomerSupport.png';
+import web from '../assets/img-customer-support-stock.png';
 import '../assets/styles/CustomerSupport.css';
 
 const CustomerService = () => {

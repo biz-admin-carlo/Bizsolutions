@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; 
-import tiktok from '../assets/tiktok.mp4'
+import tiktok from '../assets/video-are-you-ready-stock.mp4'
 import AppFooter from './AppFooter';
 
 import '../assets/styles/PageWebDevelopment.css';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Container, Modal } from 'react-bootstrap';
 import Axios from 'axios';
-import BarSpinner from './BarSpinner';
+import BarSpinner from './Reusable_BarSpinner';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 

@@ -1,29 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
-import UserContext from '../UserContext';
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Tab from 'react-bootstrap/Tab';
+import Axios from 'axios';
+import { Container, Row, Col, Card, ListGroup, Tab, Button } from 'react-bootstrap';
 
-import '../assets/styles/AccountInfo.css';
-
-import AccountDetails from './AccountDetails.js';
-import Messages from './Messages.js';
-import NewsFeed from './NewsFeed.js';
-import Feedbacks from './Feedbacks.js';
-import ChangePassword from './ChangePassword.js';
-import DeleteAccount from './DeleteAccount.js';
-import logo from '../assets/round-image.png'
+import AccountDetails from './AccountInfo_AccountDetails.js';
+import Messages from './AccountInfo_Messages.js';
+import NewsFeed from './AccountInfo_NewsFeed.js';
+import Feedbacks from './AccountInfo_Feedbacks.js';
+import ChangePassword from './AccountInfo_ChangePassword.js';
+import DeleteAccount from './AccountInfo_DeleteAccount.js';
+import BarSpinner from './Reusable_BarSpinner';
 import AppFooter from '../components/AppFooter';
 
+import logo from '../assets/icon-round-image.png';
+import '../assets/styles/AccountInfo.css';
 
-
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Axios from 'axios';
-
-import BarSpinner from './BarSpinner';
+import UserContext from '../UserContext';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 

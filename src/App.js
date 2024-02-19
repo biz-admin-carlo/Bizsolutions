@@ -7,7 +7,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import Home from './pages/NewHome';
+import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/Signup';
 import Search from './pages/Search';
@@ -16,7 +16,7 @@ import Pricing from './pages/Pricing';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import LoginPricing from './components/LoginPricing';
-import ScrollToTop from './components/ScrollToTop';
+import ScrollToTop from './components/Reusable_ScrollToTop';
 
 import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';

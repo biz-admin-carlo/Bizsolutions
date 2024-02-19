@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, FloatingLabel, Form, Button, Col} from 'react-bootstrap';
-import BarSpinner from '../components/BarSpinner';
+import BarSpinner from './Reusable_BarSpinner';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 

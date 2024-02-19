@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import web from '../assets/bookkeeping.png';
+import web from '../assets/img-bookkeeping-stock.png';
 import '../assets/styles/BookkeepingHome.css';
 
 const BookkeepingHome = () => {
