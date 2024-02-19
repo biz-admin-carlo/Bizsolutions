@@ -18,7 +18,7 @@ const BookkeepingStarter = ({ selected, packageOne, handleGetStartedClick }) => 
     
         const stripePaymentLinks = {
             monthly: "https://buy.stripe.com/14kcO23Ef39d728eUX",
-            annual: "https://buy.stripe.com/6oEcO2a2DcJN9ag14a"
+            annual: "https://buy.stripe.com/7sIaFU1w76lp0DKbIR"
         };
     
         const paymentUrl = stripePaymentLinks[selected];
