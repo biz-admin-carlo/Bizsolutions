@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Card, Button, Badge } from 'react-bootstrap';
 import { GoCheckCircleFill } from "react-icons/go";
@@ -7,20 +7,25 @@ import useCountingEffect from './useCountingEffect.js';
 import '../assets/styles/AppInformation.css';
 
 import tiktok from '../assets/video-are-you-ready-stock.mp4'
-import Typings from './Typings.js'
-import BundleStarter from './BundleStarter.js';
-import BundleAdvanced from './BundleAdvanced.js';
-import BundleExpert from './BundleExpert.js';
-import FreeTrial from './FreeTrial.js';
-import Trial15 from './Trial15.js';
-import BookkeepingStarter from './BookkeepingStarter.js';
+import Typings from './Pricing_TypingsEffect.js'
+import BundleStarter from './Pricing_WebDevBundleStarter.js';
+import BundleAdvanced from './Pricing_WebDevBundleAdvanced.js';
+import BundleExpert from './Pricing_WebDevBundleExpert.js';
+import FreeTrial from './Pricing_FreeTrial.js';
+import Trial15 from './Pricing_Trial15.js';
+import BookkeepingStarter from './Pricing_BookkeepingStarter.js';
 
 export default function Pricing() {
     const [ selected, setSelected ] = useState('annual');
+    const [ loadVideo, setLoadVideo ] = useState(false);
+
     const navigate = useNavigate();
 
     const packageOne = useCountingEffect(selected === 'annual' ? 989.99 : 1099.99);
     
+    useEffect(() => {
+        setLoadVideo(true);
+    }, []);
 
     const handleGetStartedClick = () => {
         const token = sessionStorage.getItem('token');
@@ -71,9 +76,13 @@ export default function Pricing() {
                     </div>
 
                     <div className="content-container">
-                        <a href="https://www.youtube.com/shorts/XcoLWjWWh7g" target="_blank" rel="noopener noreferrer">
-                            <video width="320" height="240" className="img-fluid" src={tiktok} autoPlay loop></video>
-                        </a>
+                        {loadVideo && (
+                            <a href="https://www.youtube.com/shorts/XcoLWjWWh7g" target="_blank" rel="noopener noreferrer">
+                                <video width="320" height="240" className="img-fluid" autoPlay loop>
+                                    <source src={require('../assets/video-are-you-ready-stock.mp4')} type="video/mp4" />
+                                </video>
+                            </a>
+                        )}
                     </div>
                 </div>
 

@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; 
-import tiktok from '../assets/video-are-you-ready-stock.mp4'
-import AppFooter from '../components/AppFooter';
-
+import AppFooter from './AppFooter';
 import '../assets/styles/PageWebDevelopment.css';
 
 const WebDevHome = () => {
 
     const navigate = useNavigate();
+    const [ loadVideo, setLoadVideo ] = useState(false);
+
+    useEffect(() => {
+        setLoadVideo(true);
+    }, []);
 
     const handleButtonClick = () => {
         navigate('/login');
@@ -48,9 +51,13 @@ const WebDevHome = () => {
                         </div>
 
                         <div className="video-container ps-lg-5">
-                            <a href="https://www.youtube.com/shorts/XcoLWjWWh7g" target="_blank" rel="noopener noreferrer">
-                                <video width="960px" height="540px" className="img-fluid" muted src={tiktok} autoPlay loop></video>
-                            </a>
+                            {loadVideo && (
+                                <a href="https://www.youtube.com/shorts/XcoLWjWWh7g" target="_blank" rel="noopener noreferrer">
+                                    <video width="960px" height="540px" className="img-fluid" muted autoPlay loop>
+                                        <source src={require('../assets/video-are-you-ready-stock.mp4')} type="video/mp4" />
+                                    </video>
+                                </a>
+                            )}
                         </div>
 
                     </div>
