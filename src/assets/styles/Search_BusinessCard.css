@@ -41,3 +41,17 @@
   height: 220px; 
   width: 400px; 
 }
+
+/* Hide on small screens (less than 768px) */
+@media (max-width: 767.98px) {
+  .hidden-sm {
+    display: none;
+  }
+}
+
+/* Show on medium and large screens (768px and wider) */
+@media (min-width: 768px) {
+  .visible-md-lg {
+    display: block;
+  }
+}

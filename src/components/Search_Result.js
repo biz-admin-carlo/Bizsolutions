@@ -5,15 +5,18 @@ import '../assets/styles/SearchResult.css';
 
 export default function SearchResult() {
     return (
-        <Container >
+        <Container>
             <div className='orange-background p-5'>
-                <div className='p-3 d-none d-lg-block'>
+                {/* Visible on medium and large screens */}
+                <div className='p-3 d-none d-md-block'>
                     <NavLink to="/home" className="text-result-link">
                         <h1 className='text-result'>BizSolutions</h1>
                     </NavLink>
                     <h4 className='text-tagline'>Your Partner for your Business Needs</h4>
                 </div>
-                <div className=' d-block d-md-none'>
+
+                {/* Visible on small screens */}
+                <div className='d-block d-md-none'>
                     <NavLink to="/home" className="text-result-link">
                         <h1 className='text-result-sm'>BizSolutions</h1>
                     </NavLink>
@@ -22,4 +25,4 @@ export default function SearchResult() {
             </div>
         </Container>
     );
-};
+}

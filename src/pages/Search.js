@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; 
-import { Container, Breadcrumb } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import 'react-loading-skeleton/dist/skeleton.css';
 import '../assets/styles/Search.css';
-import BusinessCard from '../components/BusinessCard';
-import SearchResult from '../components/SearchResult';
+
+import BusinessCard from '../components/Search_BusinessCard';
+import Pagination from '../components/Search_Pagination';
+import Breadcrumb from '../components/Search_Breadcrumb';
+
+
+import SearchResult from '../components/Search_Result';
 import AppFooter from '../components/AppFooter';
 import BusinessCardSkeleton from '../components/BusinessCardSkeleton';
 
@@ -165,12 +170,12 @@ export default function Search() {
       <SearchResult />
 
       <Container>
-        <Breadcrumb className='pt-2'>
-          <Breadcrumb.Item onClick={() => navigate('/')} className="no-text-decoration">Home</Breadcrumb.Item>
-          <Breadcrumb.Item active className="no-text-decoration">
-            {generateBreadcrumbText()}
-          </Breadcrumb.Item>
-        </Breadcrumb>
+
+        <Breadcrumb
+          coordinates={coordinates}
+          category={category}
+          locationState={locationState}
+        />
       
       <h3>{generateHeaderTitle()}</h3>
 
@@ -189,21 +194,12 @@ export default function Search() {
 
             {resultState && resultState.businesses && resultState.businesses.length > itemsPerPage && (
               <div className="center-content">
-                <nav aria-label="Page navigation example">
-                  <ul className="pagination">
-                    {[...Array(Math.ceil(resultState.businesses.length / itemsPerPage)).keys()].map(page => (
-                      <li className={`page-item ${page + 1 === currentPage ? 'active' : ''}`} key={page + 1}>
-                        <a
-                          className="page-link"
-                          href="#"
-                          onClick={() => handlePageChange(page + 1)}
-                        >
-                          {page + 1}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
+                <Pagination
+                  totalItems={resultState.businesses.length}
+                  itemsPerPage={itemsPerPage}
+                  currentPage={currentPage}
+                  onPageChange={handlePageChange}
+                />
               </div>
             )}
           </div>

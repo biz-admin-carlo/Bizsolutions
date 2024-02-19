@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Container, Badge } from 'react-bootstrap';
 import Rating from 'react-rating-stars-component';
-import '../assets/styles/BusinessCard.css';
+import '../assets/styles/Search_BusinessCard.css';
 
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css'; 
@@ -44,7 +44,7 @@ const BusinessCard = ({ state, business, index }) => {
 
   return (
     <>
-      <Container>
+      <Container className="visible-md-lg hidden-sm">
         <div className="content-wrapper">
 
           <div className="image-container">
@@ -114,6 +114,69 @@ const BusinessCard = ({ state, business, index }) => {
 
         </div>
       </Container>
+
+    <Container className="d-block d-md-none">
+      <div className="d-flex flex-column align-items-center">
+
+        {/* Image Container */}
+        <div className="image-container mb-3"> {/* Added margin-bottom for spacing */}
+            <img
+                src={business.image_url}
+                alt={business.name}
+                onError={handleImageError}
+                className="rounded-image img-fluid"
+            />
+        </div>
+
+        <Container>
+          <div className="row">
+            <div className="col-12 col-md-8 text-container px-2 px-md-3">
+              <h5>{business.name}</h5>
+              <a href={business.url} target="_blank" rel="noopener noreferrer" className='text-secondary url-link'>
+                <p className='text-secondary url-link'>{getBaseUrl(business.url)}</p>
+              </a>
+              <div className="rating-row">
+                <span className='text-secondary url-link'>Average Rating:</span>
+                <span className="rating-container">
+                  <Rating
+                    value={business.rating}
+                    readOnly
+                    size={20}
+                    activeColor='#FF851A'
+                    isHalf
+                  />
+                </span>
+              </div>
+
+              {selectedState !== null && (
+                <div className="rating-row">
+                  <span className='text-secondary url-link'>Distance from My Location:
+                    <Badge bg="secondary ms-1"> {distanceInMiles} Miles</Badge>
+                  </span>
+                </div>
+              )}
+
+              <div className='pt-lg-2'>
+                <Card.Subtitle className="mb-1 text-muted custom-inline">
+                  <Badge bg="warning">{business.categories[0].title}</Badge>
+                </Card.Subtitle>
+
+                <Card.Subtitle className="mb-1 text-muted custom-inline">
+                  <Badge bg="danger">{business.display_phone}</Badge>
+                </Card.Subtitle>
+
+                <Card.Subtitle className="mb-1 text-muted custom-inline">
+                  <Badge bg="success">{business.location.display_address[2]}</Badge>
+                </Card.Subtitle>
+              </div>
+            </div>
+          </div>
+        </Container>
+
+      </div>
+    </Container>
+
+
     </>
   );
 };
