@@ -21,11 +21,11 @@ import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
 import Career from './pages/Career'
 
-import PageWebDevelopment from './components/PageWebDevelopment';
-import PageBookkeeping from './components/PageBookkeeping';
-import PageTechnicalSupport from './components/PageTechnicalSupport';
-import PageCustomerService from './components/PageCustomerService';
-import PageSalesCollections from './components/PageSalesCollections';
+import PageWebDevelopment from './components/Page_WebDevelopment';
+import PageBookkeeping from './components/Page_Bookkeeping';
+import PageTechnicalSupport from './components/Page_TechnicalSupport';
+import PageCustomerService from './components/Page_CustomerService';
+import PageSalesCollections from './components/Page_SalesCollections';
 
 function App() {
   
