@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; 
-import AppFooter from './AppFooter';
+import AppFooter from './Application_Footer';
 import '../assets/styles/PageWebDevelopment.css';
 
 const WebDevHome = () => {

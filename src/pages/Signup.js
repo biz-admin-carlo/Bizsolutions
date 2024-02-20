@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet'; 
 import SignUp from '../components/Signup_Interface.js';
-import AppFooter from '../components/AppFooter';
+import AppFooter from '../components/Application_Footer.js';
 
 export default function Signup() {
 

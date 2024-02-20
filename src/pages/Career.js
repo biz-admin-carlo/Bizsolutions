@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Helmet } from 'react-helmet'; 
-import AppFooter from '../components/AppFooter';
+import AppFooter from '../components/Application_Footer';
 
 import '../assets/styles/PageWebDevelopment.css';
 

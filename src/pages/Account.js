@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../UserContext';
 import { Helmet } from 'react-helmet'; 
-import AccountInfo from '../components/AccountInfo';
+import AccountInfo from '../components/AccountInfo.js';
 
 
 export default function Account() {

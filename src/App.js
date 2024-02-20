@@ -1,7 +1,7 @@
 import { useState, Suspense } from 'react';
 import { UserProvider } from './UserContext';
 import { Helmet } from 'react-helmet'; 
-import AppNavbar from './components/AppNavbar';
+import AppNavbar from './components/Application_Navbar';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
 import { Container } from 'react-bootstrap';
@@ -15,7 +15,6 @@ import Account from './pages/Account';
 import Pricing from './pages/Pricing';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
-import LoginPricing from './components/LoginPricing';
 import ScrollToTop from './components/Reusable_ScrollToTop';
 
 import ContactUs from './pages/ContactUs';

@@ -12,8 +12,8 @@ import Breadcrumb from '../components/Search_Breadcrumb';
 
 
 import SearchResult from '../components/Search_Result';
-import AppFooter from '../components/AppFooter';
-import BusinessCardSkeleton from '../components/BusinessCardSkeleton';
+import AppFooter from '../components/Application_Footer';
+import BusinessCardSkeleton from '../components/Search_BusinessCardSkeleton';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 

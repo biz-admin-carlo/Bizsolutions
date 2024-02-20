@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import '../assets/styles/AppFooter.css';
 
-import AppPreFooter from '../components/AppPreFooter.js';
+import AppPreFooter from './Application_PreFooter.js';
 
 export default function AppFooter() {
   return (

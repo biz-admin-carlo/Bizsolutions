@@ -8,13 +8,13 @@ import NewsFeed from './AccountInfo_NewsFeed.js';
 import Feedbacks from './AccountInfo_Feedbacks.js';
 import ChangePassword from './AccountInfo_ChangePassword.js';
 import DeleteAccount from './AccountInfo_DeleteAccount.js';
-import BarSpinner from './Reusable_BarSpinner';
-import AppFooter from '../components/AppFooter';
+import BarSpinner from './Reusable_BarSpinner.js';
+import AppFooter from './Application_Footer.js';
 
 import logo from '../assets/icon-round-image.png';
 import '../assets/styles/AccountInfo.css';
 
-import UserContext from '../UserContext';
+import UserContext from '../UserContext.js';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet'; 
 import UserContext from '../UserContext';
 import PricingAppInformation from '../components/Pricing_AppInformation.js'
-import AppFooter from '../components/AppFooter';
+import AppFooter from '../components/Application_Footer.js';
 
 
 export default function Home() {

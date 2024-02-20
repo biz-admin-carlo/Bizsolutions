@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet'; 
-import AppFooter from '../components/AppFooter';
+import AppFooter from '../components/Application_Footer';
 import '../assets/styles/Terms.css';
 
 import TermsInformation from '../components/Terms_Information';

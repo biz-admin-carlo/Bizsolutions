@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Form } from 'react-bootstrap';
-import AppFooter from './AppFooter';
+import AppFooter from './Application_Footer';
 import imgOne from '../assets/img-app-landing-banner.png';
 import UserContext from '../UserContext';
 import BarSpinner from './Reusable_BarSpinner';

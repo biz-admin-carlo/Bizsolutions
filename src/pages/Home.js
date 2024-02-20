@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import UserContext from '../UserContext.js';
-import AppFooter from '../components/AppFooter.js';
+import AppFooter from '../components/Application_Footer.js';
 import HomeLanding from '../components/Home_Landing.js'
 import HomeWebDevelopment from '../components/Home_WebDevelopment.js';
 import HomeBookkeeping from '../components/Home_Bookkeeping.js';

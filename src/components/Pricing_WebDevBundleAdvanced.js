@@ -4,7 +4,7 @@ import { Card, Button, Badge, Collapse } from 'react-bootstrap';
 import { GoCheckCircleFill } from "react-icons/go";
 import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
 import { IconContext } from "react-icons";
-import useCountingEffect from './useCountingEffect';
+import useCountingEffect from './Pricing_TypingEffect';
 import '../assets/styles/AppInformation.css';
 // import VerifyModal from './VerifyModal';
 import Axios from 'axios';

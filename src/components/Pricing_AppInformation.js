@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Card, Button, Badge } from 'react-bootstrap';
 import { GoCheckCircleFill } from "react-icons/go";
 import { IconContext } from "react-icons";
-import useCountingEffect from './useCountingEffect.js';
+import useCountingEffect from './Pricing_TypingEffect.js';
 import '../assets/styles/AppInformation.css';
 
-import tiktok from '../assets/video-are-you-ready-stock.mp4'
 import Typings from './Pricing_TypingsEffect.js'
 import BundleStarter from './Pricing_WebDevBundleStarter.js';
 import BundleAdvanced from './Pricing_WebDevBundleAdvanced.js';
