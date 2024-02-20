@@ -4,12 +4,19 @@ import Rating from 'react-rating-stars-component';
 import '../assets/styles/Search_BusinessCard.css';
 
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import { MdDirectionsWalk } from "react-icons/md";
 import 'leaflet/dist/leaflet.css'; 
 import L from 'leaflet'; 
 import icon from 'leaflet/dist/images/marker-icon.png'; 
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 const BusinessCard = ({ state, business, index }) => {
+
+  const openGoogleDirections = () => {
+    const destination = encodeURIComponent(business.location.display_address.join(', '));
+    const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+    window.open(googleMapsUrl, '_blank');
+  };
 
   let DefaultIcon = L.icon({
     iconUrl: icon,
@@ -71,6 +78,12 @@ const BusinessCard = ({ state, business, index }) => {
                   activeColor='#FF851A'
                   isHalf
                 />
+              </span>
+            </div>
+
+            <div className="rating-row">
+              <span className='text-secondary url-link'>Get Directions:
+                <MdDirectionsWalk onClick={openGoogleDirections} className="icon-style" style={{ fontSize: '24px' }}/>
               </span>
             </div>
 
@@ -145,6 +158,12 @@ const BusinessCard = ({ state, business, index }) => {
                     activeColor='#FF851A'
                     isHalf
                   />
+                </span>
+              </div>
+
+              <div className="rating-row">
+                <span className='text-secondary url-link'>Get Directions:
+                  <MdDirectionsWalk onClick={openGoogleDirections} className="icon-style" style={{ fontSize: '24px' }}/>
                 </span>
               </div>
 
