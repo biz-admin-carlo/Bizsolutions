@@ -65,7 +65,7 @@ export default function AppNavbar() {
                 className="navbar-options"
               >
                 <NavDropdown.Item as={Link} to="/website-development">Website Development</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/bookkeeping">Bookkepping</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/bookkeeping">Bookkeeping</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/technical-support">Technical & IT Support</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/customer-service">Customer Service Support</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/sales-collection">Sales & Collections</NavDropdown.Item>

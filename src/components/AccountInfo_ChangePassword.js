@@ -12,7 +12,7 @@ const Feedbacks = ({ user }) => {
       <div>
         <hr />
         <p className='text-secondary pb-3' style={{ fontSize: '13px' }}>
-        Please be aware that changing your password is an important security action. If you forget your new password, you will not be able to access your account as usual. In case of forgotten passwords, you'll need to reset it via the provided procedures. Ensure your new password is strong and memorable. For assistance with password issues or resets, please contact us at <span style={{ color: '#FF851A' }}>support@bizSolutions.com</span>. Carefully choose your new password to maintain the security of your account.</p>
+        Please be aware that changing your password is an important security action. If you forget your new password, you will not be able to access your account as usual. In case of forgotten passwords, you'll need to reset it via the provided procedures. Ensure your new password is strong and memorable. For assistance with password issues or resets, please contact us at <span style={{ color: '#FF851A' }}>supportus@mybizsolutions.us</span>. Carefully choose your new password to maintain the security of your account.</p>
       </div>
     </Container>
   );
