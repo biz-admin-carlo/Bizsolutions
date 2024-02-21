@@ -16,16 +16,16 @@ export default function AppPreFooter() {
 
             <div className='social-media-icons mt-3 d-none d-md-block'>
               {/* Social Media Icons */}
-                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
+                <a href="https://www.facebook.com/SupportusBizSolutions" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
                   <FaFacebook />
                 </a>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
+                <a href="https://www.instagram.com/bizsolutionsllc/" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
                   <FaInstagram />
                 </a>
                 <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
                   <FaTiktok />
                 </a>
-                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
+                <a href="https://www.youtube.com/@BizSolutionsLLC" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
                   <FaYoutube />
                 </a>
                 <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="text-decoration-none">
