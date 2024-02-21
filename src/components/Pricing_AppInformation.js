@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Card, Button, Badge } from 'react-bootstrap';
 import { GoCheckCircleFill } from "react-icons/go";
@@ -6,7 +6,8 @@ import { IconContext } from "react-icons";
 import useCountingEffect from './Pricing_TypingEffect.js';
 import '../assets/styles/AppInformation.css';
 
-import Typings from './Pricing_TypingsEffect.js'
+import Landing from './Pricing_Landing.js';
+import Payroll from './Pricing_Payroll.js';
 import BundleStarter from './Pricing_WebDevBundleStarter.js';
 import BundleAdvanced from './Pricing_WebDevBundleAdvanced.js';
 import BundleExpert from './Pricing_WebDevBundleExpert.js';
@@ -16,15 +17,10 @@ import BookkeepingStarter from './Pricing_BookkeepingStarter.js';
 
 export default function Pricing() {
     const [ selected, setSelected ] = useState('annual');
-    const [ loadVideo, setLoadVideo ] = useState(false);
 
     const navigate = useNavigate();
 
     const packageOne = useCountingEffect(selected === 'annual' ? 989.99 : 1099.99);
-    
-    useEffect(() => {
-        setLoadVideo(true);
-    }, []);
 
     const handleGetStartedClick = () => {
         const token = sessionStorage.getItem('token');
@@ -59,34 +55,7 @@ export default function Pricing() {
         <>
         <div className='app-landing-page-pricing'>
             <div className='pt-lg-5'>
-                <Container className='py-5'>
-                <div className="content-container d-flex align-items-center pb-lg-5">
-                    <div className="text-section">
-                        <h1 className='pt-lg-4 sm-center'>Unlock Your Business's Full Potential with Biz</h1>
-                                <Typings />
-
-                                <hr />
-                            <p className="pt-2 pb-lg-3 sm-center">In today's fast-paced business environment, having the right partner can make all the difference.</p>
-                            <p className="pt-2 pb-lg-3 sm-center">An online platform that prioritizes providing information about local businesses, including restaurants, bars, cafes, hotels, shops, salons, and more, in addition to user-generated reviews and ratings.</p>
-                            <p className="pt-2 pb-lg-3 sm-center">That's where "Biz" comes in. Tailored to meet the unique needs of your business, "Biz" is more than just a plan; it's your pathway to success. Discover why "Biz" is the perfect choice for entrepreneurs who demand excellence and innovation.</p>
-                            <hr />
-                                <p className='paragraph-2 text-center'>No Large Setup Fee. No Ridiculous Contracts. No Hidden Charges. 100% Satisfaction Guaranteed.</p>
-                            <hr />
-                    </div>
-
-                    <div className="content-container">
-                        {loadVideo && (
-                            <a href="https://www.youtube.com/shorts/XcoLWjWWh7g" target="_blank" rel="noopener noreferrer">
-                                <video width="320" height="240" className="img-fluid" autoPlay loop>
-                                    <source src={require('../assets/video-are-you-ready-stock.mp4')} type="video/mp4" />
-                                </video>
-                            </a>
-                        )}
-                    </div>
-                </div>
-
-                <hr />
-                </Container>
+                <Landing />
             </div>
 
             <div>
@@ -229,6 +198,9 @@ export default function Pricing() {
                         </div>
                     </div>
                 </Container>
+
+                {/* <Payroll /> */}
+
             </div>
 
         </div>
