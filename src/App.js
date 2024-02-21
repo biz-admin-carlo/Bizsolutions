@@ -80,6 +80,7 @@ function App() {
             <Container />
         </Router>
       </UserProvider>
+      
       <SpeedInsights />
     </>
   );
