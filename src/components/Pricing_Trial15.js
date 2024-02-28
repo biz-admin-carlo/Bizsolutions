@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 import { Card, Button, Collapse } from 'react-bootstrap';
 import { GoCheckCircleFill } from "react-icons/go";
@@ -8,21 +9,33 @@ import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
 import Axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
+const socket = io('http://localhost:8001'); // Replace with your actual backend URL
 
 export default function Trial15() {
 
-    // const [ trialSetup, setTrialSetup ] = useState(5.99);
-    // const [ transactionDate, setTransactionDate ] = useState(null);
-    // const [ showModal, setShowModal ] = useState(false);
-
     const [ user, setUser ] = useState({});
+    const [ paymentStatus, setPaymentStatus ] = useState(''); // State to track payment status
+
     const navigate = useNavigate();
 
     const isScreenSmall = () => {
         return window.innerWidth < 768; 
     };
-    
+
     const [ open, setOpen ] = useState(!isScreenSmall());
+
+    useEffect(() => {
+        socket.on('paymentStatus', (data) => {
+          if (data.userId === user.id) {
+            // Update the UI based on data.status ('success' or 'failure')
+          }
+        });
+      
+        return () => {
+          socket.off('paymentStatus');
+        };
+      }, [user]);
+      
 
     useEffect(() => {
         const handleResize = () => {
@@ -40,18 +53,28 @@ export default function Trial15() {
         }
     }, []);
 
-    const handleModalToggle = () => {
+    const handleModalToggle = async () => {
         const token = sessionStorage.getItem('token');
         
         if (!token) {
             navigate('/login/pricing');
-            return; 
         } else {
-            window.location.href = "https://buy.stripe.com/cN2eWa4IjcJNbiofZ0";
+            try {
+                const response = await Axios.post(`${apiUrl}/api/v1/payment/initiate`, {/* user data or product details */});
+                if(response.status === 200) {
+                    window.location.href = response.data.paymentUrl; // Redirect to the payment gateway
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
-
     };
 
+    if (paymentStatus === 'success') {
+        return <div>Payment Successful! Thank you.</div>;
+    } else if (paymentStatus === 'failed') {
+        return <div>Payment Failed. Please try again.</div>;
+    }
 
     const fetchUserDetails = async (token) => {
         try {

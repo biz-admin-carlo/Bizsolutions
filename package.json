@@ -33,6 +33,7 @@
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
     "react-typed": "^2.0.12",
+    "socket.io-client": "^4.7.4",
     "states-us": "^1.0.4",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.5.2",
