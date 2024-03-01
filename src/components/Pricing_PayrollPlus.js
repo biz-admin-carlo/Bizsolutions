@@ -13,7 +13,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function BundleStarter({ selected }) {
 
-    const starterSetup = useCountingEffect(selected === 'annual' ? 44.99 : 160.00);
+    const starterSetup = useCountingEffect(selected === 'annual' ? 80.00 : 160.00);
 
     const [ open, setOpen ] = useState(false);
 
@@ -66,48 +66,28 @@ export default function BundleStarter({ selected }) {
         }
     };
     
-    
     const featureList = [
         { 
-            title: "Priority Business Listing", 
             features: [
-                { name: "Business Profile", color: "green" },
-                { name: "Contact Information", color: "green" },
-                { name: "Physical Address", color: "green" },
-                { name: "Store Hours & Availability", color: "green" },
-                { name: "Map Integration", color: "green" },
-                { name: "Different Payment Methods", color: "green" },
-                { name: "Links to Your Other Sites", color: "green" },
-                { name: "Embeded Videos", color: "green" },
-                { name: "Photo Gallery", color: "green" },
+                { name: "Comprehensive Multi-State Payroll Services", color: "orange" },
+                { name: "Next-Day Direct Deposit", color: "green" },
+                { name: "Advanced Hiring & Onboarding Toolkit", color: "green" },
+                { name: "PTO Management & Policy Tools", color: "green" },
+                { name: "Time & Project Tracking Features", color: "green" },
+                { name: "Time Kiosk System", color: "green" },
+                { name: "Workforce Costing & Reporting", color: "green" },
+                { name: "Team Management Toolkit", color: "green" },
+                { name: "Performance Review Tools", color: "green" },
+                { name: "Employee Surveys & Insights", color: "green" },
+                { name: "Performance Review Tools", color: "green" },
             ]
         },
-        { 
-            title: "Local Website", 
+        {   
+            title: "Plus Plan Add-Ons", 
             features: [
-                { name: "Up to 5 pages*", color: "orange" },
-                { name: "5 Business Emails", color: "orange" },
-                { name: "Responsive design", color: "green" },
-                { name: "Social Media Links", color: "green" },
-                { name: "Search Engine Optimization (SEO)", color: "green" },
-                { name: "Free Hosting", color: "green" },
-                { name: "Ongoing Maintenance and Support", color: "orange" },
-                { name: "Directory Submissions", color: "orange" },
-                { name: "Standard Security Measures", color: "orange" },
-                { color: "white" },
-                { color: "white" },
+                { name: "Priority Support & HR Resources - $8/Person", color: "green" },
             ]
-        },
-        { 
-            title: "Social Media Management", 
-            features: [
-                { name: "Facebook Account", color: "orange" },
-                { name: "X Account", color: "orange" },
-                { name: "Instagram Account", color: "orange" },
-                { name: "Tiktok Account", color: "orange" },
-                { name: "Automated Ads", color: "orange" },
-            ]
-        },
+        }
     ];
 
     return (
@@ -121,12 +101,12 @@ export default function BundleStarter({ selected }) {
                         <Badge pill bg="light" text="warning">billed monthly</Badge>
                     }</p>
                 </h3>
-                <Card.Subtitle className="mb-2 text-muted">Enhanced payroll, benefits, HR tools.</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted">Enhanced Payroll, Benefits & HR Tools</Card.Subtitle>
 
                 {/* Collapsible Section for sm screens */}
                 <div className="d-block d-md-none">
                     <Button 
-                        variant="outline-warning" 
+                        variant="warning" 
                         className='my-3 full-width-button' 
                         onClick={handleModalToggle}
                         aria-controls="collapse-features-advanced-sm"
@@ -137,10 +117,11 @@ export default function BundleStarter({ selected }) {
 
                     <Collapse in={open}>
                         <div id="collapse-features-advanced-sm">
-                            <Card.Text> Features included: </Card.Text>
+                        <Card.Text> Plan Details: </Card.Text>
+
                                 {featureList.map((section, index) => (
                                     <div key={index}>
-                                        <h6>{section.title}</h6>
+                                        <h6 className='text-danger'>{section.title}</h6>
                                         <div className='pb-5'>
                                             {section.features.map((feature, featureIndex) => (
                                                 <IconContext.Provider key={featureIndex} value={{ color: feature.color, className: "me-2" }}>
@@ -169,26 +150,22 @@ export default function BundleStarter({ selected }) {
 
                 {/* Regular display for md and larger screens */}
                 <div className="d-none d-md-block">
-                    <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleModalToggle}>Get Started</Button>
+                    <Button variant="warning" className='my-3 full-width-button' onClick={handleModalToggle}>Get Started</Button>
 
-                    <Card.Text> Features included:</Card.Text>
+                    <Card.Text>Everything in the <span className='biz-color'>Simple Plan</span>, plus:</Card.Text>
 
                     {featureList.map((section, index) => (
                         <div key={index}>
                             <h6>{section.title}</h6>
-                            <div className='pb-5'>
+                            <div className='pb-3'>
                                 {section.features.map((feature, featureIndex) => (
                                     <IconContext.Provider key={featureIndex} value={{ color: feature.color, className: "me-2" }}>
-                                        <div><GoCheckCircleFill />{feature.name}</div>
+                                        <div className='card-text-payroll'><GoCheckCircleFill />{feature.name}</div>
                                     </IconContext.Provider>
                                 ))}
                             </div>
                         </div>
                     ))}
-             
-                    <div>
-                        <div className='italic-text'>*This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
-                    </div>
 
                 </div>
 

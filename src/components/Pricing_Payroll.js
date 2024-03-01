@@ -41,7 +41,7 @@ const Pricing_Payroll = () => {
             </div>
 
             <div className='container'>
-                <div className='row justify-content-around'>
+                <div className='row card-container'>
 
                     <div className='col-sm-12 col-md-4 mb-3'>
                         <BundleSimple selected={selected} setSelected={setSelected} />

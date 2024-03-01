@@ -52,56 +52,29 @@ export default function BundleExpert() {
 
     const featureList = [
         { 
-            title: "Priority Business Listing", 
             features: [
-                { name: "Business Profile", color: "green" },
-                { name: "Contact Information", color: "green" },
-                { name: "Physical Address", color: "green" },
-                { name: "Store Hours & Availability", color: "green" },
-                { name: "Map Integration", color: "green" },
-                { name: "Different Payment Methods", color: "green" },
-                { name: "Links to Your Other Sites", color: "green" },
-                { name: "Embeded Videos", color: "green" },
-                { name: "Photo Gallery", color: "green" },
+                { name: "Dedicated Customer Success Manager", color: "orange" },
+                { name: "HR Resource Center Access", color: "green" },
+                { name: "Compliance Alert System", color: "green" },
+                { name: "Certified HR Experts Access", color: "green" },
+                { name: "Complete Payroll Migration & Setup", color: "green" },
+                { name: "Health Insurance Broker Integration", color: "green" },
+                { name: "R&D Tax Credit Discount", color: "green" },
+                { name: "Waived Fees & Exclusive Pricing", color: "green" },
+                { name: "Priority Support Access", color: "green" }
             ]
-        },
-        { 
-            title: "Local Website", 
-            features: [
-                { name: "Unlimited Pages*", color: "orange" },
-                { name: "30 Custom Business Emails", color: "orange" },
-                { name: "Responsive design", color: "green" },
-                { name: "Social Media Links", color: "green" },
-                { name: "Advanced Search Engine Optimization (SEO)", color: "orange" },
-                { name: "Hosting with Custom Domain", color: "orange" },
-                { name: "Ongoing Maintenance and Support", color: "orange" },
-                { name: "Directory Submissions", color: "orange" },
-                { name: "Premium Security Measures", color: "orange" },
-                { name: "Comprehensive E-Commerce Solutions", color: "orange" },
-                { name: "Integrated Payment Processing System", color: "orange" },
-            ]
-        },
-        { 
-            title: "Social Media Management", 
-            features: [
-                { name: "Facebook Account", color: "orange" },
-                { name: "X Account", color: "orange" },
-                { name: "Instagram Account", color: "orange" },
-                { name: "Tiktok Account", color: "orange" },
-                { name: "Automated Ads", color: "orange" },
-            ]
-        },
+        }
     ];
 
     return (
         <>
         <Card className='card-shadow'>
             <Card.Body>
-                <Card.Title>Expert Setup</Card.Title>
+                <Card.Title>Premium Setup</Card.Title>
                 <h3 className='card-text-amount'>
                     Let's Talk!<p><Badge pill bg="warning" text="dark">supportus@mybizsolutions.us</Badge></p>
                 </h3>
-                <Card.Subtitle className="mb-2 text-muted">Advanced payroll, benefits, HR, support.</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted">Scalable HR for Growing Teams</Card.Subtitle>
 
                 {/* Button and collapsible for sm screens */}
                 <div className="d-block d-md-none">
@@ -125,10 +98,7 @@ export default function BundleExpert() {
                                     </div>
                                 </div>
                             ))}
-
-                            <div>
-                                <div className='italic-text'>*This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
-                            </div>
+                            
                         </div>
                     </Collapse>
                     
@@ -152,12 +122,12 @@ export default function BundleExpert() {
                         Get Started
                     </Button>
                     
-                    <Card.Text> Features included: </Card.Text>
+                    <Card.Text>Everything in the <span className='biz-color'>Plus Plan</span>, plus:</Card.Text>
                 
                     {featureList.map((section, index) => (
                         <div key={index}>
                             <h6>{section.title}</h6>
-                            <div className='pb-5'>
+                            <div className='pb-3'>
                                 {section.features.map((feature, featureIndex) => (
                                     <IconContext.Provider key={featureIndex} value={{ color: feature.color, className: "me-2" }}>
                                         <div><GoCheckCircleFill />{feature.name}</div>
@@ -167,9 +137,6 @@ export default function BundleExpert() {
                         </div>
                     ))}
 
-                    <div>
-                        <div className='italic-text'>*This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
-                    </div>
                 </div>
                 
             </Card.Body>

@@ -199,7 +199,7 @@ export default function Pricing() {
                     </div>
                 </Container>
 
-                {/* <Payroll /> */}
+                <Payroll />
 
             </div>
 

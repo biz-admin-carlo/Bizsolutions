@@ -4,6 +4,21 @@
 }
 
 .card-text-payroll {
-    color: red !important;
+    color: black !important;
     font-size: .8rem;
 }
+
+.card-container {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .card-shadow {
+    height: 500px; /* Example fixed height */
+    display: flex;
+    flex-direction: column;
+    overflow: auto; /* Allows scrolling within the card */
+  }
+  
+  /* Further styling for scrollbar, etc. */
+  

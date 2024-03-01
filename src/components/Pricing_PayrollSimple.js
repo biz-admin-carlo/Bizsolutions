@@ -66,21 +66,19 @@ export default function BundleStarter({ selected }) {
         }
     };
     
-    
     const featureList = [
         { 
-            title: "Priority Business Listing", 
             features: [
-                { name: "Free 5 users", color: "green" },
-                { name: "Full-service single-state payroll including W-2s and 1099s", color: "green" },
-                { name: "Full support", color: "green" },
-                { name: "Employee profiles and self-service", color: "green" },
-                { name: "Basic hiring and onboarding tools", color: "green" },
-                { name: "Health insurance administration", color: "green" },
-                { name: "Employee financial benefits", color: "green" },
-                { name: "Payroll and time-off reports", color: "green" },
-                { name: "Custom admin permissions", color: "green" },
-                { name: "Integrations for accounting, time tracking, expense management, and more", color: "green" },
+                { name: "Free 5 Users", color: "green" },
+                { name: "Complete Single-State Payroll Solution", color: "green" },
+                { name: "Comprehensive Support", color: "green" },
+                { name: "Employee Self-Service Profiles", color: "green" },
+                { name: "Essential Hiring & Onboarding Tools", color: "green" },
+                { name: "Managed Health Insurance Admin", color: "green" },
+                { name: "Employee Financial Benefits", color: "green" },
+                { name: "Payroll & Time-Off Reporting", color: "green" },
+                { name: "Customizable Admin Permissions", color: "green" },
+                { name: "Versatile Integration Capabilities", color: "green" },
             ]
         }
     ];
@@ -96,7 +94,7 @@ export default function BundleStarter({ selected }) {
                         <Badge pill bg="light" text="warning">billed monthly</Badge>
                     }</p>
                 </h3>
-                <Card.Subtitle className="mb-2 text-muted">Automated payroll and benefits.</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted">Automated Payroll and Benefits</Card.Subtitle>
 
                 {/* Collapsible Section for sm screens */}
                 <div className="d-block d-md-none">
@@ -120,11 +118,7 @@ export default function BundleStarter({ selected }) {
                                         <div className='pb-5'>
                                             {section.features.map((feature, featureIndex) => (
                                                 <IconContext.Provider key={featureIndex} value={{ color: feature.color, className: "me-2" }}>
-                                                    <div><GoCheckCircleFill />
-                                                        <p className='card-text-payroll'>
-                                                            {feature.name}1
-                                                        </p>
-                                                    </div>
+                                                    <div><GoCheckCircleFill />{feature.name}</div>
                                                 </IconContext.Provider>
                                             ))}
                                         </div>
@@ -156,7 +150,7 @@ export default function BundleStarter({ selected }) {
                     {featureList.map((section, index) => (
                         <div key={index}>
                             <h6>{section.title}</h6>
-                            <div className='pb-5'>
+                            <div className='pb-3'>
                                 {section.features.map((feature, featureIndex) => (
                                     <IconContext.Provider key={featureIndex} value={{ color: feature.color, className: "me-2" }}>
                                         <div className='card-text-payroll'><GoCheckCircleFill />{feature.name}</div>
@@ -165,11 +159,7 @@ export default function BundleStarter({ selected }) {
                             </div>
                         </div>
                     ))}
-             
-                    <div>
-                        <div className='italic-text'>*This includes Home Page, About Us Page, Services Page, Blog Page, Contract Page</div>
-                    </div>
-
+            
                 </div>
 
             </Card.Body>

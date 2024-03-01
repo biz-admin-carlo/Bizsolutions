@@ -58,6 +58,7 @@ h1 {
 
     .video-container {
         padding-left: 0; 
+        order: -1;
     }
 }
 
