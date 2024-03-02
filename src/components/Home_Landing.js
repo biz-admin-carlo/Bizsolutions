@@ -63,23 +63,6 @@ export default function NewLogin() {
         event.preventDefault(); 
         sessionStorage.setItem('searchedCategory', JSON.stringify(category));
 
-        // const getUserIPInfo = async () => {
-        //     try {
-        //         const response = await fetch('https://api.getipinfo.com');
-        //         if (!response.ok) {
-        //             throw new Error('Network response was not ok');
-        //         }
-        //         return await response.json();
-        //     } catch (error) {
-        //         console.error('Unable to fetch IP information:', error);
-        //     }
-        // };
-
-        // const userIPInfo = await getUserIPInfo();
-        // if (userIPInfo) {
-        //     sessionStorage.setItem('userIPInfo', JSON.stringify(userIPInfo));
-        // }
-
         if (typedLocation === true) {
             // console.log("Using manually entered location:", location);
             const queryParams = new URLSearchParams({

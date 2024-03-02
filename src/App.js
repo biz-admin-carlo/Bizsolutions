@@ -19,13 +19,16 @@ import ScrollToTop from './components/Reusable_ScrollToTop';
 
 import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
-import Career from './pages/Career'
+import Career from './pages/Career';
+import Business from './pages/Business';
 
 import PageWebDevelopment from './components/Page_WebDevelopment';
 import PageBookkeeping from './components/Page_Bookkeeping';
 import PageTechnicalSupport from './components/Page_TechnicalSupport';
 import PageCustomerService from './components/Page_CustomerService';
 import PageSalesCollections from './components/Page_SalesCollections';
+
+import Result from './pages/Result';
 
 function App() {
   
@@ -74,6 +77,10 @@ function App() {
                     <Route path="/technical-support" element={<PageTechnicalSupport/>}/>
                     <Route path="/customer-service" element={<PageCustomerService/>}/>
                     <Route path="/sales-collection" element={<PageSalesCollections/>}/>
+
+                    <Route path="/result" element={<Result/>}/>
+                    <Route path="/add-biz" element={<Business/>}/>
+
 
                 </Routes>
               </Suspense>

@@ -12,7 +12,7 @@ import HomeSalesCollection from '../components/Home_SalesCollection.js';
 export default function Home() {
   
   const { user } = useContext(UserContext);
-
+  
   return (
     <div>
       {user.isAdmin ? (
