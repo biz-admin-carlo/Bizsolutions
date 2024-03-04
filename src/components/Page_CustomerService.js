@@ -55,7 +55,7 @@ const CustomerService = () => {
                         <div className="video-container ps-lg-5">
                             {loadVideo && (
                                 <a href="https://www.youtube.com/shorts/g5yUde0aPjY" target="_blank" rel="noopener noreferrer">
-                                    <video width="960px" height="540px" className="img-fluid" muted autoPlay loop>
+                                    <video width="960px" height="540px" className="img-fluid" autoPlay loop>
                                         <source src={require('../assets/video-customer-service.mp4')} type="video/mp4" />
                                     </video>
                                 </a>
