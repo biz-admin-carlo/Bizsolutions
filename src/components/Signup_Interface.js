@@ -15,6 +15,7 @@ export default function NewSignUp() {
     const [ firstName, setFirstName ] = useState('');
     const [ lastName, setLastName ] = useState('');
     const [ email, setEmail ] = useState('');
+    const [ birthday, setBirthday ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ password1, setPassword1 ] = useState('');
     const [ isPasswordVisible, setIsPasswordVisible ] = useState(false);
@@ -49,6 +50,7 @@ export default function NewSignUp() {
                     firstName,
                     lastName,
                     email,
+                    birthday,
                     password: password1
                 });
                 setShowSuccessModal(true);
@@ -134,6 +136,17 @@ export default function NewSignUp() {
                                         }}
                                         
                                     />
+                                </Form.Group>
+
+                                <Form.Group controlId="formBasicBirthday">
+                                <Form.Label>Birthday</Form.Label>
+                                <Form.Control
+                                    required
+                                    type="date" 
+                                    placeholder="Enter your birthday"
+                                    value={birthday}
+                                    onChange={event => setBirthday(event.target.value)}
+                                />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
