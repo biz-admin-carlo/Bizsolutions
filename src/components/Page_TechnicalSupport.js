@@ -53,9 +53,9 @@ const TechnicalPage = () => {
 
                         <div className="video-container ps-lg-5">
                             {loadVideo && (
-                                <a href="https://www.youtube.com/shorts/XcoLWjWWh7g" target="_blank" rel="noopener noreferrer">
-                                    <video width="960px" height="540px" className="img-fluid" muted autoPlay loop>
-                                        <source src={require('../assets/video-are-you-ready-stock.mp4')} type="video/mp4" />
+                                <a href="https://www.youtube.com/shorts/7rB7tSNpmAI" target="_blank" rel="noopener noreferrer">
+                                    <video width="960px" height="540px" className="img-fluid" autoPlay loop>
+                                        <source src={require('../assets/video-streamline-your-IT.mp4')} type="video/mp4" />
                                     </video>
                                 </a>
                             )}
