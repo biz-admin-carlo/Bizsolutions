@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Form } from 'react-bootstrap';
 import AppFooter from './Application_Footer';
-import imgOne from '../assets/img-app-landing-banner.png';
+import imgOne from '../assets/img-forgot-password-image.webp';
 import '../assets/styles/NewLoginInterface.css';
 
 const apiUrl = process.env.REACT_APP_API_URL;
