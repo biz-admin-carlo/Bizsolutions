@@ -21,6 +21,7 @@ import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
 import Career from './pages/Career';
 import Business from './pages/Business';
+import Reset from './pages/Reset';
 
 import PageWebDevelopment from './components/Page_WebDevelopment';
 import PageBookkeeping from './components/Page_Bookkeeping';
@@ -80,6 +81,8 @@ function App() {
 
                     <Route path="/result" element={<Result/>}/>
                     <Route path="/add-biz" element={<Business/>}/>
+
+                    <Route path="/forgot-password" element={<Reset/>}/>
 
 
                 </Routes>

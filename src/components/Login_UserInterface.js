@@ -27,27 +27,6 @@ export default function NewLogin() {
         }
     }, [navigate]);
 
-    useEffect(() => {
-        if (email !== '') {
-            checkEmail(email);
-        } else {
-            setMessage('');
-        }
-    }, [email]);
-
-    const checkEmail = async (email) => {
-        try {
-            const response = await axios.get(`${apiUrl}/api/v1/users/check-email/${email}`);
-            if (response.data.exists === false) {
-                setMessage("The email address you entered isn't connected to an account.");
-            } else {
-                setMessage('');
-            }
-        } catch (error) {
-            // console.error('Error checking email:', error);
-        }
-    };
-
     const authenticate = async (event) => {
         event.preventDefault();
         setLoading(true);
@@ -104,7 +83,6 @@ export default function NewLogin() {
                                         value={email}
                                         onChange={event => {
                                             setEmail(event.target.value);
-                                            checkEmail(event.target.value);
                                           }}
                                         
                                     />
@@ -138,7 +116,17 @@ export default function NewLogin() {
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                     <Form.Check type="checkbox" label="Do you remember me?" />
                                 </Form.Group>
-                                <h6 className='text-secondary py-2'>Forgotten Password?</h6>
+                                
+                                <div className='py-2'> 
+                                    <h6 className='text-secondary py-2'>
+                                        <span 
+                                            className="dotted-underline"
+                                            onClick={() => navigate('/forgot-password')}
+                                        >
+                                            Forgot Password?
+                                        </span>
+                                    </h6>
+                                </div>
 
                                 <button type='submit' className="custom-button" disabled={message !== ''}>Login</button>
 
