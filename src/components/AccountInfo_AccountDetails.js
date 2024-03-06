@@ -104,6 +104,17 @@ export default function AccountDetails({ user }) {
         </Col>
 
         <Col xs={12} md={6} lg={12}>
+          <FloatingLabel controlId="floatingInputBirthday" label="Birthday*" className="mb-3">
+            <Form.Control 
+              type="date" 
+              name="birthday"
+              value={formData.birthday} 
+              onChange={handleInputChange}
+            />
+          </FloatingLabel>
+        </Col>
+
+        <Col xs={12} md={6} lg={12}>
           <FloatingLabel controlId="floatingSelectGender" label="Gender" className="mb-3">
             <Form.Select 
               name="gender" 
@@ -137,17 +148,6 @@ export default function AccountDetails({ user }) {
               name="occupation"
               placeholder="Your Occupation" 
               value={formData.occupation}
-              onChange={handleInputChange}
-            />
-          </FloatingLabel>
-        </Col>
-
-        <Col xs={12} md={6} lg={12}>
-          <FloatingLabel controlId="floatingInputBirthday" label="Birthday*" className="mb-3">
-            <Form.Control 
-              type="date" 
-              name="birthday"
-              value={formData.birthday} 
               onChange={handleInputChange}
             />
           </FloatingLabel>
