@@ -37,11 +37,11 @@ export default function AppPreFooter() {
           </Col>
           <Col xs={12} md={4} className="mb-3">
             <h6>Services:</h6>
-            <Link to="/website-development" className="footer-link"><h6>Website Development</h6></Link>
-            <Link to="/bookkeeping" className="footer-link"><h6>Bookkeeping</h6></Link>
-            <Link to="/technical-support" className="footer-link"><h6>Technical & IT Support</h6></Link>
-            <Link to="/customer-service" className="footer-link"><h6>Customer Service Support</h6></Link>
-            <Link to="/sales-collection" className="footer-link"><h6>Sales & Collections</h6></Link>
+            <Link to="/website-development-services" className="footer-link"><h6>Website Development</h6></Link>
+            <Link to="/bookkeeping-services" className="footer-link"><h6>Bookkeeping</h6></Link>
+            <Link to="/technical-support-services" className="footer-link"><h6>Technical & IT Support</h6></Link>
+            <Link to="/customer-service-services" className="footer-link"><h6>Customer Service Support</h6></Link>
+            <Link to="/sales-collection-services" className="footer-link"><h6>Sales & Collections</h6></Link>
           </Col>
           <Col xs={12} md={4} className="newsletter-col">
 

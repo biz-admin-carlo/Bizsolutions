@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { Container, Row, Col, Card, ListGroup, Tab, Button } from 'react-bootstrap';
 
 import AccountDetails from './AccountInfo_AccountDetails.js';
 import Messages from './AccountInfo_Messages.js';
+import ManageBiz from './AccountInfo_ManageBiz.js';
 import NewsFeed from './AccountInfo_NewsFeed.js';
 import Feedbacks from './AccountInfo_Feedbacks.js';
 import ChangePassword from './AccountInfo_ChangePassword.js';
@@ -19,8 +21,16 @@ import UserContext from '../UserContext.js';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function AccountInfo() {
+
+  const navigate = useNavigate();
+
   const { user, setUser } = useContext(UserContext);
-  const [isLoading, setIsLoading] = useState(true);
+  const [ userId, setUserId ] = useState('');
+  const [ isLoading, setIsLoading ] = useState(true);
+
+  const handleAdminDashboardClick = () => {
+    navigate(`/admin-dashboard/${userId}/`);
+  };
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -28,6 +38,8 @@ export default function AccountInfo() {
       fetchUserDetails(token);
     }
   }, []);
+
+  console.log(user);
 
   const fetchUserDetails = async (token) => {
     try {
@@ -39,6 +51,7 @@ export default function AccountInfo() {
       if (response.status === 200) {
         const data = response.data;
         setUser(data);
+        setUserId(data._id);
         setIsLoading(false);
       } else {
         console.error('Failed to fetch user details');
@@ -89,12 +102,17 @@ export default function AccountInfo() {
                 <ListGroup.Item action href="#delete-account">
                   Delete Account
                 </ListGroup.Item>
+                <ListGroup.Item action href="#manage-biz">
+                  Manage Business
+                </ListGroup.Item>
               </ListGroup>
 
-              <div>
-                <Button variant="outline-warning" className="my-2">Manage Business</Button>
-              </div>
+              {(user.isAdmin &&
+                <Button variant="secondary" className='my-3' onClick={handleAdminDashboardClick}>Admin Dashboard</Button>
+              )}
+
             </Col>
+            
             <Col sm={8}>
               <Tab.Content>
                 <Tab.Pane eventKey="#account-details">
@@ -115,10 +133,13 @@ export default function AccountInfo() {
                 <Tab.Pane eventKey="#delete-account">
                   <DeleteAccount user={user} />
                 </Tab.Pane>
+                <Tab.Pane eventKey="#manage-biz">
+                  <ManageBiz user={user} />
+                </Tab.Pane>
               </Tab.Content>
             </Col>
           </Row>
-      </Tab.Container>
+        </Tab.Container>
       
         
     </Container>

@@ -60,9 +60,9 @@ const Bookkeeping = () => {
                             <div className='py-5 center-images'>
                                 <h6 className='text-services'>Brand Partners</h6>
 
-                                <img className="py-lg-2 img-fluid custom-img-size" src={imgOne} alt="Web Application" />
-                                <img className="py-lg-2 img-fluid custom-img-size" src={imgTwo} alt="Web Application" />
-                                <img className="py-lg-2 img-fluid custom-img-size" src={imgThree} alt="Web Application" />
+                                <img className="py-lg-2 img-fluid custom-img-size" src={imgOne} alt="BizSolution Brand Partner Gusto Logo" />
+                                <img className="py-lg-2 img-fluid custom-img-size" src={imgTwo} alt="BizSolution Brand Partner Quickbooks Logo" />
+                                <img className="py-lg-2 img-fluid custom-img-size" src={imgThree} alt="BizSolution Brand Xero Gusto" />
                             </div>
 
                         </div>

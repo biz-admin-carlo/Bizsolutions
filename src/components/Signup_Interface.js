@@ -219,7 +219,7 @@ export default function NewSignUp() {
                             </Form>
                         </div>
                         <div className="login-image">
-                            <img className="img-fluid" src={imgTwo} alt="A Man Approaching the Restaurant Door" />
+                            <img className="img-fluid" src={imgTwo} alt="BizSolution LLC SignUp Interface Image" />
                         </div>
                     </div>
                 </Container>

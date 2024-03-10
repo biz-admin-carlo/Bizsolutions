@@ -38,11 +38,14 @@ export default function NewLogin() {
             });
 
             const result = response.data;
-
+            
             if (result.accessToken) {
                 window.location.reload();
                 sessionStorage.setItem('token', result.accessToken);
+
+                // Run a check-admin script
                 navigate('/');
+
             } else if (result.status === 403) {
                 setMessage('Account is already inactive.');
             } else {
@@ -133,7 +136,7 @@ export default function NewLogin() {
                             </Form>
                         </div>
                         <div className="login-image">
-                            <img className="img-fluid" src={imgOne} alt="Web Application" />
+                            <img className="img-fluid" src={imgOne} alt="BizSolutions LLC Login Interface Image " />
                         </div>
                     </div>
                 </Container>

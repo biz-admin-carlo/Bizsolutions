@@ -22,6 +22,7 @@ import AboutUs from './pages/AboutUs';
 import Career from './pages/Career';
 import Business from './pages/Business';
 import Reset from './pages/Reset';
+import AdminDashboard from './pages/Admin';
 
 import PageWebDevelopment from './components/Page_WebDevelopment';
 import PageBookkeeping from './components/Page_Bookkeeping';
@@ -73,17 +74,34 @@ function App() {
                     <Route path="/about-us" element={<AboutUs/>}/>
                     <Route path="/careers" element={<Career/>}/>
 
+                    <Route path="/contact-us-page" element={<ContactUs/>}/>
+                    <Route path="/about-us-page" element={<AboutUs/>}/>
+                    <Route path="/careers-page" element={<Career/>}/>
+
                     <Route path="/website-development" element={<PageWebDevelopment/>}/>
                     <Route path="/bookkeeping" element={<PageBookkeeping/>}/>
                     <Route path="/technical-support" element={<PageTechnicalSupport/>}/>
                     <Route path="/customer-service" element={<PageCustomerService/>}/>
                     <Route path="/sales-collection" element={<PageSalesCollections/>}/>
 
+                    <Route path="/website-development-services" element={<PageWebDevelopment/>}/>
+                    <Route path="/bookkeeping-services" element={<PageBookkeeping/>}/>
+                    <Route path="/technical-support-services" element={<PageTechnicalSupport/>}/>
+                    <Route path="/customer-service-services" element={<PageCustomerService/>}/>
+                    <Route path="/sales-collection-services" element={<PageSalesCollections/>}/>
+
+                    <Route path="/website-development-service" element={<PageWebDevelopment/>}/>
+                    <Route path="/bookkeeping-service" element={<PageBookkeeping/>}/>
+                    <Route path="/technical-support-service" element={<PageTechnicalSupport/>}/>
+                    <Route path="/customer-service-service" element={<PageCustomerService/>}/>
+                    <Route path="/sales-collection-service" element={<PageSalesCollections/>}/>
+
                     <Route path="/result" element={<Result/>}/>
                     <Route path="/add-biz" element={<Business/>}/>
 
                     <Route path="/forgot-password" element={<Reset/>}/>
 
+                    <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
 
                 </Routes>
               </Suspense>

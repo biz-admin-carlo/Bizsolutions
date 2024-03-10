@@ -10,7 +10,7 @@ const CustomerService = () => {
             <Container className="landing-container my-3 d-none d-lg-block">
                 <div className="flex-row">
                     <div className="flex-col content-col mx-3">
-                        <h1 className='title text-center'><Link to="/customer-service" style={{ textDecoration: 'none', color: 'inherit' }}>Customer Service Support</Link></h1>
+                        <h1 className='title text-center'><Link to="/customer-service-services" style={{ textDecoration: 'none', color: 'inherit' }}>Customer Service Support</Link></h1>
                         <h5 className='text-secondary-long text-center'>(Chat, Email, and Phone)</h5>
                         <hr />
                         <p className="paragraph-text">
@@ -18,7 +18,7 @@ const CustomerService = () => {
                         </p>
                     </div>
                     <div className="flex-col image-col">
-                        <Image src={web} className='image-size-two' rounded alt="Web Development" />
+                        <Image src={web} className='image-size-two' rounded alt="BizSolutions LLC Home Customer Service Image" />
                     </div>
                 </div>
             </Container>
@@ -26,7 +26,7 @@ const CustomerService = () => {
             <Container className="landing-container d-lg-none">
                 <div className="flex-row">
                     <div className="flex-col content-col mx-3">
-                        <h1 className='title text-center'><Link to="/customer-service" style={{ textDecoration: 'none', color: 'inherit' }}>Customer Service Support</Link></h1>
+                        <h1 className='title text-center'><Link to="/customer-service-services" style={{ textDecoration: 'none', color: 'inherit' }}>Customer Service Support</Link></h1>
                         <h5 className='text-secondary-long'>(Chat, Email, and Phone)</h5>
                         <hr />
                         <p className="paragraph-text text-center">
@@ -34,7 +34,7 @@ const CustomerService = () => {
                         </p>
                     </div>
                     <div className="flex-col image-col">
-                        <Image src={web} className='image-size-two' rounded alt="Web Development" />
+                        <Image src={web} className='image-size-two' rounded alt="BizSolutions LLC Home Customer Service Image" />
                     </div>
                 </div>
             </Container>

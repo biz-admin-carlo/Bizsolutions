@@ -10,7 +10,6 @@ const Success = () => {
             <Container className="landing-container my-3 d-none d-lg-block pt-lg-5">
                 <div className="flex-row pt-lg-5">
                     <div className="flex-col content-col mx-3 text-center pt-lg-5">
-                        {/* <h1 className='title text-center'><Link to="/bookkeeping" style={{ textDecoration: 'none', color: 'inherit' }}>Bookkeeping</Link></h1> */}
                         <FaCheckCircle style={{ color: '#FF851A', fontSize: '50px' }} />
 
                         <hr />

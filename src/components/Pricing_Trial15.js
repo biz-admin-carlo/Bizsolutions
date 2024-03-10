@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
+//import io from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 import { Card, Button, Collapse } from 'react-bootstrap';
 import { GoCheckCircleFill } from "react-icons/go";
@@ -9,7 +9,7 @@ import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
 import Axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
-const socket = io('http://localhost:8001'); // Replace with your actual backend URL
+//const socket = io('http://localhost:8001'); // Replace with your actual backend URL
 
 export default function Trial15() {
 
@@ -24,17 +24,17 @@ export default function Trial15() {
 
     const [ open, setOpen ] = useState(!isScreenSmall());
 
-    useEffect(() => {
-        socket.on('paymentStatus', (data) => {
-          if (data.userId === user.id) {
-            // Update the UI based on data.status ('success' or 'failure')
-          }
-        });
+    // useEffect(() => {
+    //     socket.on('paymentStatus', (data) => {
+    //       if (data.userId === user.id) {
+    //         // Update the UI based on data.status ('success' or 'failure')
+    //       }
+    //     });
       
-        return () => {
-          socket.off('paymentStatus');
-        };
-      }, [user]);
+    //     return () => {
+    //       socket.off('paymentStatus');
+    //     };
+    //   }, [user]);
       
 
     useEffect(() => {

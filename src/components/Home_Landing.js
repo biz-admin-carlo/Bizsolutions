@@ -199,7 +199,7 @@ export default function NewLogin() {
                             <img 
                                 className="img-fluid" 
                                 src={imgOne} 
-                                alt="Web Application"
+                                alt="BizSolutions LLC Landing Image"
                                 style={{ height: '682px', width: '546px' }} 
                             />
                         </div>

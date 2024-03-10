@@ -68,7 +68,7 @@ export default function NewLogin() {
                             </Form>
                         </div>
                         <div className="login-image">
-                            <img className="img-fluid" src={imgOne} alt="Web Application" />
+                            <img className="img-fluid" src={imgOne} alt="BizSolution LLC Reset Password Interface" />
                         </div>
                     </div>
                 </Container>
