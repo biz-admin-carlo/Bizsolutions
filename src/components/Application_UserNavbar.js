@@ -70,6 +70,7 @@ export default function UserNavbar() {
       location: `Lat:${userCoordinates.latitude},Long:${userCoordinates.longitude}`
     }).toString();
     sessionStorage.setItem('searchedLocation', JSON.stringify(location));
+    sessionStorage.setItem('searchedCategory', JSON.stringify(searchTerm));
 
   
     navigate(`/search?${queryParams}`);

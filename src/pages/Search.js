@@ -53,7 +53,22 @@ const getUserCoordinates = (setUserCoordinates) => {
   }
 };
 
+const createClient = async (location, searchTerm, coords) => {
+
+  try {
+    const response = await axios.post(`${apiUrl}/api/v1/client/create/client`, {
+      clientLocation: location,
+      clientSearchTerm: searchTerm,
+      clientCoords: coords,
+    });
+    console.log('Success:', response);
+    return response;
+  } catch (error) {
+  }
+};
+
 export default function Search() {
+
   const query = useQuery();
   const navigate = useNavigate();
   const [category, setCategory] = useState(query.get('category'));
@@ -67,6 +82,33 @@ export default function Search() {
   const itemsPerPage = 10;
   const [searchParams] = useSearchParams();
   const categoryFromQuery = searchParams.get('category');
+
+  const [searchedLocation, setSearchedLocation] = useState(null);
+  const [searchedCategory, setSearchedCategory] = useState(null);
+
+  useEffect(() => {
+    const storedCoords = sessionStorage.getItem('userCoordinates');
+    if (storedCoords) {
+      setUserCoordinates(JSON.parse(storedCoords));
+    } else {
+      getUserCoordinates(setUserCoordinates);
+    }
+
+    const storedLocation = sessionStorage.getItem('searchedLocation');
+    if (storedLocation) {
+      setSearchedLocation(storedLocation);
+    }
+
+    const storedCategory = sessionStorage.getItem('searchedCategory');
+    if (storedCategory) {
+      setSearchedCategory(storedCategory);
+    }
+
+    createClient(searchedLocation, searchedCategory, userCoordinates);
+
+  }, []);
+
+  
   
   const parseLocation = (location) => {
     if (location && location.includes('Lat') && location.includes('Long')) {
