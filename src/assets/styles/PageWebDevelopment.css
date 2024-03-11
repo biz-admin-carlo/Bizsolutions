@@ -28,6 +28,11 @@ h1 {
     color: #FF851A;
 }
 
+.biz-bold {
+    font-weight: bold !important;
+    color: #000000 !important;
+}
+
 .img-carousel {
     height: 350px;
     width: auto;

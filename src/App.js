@@ -22,7 +22,9 @@ import AboutUs from './pages/AboutUs';
 import Career from './pages/Career';
 import Business from './pages/Business';
 import Reset from './pages/Reset';
+
 import AdminDashboard from './pages/Admin';
+import AdminLogin from './pages/LoginAdmin';
 
 import PageWebDevelopment from './components/Page_WebDevelopment';
 import PageBookkeeping from './components/Page_Bookkeeping';
@@ -101,6 +103,7 @@ function App() {
 
                     <Route path="/forgot-password" element={<Reset/>}/>
 
+                    <Route path="/admin-login" element={<AdminLogin/>}/>
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
 
                 </Routes>

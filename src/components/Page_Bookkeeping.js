@@ -33,7 +33,7 @@ const Bookkeeping = () => {
             <div className='app-landing-page-service'>
                 <Container className="services-container mb-3 d-lg-block">
                     
-                    <div className="flex-container">
+                    <div className="flex-container d-flex flex-column flex-lg-row">
                         
                         <div className='text-content pt-lg-5'>
                             <div className='text-center'>
@@ -43,15 +43,36 @@ const Bookkeeping = () => {
 
                                 <div className='text-intro-landing pb-lg-5'>
 
-                                    <h5 className='pb-3 text-dark' style={{ fontStyle: 'italic' }}>
-                                    Is my current bookkeeping system holding me back?
-                                    </h5>
+                                    <p className='text-intro-landing text-center'>At <span className='biz-color'>BizSolutions</span>, we specialize in developing cutting-edge, user-friendly websites specifically tailored for bookkeeping services.</p>
 
-                                    <p className='text-intro-landing'>At <span className='biz-color'>BizSolutions</span>, we specialize in developing cutting-edge, user-friendly websites specifically tailored for bookkeeping services.</p>
+                                    <hr />
 
-                                    <p className='text-intro-landing'>Here in <span className='biz-color'>BizSolutions</span>, Our mission is to enhance your brand's digital presence, engage your clients, and drive measurable results. Our expert team harnesses the latest technologies and design trends to create unique online experiences that are not only easy to navigate but also optimized for mobile use and search engine visibility.</p>
+                                    <h3 className='pb-3 text-dark'>
+                                    Bookkeeping Services
+                                    </h3>
+                                    <p className='text-intro-landing'>In today's competitive business landscape, managing your finances with precision and efficiency isn't just an option—it's a necessity. <span className='biz-color'>BizSolutions</span> stands at the forefront of this revolution, offering a bookkeeping service that combines cutting-edge technology with user-friendly functionality to streamline your financial operations and drive your business success.</p>
 
-                                    <p className='text-intro-landing text-danger'>Don't settle for outdated methods! Remember, even small improvements in your bookkeeping can lead to significant gains in efficiency, profitability, and peace of mind.</p>
+                                    <h4 className='pb-3 text-dark'>
+                                    Why BizSolutions' Bookkeeping Service is Different
+                                    </h4>
+
+                                    <ul>
+                                        <li><p className='text-intro-landing'><span className='biz-color'>Tailored Technology Solutions</span>: At BizSolutions, we leverage the latest in digital technology to offer bookkeeping services that are not only advanced but tailored to meet the unique needs of your business. From automation to real-time financial reporting, our solutions are designed to enhance accuracy and efficiency.</p></li>
+
+                                        <li><p className='text-intro-landing'><span className='biz-color'>Tailored Technology Solutions</span>: At BizSolutions, we leverage the latest in digital technology to offer bookkeeping services that are not only advanced but tailored to meet the unique needs of your business. From automation to real-time financial reporting, our solutions are designed to enhance accuracy and efficiency.</p></li>
+
+                                        <li><p className='text-intro-landing'><span className='biz-color'>Empower Your Decision-Making</span>: With our innovative bookkeeping service, gain access to real-time data and insightful analytics that empower you to make informed decisions. Say goodbye to guesswork and embrace a future where every financial decision is backed by solid data.</p></li>
+
+                                        <li><p className='text-intro-landing'><span className='biz-color'>Seamless Integration</span>: Our bookkeeping solutions seamlessly integrate with your existing systems, ensuring a smooth transition and continuity of operations. Whether it's invoicing, payroll, or expense tracking, our platform connects all aspects of your financial management in one place.</p></li>
+
+                                        <li><p className='text-intro-landing'><span className='biz-color'>Dedicated Support</span>: BizSolutions is more than just a service provider; we're your partner in success. Our team of experts provides ongoing support and advice, ensuring that your bookkeeping is not only compliant but optimized for maximum efficiency and growth.</p></li>
+
+                                        <li><p className='text-intro-landing'><span className='biz-color'>Enhanced Security</span>: In an era where data security is paramount, our bookkeeping service employs robust security measures to protect your financial information. With BizSolutions, you can have peace of mind knowing your data is safe and secure.</p></li>
+
+                                    </ul>
+
+                                    <hr />
+
                                 </div>
                             </div>
 

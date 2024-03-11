@@ -13,9 +13,10 @@ export default function UserNavbar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    unsetUser();
-    window.location.reload();
-  }
+    sessionStorage.removeItem('token'); // Removes the token from session storage
+    window.location.reload(); // Reloads the page
+};
+
 
   return (
     <>
@@ -41,7 +42,7 @@ export default function UserNavbar() {
                   Something else here
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link as={Link} to="/logout" className="navbar-options" onClick={handleLogout}>Logout</Nav.Link>
+              <Nav.Link as={Link} className="navbar-options" onClick={handleLogout}>Logout</Nav.Link>
 
             </Nav>
           </Navbar.Collapse>

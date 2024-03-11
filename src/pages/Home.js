@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import UserContext from '../UserContext.js';
 import AppFooter from '../components/Application_Footer.js';
 import HomeLanding from '../components/Home_Landing.js'
@@ -10,13 +11,16 @@ import HomeSalesCollection from '../components/Home_SalesCollection.js';
 
 
 export default function Home() {
-  
+
+  const navigate = useNavigate();
+
   const { user } = useContext(UserContext);
+  console.log(user);
   
   return (
     <div>
       {user.isAdmin ? (
-        <div>Admin Panel Placeholder</div>
+        navigate(`/admin-dashboard/${user._id}/`)
       ) : (
         <>
           <div data-aos="fade-up"><HomeLanding /></div>
