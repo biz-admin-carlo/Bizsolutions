@@ -89,13 +89,13 @@ function App() {
                     <Route path="/website-development-services" element={<PageWebDevelopment/>}/>
                     <Route path="/bookkeeping-services" element={<PageBookkeeping/>}/>
                     <Route path="/technical-support-services" element={<PageTechnicalSupport/>}/>
-                    <Route path="/customer-service-services" element={<PageCustomerService/>}/>
+                    <Route path="/customer-support-services" element={<PageCustomerService/>}/>
                     <Route path="/sales-collection-services" element={<PageSalesCollections/>}/>
 
                     <Route path="/website-development-service" element={<PageWebDevelopment/>}/>
                     <Route path="/bookkeeping-service" element={<PageBookkeeping/>}/>
                     <Route path="/technical-support-service" element={<PageTechnicalSupport/>}/>
-                    <Route path="/customer-service-service" element={<PageCustomerService/>}/>
+                    <Route path="/customer-support-service" element={<PageCustomerService/>}/>
                     <Route path="/sales-collection-service" element={<PageSalesCollections/>}/>
 
                     <Route path="/result" element={<Result/>}/>
