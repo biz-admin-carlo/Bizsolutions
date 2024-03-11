@@ -73,19 +73,11 @@ const Bookkeeping = () => {
 
                                     <hr />
 
+
                                 </div>
                             </div>
 
-                            <button className="custom-button" onClick={handleButtonClick}>Contact Us!</button>
-
-                            <div className='py-5 center-images'>
-                                <h6 className='text-services'>Brand Partners</h6>
-
-                                <img className="py-lg-2 img-fluid custom-img-size" src={imgOne} alt="BizSolution Brand Partner Gusto Logo" />
-                                <img className="py-lg-2 img-fluid custom-img-size" src={imgTwo} alt="BizSolution Brand Partner Quickbooks Logo" />
-                                <img className="py-lg-2 img-fluid custom-img-size" src={imgThree} alt="BizSolution Brand Xero Gusto" />
-                            </div>
-
+                            <button className="custom-button mb-lg-5" onClick={handleButtonClick}>Contact Us!</button>
                         </div>
 
                         <div className="video-container ps-lg-5">
@@ -96,6 +88,32 @@ const Bookkeeping = () => {
                                     </video>
                                 </a>
                             )}
+                        </div>
+
+                        <div>
+
+                            <h5 className='py-3 text-dark'>
+                                Drive Your Business Forward with BizSolutions
+                            </h5>
+
+                            <p className='text-intro-landing'>Choosing <span className='biz-color'>BizSolutions'</span> bookkeeping service means not just upgrading your financial management system but taking a significant step towards achieving your business goals. Our commitment to innovation, combined with our dedication to personalized service, makes us the ideal partner for businesses looking to thrive in the digital age.</p>
+
+                            <h5 className='py-3 text-dark'>
+                                Experience the Difference Today
+                            </h5>
+
+                            <p className='text-intro-landing'>Ready to transform your approach to bookkeeping and propel your business to new heights? Contact <span className='biz-color'>BizSolutions</span> today and discover how our innovative bookkeeping service can redefine the way you manage your finances. With <span className='biz-color'>BizSolutions</span>, it's not just about keeping books; it's about setting the foundation for your business's future success.</p>
+
+                        </div>
+                    </div>
+
+                    <div className='pt-lg-5'>
+                        <h6 className='text-services text-center biz-color'>Trusted Brand Partners</h6>
+
+                        <div className='py-3 center-images d-flex flex-column flex-lg-row justify-content-around align-items-center'>
+                            <img className="py-lg-2 img-fluid custom-img-size" src={imgOne} alt="BizSolution Brand Partner Gusto Logo" loading="lazy" />
+                            <img className="py-lg-2 img-fluid custom-img-size" src={imgTwo} alt="BizSolution Brand Partner Quickbooks Logo" loading="lazy" />
+                            <img className="py-lg-2 img-fluid custom-img-size" src={imgThree} alt="BizSolution Brand Xero Gusto" loading="lazy" />
                         </div>
 
                     </div>
