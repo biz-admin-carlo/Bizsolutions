@@ -78,7 +78,7 @@ const WebDevHome = () => {
 
                         <div className="video-container ps-lg-5">
                             {loadVideo && (
-                                <a href="https://www.youtube.com/shorts/XcoLWjWWh7g" target="_blank" rel="noopener noreferrer">
+                                <a href="https://www.youtube.com/watch?v=GR7sBwyCttQ" target="_blank" rel="noopener noreferrer">
                                     <video width="960px" height="540px" className="img-fluid" autoPlay loop>
                                         <source src={require('../assets/video-having-a-website.mp4')} type="video/mp4" />
                                     </video>
