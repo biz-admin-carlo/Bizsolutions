@@ -104,7 +104,7 @@ export default function UserNavbar() {
                 <NavDropdown.Item as={Link} to="/website-development-services">Website Development</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/bookkeeping-services">Bookkeeping</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/technical-support-services">Technical & IT Support</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/customer-support-services">Customer Service Support</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/customer-support-services">Customer Support</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/sales-collection-services">Sales & Collections</NavDropdown.Item>
               </NavDropdown>
             </Nav>
