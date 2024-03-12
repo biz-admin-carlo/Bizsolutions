@@ -25,6 +25,7 @@ import Reset from './pages/Reset';
 
 import AdminDashboard from './pages/Admin';
 import AdminLogin from './pages/LoginAdmin';
+import AdminUsers from './pages/AdminUsers'
 
 import PageWebDevelopment from './components/Page_WebDevelopment';
 import PageBookkeeping from './components/Page_Bookkeeping';
@@ -105,6 +106,7 @@ function App() {
 
                     <Route path="/admin-login" element={<AdminLogin/>}/>
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
+                    <Route path="/admin-dashboard/:userId/users" element={<AdminUsers/>}/>
 
                 </Routes>
               </Suspense>
