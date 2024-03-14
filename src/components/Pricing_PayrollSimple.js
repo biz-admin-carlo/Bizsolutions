@@ -13,7 +13,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function BundleStarter({ selected }) {
 
-    const starterSetup = useCountingEffect(selected === 'annual' ? 480.00 : 40.00 );
+    const starterSetup = useCountingEffect(selected === 'annual' ? 864.00 : 80.00 );
 
     const [ open, setOpen ] = useState(false);
 

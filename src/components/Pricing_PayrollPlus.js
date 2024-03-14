@@ -13,7 +13,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function BundleStarter({ selected }) {
 
-    const starterSetup = useCountingEffect(selected === 'annual' ? 960.00 : 80.00 );
+    const starterSetup = useCountingEffect(selected === 'annual' ? 1728.00 : 160.00 );
 
     const [ open, setOpen ] = useState(false);
 
@@ -80,14 +80,16 @@ export default function BundleStarter({ selected }) {
                 { name: "Performance Review Tools", color: "green" },
                 { name: "Employee Surveys & Insights", color: "green" },
                 { name: "Performance Review Tools", color: "green" },
+                { name: "Priority Support & HR Resources - $9/Person", color: "green" },
+
             ]
         },
-        {   
-            title: "Plus Plan Add-Ons", 
-            features: [
-                { name: "Priority Support & HR Resources - $8/Person", color: "green" },
-            ]
-        }
+        // {   
+        //     title: "Plus Plan Add-Ons", 
+        //     features: [
+        //         { name: "Priority Support & HR Resources - $8/Person", color: "green" },
+        //     ]
+        // }
     ];
 
     return (
