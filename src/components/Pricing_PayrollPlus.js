@@ -13,7 +13,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function BundleStarter({ selected }) {
 
-    const starterSetup = useCountingEffect(selected === 'annual' ? 1728.00 : 160.00 );
+    const starterSetup = useCountingEffect(selected === 'annual' ? 144.99 : 159.99 );
 
     const [ open, setOpen ] = useState(false);
 
@@ -54,8 +54,8 @@ export default function BundleStarter({ selected }) {
         }
     
         const stripePaymentLinks = {
-            monthly: "https://buy.stripe.com/3cs4hwfmXh033PWaEE",
-            annual: ""
+            monthly: "https://buy.stripe.com/3csaFUdePdNRcmsfZc",
+            annual: "https://buy.stripe.com/5kAaFUcaL7ptgCI6oB"
         };
     
         const paymentUrl = stripePaymentLinks[selected];

@@ -22,7 +22,7 @@ export default function AppPreFooter() {
                 <a href="https://www.instagram.com/bizsolutionsllc/" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
                   <FaInstagram />
                 </a>
-                <a href="https://www.tiktok.com/@jhenellevillanuev2" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
+                <a href="https://www.tiktok.com/@bizsolutionsllc" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
                   <FaTiktok />
                 </a>
                 <a href="https://www.youtube.com/@BizSolutionsLLC" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
