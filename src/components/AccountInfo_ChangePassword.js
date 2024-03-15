@@ -41,7 +41,7 @@ const Feedbacks = ({ user }) => {
               newPassword: newPassword
           });
 
-          console.log(response);
+          // console.log(response);
 
           setLoading(false);
 

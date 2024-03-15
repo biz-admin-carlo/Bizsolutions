@@ -27,7 +27,7 @@ export default function DeleteAccount({ user }) {
               }
             });
     
-            console.log(response.data);
+            // console.log(response.data);
             setSuccessfulDelete(true);
             // Handle the response, e.g., redirect to login or home page
     

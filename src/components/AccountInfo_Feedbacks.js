@@ -3,7 +3,6 @@ import { Container } from 'react-bootstrap';
 
 const Feedbacks = ({ user }) => {
 
-  console.log(user);
   return (
     <Container style={{ minHeight: '90vh' }} className="pb-5">
       <div className='my-3'>

@@ -39,8 +39,6 @@ export default function AccountInfo() {
     }
   }, []);
 
-  console.log(user);
-
   const fetchUserDetails = async (token) => {
     try {
       const response = await Axios.get(`${apiUrl}/api/v1/users/details`, {

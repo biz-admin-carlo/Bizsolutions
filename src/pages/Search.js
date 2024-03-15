@@ -61,7 +61,7 @@ const createClient = async (location, searchTerm, coords) => {
       clientSearchTerm: searchTerm,
       clientCoords: coords,
     });
-    console.log('Success:', response);
+    // console.log('Success:', response);
     return response;
   } catch (error) {
   }

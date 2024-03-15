@@ -54,7 +54,7 @@ export default function AccountDetails({ user }) {
     setLoading(true);
     try {
       const response = await axios.get(`${apiUrl}/api/v1/business/retrieve/biz/${userId}`);
-      console.log(response.data);
+      // console.log(response.data);
       // Handle success (e.g., show a success message or redirect)
     } catch (error) {
       console.error('Error:', error);
