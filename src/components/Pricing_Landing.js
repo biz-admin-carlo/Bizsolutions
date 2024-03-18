@@ -28,7 +28,7 @@ const Pricing_Landing = () => {
                     <div className="content-container">
                         {loadVideo && (
                             <a href="https://www.youtube.com/shorts/XcoLWjWWh7g" target="_blank" rel="noopener noreferrer">
-                                <video width="320" height="240" className="img-fluid" autoPlay loop>
+                                <video width="320" height="240" className="img-fluid" autoPlay loop controls controlsList="nodownload">
                                     <source src={require('../assets/video-are-you-ready-stock.mp4')} type="video/mp4" />
                                 </video>
                             </a>

@@ -73,7 +73,7 @@ const TechnicalPage = () => {
                         <div className="video-container ps-lg-5">
                             {loadVideo && (
                                 <a href="https://www.youtube.com/shorts/7rB7tSNpmAI" target="_blank" rel="noopener noreferrer">
-                                    <video width="960px" height="540px" className="img-fluid" autoPlay loop>
+                                    <video width="960px" height="540px" className="img-fluid" autoPlay loop controls controlsList="nodownload">
                                         <source src={require('../assets/video-streamline-your-IT.mp4')} type="video/mp4" />
                                     </video>
                                 </a>
