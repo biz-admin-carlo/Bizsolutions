@@ -39,14 +39,13 @@ const TechnicalPage = () => {
                         <div className='text-content pt-lg-5'>
                             <div className='text-center'>
                                 <h6 className='text-services'>Services</h6>
-                                <h1>Technical & IT Support</h1>
+                                <h1>Technical & IT Support at BizSolutions</h1>
 
                                 <hr />
 
                                 <div className='text-intro-landing pb-lg-4'>
 
                                     <h2 className='pb-3 text-dark'>Technical Support Services</h2>
-
 
                                     <p className='text-intro-landing'>In the rapidly evolving digital age, having an agile IT infrastructure is not just an advantage—it's a necessity. <span className='biz-color'>BizSolutions</span> stands at the forefront of providing sophisticated, user-friendly website solutions and comprehensive IT and technical support services designed to meet the challenges of today's technology landscape.</p>
 
