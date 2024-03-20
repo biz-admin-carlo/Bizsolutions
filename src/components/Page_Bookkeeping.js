@@ -83,9 +83,7 @@ const Bookkeeping = () => {
                         <div className="video-container ps-lg-5">
                             {loadVideo && (
                                 <a href="https://www.youtube.com/watch?v=HmbA_4g-iLc" target="_blank" rel="noopener noreferrer">
-                                    {/* <video width="960px" height="540px" className="img-fluid" autoPlay loop controls>
-                                        <source src={require('../assets/video-runninng-a-business-stock.mp4')} type="video/mp4" />
-                                    </video> */}
+        
                                     <video width="960px" height="540px" className="img-fluid" autoPlay loop controls controlsList="nodownload">
                                         <source src={require('../assets/video-runninng-a-business-stock.mp4')} type="video/mp4" />
                                     </video>
