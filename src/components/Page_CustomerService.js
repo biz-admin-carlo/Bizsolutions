@@ -25,7 +25,7 @@ const CustomerService = () => {
                 <meta name="description" content="Enhance your customer engagement with BizSolutions' top-tier customer service support. Discover our innovative solutions for exceptional customer experiences." />
                 <meta property="og:title" content="BizSolutions | Customer Service Support" />
                 <meta property="og:description" content="Enhance your customer engagement with BizSolutions' top-tier customer service support. Discover our innovative solutions for exceptional customer experiences." />
-                <meta property="og:image" content="https://mybizsolutions.us/static/media/icon-customer-service.abc123d456efg.jpg" />
+                <meta property="og:image" content="https://mybizsolutions.us/static/media/icon-app-logo.83ff8bf39a11df9fb7ac.jpg" />
                 <meta property="og:type" content="website" />
                 <link rel="canonical" href="https://mybizsolutions.us/customer-service-support" />
                 <meta name="keywords" content="customer service, support solutions, BizSolutions support, digital customer engagement, customer experience, AI-driven support, omnichannel engagement" />
