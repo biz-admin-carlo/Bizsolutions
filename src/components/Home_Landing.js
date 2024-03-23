@@ -32,32 +32,33 @@ export default function NewLogin() {
         const cachedCoords = sessionStorage.getItem('userCoordinates');
     
         if (cachedCoords) {
-          setUserCoordinates(JSON.parse(cachedCoords));
-          return;
+            setUserCoordinates(JSON.parse(cachedCoords));
+            setLoading(false); // Set loading to false here as well
+            return;
         }
       
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const coords = {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude
-              };
-              setLocation('My Current Location')
-              setUserCoordinates(coords);
-              sessionStorage.setItem('userCoordinates', JSON.stringify(coords));
-              setLoading(false);
-            },
-            (error) => {
-              console.error('Error getting location:', error);
-              setLoading(false);
-            }
-          );
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const coords = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    };
+                    setLocation('My Current Location')
+                    setUserCoordinates(coords);
+                    sessionStorage.setItem('userCoordinates', JSON.stringify(coords));
+                    setLoading(false);
+                },
+                (error) => {
+                    console.error('Error getting location:', error);
+                    setLoading(false);
+                }
+            );
         } else {
-          console.error('Geolocation is not supported by this browser.');
-          setLoading(false);
+            console.error('Geolocation is not supported by this browser.');
+            setLoading(false);
         }
-    };
+    };    
     
     const handleSubmit = async (event) => {
         event.preventDefault(); 
