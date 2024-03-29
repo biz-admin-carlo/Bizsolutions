@@ -131,7 +131,7 @@ export default function NewLogin() {
 
     return (
         loading ? <BarSpinner /> :
-        <>
+        <>        
             <div className='app-landing-page'>
             <Container>
                 <div className="login-container">

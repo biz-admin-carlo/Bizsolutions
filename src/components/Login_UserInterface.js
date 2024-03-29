@@ -1,10 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Form } from 'react-bootstrap';
 import AppFooter from './Application_Footer';
 import imgOne from '../assets/img-app-landing-banner.png';
-import UserContext from '../UserContext';
 import BarSpinner from './Reusable_BarSpinner';
 import { PiEye, PiEyeSlash } from 'react-icons/pi';
 import '../assets/styles/NewLoginInterface.css';
@@ -14,11 +13,10 @@ const apiUrl = process.env.REACT_APP_API_URL;
 export default function NewLogin() {
     const navigate = useNavigate();
     const [ message, setMessage ] = useState('')
-    const { setUser } = useContext(UserContext);
-    const [loading, setLoading] = useState(false);
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [ loading, setLoading ] = useState(false);
+    const [ isPasswordVisible, setIsPasswordVisible ] = useState(false);
+    const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');

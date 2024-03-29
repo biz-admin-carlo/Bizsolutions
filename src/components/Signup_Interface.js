@@ -200,9 +200,17 @@ export default function NewSignUp() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                    <Form.Check type="checkbox" required label="By clicking this, you are agreeing to the Terms & Conditions and the Privacy Policy." />
+                                    <Form.Check 
+                                        type="checkbox" 
+                                        required 
+                                        label={
+                                            <span>
+                                                By clicking this, you are agreeing to the <span className="dotted-underline" onClick={() => navigate('/terms')}>Terms & Conditions</span> and the <span className="dotted-underline" onClick={() => navigate('/privacy')}>Privacy Policy</span>.
+                                            </span>
+                                        } 
+                                    />
                                 </Form.Group>
-                                
+  
                                 <div className='pb-2'> 
                                     <h6 className='text-secondary py-2'>
                                         <span 

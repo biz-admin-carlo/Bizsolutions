@@ -10,6 +10,7 @@ import NewsFeed from './AccountInfo_NewsFeed.js';
 import Feedbacks from './AccountInfo_Feedbacks.js';
 import ChangePassword from './AccountInfo_ChangePassword.js';
 import DeleteAccount from './AccountInfo_DeleteAccount.js';
+import ReferralCode from './AccountInfo_ReferralCode.js'
 import BarSpinner from './Reusable_BarSpinner.js';
 import AppFooter from './Application_Footer.js';
 
@@ -103,6 +104,9 @@ export default function AccountInfo() {
                 <ListGroup.Item action href="#manage-biz">
                   Manage Business
                 </ListGroup.Item>
+                <ListGroup.Item action href="#referral-code">
+                  Referral Code
+                </ListGroup.Item>
               </ListGroup>
 
               {(user.isAdmin &&
@@ -133,6 +137,9 @@ export default function AccountInfo() {
                 </Tab.Pane>
                 <Tab.Pane eventKey="#manage-biz">
                   <ManageBiz user={user} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="#referral-code">
+                  <ReferralCode user={user} />
                 </Tab.Pane>
               </Tab.Content>
             </Col>

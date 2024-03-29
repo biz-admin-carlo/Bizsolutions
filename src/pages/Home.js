@@ -9,11 +9,9 @@ import HomeTechnical from '../components/Home_Technical.js';
 import HomeCustomerService from '../components/Home_CustomerService.js';
 import HomeSalesCollection from '../components/Home_SalesCollection.js';
 
-
 export default function Home() {
 
   const navigate = useNavigate();
-
   const { user } = useContext(UserContext);
   // console.log(user);
   
