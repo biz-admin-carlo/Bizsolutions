@@ -16,6 +16,7 @@ export default function NewSignUp() {
     const [ lastName, setLastName ] = useState('');
     const [ email, setEmail ] = useState('');
     const [ birthday, setBirthday ] = useState('');
+    const [ referredBy, setReferredBy ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ password1, setPassword1 ] = useState('');
     const [ isPasswordVisible, setIsPasswordVisible ] = useState(false);
@@ -26,19 +27,6 @@ export default function NewSignUp() {
     const [ captchaValue, setCaptchaValue ] = useState(null); // For Captcha Integration
     
     const navigate = useNavigate();
-
-    const checkEmail = async (email) => {
-        try {
-            const response = await axios.get(`${apiUrl}/api/v1/users/check-email/${email}`);
-            if (response.data.exists === true) {
-                setMessage("The email address you entered is already in use.");
-            } else {
-                setMessage('');
-            }
-        } catch (error) {
-            console.error('Error checking email:', error);
-        }
-    };
   
     const registerUser = async (event) => {
         event.preventDefault();
@@ -51,7 +39,8 @@ export default function NewSignUp() {
                     lastName,
                     email,
                     birthday,
-                    password: password1
+                    password: password1,
+                    referredBy
                 });
                 setShowSuccessModal(true);
             } else {
@@ -132,7 +121,6 @@ export default function NewSignUp() {
                                         value={email}
                                         onChange={event => {
                                             setEmail(event.target.value);
-                                            checkEmail(event.target.value);
                                         }}
                                         
                                     />
@@ -174,7 +162,7 @@ export default function NewSignUp() {
                                     </div>
                                 </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
+                                <Form.Group controlId="formBasicConfirmPassword">
                                     <Form.Label>Confirm Password</Form.Label>
                                     <div style={{ position: 'relative' }}>
                                         <Form.Control
@@ -197,6 +185,16 @@ export default function NewSignUp() {
                                             {isConfirmPasswordVisible ? <PiEyeSlash /> : <PiEye />}
                                         </div>
                                     </div>
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formBasicReferredBy">
+                                    <Form.Label>Referred By<span className='text-danger'>*</span></Form.Label>
+                                    <Form.Control
+                                        type="string"
+                                        placeholder="Referred By (optional)"
+                                        value={referredBy}
+                                        onChange={event => setReferredBy(event.target.value)}
+                                    />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
@@ -227,7 +225,7 @@ export default function NewSignUp() {
                             </Form>
                         </div>
                         <div className="login-image">
-                            <img className="img-fluid" src={imgTwo} alt="BizSolution LLC SignUp Interface Image" />
+                            <img className="img-fluid" src={imgTwo} alt="BizSolution LLC SignUp Interface" />
                         </div>
                     </div>
                 </Container>
