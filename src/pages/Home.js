@@ -8,12 +8,12 @@ import HomeBookkeeping from '../components/Home_Bookkeeping.js';
 import HomeTechnical from '../components/Home_Technical.js';
 import HomeCustomerService from '../components/Home_CustomerService.js';
 import HomeSalesCollection from '../components/Home_SalesCollection.js';
+import HomeModal from '../components/Home_Modal.js';
 
 export default function Home() {
 
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
-  // console.log(user);
   
   return (
     <div>
@@ -21,6 +21,7 @@ export default function Home() {
         navigate(`/admin-dashboard/${user._id}/`)
       ) : (
         <>
+          <div data-aos="fade-up"><HomeModal /></div>
           <div data-aos="fade-up"><HomeLanding /></div>
           <div data-aos="fade-up"><HomeWebDevelopment /></div>
           <div data-aos="fade-up"><HomeBookkeeping /></div>
@@ -31,5 +32,6 @@ export default function Home() {
         </>
       )}
     </div>
+
   );
 }
