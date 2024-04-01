@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../UserContext.js';
 import AppFooter from '../components/Application_Footer.js';
@@ -9,11 +9,24 @@ import HomeTechnical from '../components/Home_Technical.js';
 import HomeCustomerService from '../components/Home_CustomerService.js';
 import HomeSalesCollection from '../components/Home_SalesCollection.js';
 import HomeModal from '../components/Home_Modal.js';
+import HomeTestimony from '../components/Home_Testimony.js';
 
 export default function Home() {
 
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    function handleResize() {
+      setIsSmallScreen(window.innerWidth < 768);
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    // Clean up
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   return (
     <div>
@@ -21,8 +34,9 @@ export default function Home() {
         navigate(`/admin-dashboard/${user._id}/`)
       ) : (
         <>
-          <div data-aos="fade-up"><HomeModal /></div>
+          {!isSmallScreen && <div data-aos="fade-up"><HomeModal /></div>}
           <div data-aos="fade-up"><HomeLanding /></div>
+          <div data-aos="fade-up"><HomeTestimony /></div>
           <div data-aos="fade-up"><HomeWebDevelopment /></div>
           <div data-aos="fade-up"><HomeBookkeeping /></div>
           <div data-aos="fade-up"><HomeTechnical /></div>

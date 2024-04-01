@@ -1,0 +1,12 @@
+/* Home_Modal.css */
+
+.modal-custom {
+    max-width: 90%;
+    margin: auto;
+}
+
+@media (max-width: 575.98px) {
+    .modal-custom {
+        display: none;
+    }
+}
