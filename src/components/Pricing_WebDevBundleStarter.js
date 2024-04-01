@@ -58,7 +58,7 @@ export default function BundleStarter({ selected }) {
     
         const stripePaymentLinks = {
             monthly: "https://buy.stripe.com/3cs4hwfmXh033PWaEE",
-            annual: ""
+            annual: "https://buy.stripe.com/bIYbJY2AbcJNfyE008"
         };
     
         const paymentUrl = stripePaymentLinks[selected];

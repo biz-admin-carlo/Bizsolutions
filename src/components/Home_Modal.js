@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 
-export default function Home_Modal() {
-    const [show, setShow] = useState(true); 
+export default function HomeModal() {
 
-    const handleClose = () => setShow(false);
+    const [ show, setShow ] = useState(!localStorage.getItem('hasAnswered')); 
+
+    const handleClose = () => {
+        setShow(false);
+        localStorage.setItem('hasAnswered', 'true');
+    };
 
     useEffect(() => {
         if (!show) {
