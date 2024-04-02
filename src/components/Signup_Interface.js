@@ -16,7 +16,7 @@ export default function NewSignUp() {
     const [ lastName, setLastName ] = useState('');
     const [ email, setEmail ] = useState('');
     const [ birthday, setBirthday ] = useState('');
-    const [ referredBy, setReferredBy ] = useState('');
+    const [ referredBy, setReferredBy ] = useState(null);
     const [ password, setPassword ] = useState('');
     const [ password1, setPassword1 ] = useState('');
     const [ isPasswordVisible, setIsPasswordVisible ] = useState(false);
