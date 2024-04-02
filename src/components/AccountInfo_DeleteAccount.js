@@ -59,7 +59,7 @@ return (
 
         <div>
             <hr />
-            <p className='text-secondary pb-3' style={{ fontSize: '13px' }}>Please note that deleting your account is irreversible and will result in the permanent loss of all your data and settings. If you decide later that you wish to reactivate your account, you will need to start from scratch. For reactivation requests or if you change your mind after deletion, please contact us at <span style={{ color: '#FF851A' }}>sales@bizSolutions.com</span>. We're here to assist you. Think carefully before proceeding with account deletion, as this action cannot be undone and all your stored information will be permanently removed.</p>
+            <p className='text-secondary pb-3' style={{ fontSize: '13px' }}>Please note that deleting your account is irreversible and will result in the permanent loss of all your data and settings. If you decide later that you wish to reactivate your account, you will need to start from scratch. For reactivation requests or if you change your mind after deletion, please contact us at <span style={{ color: '#FF851A' }}>sales@bizsolutions.com</span>. We're here to assist you. Think carefully before proceeding with account deletion, as this action cannot be undone and all your stored information will be permanently removed.</p>
         </div>
 
         <div className='py-3'>
