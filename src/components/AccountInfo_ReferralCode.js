@@ -62,16 +62,16 @@ const ReferralCode = ({ user }) => {
     </Form.Group>
   );
 
-  const referralLinkDisplay = referralToken && (
-    <Form.Group className="mb-3" controlId="formBasicReferralToken">
-      <Form.Label>Your Referral Link</Form.Label>
-      <Form.Control
-        placeholder="Referral Token Here"
-        value={referralToken}
-        readOnly
-      />
-    </Form.Group>
-  );
+  // const referralLinkDisplay = referralToken && (
+  //   <Form.Group className="mb-3" controlId="formBasicReferralToken">
+  //     <Form.Label>Your Referral Link</Form.Label>
+  //     <Form.Control
+  //       placeholder="Referral Token Here"
+  //       value={referralToken}
+  //       readOnly
+  //     />
+  //   </Form.Group>
+  // );
 
   return (
     <Container style={{ minHeight: '90vh' }} className="pb-5">
@@ -109,14 +109,14 @@ const ReferralCode = ({ user }) => {
       {referralTokenDisplay}
     </Form>
 
-    <Form>
+    {/* <Form>
       {!referralToken && (
         <div className='py-3'>
           <button onClick={getReferralCode} className="custom-button">Get Referral Token</button>
         </div>
       )}
       {referralLinkDisplay}
-    </Form>
+    </Form> */}
 
       {showSuccessModal && (
         <Modal show={showSuccessModal} onHide={handleCloseModal}>

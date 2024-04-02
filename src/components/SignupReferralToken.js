@@ -43,6 +43,7 @@ export default function SignUpReferralToken() {
         setIsLoading(true);
         try {
             const response = await axios.get(`${apiUrl}/api/v1/users/check-email/${email}`);
+            console.log(response);
             if (!response.data.exists) {
                 await axios.post(`${apiUrl}/api/v1/users/register`, {
                     firstName,
