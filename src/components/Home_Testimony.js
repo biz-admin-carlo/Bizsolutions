@@ -30,6 +30,26 @@ const Testimony = () => {
                             <strong>Mike S., Entrepreneur, California</strong>
                         </figcaption>
                     </figure>
+
+                    <figure className="text-center py-5">
+                        <blockquote className="blockquote">
+                            <h6 className='fw-bold' style={{ color: '#FF851A', fontStyle: 'italic' }}>Streamlined and Efficient! A Game Changer for My Business!</h6>
+                            <p>Discovering the web app service from BizSolutions was a breakthrough for my business. The user-friendly interface and innovative features have simplified complex processes, saving me time and boosting productivity. Their support team is always on point, providing quick and helpful responses. I'm looking forward to seeing how they continue to evolve and improve our workflows.</p>
+                        </blockquote>
+                        <figcaption className="blockquote-footer">
+                            <strong>Jane R., Small Business Owner, New York</strong>
+                        </figcaption>
+                    </figure>
+
+                    <figure className="text-center">
+                        <blockquote className="blockquote">
+                            <h6 className='fw-bold' style={{ color: '#FF851A', fontStyle: 'italic' }}>A Lifesaver in Bookkeeping!</h6>
+                            <p>BizSolutions' bookkeeping is top-notch. Their attention to detail keeps my finances precise and current. I'm particularly impressed by how their system integrates with our operations, offering essential real-time insights. Highly recommend for anyone seeking dependable bookkeeping.</p>
+                        </blockquote>
+                        <figcaption className="blockquote-footer">
+                            <strong>Ali T., Tech Startup CEO, Texas</strong>
+                        </figcaption>
+                    </figure>
                 </div>
 
             </Container>
@@ -57,6 +77,27 @@ const Testimony = () => {
                             <strong>Mike S., Entrepreneur, California</strong>
                         </figcaption>
                     </figure>
+
+                    <figure className="text-center py-5">
+                        <blockquote className="blockquote">
+                            <h6 className='fw-bold' style={{ color: '#FF851A', fontStyle: 'italic' }}>Streamlined and Efficient! A Game Changer for My Business!</h6>
+                            <p>Discovering the web app service from BizSolutions was a breakthrough for my business. The user-friendly interface and innovative features have simplified complex processes, saving me time and boosting productivity. Their support team is always on point, providing quick and helpful responses. I'm looking forward to seeing how they continue to evolve and improve our workflows.</p>
+                        </blockquote>
+                        <figcaption className="blockquote-footer">
+                            <strong>Jane R., Small Business Owner, New York</strong>
+                        </figcaption>
+                    </figure>
+
+                    <figure className="text-center">
+                        <blockquote className="blockquote">
+                            <h6 className='fw-bold' style={{ color: '#FF851A', fontStyle: 'italic' }}>A Lifesaver in Bookkeeping!</h6>
+                            <p>BizSolutions' bookkeeping is top-notch. Their attention to detail keeps my finances precise and current. I'm particularly impressed by how their system integrates with our operations, offering essential real-time insights. Highly recommend for anyone seeking dependable bookkeeping.</p>
+                        </blockquote>
+                        <figcaption className="blockquote-footer">
+                            <strong>Ali T., Tech Startup CEO, Texas</strong>
+                        </figcaption>
+                    </figure>
+                    
                 </div>
             </Container>
         </>
