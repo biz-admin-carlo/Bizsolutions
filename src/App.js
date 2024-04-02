@@ -10,6 +10,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/Signup';
+
+import SignUpReferralToken from './components/SignupReferralToken';
+
 import Search from './pages/Search';
 import Account from './pages/Account';
 import Pricing from './pages/Pricing';
@@ -66,6 +69,7 @@ function App() {
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/login/pricing" element={<Login/>}/>
                     <Route path="/sign-up" element={<SignUp/>}/>
+                    <Route path="/sign-up-with-referral" element={<SignUpReferralToken/>}/>
                     <Route path="/search" element={<Search/>}/>
                     
                     <Route path="/account" element={<Account/>}/>
