@@ -33,8 +33,6 @@ export default function SignUpReferralToken() {
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         const referralCode = queryParams.get('ref');
-        console.log('This is new signUp Interface')
-        console.log("Referral Code:", referralCode); // Debug line
         if (referralCode) {
             setReferredBy(referralCode);
         }
@@ -203,13 +201,16 @@ export default function SignUpReferralToken() {
                                     </div>
                                 </Form.Group>
 
-                                <Form.Group controlId="formBasicReferredBy">
-                                    <Form.Label>Referred By<span className='text-danger'>*</span></Form.Label>
+                                <Form.Group controlId="formBasicReferredBy" className='py-3'>
+                                    <Form.Label><span 
+                                            className="dotted-underline"
+                                            onClick={() => navigate('/biz-referral-system')}
+                                        >Referred By</span></Form.Label>
                                     <Form.Control
                                         type="string"
                                         placeholder="Referred By (optional)"
-                                        value={referredBy ?? ''} // Changed to handle null
-                                        onChange={event => setReferredBy(event.target.value)}
+                                        value={referredBy ?? ''}
+                                        readOnly
                                     />
                                 </Form.Group>
 
