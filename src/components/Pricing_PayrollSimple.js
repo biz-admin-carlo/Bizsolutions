@@ -79,7 +79,7 @@ export default function BundleStarter({ selected }) {
                 { name: "Payroll & Time-Off Reporting", color: "green" },
                 { name: "Customizable Admin Permissions", color: "green" },
                 { name: "Versatile Integration Capabilities", color: "green" },
-                { name: "Priority Support & HR Resources - Additional $9/Person", color: "orange" },
+                { name: "Priority Support & HR Resources - Additional $12/Employee", color: "orange" },
             ]
         }
     ];

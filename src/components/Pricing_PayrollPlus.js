@@ -80,7 +80,7 @@ export default function BundleStarter({ selected }) {
                 { name: "Performance Review Tools", color: "green" },
                 { name: "Employee Surveys & Insights", color: "green" },
                 { name: "Performance Review Tools", color: "green" },
-                { name: "Priority Support & HR Resources - Additional $9/Person", color: "orange" },
+                { name: "Priority Support & HR Resources - Additional $12/Employee", color: "orange" },
 
             ]
         },

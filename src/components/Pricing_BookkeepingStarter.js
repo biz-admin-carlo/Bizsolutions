@@ -41,7 +41,7 @@ const BookkeepingStarter = ({ selected, packageOne, handleGetStartedClick }) => 
                                 <Badge pill bg="light" text="warning">billed monthly</Badge>
                         }</p>
                     </h3>
-                    <Card.Subtitle className="mb-2 text-muted">Payroll $8 per employees/Month</Card.Subtitle>
+                    <Card.Subtitle className="mb-2 text-muted">Payroll $12 per employees/Month</Card.Subtitle>
                         
                     <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleModalToggle}>
                         Get Started
