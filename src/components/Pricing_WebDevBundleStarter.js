@@ -60,8 +60,12 @@ export default function BundleStarter({ selected }) {
             monthly: "https://buy.stripe.com/3cs4hwfmXh033PWaEE",
             annual: "https://buy.stripe.com/bIYbJY2AbcJNfyE008"
         };
+        const keapPaymentLinks = {
+            monthly: "https://keap.app/checkout/dyb285/starter-setup-monthly",
+            annual: "https://keap.app/checkout/dyb285/starter-setup-annually"
+        };
     
-        const paymentUrl = stripePaymentLinks[selected];
+        const paymentUrl = keapPaymentLinks[selected];
         if (paymentUrl) {
             window.location.href = paymentUrl;
         } else {
