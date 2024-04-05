@@ -188,7 +188,10 @@ export default function NewSignUp() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicReferredBy">
-                                    <Form.Label>Referred By<span className='text-danger'>*</span></Form.Label>
+                                    <Form.Label><span 
+                                            className="dotted-underline"
+                                            onClick={() => navigate('/biz-referral-system')}
+                                        >Referred By</span></Form.Label>
                                     <Form.Control
                                         type="string"
                                         placeholder="Referred By (optional)"

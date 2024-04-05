@@ -1,42 +1,59 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Container, Button, Form, Modal } from 'react-bootstrap';
+import { PiCopyLight } from 'react-icons/pi';
+import { Container, Form, Modal, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import '../assets/styles/NewLoginInterface.css';
 import BarSpinner from './Reusable_BarSpinner';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const ReferralCode = ({ user }) => {
-  const navigate = useNavigate();
-  const [ loading, setLoading ] = useState(false);
-  const [ referralToken, setReferralToken ] = useState(sessionStorage.getItem('referralToken') || user.referralCode);
-  const [ showSuccessModal, setShowSuccessModal ] = useState(false);
-  const [ showErrorModal, setShowErrorModal ] = useState(false);
+  const [showCopyAlert, setShowCopyAlert] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [referralToken, setReferralToken] = useState(sessionStorage.getItem('referralToken') || user.referralCode);
+  const [referralLink, setReferralLink] = useState(sessionStorage.getItem('referralLink') || user.referralLink);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
-  const handleCloseModal = () => {
-    setShowSuccessModal(false);
-    setShowErrorModal(false);
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem('referralToken');
     if (storedToken) {
       setReferralToken(storedToken);
     }
-  }, []); 
-  
+  }, []);
+
+  const handleCopyTokenToClipboard = () => {
+    navigator.clipboard.writeText(referralToken).then(() => {
+      setShowCopyAlert('token');
+      setTimeout(() => setShowCopyAlert(''), 3000);
+    });
+  };
+
+  const handleCopyLinkToClipboard = () => {
+    navigator.clipboard.writeText(referralLink).then(() => {
+      setShowCopyAlert('link');
+      setTimeout(() => setShowCopyAlert(''), 3000);
+    });
+  };
+
+  const handleCloseModal = () => {
+    setShowSuccessModal(false);
+    setShowErrorModal(false);
+  };
+
   const getReferralCode = async () => {
     setLoading(true);
     const token = sessionStorage.getItem('token');
-    
     try {
       const response = await axios.get(`${apiUrl}/api/v1/users/${user._id}/referral-code`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      sessionStorage.setItem('referralToken', response.data.referralCode); 
+      sessionStorage.setItem('referralToken', response.data.referralCode);
       setReferralToken(response.data.referralCode);
       setShowSuccessModal(true);
     } catch (error) {
@@ -45,37 +62,65 @@ const ReferralCode = ({ user }) => {
     } finally {
       setLoading(false);
     }
-  };  
+  };
+
+  const getReferralLink = async () => {
+    setLoading(true);
+    const token = sessionStorage.getItem('token');
+    try {
+      const response = await axios.get(`${apiUrl}/api/v1/users/${user._id}/referral-link`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      sessionStorage.setItem('referralLink', response.data.referralLink);
+      setReferralLink(response.data.referralLink);
+      setShowSuccessModal(true);
+    } catch (error) {
+      console.error('Error fetching referral link:', error);
+      setShowErrorModal(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (loading) {
     return <BarSpinner />;
-  };
+  }
 
   const referralTokenDisplay = referralToken && (
     <Form.Group className="mb-3" controlId="formBasicReferralToken">
       <Form.Label>Your Referral Token</Form.Label>
-      <Form.Control
-        placeholder="Referral Token Here"
-        value={referralToken}
-        readOnly
-      />
+      <div className="d-flex">
+        <Form.Control readOnly placeholder="Referral Token Here" value={referralToken} />
+        <Button variant="outline-secondary" onClick={handleCopyTokenToClipboard} className="ml-2">
+          <PiCopyLight />
+        </Button>
+      </div>
     </Form.Group>
   );
 
-  // const referralLinkDisplay = referralToken && (
-  //   <Form.Group className="mb-3" controlId="formBasicReferralToken">
-  //     <Form.Label>Your Referral Link</Form.Label>
-  //     <Form.Control
-  //       placeholder="Referral Token Here"
-  //       value={referralToken}
-  //       readOnly
-  //     />
-  //   </Form.Group>
-  // );
+  const referralLinkDisplay = referralLink && (
+    <>
+    <Form.Group className="mb-3" controlId="formBasicReferralLink">
+      <Form.Label>Your Referral Link</Form.Label>
+      <div className="d-flex">
+        <Form.Control readOnly placeholder="Referral Link Here" value={referralLink} />
+        <Button variant="outline-secondary" onClick={handleCopyLinkToClipboard} className="ml-2">
+          <PiCopyLight />
+        </Button>
+      </div>
+    </Form.Group>
+      <p className='text-secondary pb-3' style={{ fontSize: '13px' }}>
+        Welcome to <span className='biz-color'>BizSolutions</span>! Get started with our Referral System by simply copying your unique referral token or link. Share it with friends, colleagues, and peers to invite them to join the BizSolutions community. Want to know more? Discover all the benefits of our referral system <span className="dotted-underline" onClick={() => navigate('/biz-referral-system')}>here</span>. 
+      </p>
+    </>
+  );
 
   return (
     <Container style={{ minHeight: '90vh' }} className="pb-5">
-      <div className='my-3'>
+
+      <div className='mt-lg-5 mb-3'>
         <h2>Referral Code</h2>
       </div>
 
@@ -99,31 +144,42 @@ const ReferralCode = ({ user }) => {
       </div>
       <hr />
     </div>
+      
+      <Form>
+        {!referralToken && (
+          <div className='py-3'>
+            <button onClick={getReferralCode} className="custom-button">
+              Generate Referral Token
+            </button>
+          </div>
+        )}
+        {referralTokenDisplay}
+      </Form>
 
-    <Form>
-      {!referralToken && (
+      {referralToken && !referralLink && (
         <div className='py-3'>
-          <button onClick={getReferralCode} className="custom-button">Get Referral Token</button>
+          <button onClick={getReferralLink} className="custom-button">
+            Generate Referral Link
+          </button>
         </div>
       )}
-      {referralTokenDisplay}
-    </Form>
 
-    {/* <Form>
-      {!referralToken && (
-        <div className='py-3'>
-          <button onClick={getReferralCode} className="custom-button">Get Referral Token</button>
-        </div>
-      )}
       {referralLinkDisplay}
-    </Form> */}
+
+      {showCopyAlert && (
+        <div className="alert alert-warning floating-alert my-5" role="alert">
+          {showCopyAlert === 'token' ? 'Referral token copied to clipboard!' : 'Referral link copied to clipboard!'}
+        </div>
+      )}
 
       {showSuccessModal && (
         <Modal show={showSuccessModal} onHide={handleCloseModal}>
           <Modal.Header closeButton>
             <Modal.Title>Success</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Your referral token has been updated!</Modal.Body>
+          <Modal.Body>
+            {referralLink ? 'Your referral link has been successfully generated!' : 'Your referral token has been successfully generated!'}
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseModal}>
               Close
@@ -137,7 +193,9 @@ const ReferralCode = ({ user }) => {
           <Modal.Header closeButton>
             <Modal.Title>Error</Modal.Title>
           </Modal.Header>
-          <Modal.Body>There was an error fetching your referral token. Please try again later.</Modal.Body>
+          <Modal.Body>
+            {referralLink ? 'There was an error fetching your referral link. Please try again later.' : 'There was an error fetching your referral token. Please try again later.'}
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseModal}>
               Close
@@ -145,6 +203,7 @@ const ReferralCode = ({ user }) => {
           </Modal.Footer>
         </Modal>
       )}
+
     </Container>
   );
 };

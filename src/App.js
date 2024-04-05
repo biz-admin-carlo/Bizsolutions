@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import SignUp from './pages/Signup';
 
 import SignUpReferralToken from './components/SignupReferralToken';
+import Referral from './pages/Referral';
 
 import Search from './pages/Search';
 import Account from './pages/Account';
@@ -76,6 +77,8 @@ function App() {
                     <Route path="/pricing" element={<Pricing/>}/>
                     <Route path="/terms" element={<Terms/>}/>
                     <Route path="/privacy" element={<Privacy/>}/>
+
+                    <Route path="/biz-referral-system" element={<Referral/>}/>
 
                     <Route path="/contact-us" element={<ContactUs/>}/>
                     <Route path="/about-us" element={<AboutUs/>}/>

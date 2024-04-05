@@ -101,9 +101,9 @@ export default function AccountInfo() {
                 <ListGroup.Item action href="#delete-account">
                   Delete Account
                 </ListGroup.Item>
-                <ListGroup.Item action href="#manage-biz">
+                {/* <ListGroup.Item action href="#manage-biz">
                   Manage Business
-                </ListGroup.Item>
+                </ListGroup.Item> */}
                 <ListGroup.Item action href="#referral-code">
                   Referral Code
                 </ListGroup.Item>
@@ -135,9 +135,9 @@ export default function AccountInfo() {
                 <Tab.Pane eventKey="#delete-account">
                   <DeleteAccount user={user} />
                 </Tab.Pane>
-                <Tab.Pane eventKey="#manage-biz">
+                {/* <Tab.Pane eventKey="#manage-biz">
                   <ManageBiz user={user} />
-                </Tab.Pane>
+                </Tab.Pane> */}
                 <Tab.Pane eventKey="#referral-code">
                   <ReferralCode user={user} />
                 </Tab.Pane>
