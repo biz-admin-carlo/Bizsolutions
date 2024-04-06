@@ -9,12 +9,11 @@ import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
 import Axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
-//const socket = io('http://localhost:8001'); // Replace with your actual backend URL
 
 export default function Trial15() {
 
     const [ user, setUser ] = useState({});
-    const [ paymentStatus, setPaymentStatus ] = useState(''); // State to track payment status
+    const [ paymentStatus, setPaymentStatus ] = useState('');
 
     const navigate = useNavigate();
 
@@ -23,19 +22,6 @@ export default function Trial15() {
     };
 
     const [ open, setOpen ] = useState(!isScreenSmall());
-
-    // useEffect(() => {
-    //     socket.on('paymentStatus', (data) => {
-    //       if (data.userId === user.id) {
-    //         // Update the UI based on data.status ('success' or 'failure')
-    //       }
-    //     });
-      
-    //     return () => {
-    //       socket.off('paymentStatus');
-    //     };
-    //   }, [user]);
-      
 
     useEffect(() => {
         const handleResize = () => {
@@ -53,22 +39,18 @@ export default function Trial15() {
         }
     }, []);
 
-    const handleModalToggle = async () => {
+    const handleModalToggle = () => {
         const token = sessionStorage.getItem('token');
         
         if (!token) {
             navigate('/login/pricing');
-        } else {
-            try {
-                const response = await Axios.post(`${apiUrl}/api/v1/payment/initiate`, {/* user data or product details */});
-                if(response.status === 200) {
-                    window.location.href = response.data.paymentUrl; // Redirect to the payment gateway
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
+            return; 
         }
+    
+        const trialUrl = "https://keap.app/checkout/dyb285/15-day-trial";
+        window.location.href = trialUrl;
     };
+    
 
     if (paymentStatus === 'success') {
         return <div>Payment Successful! Thank you.</div>;
@@ -85,7 +67,6 @@ export default function Trial15() {
           });
           if (response.status === 200) {
             setUser(response.data);
-
           } else {
             // console.error('Failed to fetch user details');
           }
@@ -131,8 +112,6 @@ export default function Trial15() {
 
                 <Button variant="warning" className='my-3 full-width-button' onClick={handleModalToggle}>Get Started</Button>
                 
-                
-                {/* Collapsible Section */}
                 <Collapse in={open}>
                     <div>
                     <Card.Text> Features included:</Card.Text>
@@ -164,17 +143,6 @@ export default function Trial15() {
                     </Button>           
                 </div>
             </Card.Body>
-
-            {/* <VerifyModal 
-                showModal={showModal}
-                handleModalToggle={handleModalToggle}
-                user={user}
-                selected={null} // This might need to be adjusted based on your logic
-                starterSetup={trialSetup}
-                bundleSetup="Trial" // Indicate that this is a trial setup
-                transactionDate={transactionDate}
-            /> */}
-
         </Card>
     );
 }
