@@ -26,7 +26,7 @@
 h1 {
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
-    color: #FF851A;
+    color: #FF851A !important;
 }
 
 p {
