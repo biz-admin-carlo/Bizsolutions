@@ -13,7 +13,7 @@ const SalesCollection = () => {
                         <Image src={web} className='image-size-three' rounded alt="BizSolutions LLC Home Sales Collection Image" />
                     </div>
                     <div className="flex-col content-col mx-3">
-                        <h1 className='title text-center'><Link to="/sales-collection-services" style={{ textDecoration: 'none', color: 'inherit' }}>Sales & Collections</Link></h1>
+                        <h1 className='title text-center biz-color'><Link to="/sales-collection-services" style={{ textDecoration: 'none', color: 'inherit' }}>Sales & Collections</Link></h1>
                         <hr />
                         <p className="paragraph-text">
                         Boost your revenue with our expert sales and collections services. We combine strategic insight with persuasive communication skills to effectively manage sales and collections, driving better business outcomes for you.

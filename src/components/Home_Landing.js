@@ -138,7 +138,7 @@ export default function NewLogin() {
                     <div className="login-form">
                         <Form onSubmit={handleSubmit}>
                             <div className='pb-3'>
-                            <h1 style={{ fontSize: '2.8rem' }}>Discover and Experience</h1>
+                            <h1 style={{ fontSize: '2.8rem' }} className='biz-color'>Discover and Experience</h1>
                             <h4 style={{ fontSize: '2rem' }} className='text-secondary'>Local Businesses</h4>
                             </div>
 

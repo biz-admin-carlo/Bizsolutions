@@ -13,7 +13,7 @@ const WebDevHome = () => {
                         <Image src={web} className='image-size' rounded alt="BizSolutions LLC Home Web Development Image" />
                     </div>
                     <div className="flex-col content-col">
-                        <h1 className='title text-center'><Link to="/website-development-services" style={{ textDecoration: 'none', color: 'inherit' }}>Web Development</Link></h1>
+                        <h1 className='title text-center biz-color'><Link to="/website-development-services" style={{ textDecoration: 'none', color: 'inherit' }}>Web Development</Link></h1>
                         <hr />
                         <p className="paragraph-text">
                             Unlock the potential of your online presence with our cutting-edge website 

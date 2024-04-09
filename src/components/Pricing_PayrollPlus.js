@@ -57,8 +57,13 @@ export default function BundleStarter({ selected }) {
             monthly: "https://buy.stripe.com/3csaFUdePdNRcmsfZc",
             annual: "https://buy.stripe.com/5kAaFUcaL7ptgCI6oB"
         };
+
+        const keapPaymentLinks = {
+            monthly: "https://keap.app/checkout/dyb285/plus-payroll-monthly",
+            annual: "https://buy.stripe.com/5kAaFUcaL7ptgCI6oB"
+        };
     
-        const paymentUrl = stripePaymentLinks[selected];
+        const paymentUrl = keapPaymentLinks[selected];
         if (paymentUrl) {
             window.location.href = paymentUrl;
         } else {

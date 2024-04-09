@@ -13,7 +13,7 @@ const TechnicalHome = () => {
                         <Image src={web} className='image-size-three' rounded alt="BizSolutions LLC Home Technical Support Image" />
                     </div>
                     <div className="flex-col content-col mx-3">
-                        <h1 className='title text-center'><Link to="/technical-support-services" style={{ textDecoration: 'none', color: 'inherit' }}>Technical & IT Support</Link></h1>
+                        <h1 className='title text-center biz-color'><Link to="/technical-support-services" style={{ textDecoration: 'none', color: 'inherit' }}>Technical & IT Support</Link></h1>
                         <hr />
                         <p className="paragraph-text">
                         Navigate the complexities of technology with ease. Our technical and IT support services are here to resolve your tech challenges promptly, ensuring your operations run smoothly without any disruptions.

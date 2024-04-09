@@ -6,10 +6,10 @@
     "@vercel/speed-insights": "^1.0.9",
     "aos": "^2.3.4",
     "axios": "^1.6.5",
-    "bootstrap": "^5.2.2",
+    "bootstrap": "^5.3.3",
     "leaflet": "^1.9.4",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.5.0",
+    "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",
     "react-ga": "^3.3.1",
     "react-google-recaptcha": "^3.1.0",
@@ -21,7 +21,9 @@
     "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
-    "react-typed": "^2.0.12"
+    "react-slick": "^0.30.2",
+    "react-typed": "^2.0.12",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
     "start": "react-scripts start",
