@@ -10,6 +10,7 @@ import HomeCustomerService from '../components/Home_CustomerService.js';
 import HomeSalesCollection from '../components/Home_SalesCollection.js';
 import HomeModal from '../components/Home_Modal.js';
 import HomeTestimony from '../components/Home_Testimony.js';
+import HomeNumbers from '../components/Home_Numbers.js';
 
 export default function Home() {
 
@@ -37,6 +38,7 @@ export default function Home() {
           {!isSmallScreen && <div data-aos="fade-up"><HomeModal /></div>}
           <div data-aos="fade-up"><HomeLanding /></div>
           <div data-aos="fade-up"><HomeTestimony /></div>
+          <div data-aos="fade-up"><HomeNumbers /></div>
           <div data-aos="fade-up"><HomeWebDevelopment /></div>
           <div data-aos="fade-up"><HomeBookkeeping /></div>
           <div data-aos="fade-up"><HomeTechnical /></div>
