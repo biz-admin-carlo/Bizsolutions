@@ -94,7 +94,10 @@ function App() {
                     <Route path="/customer-service" element={<PageCustomerService/>}/>
                     <Route path="/sales-collection" element={<PageSalesCollections/>}/>
 
-                    <Route path="/website-development-services" element={<PageWebDevelopment/>}/>
+                    <Route path="/website-development-solutions" element={<PageWebDevelopment/>}/>
+                    <Route path="/website-revamp-solutions" element={<PageWebDevelopment/>}/>
+                    <Route path="/seo-solutions" element={<PageWebDevelopment/>}/>
+
                     <Route path="/bookkeeping-services" element={<PageBookkeeping/>}/>
                     <Route path="/technical-support-services" element={<PageTechnicalSupport/>}/>
                     <Route path="/customer-support-services" element={<PageCustomerService/>}/>

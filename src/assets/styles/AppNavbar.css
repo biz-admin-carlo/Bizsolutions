@@ -22,3 +22,7 @@
 .navbar-options:hover {
     border-bottom: 3px solid #d4d4d4; 
 }
+
+.service-item:hover {
+    color: #FF851A !important;
+  }

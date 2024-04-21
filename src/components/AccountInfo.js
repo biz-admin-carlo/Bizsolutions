@@ -26,13 +26,19 @@ const apiUrl = process.env.REACT_APP_API_URL;
 export default function AccountInfo() {
 
   const navigate = useNavigate();
-
+  
+  const { unsetUser } = useContext(UserContext);
   const { user, setUser } = useContext(UserContext);
   const [ userId, setUserId ] = useState('');
   const [ isLoading, setIsLoading ] = useState(true);
 
   const handleAdminDashboardClick = () => {
     navigate(`/admin-dashboard/${userId}/`);
+  };
+
+  const handleLogout = () => {
+    unsetUser();
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -108,6 +114,9 @@ export default function AccountInfo() {
                 </ListGroup.Item>
                 <ListGroup.Item action href="#delete-account">
                   Delete Account
+                </ListGroup.Item>
+                <ListGroup.Item action onClick={handleLogout}>
+                  Logout
                 </ListGroup.Item>
                 {/* <ListGroup.Item action href="#manage-biz">
                   Manage Business
