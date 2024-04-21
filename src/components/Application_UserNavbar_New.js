@@ -1,15 +1,17 @@
 import { useContext, useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { Navbar, Nav, Container, Form, FormControl } from 'react-bootstrap';
 import { PiUserLight, PiMagnifyingGlassThin } from "react-icons/pi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { FiSearch, FiX } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import UserContext from '../UserContext';
 
 import logo1 from '../assets/icon-app-logo.jpg';
 
 import '../assets/styles/AppNavbar.css';
+
 
 const ServiceSection = ({ title, services, visible }) => {
   const navigate = useNavigate();
@@ -61,11 +63,11 @@ export default function AppNavbar() {
   const [ searchTerm, setSearchTerm ] = useState('');
   const [ userCoordinates, setUserCoordinates ] = useState({});
   const [ showPromo, setShowPromo ] = useState(true);
-  const [ location ] = useState('');
+  const [ location, setLocation ] = useState('');
   const [ showSolutions, setShowSolutions ] = useState(false);
   const [ showServices, setShowServices ] = useState(false);
-  const [ setLoading ] = useState(true);
-  const [ setUserLocation ] = useState('');
+  const [ loading, setLoading ] = useState(true);
+  const [ userLocation, setUserLocation ] = useState('');
   const [ isTokenPresent, setIsTokenPresent ] = useState(false);
 
   const navigate = useNavigate();
