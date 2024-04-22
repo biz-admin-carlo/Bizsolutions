@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { Navbar, Nav, Container, Form, FormControl } from 'react-bootstrap';
 import { PiUserLight, PiMagnifyingGlassThin } from "react-icons/pi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { CgMenuGridO } from "react-icons/cg";
 import { FiSearch, FiX } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -264,6 +265,9 @@ export default function AppNavbar() {
                 <PiMagnifyingGlassThin title="Search Products" color="#000000" size="2em" />
               </Nav.Link>
             </div>
+            {/* <Nav.Link as={Link} to={isTokenPresent ? "/apps" : "/login"} className="px-2">
+              <CgMenuGridO title="Biz Apps" color="#000000" size="2em" />
+            </Nav.Link> */}
             <Nav.Link as={Link} to={isTokenPresent ? "/account" : "/login"} className="px-2">
               <PiUserLight title="Account Settings" color="#000000" size="2em" />
             </Nav.Link>

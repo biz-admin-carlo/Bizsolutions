@@ -209,7 +209,7 @@ export default function Search() {
         <title>BizSolutions | Listings</title>
       </Helmet>
 
-      <SearchResult />
+      {/* <SearchResult /> */}
 
       <Container>
 
