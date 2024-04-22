@@ -25,4 +25,5 @@
 
 .service-item:hover {
     color: #FF851A !important;
-  }
+    cursor: pointer;
+}
