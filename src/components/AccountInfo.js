@@ -13,6 +13,7 @@ import DeleteAccount from './AccountInfo_DeleteAccount.js';
 import Subscription from './AccountInfo_Subscription.js';
 import ReferralCode from './AccountInfo_ReferralCode.js';
 
+import Avatar from './Application_Avatar.js';
 import BarSpinner from './Reusable_BarSpinner.js';
 import AppFooter from './Application_Footer.js';
 
@@ -82,8 +83,8 @@ export default function AccountInfo() {
                 <h3 className='my-4'>User Account</h3>
 
                 <div className='mb-3 py-1 d-flex align-items-center'>
-                  <img src={logo} width={50} height={50} className='mx-3'/> 
-                  <div>
+                  <Avatar name={`${user.firstName} ${user.lastName}`} size={50} className='mx-3' />
+                  <div className='ms-2'>
                     <h6 className="responsive-title">
                       Hello, {user.firstName} {user.lastName}!
                     </h6>
