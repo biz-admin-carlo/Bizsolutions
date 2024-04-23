@@ -230,7 +230,7 @@ export default function AppNavbar() {
                 <PiMagnifyingGlassThin title="Search Products" color="#000000" size="2em" />
               </Nav.Link>
             </div>
-            <Nav.Link as={Link} to={user.id ? "/account" : "/login"} className="px-2">
+            <Nav.Link as={Link} to={isTokenPresent ? "/account" : "/login"} className="px-2">
               <PiUserLight title="Account Settings" color="#000000" size="2em" />
             </Nav.Link>
           </Nav>
