@@ -92,6 +92,18 @@ export default function AppNavbar() {
     setShowPromo(false);
   };
 
+  const formatSearchTerm = (term) => {
+    return term
+      .split(' ')
+      .map(word => {
+        if (word.toLowerCase() === 'and') {
+          return '&';
+        }
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
+      .join(' ');
+  };
+
   const toggleSearchBarVisible = () => {
     setSearchBarVisible(prev => {
       if (prev) { 
@@ -230,6 +242,9 @@ export default function AppNavbar() {
                 <PiMagnifyingGlassThin title="Search Products" color="#000000" size="2em" />
               </Nav.Link>
             </div>
+            <Nav.Link as={Link} to={isTokenPresent ? "/apps" : "/login"} className="px-2">
+              <CgMenuGridO title="Biz Apps" color="#000000" size="2em" />
+            </Nav.Link>
             <Nav.Link as={Link} to={isTokenPresent ? "/account" : "/login"} className="px-2">
               <PiUserLight title="Account Settings" color="#000000" size="2em" />
             </Nav.Link>
@@ -265,9 +280,9 @@ export default function AppNavbar() {
                 <PiMagnifyingGlassThin title="Search Products" color="#000000" size="2em" />
               </Nav.Link>
             </div>
-            {/* <Nav.Link as={Link} to={isTokenPresent ? "/apps" : "/login"} className="px-2">
+            <Nav.Link as={Link} to={isTokenPresent ? "/apps" : "/login"} className="px-2">
               <CgMenuGridO title="Biz Apps" color="#000000" size="2em" />
-            </Nav.Link> */}
+            </Nav.Link>
             <Nav.Link as={Link} to={isTokenPresent ? "/account" : "/login"} className="px-2">
               <PiUserLight title="Account Settings" color="#000000" size="2em" />
             </Nav.Link>
@@ -290,6 +305,7 @@ export default function AppNavbar() {
                 placeholder="Search"
                 style={{ width: '100%', border: 'none' }}
                 onChange={(e) => setSearchTerm(e.target.value)} 
+                //onChange={(e) => setSearchTerm(formatSearchTerm(e.target.value))} 
               />
               <FiX style={{ marginLeft: '10px', cursor: 'pointer' }} onClick={toggleSearchBarVisible} />
             </Form>
