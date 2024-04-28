@@ -21,6 +21,8 @@ import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import ScrollToTop from './components/Reusable_ScrollToTop';
 
+import MyApp from './pages/MyApp';
+
 import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
 import Career from './pages/Career';
@@ -87,6 +89,8 @@ function App() {
                     <Route path="/contact-us-page" element={<ContactUs/>}/>
                     <Route path="/about-us-page" element={<AboutUs/>}/>
                     <Route path="/careers-page" element={<Career/>}/>
+
+                    <Route path="/apps" element={<MyApp/>}/>
 
                     <Route path="/website-development" element={<PageWebDevelopment/>}/>
                     <Route path="/bookkeeping" element={<PageBookkeeping/>}/>
