@@ -198,16 +198,17 @@ export default function AppNavbar() {
                 )}
                 {!showFirst && (
                   <p data-aos="fade-down">
-                    Save up to 10% off on selected services. <span style={{ textDecoration: 'underline' }}>Check now</span>.
+                    Save up to 10% off on selected services.  <a> </a>
+                    <Link to="/pricing" style={{ textDecoration: 'underline', color: '#000000' }}>Check now</Link>.
                     <FiX
-                      style={{ cursor: 'pointer' }}
-                      color="#000000"
-                      size="1.3em"
-                      className="float-end"
-                      data-aos="fade-down"
-                      onClick={handleHideDiv}
+                        style={{ cursor: 'pointer' }}
+                        color="#000000"
+                        size="1.3em"
+                        className="float-end"
+                        data-aos="fade-down"
+                        onClick={handleHideDiv}
                     />
-                  </p>
+                </p>
                 )}
               </div>
             </div>
