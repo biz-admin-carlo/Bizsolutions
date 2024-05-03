@@ -32,6 +32,7 @@ import AdminLogin from './pages/LoginAdmin';
 import AdminUsers from './pages/AdminUsers'
 
 import PageWebDevelopment from './components/Page_WebDevelopment';
+import PageWebRevamp from './components/Page_WebRevamp';
 import PageBookkeeping from './components/Page_Bookkeeping';
 import PageTechnicalSupport from './components/Page_TechnicalSupport';
 import PageCustomerService from './components/Page_CustomerService';
@@ -95,7 +96,7 @@ function App() {
                     <Route path="/sales-collection" element={<PageSalesCollections/>}/>
 
                     <Route path="/website-development-solutions" element={<PageWebDevelopment/>}/>
-                    <Route path="/website-revamp-solutions" element={<PageWebDevelopment/>}/>
+                    <Route path="/website-revamp-solutions" element={<PageWebRevamp/>}/>
                     <Route path="/seo-solutions" element={<PageWebDevelopment/>}/>
 
                     <Route path="/bookkeeping-services" element={<PageBookkeeping/>}/>
