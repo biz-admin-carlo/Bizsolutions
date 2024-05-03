@@ -4,6 +4,7 @@ import UserContext from '../UserContext.js';
 import AppFooter from '../components/Application_Footer.js';
 import HomeLanding from '../components/Home_Landing.js'
 import HomeWebDevelopment from '../components/Home_WebDevelopment.js';
+import HomeWebRevamp from '../components/Home_WebRevamp.js';
 import HomeBookkeeping from '../components/Home_Bookkeeping.js';
 import HomeTechnical from '../components/Home_Technical.js';
 import HomeCustomerService from '../components/Home_CustomerService.js';
@@ -40,10 +41,11 @@ export default function Home() {
           <div data-aos="fade-up"><HomeTestimony /></div>
           <div data-aos="fade-up"><HomeNumbers /></div>
           <div data-aos="fade-up"><HomeWebDevelopment /></div>
-          <div data-aos="fade-up"><HomeBookkeeping /></div>
+          <div data-aos="fade-up"><HomeWebRevamp /></div>
           <div data-aos="fade-up"><HomeTechnical /></div>
-          <div data-aos="fade-up"><HomeCustomerService /></div>
+          <div data-aos="fade-up"><HomeBookkeeping /></div>
           <div data-aos="fade-up"><HomeSalesCollection /></div>
+          <div data-aos="fade-up"><HomeCustomerService /></div>
           <AppFooter />
         </>
       )}
