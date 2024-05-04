@@ -28,7 +28,7 @@ export default function Pricing() {
           <span> $399.99</span>
         </span>
       ) : (
-        '$58.99'
+        '$49.99'
       );
 
     const handleGetStartedClick = () => {
