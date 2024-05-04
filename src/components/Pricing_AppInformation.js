@@ -22,6 +22,15 @@ export default function Pricing() {
 
     const packageOne = useCountingEffect(selected === 'annual' ? 989.99 : 1099.99);
 
+    const webRevamp = selected === 'annual' ? (
+        <span>
+          <span style={{ textDecoration: 'line-through', color: 'red' }}>$699.99</span>
+          <span> $399.99</span>
+        </span>
+      ) : (
+        '$58.99'
+      );
+
     const handleGetStartedClick = () => {
         const token = sessionStorage.getItem('token');
         if (token)  {
@@ -121,6 +130,157 @@ export default function Pricing() {
                         </div>
                     </div>
 
+                </Container>
+
+                <Container>
+                <hr/>
+                <div className='text-center py-lg-5'>
+                    <h2>Website Revamp</h2>
+
+
+                    <p>Choosing our website revamp service is your step towards transforming your online presence with precision and innovation. Our packages offer continuous, dedicated support, state-of-the-art design updates, and strengthened security measures. This commitment not only revitalizes your website's aesthetics and functionality but also boosts its performance and scalability, providing you with a dependable and compelling digital experience that engages and converts.</p>
+
+                    <div className="button-section">
+                        <div className="custom-btn custom-btn-light d-flex align-items-center">
+                            <button
+                                className={`custom-btn ${selected === 'annual' ? 'custom-btn-selected' : 'custom-btn-secondary'}`}
+                                onClick={() => handleSelect('annual')}
+                            >
+                                Annually<span className='lower-case ms-1'>Save up to 10%</span>
+                            </button>
+                            <button
+                                className={`custom-btn ${selected === 'monthly' ? 'custom-btn-selected' : 'custom-btn-secondary'}`}
+                                onClick={() => handleSelect('monthly')}
+                            >
+                                Monthly
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                    <div className='d-flex flex-wrap justify-content-around pb-5'>
+
+                        <div className='card-container'>
+                            <Card className='card-shadow'>
+                                <Card.Body className='ms-3'>
+                                    <Card.Title>Professional Revamp Package</Card.Title>
+                                    <h3 className='card-text-amount'>
+                                    {webRevamp}<p>per month {
+                                        selected === 'annual' ?
+                                        <Badge pill bg="warning" text="dark">billed annually</Badge> :
+                                        <Badge pill bg="light" text="warning">billed monthly</Badge>
+                                    }</p>
+                                    </h3>
+
+                                        <Button variant="warning" className='my-3 full-width-button' onClick={handleGetStartedClickAdvanced}>
+                                            Get Started
+                                        </Button>
+
+                                    <Card.Text>Enhanced Business Presence</Card.Text>
+                                    <div className='pb-5'>
+                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                            <div><GoCheckCircleFill />Premier Business Profile</div>
+                                            <div><GoCheckCircleFill />Essential Contact Details</div>
+                                            <div><GoCheckCircleFill />Verified Physical Location</div>
+                                            <div><GoCheckCircleFill />Flexible Business Hours</div>
+                                            <div><GoCheckCircleFill />Seamless Payment Solutions</div>
+                                            <div><GoCheckCircleFill />Integrated Web Links </div>
+                                            <div><GoCheckCircleFill />Professional Video Showcases</div>
+                                            <div><GoCheckCircleFill />Dynamic Photo Galleries</div>
+                                            <div><GoCheckCircleFill />Localized Web Experience</div>
+                                        </IconContext.Provider>                               
+                                    </div>
+
+                                    <Card.Text>Cutting-Edge Website Design</Card.Text>
+                                    <div className='pb-5'>
+                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                            <div><GoCheckCircleFill />Tailored Responsive Layouts</div>
+                                            <div><GoCheckCircleFill />Integrated Social Media</div>
+                                            <div><GoCheckCircleFill />Advanced SEO Tactics</div>
+                                            <div><GoCheckCircleFill />Complimentary Web Hosting</div>
+                                            <div><GoCheckCircleFill />Dedicated Support & Maintenance</div>
+                                            <div><GoCheckCircleFill />Strategic Directory Inclusion</div>
+                                            <div><GoCheckCircleFill />Robust Security Protocols</div>
+                                            <div><GoCheckCircleFill />Flexible Content Updates</div>
+                                        </IconContext.Provider>                               
+                                    </div>
+
+                                    <Card.Text>Comprehensive Social Media Oversight</Card.Text>
+                                    <div className='pb-5'>
+                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                            <div><GoCheckCircleFill />Optimized Social Profiles</div>
+                                            <div><GoCheckCircleFill />Managed Social Campaigns</div>
+                                            <div><GoCheckCircleFill />Automated Advertising Strategies</div>
+                                        </IconContext.Provider>                               
+                                    </div>
+                            
+                                </Card.Body>
+                            </Card>
+                        </div>
+
+                        <div className='card-container'>
+                            <Card className='card-shadow'>
+                                <Card.Body className='ms-3'>
+                                    <Card.Title>Enterprise Revamp Package</Card.Title>
+                                    <h3 className='card-text-amount'>
+                                        Let's Talk!<p><Badge pill bg="warning" text="dark">supportus@mybizsolutions.us</Badge></p>
+                                    </h3>
+                                    
+                                        <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleGetStartedClickAdvanced}>
+                                            Get Started
+                                        </Button> 
+
+                                    <Card.Text>Priority Business Listing</Card.Text>
+                                    <div className='pb-5'>
+                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                            <div><GoCheckCircleFill />Premium Business Profile</div>
+                                            <div><GoCheckCircleFill />Detailed Contact Information</div>
+                                            <div><GoCheckCircleFill />Physical Address with Interactive Maps</div>
+                                            <div><GoCheckCircleFill />Extended Store Hours & Real-Time Availability</div>
+                                            <div><GoCheckCircleFill />Advanced Map Integration with Directions</div>
+                                            <div><GoCheckCircleFill />Multiple Payment Gateways</div>
+                                            <div><GoCheckCircleFill />Comprehensive Links to All Your Business Sites</div>
+                                            <div><GoCheckCircleFill />High-Resolution Photo Gallery</div>
+                                            <div><GoCheckCircleFill />Professionally Produced Video Content</div>
+                                            <div><GoCheckCircleFill />Dedicated Local Website</div>
+                                        </IconContext.Provider>                               
+                                    </div>
+
+                                    <Card.Text>Superior Web Design</Card.Text>
+                                    <div className='pb-5'>
+                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                            <div><GoCheckCircleFill />Customized Responsive Design Tailored to Brand Guidelines</div>
+                                            <div><GoCheckCircleFill />High-End Aesthetic Features</div>
+                                            <div><GoCheckCircleFill />Dynamic Content Elements</div>
+                                            <div><GoCheckCircleFill />Personalized User Experience (UX) Design</div>
+                                        </IconContext.Provider>                               
+                                    </div>
+
+                                    <Card.Text>Advanced Digital Marketing and SEO</Card.Text>
+                                    <div className='pb-5'>
+                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                            <div><GoCheckCircleFill />Full SEO Audit and Ongoing Optimization</div>
+                                            <div><GoCheckCircleFill />Targeted Keyword Implementation</div>
+                                            <div><GoCheckCircleFill />Structured Data and Rich Snippets for Enhanced Visibility</div>
+                                            <div><GoCheckCircleFill />Local SEO Enhancement for Multi-location Businesses</div>
+                                        </IconContext.Provider>                               
+                                    </div>
+
+                                    <Card.Text>Social Media Management:</Card.Text>
+                                    <div className='pb-5'>
+                                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                            <div><GoCheckCircleFill />Customized Profiles on All Relevant Platforms (Facebook, X Account, Instagram, TikTok, etc.)</div>
+                                            <div><GoCheckCircleFill />Strategic Content Planning and Creation</div>
+                                            <div><GoCheckCircleFill />Full Social Media Campaign Management</div>
+                                            <div><GoCheckCircleFill />Automated and Targeted Advertising Solutions</div>
+                                            <div><GoCheckCircleFill />Performance Analytics and Reporting</div>
+                                        </IconContext.Provider>                               
+                                    </div>
+                                    
+                                </Card.Body>
+                            </Card>
+                        </div>
+                    </div>
                 </Container>
 
                 <Container>
