@@ -20,8 +20,13 @@ const WebRevampProfessional = ({ selected, packageOne, handleGetStartedClick }) 
             monthly: "https://buy.stripe.com/14kcO23Ef39d728eUX",
             annual: "https://buy.stripe.com/7sIaFU1w76lp0DKbIR"
         };
+
+        const keapPaymentLinks = {
+            monthly: "https://keap.app/checkout/dyb285/revamp-monthly",
+            annual: "https://keap.app/checkout/dyb285/revamp-annual"
+        };
     
-        const paymentUrl = stripePaymentLinks[selected];
+        const paymentUrl = keapPaymentLinks[selected];
         if (paymentUrl) {
             window.location.href = paymentUrl;
         } else {
@@ -42,7 +47,13 @@ const WebRevampProfessional = ({ selected, packageOne, handleGetStartedClick }) 
                         }</p>
                     </h3>
                         
-                    <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleModalToggle}>
+                    <Button 
+                        variant="outline-warning" 
+                        className='my-3 full-width-button' 
+                        onClick={handleModalToggle}
+                        aria-controls="collapse-features-advanced-sm"
+                        aria-expanded={open}
+                    >
                         Get Started
                     </Button>
 

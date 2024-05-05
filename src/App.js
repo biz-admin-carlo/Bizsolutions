@@ -11,7 +11,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/Signup';
 
-import SignUpReferralToken from './components/SignupReferralToken';
+import SignUpReferralTokend from './components/SignupReferralToken';
 import Referral from './pages/Referral';
 
 import Search from './pages/Search';
@@ -71,7 +71,7 @@ function App() {
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/login/pricing" element={<Login/>}/>
                     <Route path="/sign-up" element={<SignUp/>}/>
-                    <Route path="/sign-up-with-referral" element={<SignUpReferralToken/>}/>
+                    <Route path="/sign-up-with-referral" element={<SignUpReferralTokend/>}/>
                     <Route path="/search" element={<Search/>}/>
                     
                     <Route path="/account" element={<Account/>}/>

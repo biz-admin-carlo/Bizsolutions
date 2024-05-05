@@ -65,7 +65,7 @@ export default function BundleStarter({ selected }) {
             annual: "https://keap.app/checkout/dyb285/starter-setup-annually"
         };
     
-        const paymentUrl = keapPaymentLinks[selected];
+        const paymentUrl = stripePaymentLinks[selected];
         if (paymentUrl) {
             window.location.href = paymentUrl;
         } else {

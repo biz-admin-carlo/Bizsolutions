@@ -22,15 +22,29 @@ export default function Pricing() {
 
     const packageOne = useCountingEffect(selected === 'annual' ? 989.99 : 1099.99);
 
+    // const webRevamp = selected === 'annual' ? (
+    //     <span>
+    //       <span style={{ textDecoration: 'line-through', color: 'red' }}>$699.99</span>
+    //       <span> $399.99</span>
+    //     </span>
+    //   ) : (
+    //     '$49.99'
+    //   );
+
     const webRevamp = selected === 'annual' ? (
-        <span>
-          <span style={{ textDecoration: 'line-through', color: 'red' }}>$699.99</span>
-          <span> $399.99</span>
+        <span style={{ position: 'relative', fontSize: '24px' }}> {/* Adjust font size as needed */}
+          <span style={{ textDecoration: 'line-through', color: 'red' }}> {/* Smaller font size for the original price */}
+            $699.99 
+          </span>
+          <sup style={{ position: 'absolute', top: 0, right: '-100px', fontSize: '30px'}}> {/* Positioning the new price */}
+            $399.99
+          </sup>
         </span>
       ) : (
         '$49.99'
       );
 
+      
     const handleGetStartedClick = () => {
         const token = sessionStorage.getItem('token');
         if (token)  {
@@ -54,6 +68,45 @@ export default function Pricing() {
             window.location.href = mailtoLink;
         } else {
             navigate('/login/pricing'); 
+        }
+    };
+
+    const handleGetStartedEnterprise = () => {
+        const token = sessionStorage.getItem('token');
+        if (token)  {
+            const subject = encodeURIComponent("Interest in Enterprise Revamp Package");
+            const body = encodeURIComponent("I am interested in the AEnterprise Revamp Package. Please provide me with more information.");
+
+            const mailtoLink = `mailto:supportus@mybizsolutions.us?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
+        } else {
+            navigate('/login/pricing'); 
+        }
+    };
+
+    const handleModalToggle = () => {
+        const token = sessionStorage.getItem('token');
+        
+        if (!token) {
+            navigate('/login/pricing');
+            return; 
+        }
+    
+        // const stripePaymentLinks = {
+        //     monthly: "https://buy.stripe.com/14kcO23Ef39d728eUX",
+        //     annual: "https://buy.stripe.com/7sIaFU1w76lp0DKbIR"
+        // };
+
+        const keapPaymentLinks = {
+            monthly: "https://keap.app/checkout/dyb285/revamp-monthly",
+            annual: "https://keap.app/checkout/dyb285/revamp-annual"
+        };
+    
+        const paymentUrl = keapPaymentLinks[selected];
+        if (paymentUrl) {
+            window.location.href = paymentUrl;
+        } else {
+            // console.error('Invalid subscription type selected');
         }
     };
     
@@ -167,12 +220,16 @@ export default function Pricing() {
                                     <h3 className='card-text-amount'>
                                     {webRevamp}<p>per month {
                                         selected === 'annual' ?
-                                        <Badge pill bg="warning" text="dark">billed annually</Badge> :
+                                        <>
+                                        <Badge pill bg="warning" text="dark">billed annually</Badge>
+                                        <Badge pill bg="danger" text="light">discounted promo</Badge>
+                                        </>
+                                        :
                                         <Badge pill bg="light" text="warning">billed monthly</Badge>
                                     }</p>
                                     </h3>
 
-                                        <Button variant="warning" className='my-3 full-width-button' onClick={handleGetStartedClickAdvanced}>
+                                        <Button variant="warning" className='my-3 full-width-button' onClick={handleModalToggle}>
                                             Get Started
                                         </Button>
 
@@ -226,7 +283,7 @@ export default function Pricing() {
                                         Let's Talk!<p><Badge pill bg="warning" text="dark">supportus@mybizsolutions.us</Badge></p>
                                     </h3>
                                     
-                                        <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleGetStartedClickAdvanced}>
+                                        <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleGetStartedEnterprise}>
                                             Get Started
                                         </Button> 
 
