@@ -53,14 +53,14 @@ export default function BundleStarter({ selected }) {
             return; 
         }
     
-        const stripePaymentLinks = {
-            monthly: "https://buy.stripe.com/3csaFUdePdNRcmsfZc",
-            annual: "https://buy.stripe.com/5kAaFUcaL7ptgCI6oB"
-        };
+        // const stripePaymentLinks = {
+        //     monthly: "https://buy.stripe.com/3csaFUdePdNRcmsfZc",
+        //     annual: "https://buy.stripe.com/5kAaFUcaL7ptgCI6oB"
+        // };
 
         const keapPaymentLinks = {
             monthly: "https://keap.app/checkout/dyb285/plus-payroll-monthly",
-            annual: "https://buy.stripe.com/5kAaFUcaL7ptgCI6oB"
+            annual: "https://keap.app/checkout/dyb285/plus-payroll-annual"
         };
     
         const paymentUrl = keapPaymentLinks[selected];
@@ -88,13 +88,7 @@ export default function BundleStarter({ selected }) {
                 { name: "Priority Support & HR Resources - Additional $12/Employee", color: "orange" },
 
             ]
-        },
-        // {   
-        //     title: "Plus Plan Add-Ons", 
-        //     features: [
-        //         { name: "Priority Support & HR Resources - $8/Person", color: "green" },
-        //     ]
-        // }
+        }
     ];
 
     return (

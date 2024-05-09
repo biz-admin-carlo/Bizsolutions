@@ -43,7 +43,7 @@ export default function BundleExpert() {
     const handleGetStartedClick = () => {
         const token = sessionStorage.getItem('token');
         if (token)  {
-            const mailtoLink = `mailto:supportus@mybizsolutions.us?subject=Interest in Expert Bundle&body=I am interested in the Expert Bundle. Please provide me with more information.`;
+            const mailtoLink = `mailto:supportus@mybizsolutions.us?subject=Interest in Human Resources Payroll Pemium Setup&body=I am interested in the Human Resources Payroll Pemium Setup. Please provide me with more information.`;
             window.location.href = mailtoLink;
         } else {
             navigate('/login/pricing'); 

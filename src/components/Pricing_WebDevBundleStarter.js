@@ -5,7 +5,6 @@ import { GoCheckCircleFill } from "react-icons/go";
 import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
 import { IconContext } from "react-icons";
 import useCountingEffect from './Pricing_TypingEffect';
-// import VerifyModal from './VerifyModal';
 import Axios from 'axios';
 
 import '../assets/styles/AppInformation.css';
@@ -56,16 +55,17 @@ export default function BundleStarter({ selected }) {
             return; 
         }
     
-        const stripePaymentLinks = {
-            monthly: "https://buy.stripe.com/3cs4hwfmXh033PWaEE",
-            annual: "https://buy.stripe.com/bIYbJY2AbcJNfyE008"
-        };
+        // const stripePaymentLinks = {
+        //     monthly: "https://buy.stripe.com/3cs4hwfmXh033PWaEE",
+        //     annual: "https://buy.stripe.com/bIYbJY2AbcJNfyE008"
+        // };
+        
         const keapPaymentLinks = {
             monthly: "https://keap.app/checkout/dyb285/starter-setup-monthly",
-            annual: "https://keap.app/checkout/dyb285/starter-setup-annually"
+            annual: "https://keap.app/checkout/dyb285/starter-setup-annual"
         };
     
-        const paymentUrl = stripePaymentLinks[selected];
+        const paymentUrl = keapPaymentLinks[selected];
         if (paymentUrl) {
             window.location.href = paymentUrl;
         } else {
@@ -198,16 +198,6 @@ export default function BundleStarter({ selected }) {
                     </div>
 
                 </div>
-
-                {/* <VerifyModal 
-                    showModal={showModal}
-                    handleModalToggle={handleModalToggle}
-                    user={user}
-                    selected={selected}
-                    starterSetup={starterSetup}
-                    bundleSetup="Starter Setup"
-                    transactionDate={transactionDate}
-                /> */}
 
             </Card.Body>
         </Card>

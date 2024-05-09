@@ -14,9 +14,6 @@ const apiUrl = process.env.REACT_APP_API_URL;
 export default function BundleAdvanced({ selected }) {
     const advanceSetup = useCountingEffect(selected === 'annual' ? 89.99 : 99.99);
 
-    // const [ transactionDate, setTransactionDate ] = useState(null);
-    // const [ showModal, setShowModal ] = useState(false);
-
     const [ open, setOpen ] = useState(false);
 
     const [ user, setUser ] = useState({});
@@ -55,12 +52,17 @@ export default function BundleAdvanced({ selected }) {
             return; 
         }
     
-        const stripePaymentLinks = {
-            monthly: "https://buy.stripe.com/eVa9BQcaL9xBaekcMN",
-            annual: "https://buy.stripe.com/00g3ds5Mn6lpgCIcMT"
+        // const stripePaymentLinks = {
+        //     monthly: "https://buy.stripe.com/eVa9BQcaL9xBaekcMN",
+        //     annual: "https://buy.stripe.com/00g3ds5Mn6lpgCIcMT"
+        // };
+
+        const keapPaymentLinks = {
+            monthly: "https://keap.app/checkout/dyb285/advanced-setup-monthly",
+            annual: "https://keap.app/checkout/dyb285/advanced-setup-annual"
         };
     
-        const paymentUrl = stripePaymentLinks[selected];
+        const paymentUrl = keapPaymentLinks[selected];
         if (paymentUrl) {
             window.location.href = paymentUrl;
         } else {
@@ -192,16 +194,6 @@ export default function BundleAdvanced({ selected }) {
                     </div>
 
                 </div>
-
-                {/* <VerifyModal 
-                    showModal={showModal}
-                    handleModalToggle={handleModalToggle}
-                    user={user}
-                    selected={selected}
-                    starterSetup={advanceSetup}
-                    bundleSetup="Advanced Setup"
-                    transactionDate={transactionDate}
-                /> */}
 
             </Card.Body>
         </Card>

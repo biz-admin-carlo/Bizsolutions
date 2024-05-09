@@ -1,12 +1,43 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import { Card, Button, Badge } from 'react-bootstrap';
-import { GoCheckCircleFill } from 'react-icons/go';
-import { IconContext } from 'react-icons';
+import { GoCheckCircleFill } from "react-icons/go";
+import { IconContext } from "react-icons";
+import Axios from 'axios';
 
-const WebRevampProfessional = ({ selected, packageOne, handleGetStartedClick }) => {
+import '../assets/styles/AppInformation.css';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
+export default function ProfessionalRevamp({ selected }) {
+
+    const [ user, setUser ] = useState({});
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            fetchUserDetails(token);
+        }
+    }, []);
+
+    const fetchUserDetails = async (token) => {
+        try {
+          const response = await Axios.get(`${apiUrl}/api/v1/users/details`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          if (response.status === 200) {
+            setUser(response.data);
+
+          } else {
+            // console.error('Failed to fetch user details');
+          }
+        } catch (error) {
+          // console.error('Error:', error);
+        }
+      };
 
     const handleModalToggle = () => {
         const token = sessionStorage.getItem('token');
@@ -16,14 +47,14 @@ const WebRevampProfessional = ({ selected, packageOne, handleGetStartedClick }) 
             return; 
         }
     
-        const stripePaymentLinks = {
-            monthly: "https://buy.stripe.com/14kcO23Ef39d728eUX",
-            annual: "https://buy.stripe.com/7sIaFU1w76lp0DKbIR"
-        };
+        // const stripePaymentLinks = {
+        //     monthly: "https://buy.stripe.com/3cs4hwfmXh033PWaEE",
+        //     annual: "https://buy.stripe.com/bIYbJY2AbcJNfyE008"
+        // };
 
         const keapPaymentLinks = {
-            monthly: "https://keap.app/checkout/dyb285/revamp-monthly",
-            annual: "https://keap.app/checkout/dyb285/revamp-annual"
+            monthly: "https://keap.app/checkout/dyb285/web-revamp-monthly",
+            annual: "https://keap.app/checkout/dyb285/web-revamp-annually"
         };
     
         const paymentUrl = keapPaymentLinks[selected];
@@ -34,73 +65,77 @@ const WebRevampProfessional = ({ selected, packageOne, handleGetStartedClick }) 
         }
     };
 
+    const webRevamp = selected === 'annual' ? (
+        <span style={{ position: 'relative' }}>
+          <span style={{ textDecoration: 'line-through', color: 'red' }}> 
+            $699.99  
+          </span>
+          <span> </span>
+          <span> 
+            $399.99
+          </span>
+        </span>
+    ) : (
+        '$49.99'
+    );
+
     return (
-        <div className='card-container'>
-            <Card className='card-shadow'>
-                <Card.Body className='ms-3'>
-                    <Card.Title>Professional Package</Card.Title>
+        <Card className='card-shadow'>
+            <Card.Body className='ms-3'>
+                <Card.Title>Professional Revamp Package</Card.Title>
                     <h3 className='card-text-amount'>
-                        ${packageOne}<p>per month {
-                            selected === 'annual' ?
-                                <Badge pill bg="warning" text="dark">billed annually</Badge> :
-                                <Badge pill bg="light" text="warning">billed monthly</Badge>
-                        }</p>
+                    {webRevamp}<p>per month {
+                        selected === 'annual' ?
+                        <>
+                        <Badge pill bg="warning" text="dark" className='my-2'>billed annually</Badge>
+                        </>
+                        :
+                        <Badge pill bg="light" text="warning" className='my-2'>billed monthly</Badge>
+                    }</p>
                     </h3>
-                        
-                    <Button 
-                        variant="outline-warning" 
-                        className='my-3 full-width-button' 
-                        onClick={handleModalToggle}
-                        aria-controls="collapse-features-advanced-sm"
-                        aria-expanded={open}
-                    >
+
+                    <Button variant="warning" className='my-3 full-width-button' onClick={handleModalToggle}>
                         Get Started
                     </Button>
 
-                    <Card.Text>Priority Business Listing</Card.Text>
-                    <div className='pb-5'>
-                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
-                            <div><GoCheckCircleFill />Business Profile</div>
-                            <div><GoCheckCircleFill />Contact Information</div>
-                            <div><GoCheckCircleFill />Physical Address</div>
-                            <div><GoCheckCircleFill />Store Hours & Availability</div>
-                            <div><GoCheckCircleFill />Map Integration</div>
-                            <div><GoCheckCircleFill />Different Payment Methods</div>
-                            <div><GoCheckCircleFill />Links to Your Other Sites</div>
-                            <div><GoCheckCircleFill />Embeded Videos</div>
-                            <div><GoCheckCircleFill />Photo Gallery</div>
-                        </IconContext.Provider>                               
-                    </div>
+                    <Card.Text>Enhanced Business Presence</Card.Text>
+                        <div className='pb-5'>
+                            <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                <div><GoCheckCircleFill />Premier Business Profile</div>
+                                <div><GoCheckCircleFill />Essential Contact Details</div>
+                                <div><GoCheckCircleFill />Verified Physical Location</div>
+                                <div><GoCheckCircleFill />Flexible Business Hours</div>
+                                <div><GoCheckCircleFill />Seamless Payment Solutions</div>
+                                <div><GoCheckCircleFill />Integrated Web Links </div>
+                                <div><GoCheckCircleFill />Professional Video Showcases</div>
+                                <div><GoCheckCircleFill />Dynamic Photo Galleries</div>
+                                <div><GoCheckCircleFill />Localized Web Experience</div>
+                            </IconContext.Provider>                               
+                        </div>
 
-                    <Card.Text>Local Website</Card.Text>
-                    <div className='pb-5'>
-                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
-                            <div><GoCheckCircleFill />Responsive design</div>
-                            <div><GoCheckCircleFill />Social Media Links</div>
-                            <div><GoCheckCircleFill />Search Engine Optimization (SEO)</div>
-                            <div><GoCheckCircleFill />Free Hosting</div>
-                            <div><GoCheckCircleFill />Ongoing Maintenance and Support</div>
-                            <div><GoCheckCircleFill />Directory Submissions</div>
-                            <div><GoCheckCircleFill />Standard Security Measures</div>
-                            <div><GoCheckCircleFill />Unlimited Changes</div>
-                        </IconContext.Provider>                               
-                    </div>
+                    <Card.Text>Cutting-Edge Website Design</Card.Text>
+                        <div className='pb-5'>
+                            <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                <div><GoCheckCircleFill />Tailored Responsive Layouts</div>
+                                <div><GoCheckCircleFill />Integrated Social Media</div>
+                                <div><GoCheckCircleFill />Advanced SEO Tactics</div>
+                                <div><GoCheckCircleFill />Complimentary Web Hosting</div>
+                                <div><GoCheckCircleFill />Dedicated Support & Maintenance</div>
+                                <div><GoCheckCircleFill />Strategic Directory Inclusion</div>
+                                <div><GoCheckCircleFill />Robust Security Protocols</div>
+                                <div><GoCheckCircleFill />Flexible Content Updates</div>
+                            </IconContext.Provider>                               
+                        </div>
 
-                    <Card.Text>Social Media Management:</Card.Text>
-                    <div className='pb-5'>
-                        <IconContext.Provider value={{ color: "green", className: "me-2" }}>
-                            <div><GoCheckCircleFill />Facebook Account</div>
-                            <div><GoCheckCircleFill />X Account</div>
-                            <div><GoCheckCircleFill />Instagram Account</div>
-                            <div><GoCheckCircleFill />Tiktok Account</div>
-                            <div><GoCheckCircleFill />Automated Ads</div>
-                        </IconContext.Provider>                               
-                    </div>
-
-                </Card.Body>
-            </Card>
-        </div>
+                    <Card.Text>Comprehensive Social Media Oversight</Card.Text>
+                        <div className='pb-5'>
+                            <IconContext.Provider value={{ color: "green", className: "me-2" }}>
+                                <div><GoCheckCircleFill />Optimized Social Profiles</div>
+                                <div><GoCheckCircleFill />Managed Social Campaigns</div>
+                                <div><GoCheckCircleFill />Automated Advertising Strategies</div>
+                            </IconContext.Provider>                               
+                        </div>
+            </Card.Body>
+    </Card>
     );
 };
-
-export default WebRevampProfessional;
