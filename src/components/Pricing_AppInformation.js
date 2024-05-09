@@ -33,7 +33,7 @@ export default function Pricing() {
 
     const webRevamp = selected === 'annual' ? (
         <span style={{ position: 'relative', fontSize: '24px' }}> {/* Adjust font size as needed */}
-          <span style={{ textDecoration: 'line-through', color: 'red' }}> {/* Smaller font size for the original price */}
+          <span style={{ textDecoration: 'line-through', color: 'gray' }}> {/* Smaller font size for the original price */}
             $699.99 
           </span>
           <sup style={{ position: 'absolute', top: 0, right: '-100px', fontSize: '30px'}}> {/* Positioning the new price */}

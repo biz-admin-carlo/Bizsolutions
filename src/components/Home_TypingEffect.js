@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 
-const useTypingEffect = (targetValue, duration = 2000, resetDependency) => {
+const useTypingEffect = (targetValue, duration = 5000, resetDependency) => { 
+
     const [value, setValue] = useState(0);
 
     useEffect(() => {
-        setValue(0); // Reset value to 0 to re-trigger animation from 0
+        setValue(0); 
         const endValue = parseInt(targetValue, 10);
         const frameRate = 50;
         const numUpdates = duration / frameRate;
@@ -22,7 +23,7 @@ const useTypingEffect = (targetValue, duration = 2000, resetDependency) => {
         }, frameRate);
 
         return () => clearInterval(timer);
-    }, [targetValue, duration, resetDependency]); // Add a reset dependency that changes to force rerun
+    }, [targetValue, duration, resetDependency]);
 
     return value;
 };
