@@ -26,6 +26,7 @@ import AboutUs from './pages/AboutUs';
 import Career from './pages/Career';
 import Business from './pages/Business';
 import Reset from './pages/Reset';
+import Biz from './pages/Biz';
 
 import AdminDashboard from './pages/Admin';
 import AdminLogin from './pages/LoginAdmin';
@@ -73,6 +74,8 @@ function App() {
                     <Route path="/sign-up" element={<SignUp/>}/>
                     <Route path="/sign-up-with-referral" element={<SignUpReferralTokend/>}/>
                     <Route path="/search" element={<Search/>}/>
+
+                    <Route path="/my-biz" element={<Biz/>}/>\
                     
                     <Route path="/account" element={<Account/>}/>
                     <Route path="/pricing" element={<Pricing/>}/>

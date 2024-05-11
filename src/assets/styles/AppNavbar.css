@@ -27,3 +27,9 @@
     color: #FF851A !important;
     cursor: pointer;
 }
+
+.text-nav:hover {
+    color: #FBFBFB !important; 
+    cursor: pointer;
+    font-size: 1.3em !important;
+  }

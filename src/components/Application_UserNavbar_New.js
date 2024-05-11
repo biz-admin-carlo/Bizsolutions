@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { Navbar, Nav, Container, Form, FormControl } from 'react-bootstrap';
-import { PiUserLight, PiMagnifyingGlassThin } from "react-icons/pi";
+import { PiUserLight, PiMagnifyingGlassThin, PiStorefront } from "react-icons/pi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { CgMenuGridO } from "react-icons/cg";
 import { FiSearch, FiX } from 'react-icons/fi';
@@ -240,20 +240,19 @@ export default function AppNavbar() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto me-auto nav-link text-uppercase">
                 <>
-                  <Nav.Link as={Link} to="/">Home</Nav.Link>
-                  <Nav.Link as={Link} to="/pricing">Pricing</Nav.Link>
+                  <Nav.Link className="text-nav" as={Link} to="/">Home</Nav.Link>
+                  <Nav.Link className="text-nav" as={Link} to="/pricing">Pricing</Nav.Link>
                   <div onClick={toggleSolutions}>
-                    <Nav.Link className="px-2">
+                    <Nav.Link className="px-2 text-nav">
                       Solutions {showSolutions ? <IoIosArrowUp /> : <IoIosArrowDown />}
                     </Nav.Link>
                   </div>
                   <div onClick={toggleServices}>
-                    <Nav.Link className="px-2">
+                    <Nav.Link className="px-2 text-nav">
                         Services {showServices ? <IoIosArrowUp /> : <IoIosArrowDown />}
                     </Nav.Link>
                   </div>
-                  <Nav.Link as={Link} to="/support">Support</Nav.Link>
-                  <Nav.Link as={Link} to="/blog">Blog</Nav.Link>
+                  <Nav.Link className="text-nav" as={Link} to="/support">Support</Nav.Link>
 
                 </>
             </Nav>
@@ -269,6 +268,9 @@ export default function AppNavbar() {
             {/* <Nav.Link as={Link} to={isTokenPresent ? "/apps" : "/login"} className="px-2">
               <CgMenuGridO title="Biz Apps" color="#000000" size="2em" />
             </Nav.Link> */}
+            <Nav.Link as={Link} to={isTokenPresent ? "/my-biz" : "/login"} className="px-2">
+              <PiStorefront title="Account Settings" color="#000000" size="2em" />
+            </Nav.Link>
             <Nav.Link as={Link} to={isTokenPresent ? "/account" : "/login"} className="px-2">
               <PiUserLight title="Account Settings" color="#000000" size="2em" />
             </Nav.Link>
