@@ -95,9 +95,9 @@ export default function AccountInfo() {
                 <ListGroup.Item action href="#account-details">
                   Account Info
                 </ListGroup.Item>
-                {/* <ListGroup.Item action href="#subscription">
+                <ListGroup.Item action href="#subscription">
                   Subscription
-                </ListGroup.Item> */}
+                </ListGroup.Item>
                 <ListGroup.Item action href="#change-password">
                   Change Password
                 </ListGroup.Item>
@@ -156,9 +156,9 @@ export default function AccountInfo() {
                 <Tab.Pane eventKey="#referral-code">
                   <ReferralCode user={user} />
                 </Tab.Pane>
-                {/* <Tab.Pane eventKey="#subscription">
+                <Tab.Pane eventKey="#subscription">
                   <Subscription user={user} />
-                </Tab.Pane> */}
+                </Tab.Pane>
               </Tab.Content>
             </Col>
           </Row>
