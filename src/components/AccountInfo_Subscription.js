@@ -6,12 +6,11 @@ import BarSpinner from './Reusable_BarSpinner';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function AccountDetails({ user }) {
-  const [loading, setLoading] = useState(false);
-  const [subscriptions, setSubscriptions] = useState([]);
-  const [message, setMessage] = useState('You have no subscription yet.');
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false);
-  console.log(subscriptions);
+  const [ loading, setLoading ] = useState(false);
+  const [ subscriptions, setSubscriptions ] = useState([]);
+  const [ message, setMessage ] = useState('You have no subscription yet.');
+  const [ showSuccessModal, setShowSuccessModal ] = useState(false);
+  const [ showErrorModal, setShowErrorModal ] = useState(false);
 
   const token = sessionStorage.getItem('token');
 
@@ -25,7 +24,6 @@ export default function AccountDetails({ user }) {
           },
         });
         if (response.data && response.data.length > 0) {
-          console.log(response.data);
           setSubscriptions(response.data);
           setShowSuccessModal(true);
         } else {
