@@ -4,41 +4,9 @@ import { BiLoaderCircle, BiCheckDouble, BiXCircle } from "react-icons/bi";
 import imgOne from '../assets/img-web-add-biz.webp';
 import '../assets/styles/NewLoginInterface.css';
 import BarSpinner from './Reusable_BarSpinner';
-import axios from 'axios';
+import BizRegistration from './Biz_Registration.js';
+import { checkBusinessName, checkBusinessAlias } from '../utils/BizUtils.js';
 
-async function checkBusinessName(name) {
-    try {
-        const encodedName = encodeURIComponent(name);
-        const url = `https://bizsolutions-api-production.onrender.com/api/v1/biz/check/name/${encodedName}`;
-
-        const response = await axios.get(url, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        return response.status === 200;
-    } catch (error) {
-        console.error('Error checking business name:', error);
-        return false;
-    }
-}
-
-async function checkBusinessAlias(name) {
-    try {
-        const encodedName = encodeURIComponent(name);
-        const url = `https://bizsolutions-api-production.onrender.com/api/v1/biz/check/alias/${encodedName}`;
-
-        const response = await axios.get(url, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        return response.status === 200;
-    } catch (error) {
-        console.error('Error checking business name:', error);
-        return false;
-    }
-}
 
 export default function BizLanding() {
 
@@ -47,23 +15,25 @@ export default function BizLanding() {
     const [ aliasName, setAliasName ] = useState('');
     const [ nameStatus, setNameStatus ] = useState('idle');
     const [ aliasStatus, setAliasStatus ] = useState('idle');
+    const [ registrationVisible, setRegistrationVisible ] = useState(false);  
+    const [ fieldsReadOnly, setFieldsReadOnly ] = useState(false); 
+
     
     useEffect(() => {
         if (!businessName) {
             setNameStatus('idle');
             return;
         }
-
-        const timer = setTimeout(() => {
+        const timer = setTimeout(async () => {
             setNameStatus('checking');
-            checkBusinessName(businessName).then(isAvailable => {
+            try {
+                const isAvailable = await checkBusinessName(businessName);
                 setNameStatus(isAvailable ? 'available' : 'unavailable');
-            }).catch(error => {
+            } catch (error) {
                 console.error('Error checking business name:', error);
                 setNameStatus('error');
-            });
+            }
         }, 500);
-
         return () => clearTimeout(timer);
     }, [businessName]);
 
@@ -72,26 +42,25 @@ export default function BizLanding() {
             setAliasStatus('idle');
             return;
         }
-
-        const timer = setTimeout(() => {
+        const timer = setTimeout(async () => {
             setAliasStatus('checking');
-            checkBusinessAlias(aliasName).then(isAvailable => {
+            try {
+                const isAvailable = await checkBusinessAlias(aliasName);
                 setAliasStatus(isAvailable ? 'available' : 'unavailable');
-            }).catch(error => {
+            } catch (error) {
                 console.error('Error checking business alias:', error);
                 setAliasStatus('error');
-            });
+            }
         }, 500);
-
         return () => clearTimeout(timer);
     }, [aliasName]);
 
-    const handleBusinessNameChange = (event) => {
-        setBusinessName(event.target.value);
-    };
+    const handleBusinessNameChange = (event) => setBusinessName(event.target.value);
+    const handleBusinessAliasChange = (event) => setAliasName(event.target.value);
 
-    const handleBusinessAliasChange = (event) => {
-        setAliasName(event.target.value);
+    const handleProceedClick = () => {
+        setRegistrationVisible(true);
+        setFieldsReadOnly(true); 
     };
 
     return (
@@ -145,6 +114,7 @@ export default function BizLanding() {
                                                     value={businessName}
                                                     onChange={handleBusinessNameChange}
                                                     className='mb-2'
+                                                    readOnly={fieldsReadOnly}
                                                 />
                                                 {nameStatus === 'checking' && (
                                                     <BiLoaderCircle
@@ -196,6 +166,7 @@ export default function BizLanding() {
                                                     value={aliasName}
                                                     onChange={handleBusinessAliasChange}
                                                     className='mb-2'
+                                                    readOnly={fieldsReadOnly}
                                                 />
                                                 {aliasStatus === 'checking' && (
                                                     <BiLoaderCircle
@@ -237,13 +208,15 @@ export default function BizLanding() {
                                         </Form.Group>
                                     </div>
 
-                                    <button
-                                        type='submit'
-                                        className="custom-button"
-                                        disabled={!(nameStatus === 'available' && aliasStatus === 'available')}
-                                    >
-                                        Proceed
-                                    </button>                            
+                                    {/* {nameStatus === 'available' && aliasStatus === 'available' && (
+                                        <button
+                                            type='button'
+                                            className="custom-button"
+                                            onClick={handleProceedClick}
+                                        >
+                                            Proceed
+                                        </button>
+                                    )}                         */}
                                 </Form>
 
                             </div>
@@ -252,6 +225,9 @@ export default function BizLanding() {
                     </div>
                 </Container>
             </div>
+            
+            {registrationVisible && <div data-aos="fade-up"><BizRegistration businessName={businessName} aliasName={aliasName} /></div>}
+
         </>
     );
 };

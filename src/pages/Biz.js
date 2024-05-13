@@ -7,6 +7,7 @@ import HomeModal from '../components/Home_Modal.js';
 import HomeTestimony from '../components/Home_Testimony.js';
 import HomeNumbers from '../components/Home_Numbers.js';
 import BizLanding from '../components/Biz_Landing.js';
+import BizRegistration from '../components/Biz_Registration.js';
 
 export default function Biz() {
 
@@ -32,7 +33,6 @@ export default function Biz() {
         <>
           {!isSmallScreen && <div data-aos="fade-up"><HomeModal /></div>}
             <div data-aos="fade-up"><BizLanding /></div>
-            <div data-aos="fade-up"><HomeTestimony /></div>
           <AppFooter />
         </>
       )}
