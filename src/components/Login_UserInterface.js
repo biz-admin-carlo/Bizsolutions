@@ -118,13 +118,22 @@ export default function NewLogin() {
                                     <Form.Check type="checkbox" label="Do you remember me?" />
                                 </Form.Group>
                                 
-                                <div className='py-2'> 
-                                    <h6 className='text-secondary py-2'>
+                                <div className='pb-2 text-container-login'>
+                                    <h6 className='text-secondary'>
                                         <span 
                                             className="dotted-underline"
                                             onClick={() => navigate('/forgot-password')}
                                         >
                                             Forgot Password?
+                                        </span>
+                                    </h6>
+
+                                    <h6 className='text-secondary'>
+                                        <span 
+                                            className="dotted-underline"
+                                            onClick={() => navigate('/sign-up')}
+                                        >
+                                            Sign-Up?
                                         </span>
                                     </h6>
                                 </div>

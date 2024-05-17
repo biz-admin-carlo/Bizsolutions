@@ -10,8 +10,6 @@ import BusinessCard from '../components/Search_BusinessCard';
 import Pagination from '../components/Search_Pagination';
 import Breadcrumb from '../components/Search_Breadcrumb';
 
-
-import SearchResult from '../components/Search_Result';
 import AppFooter from '../components/Application_Footer';
 import BusinessCardSkeleton from '../components/Search_BusinessCardSkeleton';
 
@@ -28,7 +26,6 @@ const fetchApiData = (apiUrl, setData, setLoading) => {
       setLoading(false);
     })
     .catch(error => {
-        // console.error('Error:', error);
       setLoading(false);
     });
 };
@@ -61,7 +58,6 @@ const createClient = async (location, searchTerm, coords) => {
       clientSearchTerm: searchTerm,
       clientCoords: coords,
     });
-    // console.log('Success:', response);
     return response;
   } catch (error) {
   }
@@ -124,15 +120,6 @@ export default function Search() {
       setCoordinates(null);
     }
   };
-
-  const generateBreadcrumbText = () => {
-    if (coordinates) {
-      return `Results for ${category} Near Me`;
-    } else if (locationState) {
-      return `Results for ${category} in ${locationState}`;
-    }
-    return `Results for ${category}`;
-  }
   
   const renderBusinessCards = () => {
     return resultState && resultState.businesses
@@ -209,8 +196,6 @@ export default function Search() {
         <title>BizSolutions | Listings</title>
       </Helmet>
 
-      {/* <SearchResult /> */}
-
       <Container>
 
         <Breadcrumb
@@ -219,7 +204,7 @@ export default function Search() {
           locationState={locationState}
         />
       
-      <h3>{generateHeaderTitle()}</h3>
+        <h3>{generateHeaderTitle()}</h3>
 
         {loading ? (
           <>
@@ -229,7 +214,6 @@ export default function Search() {
           </>
         ) : (
           <div>
-            
             <div className="card-container-new">
               {renderBusinessCards()}
             </div>

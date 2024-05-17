@@ -1,0 +1,29 @@
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-icon {
+  animation: spin 1s linear infinite;
+}
+.text-subtitle-below {
+  font-size: .8rem;
+  color: gray;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.text-subtitle-fields {
+  font-size: 1rem;
+  color: black;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.text-container-login {
+  display: flex; 
+  justify-content: space-between;
+  align-items: center; 
+}
+
+.dotted-underline {
+  cursor: pointer; 
+}

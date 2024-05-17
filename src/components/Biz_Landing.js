@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Form } from 'react-bootstrap';
-import { BiLoaderCircle, BiCheckDouble, BiXCircle } from "react-icons/bi";
+import { Container, Form, Alert } from 'react-bootstrap';
+import { BiLoaderCircle, BiCheckDouble, BiXCircle, BiInfoCircle } from "react-icons/bi";
 import imgOne from '../assets/img-web-add-biz.webp';
 import '../assets/styles/NewLoginInterface.css';
 import BarSpinner from './Reusable_BarSpinner';
 import BizRegistration from './Biz_Registration.js';
 import { checkBusinessName, checkBusinessAlias } from '../utils/BizUtils.js';
 
-
-export default function BizLanding() {
+export default function BizLanding({ businessData, hasBusiness }) {
 
     const [ loading, setLoading ] = useState(false);
     const [ businessName, setBusinessName ] = useState('');
@@ -17,7 +16,11 @@ export default function BizLanding() {
     const [ aliasStatus, setAliasStatus ] = useState('idle');
     const [ registrationVisible, setRegistrationVisible ] = useState(false);  
     const [ fieldsReadOnly, setFieldsReadOnly ] = useState(false); 
-
+    const [ businessDetails, setBusinessDetails ] = useState([]);
+    
+    useEffect(() => {
+        setBusinessDetails(businessData);
+    }, [businessData]);
     
     useEffect(() => {
         if (!businessName) {
@@ -70,7 +73,7 @@ export default function BizLanding() {
                 <Container>
                     <div className="login-container">
 
-                        <div className="login-image d-none d-md-block">
+                        <div className="login-image d-none d-lg-block">
                             <img 
                                 className="img-fluid" 
                                 src={imgOne} 
@@ -88,6 +91,20 @@ export default function BizLanding() {
                                 In today’s competitive marketplace, standing out is more crucial than ever. Joining <span className='biz-color' style={{ fontSize: '1.1rem' }} >BizSolutions</span> allows you to enhance your local visibility, ensuring that your business is not just seen, but also preferred. We specialize in positioning your services in front of the right local audience, transforming your business into a community staple.</p>
                                 <p className="paragraph-text">
                                 <span className='biz-color' style={{ fontSize: '1.1rem' }} >BizSolutions</span> is not just a platform; it's a community builder. By integrating your business with our application, you open the doors to collaborations and partnerships within your locality. This network effect not only enhances your business capabilities but also solidifies your standing in the local market.</p>
+                            </div>
+
+                            <div>
+                                {businessDetails && businessDetails.length > 0 && (
+                                    <div>
+                                        <h4 style={{ fontSize: '1.5rem' }} className='py-2 text-secondary'>My Biz-ness!</h4>
+
+                                        {businessDetails.slice(0, 2).map((biz, index) => (
+                                            <Alert key={index} variant='secondary'>
+                                                <p className='biz-color my-1'>{biz.name}</p>
+                                            </Alert>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
 
                             <div >
@@ -153,8 +170,23 @@ export default function BizLanding() {
                                                     />
                                                 )}
                                             </div>
+                                            <div className='pb-3 ps-3'>
+                                                <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
+                                                <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
+                                                    Please use proper spelling, spacing, and capitalization.
+                                                </p>
+                                                <br/>
+                                                <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
+                                                <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
+                                                    Enter your business name exactly as it should appear.
+                                                </p>
+                                                <br/>
+                                                <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
+                                                <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
+                                                    This information will be shown publicly and cannot be edited later.
+                                                </p>
+                                            </div>
                                         </Form.Group>
-
 
                                         <Form.Group controlId="formBasicBusinessName">
                                             <Form.Label>Business Alias</Form.Label>
@@ -208,7 +240,7 @@ export default function BizLanding() {
                                         </Form.Group>
                                     </div>
 
-                                    {/* {nameStatus === 'available' && aliasStatus === 'available' && (
+                                    {nameStatus === 'available' && aliasStatus === 'available' && (
                                         <button
                                             type='button'
                                             className="custom-button"
@@ -216,7 +248,7 @@ export default function BizLanding() {
                                         >
                                             Proceed
                                         </button>
-                                    )}                         */}
+                                    )}                        
                                 </Form>
 
                             </div>

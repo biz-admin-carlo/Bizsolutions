@@ -1,0 +1,19 @@
+.alert-on-center {
+    position: fixed !important;
+    left: 0 !important; 
+    bottom: 0 !important; 
+    z-index: 9999 !important; 
+    margin: 20px;
+}
+
+.box-message {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 1rem;
+    color: #FF851A;
+}
+
+.box-message-red {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 1rem;
+    color: red;
+}

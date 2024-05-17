@@ -1,10 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
+import { Country, State, City } from 'country-state-city';
 import { Container, Form, Col, Row } from 'react-bootstrap';
-import { BiLoaderCircle, BiCheckDouble, BiXCircle } from "react-icons/bi";
+import { BiLoaderCircle, BiCheckDouble, BiXCircle, BiInfoCircle } from "react-icons/bi";
 import HomeTestimony from './Home_Testimony.js';
-import '../assets/styles/NewLoginInterface.css';
+import SuccessBox from './Biz_Success.js';
+import FailBox from './Biz_Failure.js';
+import '../assets/styles/BizRegistration.css';
+import { assembleFormData, submitBizRegistration } from '../utils/BizUtils.js';
+
 
 export default function BizRegistration({ businessName: initialBusinessName, aliasName: initialAliasName }) {
+
+    const navigate = useNavigate();
+
+    const [ businessCategories, setBusinessCategories ] = useState([
+        'Restaurant', 'Library', 'Retail', 'Service', 'Healthcare', 'Technology',
+        'Education', 'Finance', 'Real Estate', 'Construction', 'Manufacturing',
+        'Transportation', 'Entertainment', 'Wholesale', 'Personal Care', 'Hospitality',
+        'Fitness', 'Legal', 'Consulting', 'Insurance', 'Agriculture', 'Arts and Crafts',
+        'Automotive', 'Energy', 'Food Services', 'Non-Profit', 'Fashion'
+    ]);
 
     const [ businessName, setBusinessName ] = useState(initialBusinessName || '');
     const [ aliasName, setAliasName ] = useState(initialAliasName || '');
@@ -19,7 +36,13 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
     });
 
     const [ latitude, setLatitude ] = useState('');  
+    const [ latitudeStatus, setLatitudeStatus ] = useState('idle');
+
     const [ longitude, setLongitude ] = useState('');
+    const [ longitudeStatus, setLongitudeStatus ] = useState('idle');
+
+    const [ resultStatus, setResultStatus ] = useState('');
+
     const [ addressLine1, setAddressLine1 ] = useState('');
     const [ addressLine2, setAddressLine2 ] = useState('');
     const [ addressLine3, setAddressLine3 ] = useState('');
@@ -29,21 +52,53 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
     const [ country, setCountry ] = useState('');
     const [ phoneNumber, setPhoneNumber ] = useState('');
     const [ displayPhoneNumber, setDisplayPhoneNumber ] = useState('');
+    const [ selectedCategory, setSelectedCategory ] = useState('');
+    const [ isLoading, setIsLoading ] = useState(false);
 
+    const [ selectedCountry, setSelectedCountry ] = useState(null);
+    const [ selectedState, setSelectedState ] = useState(null);
+    const [ selectedCity, setSelectedCity ] = useState(null);
+
+    const countriesOptions = useMemo(() => {
+        const countries = Country.getAllCountries().map((country) => ({
+            label: country.name,
+            value: country.isoCode
+        }));
+        const usOption = countries.find(option => option.value === 'US');
+        return usOption ? [usOption, ...countries.filter(option => option.value !== 'US')] : countries;
+    }, []);
+
+    const stateOptions = selectedCountry ? State.getStatesOfCountry(selectedCountry.value).map((state) => ({
+        label: state.name,
+        value: state.isoCode
+    })) : [];
+
+    const cityOptions = selectedState ? City.getCitiesOfState(selectedCountry.value, selectedState.value).map((city) => ({
+        label: city.name,
+        value: city.isoCode
+    })) : [];
 
     const handleGetCoordinates = () => {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                setLatitude(position.coords.latitude);
-                setLongitude(position.coords.longitude);
-            }, (error) => {
-                console.error("Error Code = " + error.code + " - " + error.message);
-            });
+            setIsLoading(true);
+            setLongitudeStatus('checking');
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setLatitude(position.coords.latitude);
+                    setLongitude(position.coords.longitude);
+                    setIsLoading(false);
+                    setLongitudeStatus('available');
+                },
+                (error) => {
+                    console.error("Error Code = " + error.code + " - " + error.message);
+                    setIsLoading(false);
+                    setLongitudeStatus('unavailable');
+                }
+            );
         } else {
             alert("Geolocation is not supported by this browser.");
         }
     };
-
 
     const handleImageUrlChange = (event) => setImageUrl(event.target.value);
     const handleWebsiteUrlChange = (event) => setWebsiteUrl(event.target.value);
@@ -63,6 +118,88 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
     };
     const handleChangePhoneNumber = (e) => setPhoneNumber(e.target.value);
     const handleChangeDisplayPhoneNumber = (e) => setDisplayPhoneNumber(e.target.value);
+    const handleCategoryChange = (event) => {
+        setSelectedCategory(event.target.value);
+    };
+
+    const handleCountryChange = (option) => {
+        setSelectedCountry(option);
+        setSelectedState(null); 
+        setSelectedCity(null);
+    };
+
+    const handleStateChange = (option) => {
+        setSelectedState(option);
+        setSelectedCity(null);
+    };
+
+    const handleCityChange = (option) => {
+        setSelectedCity(option);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        if (!businessName || !imageUrl || !websiteUrl || !selectedCountry || !selectedState || !phoneNumber) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+    
+        const formData = assembleFormData({
+            businessName,
+            aliasName,
+            imageUrl,
+            websiteUrl,
+            selectedCategory,
+            transactionModes,
+            latitude,
+            longitude,
+            addressLine1,
+            addressLine2,
+            addressLine3,
+            selectedCity,
+            selectedState,
+            zipCode,
+            selectedCountry,
+            phoneNumber,
+            displayPhoneNumber
+        });
+    
+        try {
+            const result = await submitBizRegistration(formData);
+
+            setResultStatus('success');
+            setTimeout(() => {
+                navigate('/my-biz');
+            }, 5000);
+        } catch (error) {
+            setResultStatus('failure');
+        }
+    };
+
+    useEffect(() => {
+        if (!latitude) {
+            setLatitudeStatus('idle');
+            return;
+        }
+        setLatitudeStatus('checking');
+        const timer = setTimeout(() => {
+            setLatitudeStatus('available');
+        }, 500);
+        return () => clearTimeout(timer);
+    }, [latitude]);
+
+    useEffect(() => {
+        if (!longitude) {
+            setLongitudeStatus('idle');
+            return;
+        }
+        setLongitudeStatus('checking');
+        const timer = setTimeout(() => {
+            setLongitudeStatus('available');
+        }, 500);
+        return () => clearTimeout(timer);
+    }, [longitude]);
 
     return (
         <>
@@ -79,7 +216,7 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                 
                 <Container>
                     <div>
-                        <Form>
+                        <Form>                
 
                             <div className='pb-2 mx-lg-5'>
 
@@ -138,53 +275,22 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                     </Form.Group>
                                 </div>
                                 
-                                {/* Biz Categories */}
-                                <div className='pt-3'>
-                                    <h4 style={{ fontSize: '1.3rem' }} className='biz-color'>Biz Categories</h4>
-
-                                    <Form.Group controlId="formBasicBusinessName">
-                                        <Form.Label>Select Biz Alias</Form.Label>
-                                        <div style={{ position: 'relative' }}>
-                                            <Form.Control
-                                                required
-                                                type="text"
-                                                placeholder="Enter Business Name"
-                                                value={businessName}
-                                                className='mb-2'
-                                            />
-                                        </div>
-                                    </Form.Group>
-
-                                    <Form.Group controlId="formBasicBusinessName">
-                                        <Form.Label>Select Biz Title</Form.Label>
-                                        <div style={{ position: 'relative' }}>
-                                            <Form.Control
-                                                required
-                                                type="text"
-                                                placeholder="Enter Business Name"
-                                                value={businessName}
-                                                className='mb-2'
-                                            />
-                                        </div>
-                                    </Form.Group>
-                                </div>
-                                
                                 {/* Biz Category */}
                                 <div className='pt-3'>
                                     <h4 style={{ fontSize: '1.3rem' }} className='biz-color'>Biz Categories</h4>
 
-                                    <Form.Group controlId="formBasicBusinessName">
-                                        <Form.Label>Select Biz Alias</Form.Label>
-                                        <div style={{ position: 'relative' }}>
-                                            <Form.Control
-                                                required
-                                                type="text"
-                                                placeholder="Enter Business Name"
-                                                value={businessName}
-                                                onChange={handleBusinessNameChange}
-                                                className='mb-2'
-                                            />
-                                        </div>
+                                    <Form.Group controlId="formBizCategory">
+                                        <Form.Label>Select Biz Category</Form.Label>
+                                        <Form.Select 
+                                            required 
+                                            value={selectedCategory}
+                                            onChange={handleCategoryChange}
+                                            className='mb-2'>
+                                            <option value="">Select Category</option>
+                                            {businessCategories.map((category, index) => (
+                                                <option key={index} value={category}>{category}</option>
+                                            ))}
+                                        </Form.Select>
                                     </Form.Group>
                                 </div>
 
@@ -244,43 +350,134 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                 {/* Biz Coordinates */}
                                 <div className='pt-3'>
                                     <h4 style={{ fontSize: '1.3rem' }} className='biz-color'>Biz Location</h4>
-                                    <h6>In getting your coordinates, you can either click the 'Get My Current Coordinates' and it will automatically collects your Biz latitdue and longitude. If you know your Biz latitude and longtitdue feel free to input it below.</h6>
+                                    <p className='text-subtitle-fields'>In getting your coordinates, you can either click the 'Get My Current Coordinates' and it will automatically collect your Biz latitude and longitude. If you know your Biz latitude and longitude feel free to input it below.</p>
 
                                     <button
                                         type='button'
-                                        className="custom-button my-lg-3"
+                                        className="custom-button my-3"
                                         onClick={handleGetCoordinates}
                                     >
-                                        Get My Current Coordinates
+                                        {isLoading ? <BiLoaderCircle className="loading-icon" /> : 'Get My Current Coordinates'}
                                     </button>
 
                                     <Row>
                                         <Col lg={6}>
-                                            <Form.Group controlId="formLatitude">
-                                                <Form.Label>Latitude</Form.Label>
-                                                    <Form.Control
-                                                        type="number"
-                                                        value={latitude}
-                                                        onChange={e => setLatitude(e.target.value)}
-                                                        className='mb-2'
-                                                        min="-90"
-                                                        max="90"
+                                        <Form.Group controlId="formLatitude">
+                                            <Form.Label>Latitude</Form.Label>
+                                            <div style={{ position: 'relative' }}>
+                                                <Form.Control
+                                                    type="number"
+                                                    value={latitude}
+                                                    onChange={e => setLatitude(e.target.value)}
+                                                    className='mb-2'
+                                                    placeholder='e.g., 14.6480903'
+                                                    min="-90"
+                                                    max="90"
+                                                />
+                                                {latitudeStatus === 'checking' && (
+                                                    <BiLoaderCircle
+                                                        className='biz-color'
+                                                        style={{
+                                                            position: 'absolute',
+                                                            right: '10px',
+                                                            top: '50%',
+                                                            transform: 'translateY(-50%)',
+                                                            fontSize: '24px'
+                                                        }}
                                                     />
-                                            </Form.Group>
+                                                )}
+                                                {latitudeStatus === 'available' && (
+                                                    <BiCheckDouble
+                                                        style={{
+                                                            position: 'absolute',
+                                                            right: '10px',
+                                                            top: '50%',
+                                                            transform: 'translateY(-50%)',
+                                                            color: 'green',
+                                                            fontSize: '24px'
+                                                        }}
+                                                    />
+                                                )}
+                                                {latitudeStatus === 'unavailable' && (
+                                                    <BiXCircle
+                                                        style={{
+                                                            position: 'absolute',
+                                                            right: '10px',
+                                                            top: '50%',
+                                                            transform: 'translateY(-50%)',
+                                                            color: 'red',
+                                                            fontSize: '24px'
+                                                        }}
+                                                    />
+                                                )}
+                                            </div>
+                                            <div className='pb-3 ps-3'>
+                                                <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
+                                                <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
+                                                    Enter the latitude as a number between -90 and 90. Latitude indicates the north-south position of a location on the Earth.
+                                                </p>
+                                            </div>
+                                        </Form.Group>
                                         </Col>
                                         
                                         <Col lg={6}>
-                                            <Form.Group controlId="formLongitude">
-                                                <Form.Label>Longitude</Form.Label>
-                                                    <Form.Control
-                                                        type="number"
-                                                        value={longitude}
-                                                        onChange={e => setLongitude(e.target.value)}
-                                                        className='mb-2'
-                                                        min="-180"
-                                                        max="180"
+                                        <Form.Group controlId="formLongitude">
+                                            <Form.Label>Longitude</Form.Label>
+                                            <div style={{ position: 'relative' }}>
+                                                <Form.Control
+                                                    required
+                                                    type="number"
+                                                    value={longitude}
+                                                    onChange={e => setLongitude(e.target.value)}
+                                                    className='mb-2'
+                                                    placeholder='e.g., -74.0060'
+                                                    min="-180"
+                                                    max="180"
+                                                />
+                                                {longitudeStatus === 'checking' && (
+                                                    <BiLoaderCircle
+                                                        className='biz-color'
+                                                        style={{
+                                                            position: 'absolute',
+                                                            right: '10px',
+                                                            top: '50%',
+                                                            transform: 'translateY(-50%)',
+                                                            fontSize: '24px'
+                                                        }}
                                                     />
-                                            </Form.Group>
+                                                )}
+                                                {longitudeStatus === 'available' && (
+                                                    <BiCheckDouble
+                                                        style={{
+                                                            position: 'absolute',
+                                                            right: '10px',
+                                                            top: '50%',
+                                                            transform: 'translateY(-50%)',
+                                                            color: 'green',
+                                                            fontSize: '24px'
+                                                        }}
+                                                    />
+                                                )}
+                                                {longitudeStatus === 'unavailable' && (
+                                                    <BiXCircle
+                                                        style={{
+                                                            position: 'absolute',
+                                                            right: '10px',
+                                                            top: '50%',
+                                                            transform: 'translateY(-50%)',
+                                                            color: 'red',
+                                                            fontSize: '24px'
+                                                        }}
+                                                    />
+                                                )}
+                                            </div>
+                                            <div className='pb-3 ps-3'>
+                                                <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
+                                                <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
+                                                    Enter the longitude as a number between -180 and 180. Longitude indicates the east-west position of a location on the Earth.
+                                                </p>
+                                            </div>
+                                        </Form.Group>
                                         </Col>
                                     </Row>
                                 </div>
@@ -299,6 +496,12 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                             onChange={handleChange(setAddressLine1)}
                                             className='mb-2'
                                         />
+                                        <div className='pb-3 ps-3'>
+                                            <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
+                                            <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
+                                                Enter the street part of your business address. This address will be shown publicly to help customers locate your business.
+                                            </p>
+                                        </div>
                                     </Form.Group>
 
                                     <Form.Group controlId="formAddressLine2">
@@ -311,6 +514,12 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                             onChange={handleChange(setAddressLine2)}
                                             className='mb-2'
                                         />
+                                        <div className='pb-3 ps-3'>
+                                            <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
+                                            <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
+                                                Enter any additional details such as suite or apartment number that are crucial for locating your business. This information will be shown publicly.
+                                            </p>
+                                        </div>
                                     </Form.Group>
 
                                     <Form.Group controlId="formAddressLine3">
@@ -323,33 +532,38 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                             onChange={handleChange(setAddressLine3)}
                                             className='mb-2'
                                         />
+                                        <div className='pb-3 ps-3'>
+                                            <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
+                                            <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
+                                                Provide any landmarks or additional directions to help further pinpoint your business location. This information will also be shown publicly.
+                                            </p>
+                                        </div>
                                     </Form.Group>
                                     
-                                    <Row>
+                                    <Row className='pb-2'>
                                         <Col lg={6}>
                                             <Form.Group controlId="formCountry">
                                                 <Form.Label>Country</Form.Label>
-                                                <Form.Control
-                                                    required
-                                                    type="text"
-                                                    placeholder="Enter Country"
-                                                    value={country}
-                                                    onChange={handleChange(setCountry)}
-                                                    className='mb-2'
+                                                <Select
+                                                    options={countriesOptions}
+                                                    value={selectedCountry}
+                                                    onChange={handleCountryChange}
+                                                    placeholder="Select Country"
+                                                    isClearable
                                                 />
                                             </Form.Group>
                                         </Col>
 
                                         <Col lg={6}>
-                                            <Form.Group controlId="formCity">
-                                                <Form.Label>City</Form.Label>
-                                                <Form.Control
-                                                    required
-                                                    type="text"
-                                                    placeholder="Enter City"
-                                                    value={city}
-                                                    onChange={handleChange(setCity)}
-                                                    className='mb-2'
+                                            <Form.Group controlId="formState">
+                                                <Form.Label>State</Form.Label>
+                                                <Select
+                                                    options={stateOptions}
+                                                    value={selectedState}
+                                                    onChange={handleStateChange}
+                                                    placeholder="Select State"
+                                                    isDisabled={!selectedCountry}
+                                                    isClearable
                                                 />
                                             </Form.Group>
                                         </Col>
@@ -357,6 +571,20 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                     </Row>
 
                                     <Row>
+                                        <Col lg={6}>
+                                            <Form.Group controlId="formCity">
+                                                <Form.Label>City</Form.Label>
+                                                <Select
+                                                    options={cityOptions}
+                                                    value={selectedCity}
+                                                    onChange={handleCityChange}
+                                                    placeholder="Select City"
+                                                    isDisabled={!selectedState}
+                                                    isClearable
+                                                />
+                                            </Form.Group>
+                                        </Col>
+
                                         <Col lg={6}>
                                             <Form.Group controlId="formZipCode">
                                                 <Form.Label>Zip Code</Form.Label>
@@ -366,20 +594,6 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                                     placeholder="Enter Zip Code"
                                                     value={zipCode}
                                                     onChange={handleChange(setZipCode)}
-                                                    className='mb-2'
-                                                />
-                                            </Form.Group>
-                                        </Col>
-
-                                        <Col lg={6}>
-                                            <Form.Group controlId="formState">
-                                                <Form.Label>State</Form.Label>
-                                                <Form.Control
-                                                    required
-                                                    type="text"
-                                                    placeholder="Enter State"
-                                                    value={state}
-                                                    onChange={handleChange(setState)}
                                                     className='mb-2'
                                                 />
                                             </Form.Group>
@@ -433,8 +647,22 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                         </Col>
                                     </Row>
                                 </div>
-
+                                
+                                <div>
+                                    <button
+                                        type='button'
+                                        className="custom-button my-2"
+                                        onClick={handleSubmit}
+                                    >
+                                        Create Biz
+                                    </button>
+                                
+                                    {resultStatus === 'success' && <div data-aos="fade-down"><SuccessBox /></div>}
+                                    {resultStatus === 'failure' && <div data-aos="fade-down"><FailBox /></div>} 
+                                
+                                </div>
                             </div>
+
                         </Form>
                     </div>
                 </Container>
