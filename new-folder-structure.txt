@@ -1,0 +1,75 @@
+bizSolutions/
+│
+├── public/
+│   ├── index.html
+│   ├── manifest.json
+│   ├── robots.txt
+│   ├── sitemap.xml
+│   └── assets/
+│       ├── icons/
+│       │   └── app-logo.jpg
+│       ├── images/
+│       │   └── favicon.ico
+│       └── seo/
+│           └── example.txt
+│
+├── src/
+│   ├── assets/
+│   │   ├── styles/
+│   │   │   └── main.scss
+│   │   ├── images/
+│   │   │   ├── logo.png
+│   │   │   └── banner.webp
+│   │   └── videos/
+│   │       └── intro.mp4
+│   │
+│   ├── components/
+│   │   ├── common/
+│   │   │   ├── Navbar.js
+│   │   │   ├── Footer.js
+│   │   │   └── index.js
+│   │   ├── forms/
+│   │   │   ├── UserNavbar.js
+│   │   │   ├── FormFooter.js
+│   │   │   └── index.js
+│   │   └── index.js
+│   │
+│   ├── contexts/
+│   │   ├── UserContext.js
+│   │   └── index.js
+│   │
+│   ├── hooks/
+│   │   └── useAuth.js
+│   │
+│   ├── pages/
+│   │   ├── Home/
+│   │   │   └── index.js
+│   │   ├── About/
+│   │   │   └── index.js
+│   │   ├── Account/
+│   │   │   └── index.js
+│   │   ├── Admin/
+│   │   │   ├── Dashboard.js
+│   │   │   └── Users.js
+│   │   ├── Forms/
+│   │   │   ├── ApplicationForm.js
+│   │   │   └── index.js
+│   │   └── index.js
+│   │
+│   ├── services/
+│   │   └── api.js
+│   │
+│   ├── utils/
+│   │   ├── bizUtils.js
+│   │   └── index.js
+│   │
+│   ├── App.js
+│   ├── Routes.js
+│   ├── index.js
+│   └── setupTests.js
+│
+├── .env
+├── .env.example
+├── .gitignore
+├── package.json
+└── package-lock.json

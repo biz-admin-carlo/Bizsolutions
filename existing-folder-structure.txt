@@ -1,0 +1,44 @@
+node_modules
+public
+    - index.html
+    - manifest.json
+    - robots.txt
+    - 2814d618488a42d592ef6dc49ca1bac5.txt
+    - icon-app-logo.jpg
+    - sitemap.xml
+src
+    - assets
+        - styles
+        - icon-app-logo.jpg
+        - img-web-add-biz.webp
+        - xero-logo.png
+        - video-are-you-ready-stock.mp4
+        - (Contains other more assets)
+    - components
+        - Forms
+            - Application_UserNavbar.js
+        - AccountInfo_AccountDetails.js
+        - AccountInfo_ChangePassword.js
+        - Application_AdminNavbar.js
+        - Application_Footer.js
+        - Application_PreFooter.js
+        - (Contains other components)
+    - utils
+        - BizUtils.js (This is where axios is placed and contains functions that consumed Backend API's)
+    - pages
+        - Forms
+            - Home.js
+        - About.js
+        - Account.js
+        - Admin.js
+        - AdminUser.js
+        - Biz.js
+        - (Contains other pages)
+    - App.js
+    - index.js
+    - UserContext.js
+.env
+.env.example
+.gitignore
+package-lock.json
+package.json

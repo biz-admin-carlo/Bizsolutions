@@ -1,0 +1,31 @@
+.flex-row-align-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.clickable-icon {
+    cursor: pointer;
+}
+
+.status-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+}
+
+.status-icon.available {
+    color: green;
+}
+
+.status-icon.unavailable {
+    color: red;
+}
+
+@media (max-width: 576px) {
+    .flex-row-align-right {
+        flex-direction: column;
+    }
+}

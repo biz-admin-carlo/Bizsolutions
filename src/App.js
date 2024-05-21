@@ -2,10 +2,11 @@ import { useState, Suspense } from 'react';
 import { UserProvider } from './UserContext';
 import { Helmet } from 'react-helmet'; 
 import AppNavbar from './components/Application_Navbar';
+import SpecialNavbar from './components/Application_Navbar';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
 import { Container } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -27,6 +28,7 @@ import Career from './pages/Career';
 import Business from './pages/Business';
 import Reset from './pages/Reset';
 import Biz from './pages/Biz';
+import ServiceNow from './pages/ServiceNow';
 
 import AdminDashboard from './pages/Admin';
 import AdminLogin from './pages/LoginAdmin';
@@ -41,8 +43,17 @@ import PageSalesCollections from './components/Page_SalesCollections';
 
 import Result from './pages/Result';
 
+function NavbarWrapper() {
+  const location = useLocation();
+
+  if (location.pathname === '/my-forms') {
+      return <SpecialNavbar />;
+  }
+  return <AppNavbar />;
+}
+
+
 function App() {
-  
   const [ user, setUser ] = useState({
     id: null,
     isAdmin: null,
@@ -55,14 +66,13 @@ function App() {
 
   return (
     <>
-      <Helmet>
-        <title>BizSolutions | Home</title>
-      </Helmet>
-
       <UserProvider value={{ user, setUser, unsetUser }}>
         <Router>
+          <Helmet>
+            <title>BizSolutions | Home</title>
+          </Helmet>
         <ScrollToTop />
-          <AppNavbar />
+          <NavbarWrapper />
           <Container />
               <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
@@ -121,6 +131,12 @@ function App() {
                     <Route path="/admin-login" element={<AdminLogin/>}/>
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
                     <Route path="/admin-dashboard/:userId/users" element={<AdminUsers/>}/>
+
+                    {/* New Development */}
+                    <Route path="/service" element={<ServiceNow/>}/>
+
+                    {/* My Forms Project */}
+                    {/* <Route path="/my-forms" element={<FormsHome />}/> */}
 
                 </Routes>
               </Suspense>

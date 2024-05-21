@@ -97,6 +97,162 @@ export async function retrieveUserBiz() {
     }
 }
 
+export async function retrieveTeamDetails() {
+    try {
+        const token = sessionStorage.getItem('token');
+
+        if (!token) {
+            console.log('No token found in session storage.');
+            return false;
+        }
+
+        const url = `${apiUrl}/api/v1/teams/team-details/`;
+
+        const response = await axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        console.log(response);
+
+        if (response.status === 200 && response.data.numberOfTeams > 0) {
+            console.log('Team found:', response.data.teams);
+            return response.data.teams;
+        } else if (response.status === 404) {
+            console.log('No Teams found for this user.');
+            return false;
+        }
+    } catch (error) {
+        console.error('Error checking business:', error);
+        return false;
+    }
+}
+
+export async function checkTeamName(teamName) {
+    try {
+        if (!teamName) {
+            console.log('Team name must be provided.');
+            return false;
+        };
+
+        const url = `${apiUrl}/api/v1/teams/team-details/name-check?name=${encodeURIComponent(teamName)}`;
+        const token = sessionStorage.getItem('token');
+
+        if (!token) {
+            console.log('No token found in session storage.');
+            return false;
+        };
+
+        const response = await axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        });
+        
+        if (response.status === 200) {
+            return response.data.isAvailable;
+        }
+
+        return false;
+
+    } catch (error) {
+        console.error('Error checking team name availability:', error);
+        return false;
+    }
+}
+
+export async function createTeam(teamName) {
+    try {
+        if (!teamName) {
+            console.log('Team name must be provided.');
+            return false;
+        }
+
+        const url = `${apiUrl}/api/v1/teams/create/`;
+        const token = sessionStorage.getItem('token');
+
+        if (!token) {
+            console.log('No token found in session storage.');
+            return false;
+        }
+
+        const response = await axios.post(url, {
+            name: teamName
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.status === 201) {
+            return {
+                success: true,
+                message: response.data.message,
+                teamId: response.data.teamId
+            };
+        } else {
+            return {
+                success: false,
+                error: response.data.error || 'Unknown error occurred'
+            };
+        }
+
+    } catch (error) {
+        console.error('Error creating team:', error);
+        return {
+            success: false,
+            error: 'Error creating team'
+        };
+    }
+}
+
+export async function archiveTeam(teamId) {
+    try {
+        if (!teamId) {
+            console.log('Team ID must be provided.');
+            return false;
+        }
+
+        const url = `${apiUrl}/api/v1/teams/team-details/archive`;
+        const token = sessionStorage.getItem('token');
+
+        if (!token) {
+            console.log('No token found in session storage.');
+            return false;
+        }
+
+        const response = await axios.put(url, {
+            teamId: teamId
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.status === 200) {
+            return {
+                success: true,
+                message: response.data.message,
+                teamId: response.data.teamId
+            };
+        } else {
+            return {
+                success: false,
+                error: response.data.error || 'Unknown error occurred'
+            };
+        }
+
+    } catch (error) {
+        console.error('Error creating team:', error);
+        return {
+            success: false,
+            error: 'Error creating team'
+        };
+    }
+}
+
 export const assembleFormData = ({
     businessName,
     aliasName,

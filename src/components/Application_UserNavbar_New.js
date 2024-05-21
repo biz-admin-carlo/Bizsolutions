@@ -198,7 +198,7 @@ export default function AppNavbar() {
                 )}
                 {!showFirst && (
                   <p data-aos="fade-down">
-                    Save up to 10% off on selected services.  <a> </a>
+                    Save up to 20% off on selected services.  <a> </a>
                     <Link to="/pricing" style={{ textDecoration: 'underline', color: '#000000' }}>Check now</Link>.
                     <FiX
                         style={{ cursor: 'pointer' }}
