@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import home from '../../assets/Biz/images/img-app-home-banner.png';
+import home from '../../assets/Biz/images/img-app-home-banner.webp';
 import BarSpinner from './Reusable_BarSpinner';
 
 import '../../assets/Biz/styles/SignUp.css';
@@ -25,7 +25,6 @@ export default function SignUpReferralToken() {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ message, setMessage ] = useState('');
     const [ showSuccessModal, setShowSuccessModal ] = useState(false);
-    const [ captchaValue, setCaptchaValue ] = useState(null); // For Captcha Integration
     
     const navigate = useNavigate();
     const location = useLocation();
