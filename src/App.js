@@ -1,47 +1,41 @@
 import { useState, Suspense } from 'react';
 import { UserProvider } from './UserContext';
 import { Helmet } from 'react-helmet'; 
-import AppNavbar from './components/Application_Navbar';
-import SpecialNavbar from './components/Application_Navbar';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
 import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 
-import Home from './pages/Home';
-import Login from './pages/Login';
-import SignUp from './pages/Signup';
+import Home from './pages/Biz/Home';
+import Login from './pages/Biz/Login';
+import SignUp from './pages/Biz/Signup';
+import Referral from './pages/Biz/Referral';
+import Search from './pages/Biz/Search';
+import Account from './pages/Biz/Account';
+import Pricing from './pages/Biz/Pricing';
+import Terms from './pages/Biz/Terms';
+import Privacy from './pages/Biz/Privacy';
+import ContactUs from './pages/Biz/ContactUs';
+import AboutUs from './pages/Biz/AboutUs';
+import Career from './pages/Biz/Career';
+import Reset from './pages/Biz/Reset';
+import Biz from './pages/Biz/Bizness';
+import AdminDashboard from './pages/Biz/Admin';
+import AdminLogin from './pages/Biz/LoginAdmin';
+import AdminUsers from './pages/Biz/AdminUsers';
 
-import SignUpReferralTokend from './components/SignupReferralToken';
-import Referral from './pages/Referral';
+import AppNavbar from './components/Biz/Application_Navbar';
+import SpecialNavbar from './components/Biz/Application_Navbar';
+import ScrollToTop from './components/Biz/Reusable_ScrollToTop';
+import SignUpReferralTokend from './components/Biz/SignupReferralToken';
+import PageWebDevelopment from './components/Biz/Page_WebDevelopment';
+import PageWebRevamp from './components/Biz/Page_WebRevamp';
+import PageBookkeeping from './components/Biz/Page_Bookkeeping';
+import PageTechnicalSupport from './components/Biz/Page_TechnicalSupport';
+import PageCustomerService from './components/Biz/Page_CustomerService';
+import PageSalesCollections from './components/Biz/Page_SalesCollections';
 
-import Search from './pages/Search';
-import Account from './pages/Account';
-import Pricing from './pages/Pricing';
-import Terms from './pages/Terms';
-import Privacy from './pages/Privacy';
-import ScrollToTop from './components/Reusable_ScrollToTop';
-
-import ContactUs from './pages/ContactUs';
-import AboutUs from './pages/AboutUs';
-import Career from './pages/Career';
-import Business from './pages/Business';
-import Reset from './pages/Reset';
-import Biz from './pages/Biz';
-import ServiceNow from './pages/ServiceNow';
-
-import AdminDashboard from './pages/Admin';
-import AdminLogin from './pages/LoginAdmin';
-import AdminUsers from './pages/AdminUsers'
-
-import PageWebDevelopment from './components/Page_WebDevelopment';
-import PageWebRevamp from './components/Page_WebRevamp';
-import PageBookkeeping from './components/Page_Bookkeeping';
-import PageTechnicalSupport from './components/Page_TechnicalSupport';
-import PageCustomerService from './components/Page_CustomerService';
-import PageSalesCollections from './components/Page_SalesCollections';
-
-import Result from './pages/Result';
+import Result from './pages/Biz/Result';
 
 function NavbarWrapper() {
   const location = useLocation();
@@ -124,16 +118,12 @@ function App() {
                     <Route path="/sales-collection-service" element={<PageSalesCollections/>}/>
 
                     <Route path="/result" element={<Result/>}/>
-                    <Route path="/add-biz" element={<Business/>}/>
 
                     <Route path="/forgot-password" element={<Reset/>}/>
 
                     <Route path="/admin-login" element={<AdminLogin/>}/>
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
                     <Route path="/admin-dashboard/:userId/users" element={<AdminUsers/>}/>
-
-                    {/* New Development */}
-                    <Route path="/service" element={<ServiceNow/>}/>
 
                     {/* My Forms Project */}
                     {/* <Route path="/my-forms" element={<FormsHome />}/> */}
