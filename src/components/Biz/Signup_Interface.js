@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Form, Container } from 'react-bootstrap';
 import { PiEye, PiEyeSlash } from 'react-icons/pi';
 import { BiLoaderCircle, BiCheckDouble, BiXCircle, BiInfoCircle } from 'react-icons/bi';
-import homeBanner from '../../assets/Biz/images/img-app-home-banner.png';
+import homeBanner from '../../assets/Biz/images/img-app-home-banner.webp';
 import BarSpinner from './Reusable_BarSpinner';
 import SuccessBox from './Biz_Success.js';
 import FailBox from './Biz_Failure.js';
@@ -310,7 +310,7 @@ export default function SignUp() {
                                     
                                 </Form>
                             </div>
-                            <div className="login-image">
+                            <div className="login-image d-none d-lg-block">
                                 <img className="img-fluid" src={homeBanner} alt="BizSolution LLC SignUp Interface" />
                             </div>
                         </div>
