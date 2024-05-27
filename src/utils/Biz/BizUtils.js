@@ -327,3 +327,21 @@ export const submitBizRegistration = async (formData) => {
         throw error;
     }
 };
+
+export const getMyCreatedBiz = async () => {
+    const url = `${apiUrl}/api/v1/biz/get/all/my/bizness`;
+    const token = sessionStorage.getItem('token'); 
+
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        console.log("Retrieved businesses successfully:", response.data);
+        return response.data; 
+    } catch (error) {
+        console.error("Error retrieving businesses:", error.response ? error.response.data : "No response received");
+        throw error; 
+    }
+};

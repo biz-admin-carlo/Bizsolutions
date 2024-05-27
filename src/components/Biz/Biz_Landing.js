@@ -258,7 +258,7 @@ export default function BizLanding({ businessData, hasBusiness }) {
                 </Container>
             </div>
             
-            {registrationVisible && <div data-aos="fade-up"><BizRegistration businessName={businessName} aliasName={aliasName} /></div>}
+
 
         </>
     );

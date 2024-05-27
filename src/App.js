@@ -23,6 +23,7 @@ import Biz from './pages/Biz/Bizness';
 import AdminDashboard from './pages/Biz/Admin';
 import AdminLogin from './pages/Biz/LoginAdmin';
 import AdminUsers from './pages/Biz/AdminUsers';
+import AdminAddBiz from './pages/Biz/AdminAddBiz';
 
 import AppNavbar from './components/Biz/Application_Navbar';
 import SpecialNavbar from './components/Biz/Application_Navbar';
@@ -56,6 +57,7 @@ function App() {
 
   const unsetUser = () => {
     sessionStorage.clear();
+    localStorage.clear();
   };
 
   return (
@@ -123,7 +125,8 @@ function App() {
 
                     <Route path="/admin-login" element={<AdminLogin/>}/>
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
-                    <Route path="/admin-dashboard/:userId/users" element={<AdminUsers/>}/>
+                    {/* <Route path="/admin-dashboard/:userId/users" element={<AdminUsers/>}/> */}
+                    <Route path="/admin-dashboard/:userId/biz" element={<AdminAddBiz/>}/>
 
                     {/* My Forms Project */}
                     {/* <Route path="/my-forms" element={<FormsHome />}/> */}

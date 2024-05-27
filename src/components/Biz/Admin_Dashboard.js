@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Axios from 'axios';
-import { Container, Card } from 'react-bootstrap';
-
+import { Container, Card, Table } from 'react-bootstrap';
+import { getMyCreatedBiz } from '../../utils/Biz/BizUtils.js';
 import BarSpinner from './Reusable_BarSpinner.js';
 import AppFooter from './Application_Footer.js';
 
@@ -11,47 +10,36 @@ import '../../assets/Biz/styles/AccountInfo.css';
 
 import UserContext from '../../UserContext';
 
-const apiUrl = process.env.REACT_APP_API_URL;
-
 export default function AdminDashboard() {
 
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [ isLoading, setIsLoading ] = useState(true);
+  const [ businesses, setBusinesses ] = useState([]);
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-      fetchUserDetails(token);
-    }
-  }, []);
-
-  const fetchUserDetails = async (token) => {
-    try {
-      const response = await Axios.get(`${apiUrl}/api/v1/users/details`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      if (response.status === 200) {
-        const data = response.data;
-        setUser(data);
+    async function loadBusinesses() {
+      const bizData = await getMyCreatedBiz();
+      if (bizData && !bizData.error) {
+        setBusinesses(bizData.httpMessage); 
         setIsLoading(false);
       } else {
-        console.error('Failed to fetch user details');
+        // console.error('Failed to fetch businesses:', bizData.error);
+        navigate('/login'); 
       }
-    } catch (error) {
-      console.error('Error:', error);
     }
-  };
+    
+    loadBusinesses();
+  }, [navigate]);
 
-  if (isLoading) {
-    return <BarSpinner />;
-  }
+  // if (isLoading) {
+  //   return <BarSpinner />;
+  // }
 
   return (
     <>
-      <Container style={{ minHeight: '85vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {/* <Container style={{ minHeight: '85vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}> */}
+      <Container style={{ minHeight: '85vh'}}>
         <div className='user-info-container' style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '3rem' }}>
           <img src={userIcon} alt="MyBiz Solutions User's Default Image"  width={50} height={50} className='mx-3'/> 
           <div>
@@ -59,12 +47,51 @@ export default function AdminDashboard() {
               Hello, {user.firstName} {user.lastName}!
             </h6>
             <Card.Subtitle className='text-secondary'>
-              Member since {new Date(user.createdAt).getFullYear()}
+              This is all your added biz-ness!
             </Card.Subtitle>
           </div>
         </div>
-        <hr style={{ width: '100%' }}/>
-        {/* Other content goes here */}
+        <hr/>
+        <div className="table-responsive">
+          <Table striped bordered hover className='text-center'>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Alias</th>
+                <th>Image URL</th>
+                <th>Phone</th>
+                <th>Location</th>
+                <th>Categories</th>
+                <th>Transactions</th>
+                <th>Rating</th>
+                <th>Review Count</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+                <th>Is Archived</th>
+              </tr>
+            </thead>
+            <tbody>
+              {businesses.map((biz, index) => (
+                <tr key={biz._id}>
+                  <td>{index + 1}</td>
+                  <td>{biz.name}</td>
+                  <td>{biz.alias}</td>
+                  <td>{biz.image_url}</td>
+                  <td>{biz.display_phone}</td>
+                  <td>{`${biz.location.address1}, ${biz.location.city}`}</td>
+                  <td>{biz.categories.map(cat => cat.title).join(', ')}</td>
+                  <td>{biz.transactions.join(', ')}</td>
+                  <td>{biz.rating}</td>
+                  <td>{biz.review_count}</td>
+                  <td>{new Date(biz.createdAt).toLocaleString()}</td>
+                  <td>{new Date(biz.updatedAt).toLocaleString()}</td>
+                  <td>{biz.isArchived ? 'Yes' : 'No'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
       </Container>
       <AppFooter />
     </>
