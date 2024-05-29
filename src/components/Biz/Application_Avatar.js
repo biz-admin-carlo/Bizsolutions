@@ -1,4 +1,5 @@
 import React from 'react';
+import { GoPlus } from 'react-icons/go';
 
 const stringToColor = (string) => {
   let hash = 0;

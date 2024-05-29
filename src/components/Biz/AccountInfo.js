@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
-import { Container, Row, Col, Card, ListGroup, Tab, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, ListGroup, Tab, Button, Modal } from 'react-bootstrap';
+import { FaPlus, FaUpload } from 'react-icons/fa';
 
 import AccountDetails from './AccountInfo_AccountDetails.js';
 import Messages from './AccountInfo_Messages.js';
@@ -17,8 +18,10 @@ import Avatar from './Application_Avatar.js';
 import BarSpinner from './Reusable_BarSpinner.js';
 import AppFooter from './Application_Footer.js';
 
-import user from '../../assets/Biz/icons/icon-round-image.png';
 import '../../assets/Biz/styles/AccountInfo.css';
+import { uploadUserAvatar } from '../../utils/Biz/UserUtils.js';
+
+
 
 import UserContext from '../../UserContext.js';
 
@@ -32,10 +35,32 @@ export default function AccountInfo() {
   const { user, setUser } = useContext(UserContext);
   const [ userId, setUserId ] = useState('');
   const [ isLoading, setIsLoading ] = useState(true);
-
+  const [ showIcon, setShowIcon ] = useState(false);
+  // const [ file, setFile ] = useState(null);
+  // const [ showModal, setShowModal ] = useState(true);
+  
   const handleAdminDashboardClick = () => {
     navigate(`/admin-dashboard/${userId}/`);
   };
+
+  // const handleAvatarClick = () => {
+  //   setShowModal(true); // Open modal on avatar click
+  // };
+
+  // const handleUploadClick = async () => {
+  //   if (file) {
+  //     const result = await uploadUserAvatar(file);
+  //     if (result.success) {
+  //       console.log('Image uploaded successfully:', result.imageUrl);
+  //       setUser({ ...user, avatarUrl: result.imageUrl });
+  //       setShowModal(false);  // Close the modal after upload
+  //     } else {
+  //       console.error('Failed to upload image:', result.message);
+  //     }
+  //   }
+  // };
+  
+
 
   const handleLogout = () => {
     unsetUser();
@@ -81,14 +106,32 @@ export default function AccountInfo() {
             <Col sm={4}>
               <ListGroup>
                 <h3 className='my-4'>User Account</h3>
-
                 <div className='mb-3 py-1 d-flex align-items-center'>
-                  <Avatar name={`${user.firstName} ${user.lastName}`} size={50} className='mx-3' />
+
+                <div style={{
+                  position: 'relative',
+                  display: 'inline-block'
+              }} onMouseEnter={() => setShowIcon(true)} onMouseLeave={() => setShowIcon(false)}>
+                  <Avatar name={`${user.firstName} ${user.lastName}`} size={50}  />
+                  <FaPlus style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      right: 0,
+                      color: 'black',
+                      cursor: 'pointer',
+                      transform: 'scale(1.5)',
+                      opacity: showIcon ? 1 : 0,
+                      transition: 'opacity 0.3s ease'
+                  }}/>
+              </div>
+
                   <div className='ms-2'>
                     <h6 className="responsive-title">
                       Hello, {user.firstName} {user.lastName}!
                     </h6>
-                    <Card.Subtitle className='text-secondary'>Member since {new Date(user.createdAt).getFullYear()}</Card.Subtitle>
+                    <Card.Subtitle className='text-secondary'>
+                      Member since {new Date(user.createdAt).getFullYear()}
+                    </Card.Subtitle>
                   </div>
                 </div>
 
@@ -163,9 +206,8 @@ export default function AccountInfo() {
             </Col>
           </Row>
         </Tab.Container>
-      
-        
     </Container>
+
     <AppFooter />
     </>
   );

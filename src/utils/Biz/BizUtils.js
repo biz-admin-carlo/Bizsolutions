@@ -270,7 +270,8 @@ export const assembleFormData = ({
     zipCode,
     selectedCountry,
     phoneNumber,
-    displayPhoneNumber
+    displayPhoneNumber,
+    emailAddress
 }) => {
     return {
         alias: `${aliasName}-${selectedCity ? selectedCity.label : 'city'}-${selectedState ? selectedState.label : 'state'}-1`,
@@ -281,6 +282,7 @@ export const assembleFormData = ({
         review_count: 0,
         categories: selectedCategory ? [{ alias: selectedCategory.toLowerCase(), title: selectedCategory }] : [],
         rating: 4.5,
+        email: emailAddress,
         coordinates: {
             latitude: parseFloat(latitude),
             longitude: parseFloat(longitude)

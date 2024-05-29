@@ -52,6 +52,7 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
     const [ country, setCountry ] = useState('');
     const [ phoneNumber, setPhoneNumber ] = useState('');
     const [ displayPhoneNumber, setDisplayPhoneNumber ] = useState('');
+    const [ emailAddress, setEmailAddress ] = useState('');
     const [ selectedCategory, setSelectedCategory ] = useState('');
     const [ isLoading, setIsLoading ] = useState(false);
 
@@ -100,7 +101,14 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
         }
     };
 
+    // const handleImageUploadChange = event => {
+    //     const file = event.target.files[0];  // Get the first file (if multiple are not allowed)
+    //     if (file) {
+    //         setImageUrl(file);  // Update the state with the new file
+    //     }
+    // };
     const handleImageUrlChange = (event) => setImageUrl(event.target.value);
+
     const handleWebsiteUrlChange = (event) => setWebsiteUrl(event.target.value);
     const handleTransactionChange = (event) => {
         setTransactionModes({
@@ -118,6 +126,7 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
     };
     const handleChangePhoneNumber = (e) => setPhoneNumber(e.target.value);
     const handleChangeDisplayPhoneNumber = (e) => setDisplayPhoneNumber(e.target.value);
+    const handleEmailAddress= (e) => setEmailAddress(e.target.value);
     const handleCategoryChange = (event) => {
         setSelectedCategory(event.target.value);
     };
@@ -162,7 +171,8 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
             zipCode,
             selectedCountry,
             phoneNumber,
-            displayPhoneNumber
+            displayPhoneNumber,
+            emailAddress
         });
     
         try {
@@ -261,6 +271,16 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                             className='mb-2'
                                         />
                                     </Form.Group>
+                                    {/* <Form.Group controlId="formBasicImageUpload">
+                                        <Form.Label>Upload Image</Form.Label>
+                                        <Form.Control
+                                            required
+                                            type="file"
+                                            accept="image/*"  // Ensures only image files can be selected
+                                            onChange={handleImageUploadChange}  // Handler function to process the image file
+                                            className='mb-2'
+                                        />
+                                    </Form.Group> */}
 
                                     <Form.Group controlId="formBasicWebsiteUrl">
                                         <Form.Label>Website URL</Form.Label>
@@ -273,6 +293,7 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                             className='mb-2'
                                         />
                                     </Form.Group>
+
                                 </div>
                                 
                                 {/* Biz Category */}
@@ -646,8 +667,24 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                             </Form.Group>
                                         </Col>
                                     </Row>
+
+                                    <Row>
+                                        <Col lg={12}>
+                                            <Form.Group controlId="formPhoneNumber">
+                                                <Form.Label>Email Address</Form.Label>
+                                                <Form.Control
+                                                    required
+                                                    type="email"
+                                                    placeholder="Enter Biz Email Address"
+                                                    value={emailAddress}
+                                                    onChange={handleEmailAddress}
+                                                    className='mb-2'
+                                                />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
                                 </div>
-                                
+
                                 <div>
                                     <button
                                         type='button'
