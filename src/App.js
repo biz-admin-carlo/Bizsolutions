@@ -120,13 +120,15 @@ function App() {
                     <Route path="/sales-collection-service" element={<PageSalesCollections/>}/>
 
                     <Route path="/result" element={<Result/>}/>
-
                     <Route path="/forgot-password" element={<Reset/>}/>
+
+                    <Route path="/search?category=Hotel&location=California"/>
 
                     <Route path="/admin-login" element={<AdminLogin/>}/>
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
                     {/* <Route path="/admin-dashboard/:userId/users" element={<AdminUsers/>}/> */}
                     <Route path="/admin-dashboard/:userId/biz" element={<AdminAddBiz/>}/>
+
 
                     {/* My Forms Project */}
                     {/* <Route path="/my-forms" element={<FormsHome />}/> */}
