@@ -53,17 +53,17 @@ export default function BundleAdvanced({ selected }) {
             return; 
         }
     
-        // const stripePaymentLinks = {
-        //     monthly: "https://buy.stripe.com/eVa9BQcaL9xBaekcMN",
-        //     annual: "https://buy.stripe.com/00g3ds5Mn6lpgCIcMT"
-        // };
-
-        const keapPaymentLinks = {
-            monthly: "https://keap.app/checkout/dyb285/advanced-setup-monthly",
-            annual: "https://keap.app/checkout/dyb285/advanced-setup-annual"
+        const stripePaymentLinks = {
+            monthly: "https://buy.stripe.com/eVa9BQcaL9xBaekcMN",
+            annual: "https://buy.stripe.com/00g3ds5Mn6lpgCIcMT"
         };
+
+        // const keapPaymentLinks = {
+        //     monthly: "https://keap.app/checkout/dyb285/advanced-setup-monthly",
+        //     annual: "https://keap.app/checkout/dyb285/advanced-setup-annual"
+        // };
     
-        const paymentUrl = keapPaymentLinks[selected];
+        const paymentUrl = stripePaymentLinks[selected];
         if (paymentUrl) {
             window.location.href = paymentUrl;
         } else {
