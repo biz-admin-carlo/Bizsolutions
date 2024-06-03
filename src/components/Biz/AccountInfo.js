@@ -21,8 +21,6 @@ import AppFooter from './Application_Footer.js';
 import '../../assets/Biz/styles/AccountInfo.css';
 import { uploadUserAvatar } from '../../utils/Biz/UserUtils.js';
 
-
-
 import UserContext from '../../UserContext.js';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -35,9 +33,9 @@ export default function AccountInfo() {
   const { user, setUser } = useContext(UserContext);
   const [ userId, setUserId ] = useState('');
   const [ isLoading, setIsLoading ] = useState(true);
-  const [ showIcon, setShowIcon ] = useState(false);
-  // const [ file, setFile ] = useState(null);
-  // const [ showModal, setShowModal ] = useState(true);
+  const [ showIcon, setShowIcon ] = useState(true);
+  const [file, setFile] = useState(null);
+  // const [showModal, setShowModal] = useState(true);
   
   const handleAdminDashboardClick = () => {
     navigate(`/admin-dashboard/${userId}/`);
@@ -49,18 +47,20 @@ export default function AccountInfo() {
 
   // const handleUploadClick = async () => {
   //   if (file) {
-  //     const result = await uploadUserAvatar(file);
-  //     if (result.success) {
+  //     try {
+  //       const result = await uploadUserAvatar(file);
   //       console.log('Image uploaded successfully:', result.imageUrl);
   //       setUser({ ...user, avatarUrl: result.imageUrl });
   //       setShowModal(false);  // Close the modal after upload
-  //     } else {
-  //       console.error('Failed to upload image:', result.message);
+  //     } catch (error) {
+  //       console.error('Failed to upload image:', error.message);
+  //       // Optionally, handle UI feedback about the failure here, like showing an error message to the user
   //     }
+  //   } else {
+  //     console.log('No file selected.');
+  //     // Optionally, alert the user to select a file if none is selected
   //   }
   // };
-  
-
 
   const handleLogout = () => {
     unsetUser();
@@ -111,7 +111,9 @@ export default function AccountInfo() {
                 <div style={{
                   position: 'relative',
                   display: 'inline-block'
-              }} onMouseEnter={() => setShowIcon(true)} onMouseLeave={() => setShowIcon(false)}>
+              // }} onMouseEnter={() => setShowIcon(true)} onMouseLeave={() => setShowIcon(false)}>
+                }}>
+
                   <Avatar name={`${user.firstName} ${user.lastName}`} size={50}  />
                   <FaPlus style={{
                       position: 'absolute',
@@ -207,6 +209,23 @@ export default function AccountInfo() {
           </Row>
         </Tab.Container>
     </Container>
+
+    {/* <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Upload Avatar</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <input type="file" onChange={e => setFile(e.target.files[0])} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleUploadClick}>
+            Upload
+          </Button>
+        </Modal.Footer>
+      </Modal> */}
 
     <AppFooter />
     </>
