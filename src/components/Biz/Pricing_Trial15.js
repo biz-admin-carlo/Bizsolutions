@@ -48,7 +48,7 @@ export default function Trial15() {
         }
     
         // const trialUrl = "https://keap.app/checkout/dyb285/15-day-trial";
-        const trialUrl = "https://buy.stripe.com/cN2eWa4IjcJNbiofZ0"
+        const trialUrl = "https://buy.stripe.com/eVacO2gr15hl9ag5kH"
         window.location.href = trialUrl;
     };
     

@@ -42,17 +42,18 @@ export async function registerUser(userData) {
 }
 
 export async function uploadUserAvatar(file) {
-    const apiUrl = 'http://localhost:8001/api/v1/users/image-upload';
+    const apiUrl = 'http://localhost:8001/api/v1/users/upload/image';
 
     const formData = new FormData();
-    formData.append('file', file, file.name);
+    formData.append('image', file, file.name); // Adjusted to match the expected field name
+
     console.log(formData);
     console.log(file);
     console.log(file.name);
 
     try {
         const response = await fetch(apiUrl, {
-            method: 'PUT',
+            method: 'POST', // Adjusted to POST
             body: formData, // FormData implicitly sets 'Content-Type' to 'multipart/form-data'
         });
 
@@ -81,6 +82,7 @@ export async function uploadUserAvatar(file) {
         throw error; // Rethrow the error for further handling, if necessary
     }
 }
+
 
 
 

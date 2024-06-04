@@ -47,17 +47,17 @@ export default function ProfessionalRevamp({ selected }) {
             return; 
         }
     
-        // const stripePaymentLinks = {
-        //     monthly: "https://buy.stripe.com/3cs4hwfmXh033PWaEE",
-        //     annual: "https://buy.stripe.com/bIYbJY2AbcJNfyE008"
-        // };
-
-        const keapPaymentLinks = {
-            monthly: "https://keap.app/checkout/dyb285/web-revamp-monthly",
-            annual: "https://keap.app/checkout/dyb285/web-revamp-annually"
+        const stripePaymentLinks = {
+            monthly: "https://buy.stripe.com/6oEaFUgr1fVZ86c4gI",
+            annual: "https://buy.stripe.com/6oE01g3Ef7ptcmsfZr"
         };
+
+        // const keapPaymentLinks = {
+        //     monthly: "https://keap.app/checkout/dyb285/web-revamp-monthly",
+        //     annual: "https://keap.app/checkout/dyb285/web-revamp-annually"
+        // };
     
-        const paymentUrl = keapPaymentLinks[selected];
+        const paymentUrl = stripePaymentLinks[selected];
         if (paymentUrl) {
             window.location.href = paymentUrl;
         } else {

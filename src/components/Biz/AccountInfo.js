@@ -35,7 +35,7 @@ export default function AccountInfo() {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ showIcon, setShowIcon ] = useState(true);
   const [file, setFile] = useState(null);
-  // const [showModal, setShowModal] = useState(true);
+  const [ showModal, setShowModal ] = useState(true);
   
   const handleAdminDashboardClick = () => {
     navigate(`/admin-dashboard/${userId}/`);
@@ -111,8 +111,8 @@ export default function AccountInfo() {
                 <div style={{
                   position: 'relative',
                   display: 'inline-block'
-              // }} onMouseEnter={() => setShowIcon(true)} onMouseLeave={() => setShowIcon(false)}>
-                }}>
+              }} onMouseEnter={() => setShowIcon(true)} onMouseLeave={() => setShowIcon(false)}>
+                {/* }}> */}
 
                   <Avatar name={`${user.firstName} ${user.lastName}`} size={50}  />
                   <FaPlus style={{

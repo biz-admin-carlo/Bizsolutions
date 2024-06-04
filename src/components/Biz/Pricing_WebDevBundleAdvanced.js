@@ -54,8 +54,8 @@ export default function BundleAdvanced({ selected }) {
         }
     
         const stripePaymentLinks = {
-            monthly: "https://buy.stripe.com/eVa9BQcaL9xBaekcMN",
-            annual: "https://buy.stripe.com/00g3ds5Mn6lpgCIcMT"
+            monthly: "https://buy.stripe.com/8wM5lA8Yz7ptaekbJc",
+            annual: "https://buy.stripe.com/dR6eWafmXbFJ728aF9"
         };
 
         // const keapPaymentLinks = {

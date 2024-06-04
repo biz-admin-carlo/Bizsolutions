@@ -16,17 +16,17 @@ const BookkeepingStarter = ({ selected, packageOne, handleGetStartedClick }) => 
             return; 
         }
     
-        // const stripePaymentLinks = {
-        //     monthly: "https://buy.stripe.com/14kcO23Ef39d728eUX",
-        //     annual: "https://buy.stripe.com/7sIaFU1w76lp0DKbIR"
-        // };
-
-        const keapPaymentLinks = {
-            monthly: "https://keap.app/checkout/dyb285/starter-package-monthly",
-            annual: "https://keap.app/checkout/dyb285/starter-package-annual"
+        const stripePaymentLinks = {
+            monthly: "https://buy.stripe.com/3cs15kcaLdNR86c7sY",
+            annual: "https://buy.stripe.com/bIYeWa4Ij39daekfZx"
         };
+
+        // const keapPaymentLinks = {
+        //     monthly: "https://keap.app/checkout/dyb285/starter-package-monthly",
+        //     annual: "https://keap.app/checkout/dyb285/starter-package-annual"
+        // };
     
-        const paymentUrl = keapPaymentLinks[selected];
+        const paymentUrl = stripePaymentLinks[selected];
         if (paymentUrl) {
             window.location.href = paymentUrl;
         } else {
