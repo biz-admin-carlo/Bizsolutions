@@ -31,12 +31,7 @@ const BusinessCard = ({ state, business, index }) => {
   useEffect(() => {
     setSelectedState(state);
   }, [state]);
-
-  function getBaseUrl(url) {
-    const parsedUrl = new URL(url);
-    return parsedUrl.pathname;
-  }  
-
+  
   const distance = business.distance;
 
   function convertMetersToMiles(distance) {
@@ -65,9 +60,10 @@ const BusinessCard = ({ state, business, index }) => {
 
           <div className="text-container px-md-3">
             <h5>{business.name}</h5>
-            <a href={business.url} target="_blank" rel="noopener noreferrer" className='text-secondary url-link'>
-              <p className='text-secondary url-link'>{getBaseUrl(business.url)}</p>
-            </a>
+                <a href={business.url} target="_blank" rel="noopener noreferrer" className='text-secondary url-link'>
+                  {/* <p className='text-secondary url-link'>{getBaseUrl(business.url)}</p> */}
+                </a>
+
             <div className="rating-row">
               <span className='text-secondary url-link'>Average Rating:</span>
               <span className="rating-container">
@@ -145,8 +141,11 @@ const BusinessCard = ({ state, business, index }) => {
           <div className="row">
             <div className="col-12 col-md-8 text-container px-2 px-md-3">
               <h5>{business.name}</h5>
-              <a href={business.url} target="_blank" rel="noopener noreferrer" className='text-secondary url-link'>
+              {/* <a href={business.url} target="_blank" rel="noopener noreferrer" className='text-secondary url-link'>
                 <p className='text-secondary url-link'>{getBaseUrl(business.url)}</p>
+              </a> */}
+              <a href={business.url} target="_blank" rel="noopener noreferrer" className='text-secondary url-link'>
+                {/* <p className='text-secondary url-link'>{getBaseUrl(business.url)}</p> */}
               </a>
               <div className="rating-row">
                 <span className='text-secondary url-link'>Average Rating:</span>

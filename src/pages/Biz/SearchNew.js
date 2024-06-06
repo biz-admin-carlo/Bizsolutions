@@ -4,7 +4,6 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; 
 import { Container } from 'react-bootstrap';
 
-import { getBizViaCoords, getBizViaState } from '../../utils/Biz/ClientUtils';
 import BusinessCard from '../../components/Biz/Search_BusinessCard';
 import Pagination from '../../components/Biz/Search_Pagination';
 import Breadcrumb from '../../components/Biz/Search_Breadcrumb';
@@ -86,24 +85,8 @@ export default function Search() {
   const [searchedLocation, setSearchedLocation] = useState(null);
   const [searchedCategory, setSearchedCategory] = useState(null);
 
-  async function fetchBusinessData() {
-    const latitude = 34.5931687;
-    const longitude = -118.1297407;
-    const term = 'Library';
-    const state = 'California';
-    const biz = 'Service'
-  
-    // const response = await getBizViaCoords(longitude, latitude, term);
-    const response = await getBizViaState(state, biz);
+  console.log()
 
-    if (response.success) {
-      console.log('Business data:', response.data);
-    } else {
-      console.log('Error:', response.message);
-    }
-  }
-  
-  fetchBusinessData();
 
   useEffect(() => {
     const storedCoords = sessionStorage.getItem('userCoordinates');
@@ -125,91 +108,6 @@ export default function Search() {
 
     // createClient(searchedLocation, searchedCategory, userCoordinates);
 
-  }, []);
-
-  
-  
-  const parseLocation = (location) => {
-    if (location && location.includes('Lat') && location.includes('Long')) {
-      const coords = location.split(',').reduce((acc, curr) => {
-        const [key, value] = curr.split(':');
-        acc[key.trim()] = parseFloat(value.trim());
-        return acc;
-      }, {});
-      setCoordinates(coords);
-      setLocationState(null);
-    } else {
-      setLocationState(location);
-      setCoordinates(null);
-    }
-  };
-  
-  const renderBusinessCards = () => {
-    return resultState && resultState.businesses
-      ? resultState.businesses
-          .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-          .map((business, index) => (
-            <BusinessCard state={coordinates} business={business} index={index} key={business.id || index} />
-          ))
-      : null;
-  };
-
-  const generateHeaderTitle = () => {
-    let title = `Best ${category}`;
-
-    if (currentPage === 1) {
-      title = `Top 10 ${title}`;
-    }
-    if (coordinates) {
-      title += ` Near Me`;
-    } else if (locationState) {
-      title += ` in ${locationState}`;
-    }
-    return title;
-  };
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  useEffect(() => {
-    const newCategory = query.get('category');
-    const newLocation = query.get('location');
-    if (newCategory !== category) {
-      setCategory(newCategory);
-    }
-    parseLocation(newLocation);
-  }, [query.get('category'), query.get('location')]);
-
-  useEffect(() => {
-    const storedCoords = sessionStorage.getItem('userCoordinates');
-    if (!storedCoords) {
-      getUserCoordinates(setUserCoordinates);
-    } else {
-      setUserCoordinates(JSON.parse(storedCoords));
-    }
-  }, []);
-
-  useEffect(() => {
-    const queryLocation = query.get('location');
-    const queryCategory = query.get('category');
-  
-    const isCoordinates = queryLocation && queryLocation.includes('Lat') && queryLocation.includes('Long');
-  
-    if (isCoordinates) {
-      const [latPart, longPart] = queryLocation.split(',');
-      const latitude = latPart.split(':')[1];
-      const longitude = longPart.split(':')[1];
-  
-      const api = `${apiUrl}/api/v1/location/search/v1?latitude=${latitude}&longitude=${longitude}&term=${queryCategory}`;
-      fetchApiData(api, setResultState, setLoading);
-
-    } else {
-
-      const api = `${apiUrl}/api/v1/location/search/v2/?state=${queryLocation}&category=${queryCategory}`;
-      fetchApiData(api, setResultState, setLoading);
-
-    }
   }, []);
 
   return (
