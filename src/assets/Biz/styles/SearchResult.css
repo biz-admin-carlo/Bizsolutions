@@ -1,6 +1,23 @@
 .orange-background {
-    background-color: #FF851A;
-    /* Add any other styling you need for this div */
+    background-color: #FF851A !important;
+}
+
+.business-card .card-img-top {
+    width: 100%;          /* Makes the image take the full width of the card */
+    height: 200px;        /* Sets a fixed height for the images */
+    object-fit: cover;    /* Ensures the image covers the area, cropping if necessary */
+}
+
+.business-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); /* Creates a responsive grid with a minimum column size of 18rem */
+    grid-gap: 1rem; /* Adjust spacing between grid items */
+    margin: 1rem;
+}
+
+.business-card {
+    display: flex;
+    justify-content: center; /* Centers cards in the grid cells */
 }
 
 .text-result {
