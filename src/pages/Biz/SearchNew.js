@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; 
 import { Container } from 'react-bootstrap';
 
+import { getBizViaCoords, getBizViaState, loggedVisitors } from '../../utils/Biz/ClientUtils';
 import BusinessCard from '../../components/Biz/Search_BusinessCard';
 import Pagination from '../../components/Biz/Search_Pagination';
 import Breadcrumb from '../../components/Biz/Search_Breadcrumb';
@@ -13,102 +13,48 @@ import BusinessCardSkeleton from '../../components/Biz/Search_BusinessCardSkelet
 import 'react-loading-skeleton/dist/skeleton.css';
 import '../../assets/Biz/styles/Search.css';
 
-
-const apiUrl = process.env.REACT_APP_API_URL;
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
-
-const fetchApiData = (apiUrl, setData, setLoading) => {
-  axios.get(apiUrl)
-    .then(response => {
-      setData(response.data);
-      setLoading(false);
-    })
-    .catch(error => {
-      setLoading(false);
-    });
-};
-
-const getUserCoordinates = (setUserCoordinates) => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const coords = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude
-        };
-        setUserCoordinates(coords);
-        sessionStorage.setItem('userCoordinates', JSON.stringify(coords));
-      },
-      (error) => {
-        console.error('Error getting location:', error);
-      }
-    );
-  } else {
-    console.error('Geolocation is not supported by this browser.');
-  }
-};
-
-// const createClient = async (location, searchTerm, coords) => {
-
-//   try {
-//     const response = await axios.post(`${apiUrl}/api/v1/client/create/client`, {
-//       clientLocation: location,
-//       clientSearchTerm: searchTerm,
-//       clientCoords: coords,
-//     });
-//     console.log(response);
-//     return response;
-//   } catch (error) {
-//   }
-// };
-
 export default function Search() {
 
-  const query = useQuery();
-  const navigate = useNavigate();
-  const [category, setCategory] = useState(query.get('category'));
-  const [locationParam, setLocationParam] = useState(query.get('location'));
-  const [userCoordinates, setUserCoordinates] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [resultState, setResultState] = useState(null);
-  const [locationState, setLocationState] = useState(null);
-  const [coordinates, setCoordinates] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [ searchParams ] = useSearchParams();
+  const category = searchParams.get('category');
+  const location = searchParams.get('location');
+  const [ loading, setLoading ] = useState(true);
+  const [ resultState, setResultState ] = useState({ businesses: [] });
+  const [ currentPage, setCurrentPage ] = useState(1);
   const itemsPerPage = 10;
-  const [searchParams] = useSearchParams();
-  const categoryFromQuery = searchParams.get('category');
 
-  const [searchedLocation, setSearchedLocation] = useState(null);
-  const [searchedCategory, setSearchedCategory] = useState(null);
-
-  console.log()
-
-
-  useEffect(() => {
-    const storedCoords = sessionStorage.getItem('userCoordinates');
-    if (storedCoords) {
-      setUserCoordinates(JSON.parse(storedCoords));
-    } else {
-      getUserCoordinates(setUserCoordinates);
-    }
-
-    const storedLocation = sessionStorage.getItem('searchedLocation');
-    if (storedLocation) {
-      setSearchedLocation(storedLocation);
-    }
-
-    const storedCategory = sessionStorage.getItem('searchedCategory');
-    if (storedCategory) {
-      setSearchedCategory(storedCategory);
-    }
-
-    // createClient(searchedLocation, searchedCategory, userCoordinates);
-
-  }, []);
+  console.log(resultState.by);
+  // Add a function that checks if sessionStorage has a key 'userCoordinates' if so collect them and together with the category that the user search from the searchParams and make sure it collects them
+  
+useEffect(() => {
+    const fetchBusinesses = async () => {
+      try {
+        let results;
+        // Check if coordinates are stored in sessionStorage
+        const savedCoords = sessionStorage.getItem('userCoordinates');
+        if (savedCoords) {
+          const { latitude, longitude } = JSON.parse(savedCoords);
+          results = await getBizViaCoords(latitude, longitude, category);
+        } else if (location.includes('Lat:') && location.includes('Long:')) {
+          const coords = location.split(',').reduce((acc, curr) => {
+            const [key, value] = curr.split(':');
+            acc[key.trim().toLowerCase()] = parseFloat(value);
+            return acc;
+          }, {});
+          results = await getBizViaCoords(coords.lat, coords.long, category);
+        } else {
+          results = await getBizViaState(location, category);
+        }
+        setResultState({ businesses: results.data });  // Make sure to handle the response format correctly
+      } catch (error) {
+        console.error("Failed to fetch businesses:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchBusinesses();
+  }, [category, location]);
 
   return (
     <div className='app-background'>
@@ -120,12 +66,12 @@ export default function Search() {
       <Container>
 
         <Breadcrumb
-          coordinates={coordinates}
+          // coordinates={coordinates}
           category={category}
-          locationState={locationState}
+          // locationState={locationState}
         />
       
-        <h3>{generateHeaderTitle()}</h3>
+        {/* <h3>{generateHeaderTitle()}</h3> */}
 
         {loading ? (
           <>
@@ -136,7 +82,7 @@ export default function Search() {
         ) : (
           <div>
             <div className="card-container-new">
-              {renderBusinessCards()}
+              {/* {renderBusinessCards()} */}
             </div>
 
             {resultState && resultState.businesses && resultState.businesses.length > itemsPerPage && (
@@ -145,7 +91,7 @@ export default function Search() {
                   totalItems={resultState.businesses.length}
                   itemsPerPage={itemsPerPage}
                   currentPage={currentPage}
-                  onPageChange={handlePageChange}
+                  // onPageChange={handlePageChange}
                 />
               </div>
             )}
