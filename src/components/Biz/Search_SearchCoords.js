@@ -35,7 +35,7 @@ export default function SearchState({location, category}) {
             if (location.includes('Lat') && location.includes('Long')) {
                 const [lat, long] = location.replace('Lat:', '').replace('Long:', '').split(',');
                 // console.log(parseFloat(lat), parseFloat(`-${long}`), category)
-                result = await getBizViaCoords(parseFloat(lat), parseFloat(`-${long}`), category);
+                result = await getBizViaCoords(parseFloat(lat), parseFloat(`${long}`), category);
             } else {
                 result = await getBizViaState(location, category);
             }
@@ -66,7 +66,7 @@ export default function SearchState({location, category}) {
 
     return (
         <div>
-            <h1>Bizness Listings Via Coordinates</h1>
+            <h1>Bizness Listings</h1>
             <div className="business-container">
                 {currentItems.map((business, index) => (
                     <div key={index} className="business-card">
@@ -76,6 +76,7 @@ export default function SearchState({location, category}) {
                                 <h5 className='biz-color text-start'>{business.name}</h5>
                                 <h6>{business.location.address1}</h6>
                                 <Badge pill bg="primary">{business.phone}</Badge><br/>
+                                <Badge pill bg="danger">{business.categories[0].title}</Badge><br/>
                                 <Badge pill bg="success">Create Website with Us!</Badge><br/>
                                 {business.isBizDB ? (
                                     <Badge pill bg="warning">Powered By BizSolutions</Badge>
