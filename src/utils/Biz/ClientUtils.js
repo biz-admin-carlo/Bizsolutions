@@ -1,5 +1,6 @@
 import axios from 'axios';
 const apiUrl = process.env.REACT_APP_API_URL;
+// const apiURL = 'http://localhost:8001';
 
 export async function getBizViaCoords(latitude, longtitude, term) {
     try {

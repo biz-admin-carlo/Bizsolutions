@@ -66,6 +66,7 @@ export default function SearchState({location, category}) {
                             <Card.Body>
                                 <h5 className='biz-color text-start'>{toTitleCase(business.name)}</h5>                                <h6>{business.location.address1}</h6>
                                 <Badge pill bg="primary">{business.phone}</Badge><br/>
+                                <Badge pill bg="danger">{business.categories[0].title}</Badge><br/>
                                 <Badge pill bg="success">Create Website with Us!</Badge><br/>
                                 {business.isBizDB ? (
                                     <Badge pill bg="warning">Powered By BizSolutions</Badge>
