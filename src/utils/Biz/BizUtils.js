@@ -2,6 +2,26 @@ import axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
+export async function uploadBizImage(image, userID, bizID) {
+    const formData = new FormData();
+    formData.append('image', image); // Key matches the one expected by multer in the backend
+    formData.append('userID', userID);
+    formData.append('bizID', bizID);
+
+    console.log(formData);
+
+    try {
+        const response = await axios.post(`${apiUrl}/api/v1/biz/upload/biz-image`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error uploading image:', error);
+        throw error;
+    }
+}
 
 export async function checkBusinessName(name) {
     try {
