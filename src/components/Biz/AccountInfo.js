@@ -115,16 +115,6 @@ export default function AccountInfo() {
                 {/* }}> */}
 
                   <Avatar name={`${user.firstName} ${user.lastName}`} size={50}  />
-                  <FaPlus style={{
-                      position: 'absolute',
-                      bottom: 0,
-                      right: 0,
-                      color: 'black',
-                      cursor: 'pointer',
-                      transform: 'scale(1.5)',
-                      opacity: showIcon ? 1 : 0,
-                      transition: 'opacity 0.3s ease'
-                  }}/>
               </div>
 
                   <div className='ms-2'>
