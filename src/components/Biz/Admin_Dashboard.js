@@ -169,7 +169,6 @@ export default function AdminDashboard() {
                     
                     <div className="d-flex justify-content-end">
                       <Button variant="warning" onClick={() => openModal(biz._id)}>Upload Biz Image</Button>
-                      {/* <Button variant="danger" className='mx-1'>Delete</Button> */}
                     </div>
                   </Accordion.Body>
               </Accordion.Item>
