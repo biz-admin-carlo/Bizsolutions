@@ -40,7 +40,6 @@
    <url><loc>https://mybizsolutions.us/website-development-solutions</loc></url>
    <url><loc>https://mybizsolutions.us/website-revamp-solutions</loc></url>
    <url><loc>https://mybizsolutions.us/seo-solutions</loc></url>
-
    <url><loc>https://mybizsolutions.us/search?category=Accommodation&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Accommodation&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Accommodation&location=Arizona</loc></url>
@@ -48,7 +47,7 @@
    <url><loc>https://mybizsolutions.us/search?category=Accommodation&location=California</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Accommodation&location=Colorado</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Accommodation&location=Connecticut</loc></url>
-   <url><loc>https://mybizsolutions.us/search?category=Accommodation&location=Delaware</loc></url>
+   <url><loc>https://mybizsolutions.us/search?category=Accommodation&amp;location=Delaware</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Accommodation&location=Florida</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Accommodation&location=Georgia</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Accommodation&location=Hawaii</loc></url>
@@ -141,7 +140,6 @@
    <url><loc>https://mybizsolutions.us/search?category=Accommodation&location=Tulsa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Accommodation&location=Tampa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Accommodation&location=Aurora</loc></url>
-
    <url><loc>https://mybizsolutions.us/search?category=Advisory+Services&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Advisory+Services&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Advisory+Services&location=Arizona</loc></url>
@@ -242,8 +240,6 @@
    <url><loc>https://mybizsolutions.us/search?category=Advisory+Services&location=Tulsa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Advisory+Services&location=Tampa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Advisory+Services&location=Aurora</loc></url>
-
-
    <url><loc>https://mybizsolutions.us/search?category=Agriculture&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Agriculture&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Agriculture&location=Arizona</loc></url>
@@ -445,7 +441,6 @@
    <url><loc>https://mybizsolutions.us/search?category=Apparel&location=Tulsa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Apparel&location=Tampa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Apparel&location=Aurora</loc></url>
-
    <url><loc>https://mybizsolutions.us/search?category=Automotive&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Automotive&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Automotive&location=Arizona</loc></url>
@@ -546,7 +541,6 @@
    <url><loc>https://mybizsolutions.us/search?category=Automotive&location=Tulsa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Automotive&location=Tampa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Automotive&location=Aurora</loc></url>
-
    <url><loc>https://mybizsolutions.us/search?category=Arts&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Arts&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Arts&location=Arizona</loc></url>
@@ -647,7 +641,6 @@
    <url><loc>https://mybizsolutions.us/search?category=Arts&location=Tulsa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Arts&location=Tampa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Arts&location=Aurora</loc></url>
-
    <url><loc>https://mybizsolutions.us/search?category=Attorney&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Attorney&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Attorney&location=Arizona</loc></url>
@@ -748,7 +741,6 @@
    <url><loc>https://mybizsolutions.us/search?category=Attorney&location=Tulsa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Attorney&location=Tampa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Attorney&location=Aurora</loc></url>
-
    <url><loc>https://mybizsolutions.us/search?category=Auto+Repair&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Auto+Repair&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Auto+Repair&location=Arizona</loc></url>
@@ -849,7 +841,6 @@
    <url><loc>https://mybizsolutions.us/search?category=Auto+Repair&location=Tulsa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Auto+Repair&location=Tampa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Auto+Repair&location=Aurora</loc></url>
-
    <url><loc>https://mybizsolutions.us/search?category=Automotive&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Automotive&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Automotive&location=Arizona</loc></url>
@@ -950,7 +941,6 @@
    <url><loc>https://mybizsolutions.us/search?category=Automotive&location=Tulsa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Automotive&location=Tampa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Automotive&location=Aurora</loc></url>
-
    <url><loc>https://mybizsolutions.us/search?category=Bowling&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Bowling&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Bowling&location=Arizona</loc></url>
@@ -1051,7 +1041,6 @@
    <url><loc>https://mybizsolutions.us/search?category=Bowling&location=Tulsa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Bowling&location=Tampa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Bowling&location=Aurora</loc></url>
-
    <url><loc>https://mybizsolutions.us/search?category=Bake+Shop&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Bake+Shop&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Bake+Shop&location=Arizona</loc></url>
@@ -1152,7 +1141,6 @@
    <url><loc>https://mybizsolutions.us/search?category=Bake+Shop&location=Tulsa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Bake+Shop&location=Tampa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Bake+Shop&location=Aurora</loc></url>
-
    <url><loc>https://mybizsolutions.us/search?category=Contractors&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Contractors&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Contractors&location=Arizona</loc></url>
@@ -1253,7 +1241,6 @@
    <url><loc>https://mybizsolutions.us/search?category=Contractors&location=Tulsa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Contractors&location=Tampa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Contractors&location=Aurora</loc></url>
-
    <url><loc>https://mybizsolutions.us/search?category=Construction&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Construction&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Construction&location=Arizona</loc></url>
@@ -1354,7 +1341,6 @@
    <url><loc>https://mybizsolutions.us/search?category=Construction&location=Tulsa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Construction&location=Tampa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Construction&location=Aurora</loc></url>
-
    <url><loc>https://mybizsolutions.us/search?category=Consulting&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Consulting&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Consulting&location=Arizona</loc></url>
@@ -1455,7 +1441,6 @@
    <url><loc>https://mybizsolutions.us/search?category=Consulting&location=Tulsa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Consulting&location=Tampa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Consulting&location=Aurora</loc></url>
-
    <url><loc>https://mybizsolutions.us/search?category=Coffee+Shop&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Coffee+Shop&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Coffee+Shop&location=Arizona</loc></url>
@@ -1556,7 +1541,6 @@
    <url><loc>https://mybizsolutions.us/search?category=Coffee+Shop&location=Tulsa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Coffee+Shop&location=Tampa</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Coffee+Shop&location=Aurora</loc></url>
-
    <url><loc>https://mybizsolutions.us/search?category=Crafts&location=Alabama</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Crafts&location=Alaska</loc></url>
    <url><loc>https://mybizsolutions.us/search?category=Crafts&location=Arizona</loc></url>
