@@ -273,6 +273,54 @@ export async function archiveTeam(teamId) {
     }
 }
 
+export async function archiveBiz(bizID) {
+    if (!bizID) {
+        console.error('Business ID must be provided.');
+        return {
+            success: false,
+            error: 'Business ID must be provided'
+        };
+    }
+
+    const url = `${apiUrl}/api/v1/biz/${bizID}/archive`; 
+    const token = sessionStorage.getItem('token');
+
+    if (!token) {
+        console.error('No token found in session storage.');
+        return {
+            success: false,
+            error: 'Authentication required'
+        };
+    }
+
+    try {
+        const response = await axios.delete(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.status === 200) {
+            return {
+                success: true,
+                message: response.data.message,
+                bizID: bizID
+            };
+        } else {
+            return {
+                success: false,
+                error: response.data.error || 'Unknown error occurred'
+            };
+        }
+    } catch (error) {
+        console.error('Error archiving business:', error);
+        return {
+            success: false,
+            error: 'Error archiving business'
+        };
+    }
+}
+
 export const assembleFormData = ({
     businessName,
     aliasName,
