@@ -159,7 +159,13 @@ export default function AdminDashboard() {
                           <td>{biz.alias}</td>
                         </tr>
                         <tr>
-                          <td>Image</td>
+                          <td>Old Image URL</td>
+                          <td>{biz.image_url}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            New Image
+                          </td>                          
                           <td>
                             {biz.biz_images && biz.biz_images.length > 0 ? (
                               <div>
