@@ -275,7 +275,7 @@ export async function archiveTeam(teamId) {
 
 export async function archiveBiz(bizID) {
     if (!bizID) {
-        console.error('Business ID must be provided.');
+        // onsole.error('Business ID must be provided.');
         return {
             success: false,
             error: 'Business ID must be provided'
@@ -286,7 +286,7 @@ export async function archiveBiz(bizID) {
     const token = sessionStorage.getItem('token');
 
     if (!token) {
-        console.error('No token found in session storage.');
+        // console.error('No token found in session storage.');
         return {
             success: false,
             error: 'Authentication required'
@@ -313,7 +313,7 @@ export async function archiveBiz(bizID) {
             };
         }
     } catch (error) {
-        console.error('Error archiving business:', error);
+        // console.error('Error archiving business:', error);
         return {
             success: false,
             error: 'Error archiving business'

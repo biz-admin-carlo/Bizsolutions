@@ -162,10 +162,14 @@ export default function AdminDashboard() {
                           <td>Image</td>
                           <td>
                             {biz.biz_images && biz.biz_images.length > 0 ? (
-                              <img src={biz.biz_images[biz.biz_images.length - 1].url} alt={biz.name} style={{ width: "120px" }}/>
+                              <div>
+                                {biz.biz_images.slice(-3).reverse().map((image, index) => (
+                                  <img key={index} src={image.url} alt={`Image ${index + 1} of ${biz.name}`} style={{ width: "120px", marginLeft: index !== 0 ? "5px" : "0px" }}/>
+                                ))}
+                              </div>
                             ) : (
                               <span className="fst-italic">No image available</span>
-                              )}
+                            )}
                           </td>                        
                         </tr>
                         <tr>
