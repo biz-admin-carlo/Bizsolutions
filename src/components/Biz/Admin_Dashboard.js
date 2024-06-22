@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Card, Table, Accordion, Button } from 'react-bootstrap';
+import { Container, Card, Table, Accordion, Button, Pagination } from 'react-bootstrap';
 import { IoRefreshCircle } from "react-icons/io5";
-import { getMyCreatedBiz } from '../../utils/Biz/BizUtils.js';
+import { getMyCreatedBiz, archiveBiz } from '../../utils/Biz/BizUtils.js';
 import BarSpinner from './Reusable_BarSpinner.js';
 import AppFooter from './Application_Footer.js';
 import UploadImageModal from './Admin_UploadBizImage.js';
+import ArchiveBizModal from './Admin_ArchiveBizModal.js';
 import userIcon from '../../assets/Biz/icons/icon-round-image.png';
 import '../../assets/Biz/styles/AccountInfo.css';
 
@@ -18,9 +19,22 @@ export default function AdminDashboard() {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ businesses, setBusinesses ] = useState([]);
   const [ showModal, setShowModal ] = useState(false);
+  const [ currentPage, setCurrentPage ] = useState(1);
+  const itemsPerPage = 10;
+  const [ showModalArchive, setShowModalArchive ] = useState(false);
   const [ currentBizId, setCurrentBizId ] = useState(null);
   const [ adminId, setAdminId ] = useState(null);
-  console.log(user._id);
+
+  const totalPages = Math.ceil(businesses.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const displayedBusinesses = businesses.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const openModal = (bizId) => {
     setCurrentBizId(bizId);
@@ -28,8 +42,30 @@ export default function AdminDashboard() {
     setAdminId(user._id);
   };
 
+  const openArchiveModal = (bizId) => {
+    setCurrentBizId(bizId);
+    setShowModalArchive(true);
+  };
+
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  const closeArchiveModal = () => {
+    setShowModalArchive(false);
+  };
+
+  const handleArchive = async (bizId) => {
+    const result = await archiveBiz(bizId); // Use the function from BizUtils
+    if (result.success) {
+      // Optionally update the local state to reflect the archive without re-fetching from the server
+      setBusinesses(businesses.map(biz => {
+        if (biz._id === bizId) return { ...biz, isArchived: true };
+        return biz;
+      }));
+    } else {
+    }
+    closeArchiveModal(); // Close the modal after action
   };
 
   async function loadBusinesses() {
@@ -61,7 +97,7 @@ export default function AdminDashboard() {
   const handleUpload = (file) => {
     if (!file) return;
     // Implement the logic to upload the file to your backend which will handle S3 upload
-    console.log("Uploading", file.name);
+    // console.log("Uploading", file.name);
     // Close the modal
     closeModal();
   };
@@ -100,12 +136,16 @@ export default function AdminDashboard() {
 
         <div className="table-responsive">
           <Accordion defaultActiveKey="0">
-            {businesses.map((biz, index) => (
+            {displayedBusinesses.map((biz, index) => (
               <Accordion.Item eventKey={index.toString()}>
                 <Accordion.Header>{biz.name}</Accordion.Header>
                   <Accordion.Body>
                     <Table striped bordered hover>
                       <tbody>
+                        <tr className='text-center fw-bold'>
+                          <td>Is Biz Active</td>
+                          <td className={biz.isArchived ? 'text-danger' : 'text-success'}>{biz.isArchived ? 'False' : 'True'}</td>
+                        </tr>
                         <tr>
                           <td>Biz ID</td>
                           <td>{biz._id}</td>
@@ -160,20 +200,26 @@ export default function AdminDashboard() {
                           <td>Updated At</td>
                           <td>{new Date(biz.updatedAt).toLocaleString()}</td>
                         </tr>
-                        <tr>
-                          <td>Is Archived</td>
-                          <td>{biz.isArchived ? 'Yes' : 'No'}</td>
-                        </tr>
                       </tbody>
                     </Table>
                     
                     <div className="d-flex justify-content-end">
-                      <Button variant="warning" onClick={() => openModal(biz._id)}>Upload Biz Image</Button>
+                      {!biz.isArchived && <Button variant="danger" onClick={() => openArchiveModal(biz._id)}>Archive Biz</Button>}
+                      <Button className="mx-1" variant="warning" onClick={() => openModal(biz._id)}>Upload Biz Image</Button>
                     </div>
                   </Accordion.Body>
               </Accordion.Item>
             ))}
           </Accordion>
+
+          <Pagination className="justify-content-center py-5">
+            {[...Array(totalPages)].map((_, index) => (
+              <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => handlePageChange(index + 1)}>
+                {index + 1}
+              </Pagination.Item>
+            ))}
+          </Pagination>
+
           <UploadImageModal 
             show={showModal} 
             handleClose={closeModal} 
@@ -181,6 +227,12 @@ export default function AdminDashboard() {
             onUploadSuccess={handleUploadSuccess} 
             bizID={currentBizId} 
             adminId={adminId}
+          />
+          <ArchiveBizModal 
+            show={showModalArchive} 
+            handleClose={closeArchiveModal} 
+            handleArchive={handleArchive}
+            bizID={currentBizId}
           />
         </div>
 
