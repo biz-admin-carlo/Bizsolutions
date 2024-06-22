@@ -20,7 +20,7 @@ export default function AdminDashboard() {
   const [ businesses, setBusinesses ] = useState([]);
   const [ showModal, setShowModal ] = useState(false);
   const [ currentPage, setCurrentPage ] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 20;
   const [ showModalArchive, setShowModalArchive ] = useState(false);
   const [ currentBizId, setCurrentBizId ] = useState(null);
   const [ adminId, setAdminId ] = useState(null);
@@ -217,12 +217,27 @@ export default function AdminDashboard() {
           </Accordion>
 
           <Pagination className="justify-content-center py-5">
-            {[...Array(totalPages)].map((_, index) => (
-              <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => handlePageChange(index + 1)}>
-                {index + 1}
-              </Pagination.Item>
-            ))}
+            <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
+            <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+
+            {currentPage > 4 && <Pagination.Item onClick={() => handlePageChange(1)}>{1}</Pagination.Item>}
+            {currentPage > 4 && <Pagination.Ellipsis disabled />}
+
+            {currentPage > 2 && <Pagination.Item onClick={() => handlePageChange(currentPage - 2)}>{currentPage - 2}</Pagination.Item>}
+            {currentPage > 1 && <Pagination.Item onClick={() => handlePageChange(currentPage - 1)}>{currentPage - 1}</Pagination.Item>}
+
+            <Pagination.Item active>{currentPage}</Pagination.Item>
+
+            {currentPage < totalPages && <Pagination.Item onClick={() => handlePageChange(currentPage + 1)}>{currentPage + 1}</Pagination.Item>}
+            {currentPage < totalPages - 1 && <Pagination.Item onClick={() => handlePageChange(currentPage + 2)}>{currentPage + 2}</Pagination.Item>}
+
+            {currentPage < totalPages - 3 && <Pagination.Ellipsis disabled />}
+            {currentPage < totalPages - 3 && <Pagination.Item onClick={() => handlePageChange(totalPages)}>{totalPages}</Pagination.Item>}
+
+            <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
+            <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
           </Pagination>
+
 
           <UploadImageModal 
             show={showModal} 
