@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Card, Table, Accordion, Button, Pagination } from 'react-bootstrap';
+import { Container, Card, Table, Accordion, Button, Pagination, Dropdown } from 'react-bootstrap';
 import { IoRefreshCircle } from "react-icons/io5";
 import { getMyCreatedBiz, archiveBiz } from '../../utils/Biz/BizUtils.js';
 import BarSpinner from './Reusable_BarSpinner.js';
@@ -20,12 +20,25 @@ export default function AdminDashboard() {
   const [ businesses, setBusinesses ] = useState([]);
   const [ showModal, setShowModal ] = useState(false);
   const [ currentPage, setCurrentPage ] = useState(1);
-  const itemsPerPage = 20;
+  const [ itemsPerPage, setItemsPerPage ] = useState(20);
+  const [ totalBusinesses, setTotalBusinesses ] = useState(businesses.length);
   const [ showModalArchive, setShowModalArchive ] = useState(false);
   const [ currentBizId, setCurrentBizId ] = useState(null);
   const [ adminId, setAdminId ] = useState(null);
 
   const totalPages = Math.ceil(businesses.length / itemsPerPage);
+
+  const handleItemsPerPageChange = (eventKey, event) => {
+    setItemsPerPage(Number(eventKey));
+    setCurrentPage(1);
+  };
+
+  useEffect(() => {
+    setTotalBusinesses(businesses.length);
+  }, [businesses]);
+
+  const startIndex = (currentPage - 1) * itemsPerPage + 1;
+  const endIndex = Math.min(startIndex + itemsPerPage - 1, totalBusinesses);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -133,6 +146,32 @@ export default function AdminDashboard() {
             </div>
       </div>
         <hr/>
+
+      <div className="d-flex justify-content-between align-items-center pb-3">
+        <div>
+            <h6 className="responsive-title">
+              Registered BizNess
+            </h6>
+            <Card.Subtitle className='text-secondary'>
+              Showing {startIndex} to {endIndex} out of {totalBusinesses} businesses.
+            </Card.Subtitle>
+        </div>
+        <div className='py-3'>
+          <Dropdown onSelect={handleItemsPerPageChange}>
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+              Items per page: {itemsPerPage}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              {[5, 10, 20, 50, 100].map((number) => (
+                <Dropdown.Item key={number} eventKey={number}>
+                  {number}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+      </div>
 
         <div className="table-responsive">
           <Accordion defaultActiveKey="0">
