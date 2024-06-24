@@ -1,4 +1,4 @@
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { UserProvider } from './UserContext';
 import { Helmet } from 'react-helmet'; 
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -24,6 +24,7 @@ import AdminDashboard from './pages/Biz/Admin';
 import AdminLogin from './pages/Biz/LoginAdmin';
 import AdminUsers from './pages/Biz/AdminUsers';
 import AdminAddBiz from './pages/Biz/AdminAddBiz';
+import Result from './pages/Biz/Result';
 
 import AppNavbar from './components/Biz/Application_Navbar';
 import SpecialNavbar from './components/Biz/Application_Navbar';
@@ -35,14 +36,17 @@ import PageBookkeeping from './components/Biz/Page_Bookkeeping';
 import PageTechnicalSupport from './components/Biz/Page_TechnicalSupport';
 import PageCustomerService from './components/Biz/Page_CustomerService';
 import PageSalesCollections from './components/Biz/Page_SalesCollections';
+import Cookies from './components/Biz/Application_Cookies';
 
-import Result from './pages/Biz/Result';
+
+import FormsHome from './pages/Form/Landing';
+import FormsNavbar from './components/Form/Sidebar'
 
 function NavbarWrapper() {
   const location = useLocation();
 
   if (location.pathname === '/my-forms') {
-      return <SpecialNavbar />;
+      return <FormsNavbar />;
   }
   return <AppNavbar />;
 }
@@ -54,10 +58,21 @@ function App() {
     isAdmin: null,
     details: {}
   });
+  const [ cookiesConsent, setCookiesConsent ] = useState(sessionStorage.getItem('cookiesConsent'));
 
   const unsetUser = () => {
     sessionStorage.clear();
     localStorage.clear();
+  };
+
+  useEffect(() => {
+    const consent = sessionStorage.getItem('cookiesConsent');
+    setCookiesConsent(consent);
+  }, []);
+
+  const handleCookieConsent = () => {
+    sessionStorage.setItem('cookiesConsent', 'true');
+    setCookiesConsent(true);
   };
 
   return (
@@ -138,7 +153,7 @@ function App() {
             <Container />
         </Router>
       </UserProvider>
-      
+      {!cookiesConsent && <Cookies onConsent={handleCookieConsent} />}
       <SpeedInsights />
     </>
   );
