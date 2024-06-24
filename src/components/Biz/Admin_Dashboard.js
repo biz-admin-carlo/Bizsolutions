@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Card, Table, Accordion, Button, Pagination, Dropdown } from 'react-bootstrap';
 import { IoRefreshCircle } from "react-icons/io5";
+import { GoDotFill } from "react-icons/go";
 import { getMyCreatedBiz, archiveBiz } from '../../utils/Biz/BizUtils.js';
 import BarSpinner from './Reusable_BarSpinner.js';
 import AppFooter from './Application_Footer.js';
@@ -22,6 +23,7 @@ export default function AdminDashboard() {
   const [ currentPage, setCurrentPage ] = useState(1);
   const [ itemsPerPage, setItemsPerPage ] = useState(20);
   const [ totalBusinesses, setTotalBusinesses ] = useState(businesses.length);
+  const [ numberOfBizWithImages, setNumberOfBizWithImages ] = useState(0);
   const [ showModalArchive, setShowModalArchive ] = useState(false);
   const [ currentBizId, setCurrentBizId ] = useState(null);
   const [ adminId, setAdminId ] = useState(null);
@@ -96,20 +98,20 @@ export default function AdminDashboard() {
     async function loadBusinesses() {
       const bizData = await getMyCreatedBiz();
       if (bizData && !bizData.error) {
-        setBusinesses(bizData.httpMessage); 
+        setBusinesses(bizData.httpMessage);
         setIsLoading(false);
+        setTotalBusinesses(bizData.httpMessage.length);
+        const withImagesCount = bizData.httpMessage.filter(biz => biz.biz_images && biz.biz_images.length > 0).length;
+        setNumberOfBizWithImages(withImagesCount);
       } else {
-        // console.error('Failed to fetch businesses:', bizData.error);
         navigate('/login'); 
       }
     }
-    
     loadBusinesses();
   }, [navigate]);
 
   const handleUpload = (file) => {
     if (!file) return;
-    // Implement the logic to upload the file to your backend which will handle S3 upload
     // console.log("Uploading", file.name);
     // Close the modal
     closeModal();
@@ -121,9 +123,9 @@ export default function AdminDashboard() {
     );
   };
 
-  // if (isLoading) {
-  //   return <BarSpinner />;
-  // }
+  if (isLoading) {
+    return <BarSpinner />;
+  }
 
   return (
     <>
@@ -155,6 +157,9 @@ export default function AdminDashboard() {
             <Card.Subtitle className='text-secondary'>
               Showing {startIndex} to {endIndex} out of {totalBusinesses} businesses.
             </Card.Subtitle>
+            <Card.Subtitle className='text-secondary'>
+              Showing out of {totalBusinesses} businesses,<a className='biz-color' style={{ textDecoration: 'none' }}> only {numberOfBizWithImages} are with images</a>.
+            </Card.Subtitle>
         </div>
         <div className='py-3'>
           <Dropdown onSelect={handleItemsPerPageChange}>
@@ -177,8 +182,11 @@ export default function AdminDashboard() {
           <Accordion defaultActiveKey="0">
             {displayedBusinesses.map((biz, index) => (
               <Accordion.Item eventKey={index.toString()}>
-                <Accordion.Header>{biz.name}</Accordion.Header>
-                  <Accordion.Body>
+                <Accordion.Header>
+                  {biz.name}
+                  <GoDotFill style={{ color: biz.biz_images.length === 0 ? 'red' : 'green' }} />
+                </Accordion.Header>                 
+                <Accordion.Body>
                     <Table striped bordered hover>
                       <tbody>
                         <tr className='text-center fw-bold'>
