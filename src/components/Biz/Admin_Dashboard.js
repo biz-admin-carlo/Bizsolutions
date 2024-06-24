@@ -27,6 +27,8 @@ export default function AdminDashboard() {
   const [ showModalArchive, setShowModalArchive ] = useState(false);
   const [ currentBizId, setCurrentBizId ] = useState(null);
   const [ adminId, setAdminId ] = useState(null);
+  const [ activeBusinesses, setActiveBusinesses ] = useState(0);
+  const [ inactiveBusinesses, setInactiveBusinesses ] = useState(0);
 
   const totalPages = Math.ceil(businesses.length / itemsPerPage);
 
@@ -89,7 +91,6 @@ export default function AdminDashboard() {
       setBusinesses(bizData.httpMessage); 
       setIsLoading(false);
     } else {
-      // console.error('Failed to fetch businesses:', bizData.error);
       navigate('/login'); 
     }
   }
@@ -101,33 +102,28 @@ export default function AdminDashboard() {
         setBusinesses(bizData.httpMessage);
         setIsLoading(false);
         setTotalBusinesses(bizData.httpMessage.length);
+  
         const withImagesCount = bizData.httpMessage.filter(biz => biz.biz_images && biz.biz_images.length > 0).length;
         setNumberOfBizWithImages(withImagesCount);
+  
+        const activeBusinesses = bizData.httpMessage.filter(biz => !biz.isArchived).length;
+        const inactiveBusinesses = bizData.httpMessage.filter(biz => biz.isArchived).length;
+        setActiveBusinesses(activeBusinesses);
+        setInactiveBusinesses(inactiveBusinesses);
       } else {
-        navigate('/login'); 
+        navigate('/login');
       }
     }
     loadBusinesses();
   }, [navigate]);
 
-  // const handleUpload = (file) => {
-  //   if (!file) return;
-  //   // console.log("Uploading", file.name);
-  //   // Close the modal
-  //   closeModal();
-  // };
   const handleUpload = useCallback((file) => {
     if (!file) return;
     closeModal();
   }, [closeModal]);
 
-  // const handleUploadSuccess = (bizId, updatedBiz) => {
-  //   setBusinesses(businesses =>
-  //     businesses.map(biz => biz._id === bizId ? { ...biz, biz_images: updatedBiz.biz_images } : biz)
-  //   );
-  // };
   const refreshBusinessData = async () => {
-    await loadBusinesses(); // Refresh all data
+    await loadBusinesses(); 
   };
 
   const handleUploadSuccess = useCallback((bizId, updatedBizImages) => {
@@ -173,7 +169,13 @@ export default function AdminDashboard() {
               Showing {startIndex} to {endIndex} out of {totalBusinesses} businesses.
             </Card.Subtitle>
             <Card.Subtitle className='text-secondary'>
-              Showing out of {totalBusinesses} businesses,<a className='biz-color' style={{ textDecoration: 'none' }}> only {numberOfBizWithImages} are with images</a>.
+              Out of {totalBusinesses} businesses, <a className='biz-color' style={{ textDecoration: 'none' }}>only {numberOfBizWithImages} have images</a>.
+            </Card.Subtitle>
+            <Card.Subtitle className='text-secondary'>
+              Active Bizness: <a className='biz-color' style={{ textDecoration: 'none' }}>{activeBusinesses} active!</a>
+            </Card.Subtitle>
+            <Card.Subtitle className='text-secondary'>
+              Inactive Businesses (Archived): <a className='biz-color' style={{ textDecoration: 'none' }}>{inactiveBusinesses} archived</a>.
             </Card.Subtitle>
         </div>
         <div className='py-3'>
