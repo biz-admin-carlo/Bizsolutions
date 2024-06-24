@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Card, Table, Accordion, Button, Pagination, Dropdown } from 'react-bootstrap';
 import { IoRefreshCircle } from "react-icons/io5";
@@ -110,23 +110,38 @@ export default function AdminDashboard() {
     loadBusinesses();
   }, [navigate]);
 
-  const handleUpload = (file) => {
+  // const handleUpload = (file) => {
+  //   if (!file) return;
+  //   // console.log("Uploading", file.name);
+  //   // Close the modal
+  //   closeModal();
+  // };
+  const handleUpload = useCallback((file) => {
     if (!file) return;
-    // console.log("Uploading", file.name);
-    // Close the modal
     closeModal();
+  }, [closeModal]);
+
+  // const handleUploadSuccess = (bizId, updatedBiz) => {
+  //   setBusinesses(businesses =>
+  //     businesses.map(biz => biz._id === bizId ? { ...biz, biz_images: updatedBiz.biz_images } : biz)
+  //   );
+  // };
+  const refreshBusinessData = async () => {
+    await loadBusinesses(); // Refresh all data
   };
 
-  const handleUploadSuccess = (bizId, updatedBiz) => {
-    setBusinesses(businesses =>
-      businesses.map(biz => biz._id === bizId ? { ...biz, biz_images: updatedBiz.biz_images } : biz)
+  const handleUploadSuccess = useCallback((bizId, updatedBizImages) => {
+    setBusinesses(currentBusinesses =>
+      currentBusinesses.map(biz => 
+        biz._id === bizId ? { ...biz, biz_images: updatedBizImages } : biz
+      )
     );
-  };
+  }, [businesses]);
 
-  if (isLoading) {
-    return <BarSpinner />;
-  }
-
+  useEffect(() => {
+    loadBusinesses();
+  }, []);
+  
   return (
     <>
       <Container style={{ minHeight: '85vh'}}>
@@ -297,6 +312,7 @@ export default function AdminDashboard() {
             handleClose={closeModal} 
             handleUpload={handleUpload}
             onUploadSuccess={handleUploadSuccess} 
+            onRefreshBusinesses={refreshBusinessData} // or onRefreshBusinesses={() => updateBusinessImages(bizId, newImages)}
             bizID={currentBizId} 
             adminId={adminId}
           />

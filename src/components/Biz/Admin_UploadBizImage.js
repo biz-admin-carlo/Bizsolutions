@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { uploadBizImage } from '../../utils/Biz/BizUtils'; 
 import FeedbackModal from './Admin_FeedbackModal'; // Import the FeedbackModal component
 
-export default function UploadImageModal({ show, handleClose, bizID, adminId }) {
+export default function UploadImageModal({ show, handleClose, bizID, adminId, onRefreshBusinesses }) {
     const [file, setFile] = useState(null);
     const [feedbackModalShow, setFeedbackModalShow] = useState(false);
     const [feedbackTitle, setFeedbackTitle] = useState("");
@@ -29,6 +29,9 @@ export default function UploadImageModal({ show, handleClose, bizID, adminId }) 
             const result = await uploadBizImage(file, adminId, bizID);
             console.log("Upload successful:", result);
             showFeedbackModal("Success", "Image uploaded successfully!");
+            if (onRefreshBusinesses) {
+                onRefreshBusinesses(); // Trigger data refresh in the parent component
+            }
             handleClose(); // Close the main modal after successful upload
         } catch (error) {
             console.error("Error uploading image:", error);
