@@ -12,23 +12,6 @@ export default function SearchState({location, category}) {
     const [ currentPage, setCurrentPage ] = useState(1);
     const itemsPerPage = 12;
 
-    // console.log(businesses); 
-    // console.log(latitude);
-    // console.log(longitude);
-
-    // useEffect(() => {
-    //     const coords = parseLocation(location);
-    //     setLatitude(coords.lat);
-    //     setLongitude(coords.long);
-    // }, [location]);
-
-    // function parseLocation(loc) {
-    //     const parts = loc.split(',');
-    //     const lat = parseFloat(parts[0].split(':')[1]);
-    //     const long = parseFloat(parts[1].split(':')[1]);
-    //     return { lat, long };
-    // }
-
     const fetchBusinesses = async () => {
         let result = null;
         try {
@@ -80,9 +63,7 @@ export default function SearchState({location, category}) {
                                 <Badge pill bg="success">Create Website with Us!</Badge><br/>
                                 {business.isBizDB ? (
                                     <Badge pill bg="warning">Powered By BizSolutions</Badge>
-                                ) : null}
-                                {/* <span className='text-secondary url-link'>Distance from My Location: <Badge bg="secondary ms-1">{distanceInMiles} Miles</Badge></span> */}
-                            
+                                ) : null}                            
                             </Card.Body>
                         </Card>
                     </div>
