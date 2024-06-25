@@ -1,3 +1,8 @@
+.main-content {
+    min-height: 100vh;
+    padding-bottom: 50px;
+}
+
 .app-footer {
     position: fixed;
     left: 0;
@@ -7,6 +12,14 @@
     background-color: #f5f5f5; 
     line-height: 50px; 
 }  
+
+.no-underline {
+    font-size: 12px;
+}
+
+.text-left {
+    font-size: 10px;
+}
 
 .app-cookies {
     background-color: #f8f9fa;
