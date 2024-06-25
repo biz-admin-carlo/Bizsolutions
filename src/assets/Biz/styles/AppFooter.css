@@ -1,8 +1,3 @@
-.main-content {
-    min-height: 100vh;
-    padding-bottom: 50px;
-}
-
 .app-footer {
     position: fixed;
     left: 0;
@@ -13,10 +8,38 @@
     line-height: 50px; 
 }  
 
-.no-underline{
-    font-size: 12px;
+.app-cookies {
+    background-color: #f8f9fa;
 }
 
-.text-left {
-    font-size: 10px;
+.text-consent {
+    color: #333;
+    font-size: 1rem;
+    flex-grow: 1; /* Allows text to take up available space on lg screens */
+}
+
+.learn-more {
+    color: #FF851A;
+    text-decoration: none;
+}
+
+.button-agree {
+    flex-shrink: 0; /* Prevents the button from shrinking */
+    margin-left: auto; /* Pushes the button to the right on large screens */
+}
+
+.button-agree-sm {
+    width: 100%; /* Full width button on small screens */
+}
+
+@media (max-width: 768px) {
+    .text-consent {
+        font-size: 0.9rem;
+    }
+    .button-agree, .button-agree-sm {
+        margin-left: 0; /* Removes any left margin on small screens */
+    }
+    .button-agree {
+        display: none; /* Ensures this does not show on small screens */
+    }
 }
