@@ -17,14 +17,12 @@ export default function SearchState({location, category}) {
         try {
             if (location.includes('Lat') && location.includes('Long')) {
                 const [lat, long] = location.replace('Lat:', '').replace('Long:', '').split(',');
-                // console.log(parseFloat(lat), parseFloat(`-${long}`), category)
                 result = await getBizViaCoords(parseFloat(lat), parseFloat(`${long}`), category);
             } else {
                 result = await getBizViaState(location, category);
             }
             setBusinesses(result.data.data.businesses);
         } catch (error) {
-            console.error("Error fetching businesses:", error);
             setBusinesses([]);
         } 
     };

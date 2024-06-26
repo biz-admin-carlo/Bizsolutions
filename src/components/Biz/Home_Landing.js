@@ -69,14 +69,12 @@ export default function HomeLanding() {
                     setTypedLocation(false);  // Reset this as location is now auto-detected
                 },
                 (error) => {
-                    console.error('Error getting location:', error);
                     setLocationStatus('unavailable');
                     setLoading(false);
                     setTypedLocation(true);  // User needs to manually enter location if error occurs
                 }
             );
         } else {
-            console.error('Geolocation is not supported by this browser.');
             setLocationStatus('unavailable');
             setLoading(false);
         }
@@ -86,11 +84,9 @@ export default function HomeLanding() {
     const handleSubmit = async (event) => {
         event.preventDefault(); 
         sessionStorage.setItem('searchedCategory', JSON.stringify(category));
-        console.log(userCoordinates);
 
         // Use more explicit checking for location type
         if (typedLocation && location.trim() !== '') {
-            console.log("Using manually entered location:", location);
             const queryParams = new URLSearchParams({
                 category: category,
                 location: location
@@ -102,7 +98,6 @@ export default function HomeLanding() {
     
             navigate(`/search?${queryParams}`);
         } else if (userCoordinates && userCoordinates.latitude && userCoordinates.longitude) {
-            console.log("Using geolocation coordinates:", userCoordinates);
             const queryParams = new URLSearchParams({
                 category: category,
                 location: `Lat:${userCoordinates.latitude},Long:${userCoordinates.longitude}` 
@@ -112,7 +107,6 @@ export default function HomeLanding() {
 
             navigate(`/search?${queryParams}`);
         } else {
-            console.error("No location information available");
             alert("No location information available, please provide a location.");
         }
     };

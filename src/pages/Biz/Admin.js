@@ -40,10 +40,10 @@ export default function Admin() {
         setUser(data);
         setIsLoading(false);
       } else {
-        console.error('Failed to fetch user details');
+
       }
     } catch (error) {
-      console.error('Error:', error);
+      
     }
   };
 

@@ -30,9 +30,7 @@ const ServiceSection = ({ title, services, visible }) => {
     const path = serviceToPath[service];
     if (path) {
       navigate(path);
-    } else {
-      console.error("No path found for service:", service);
-    }
+    } 
   };
 
   if (!visible) return null;
@@ -159,7 +157,6 @@ export default function AppNavbar() {
           setLoading(false);
         },
         (error) => {
-          console.error('Error getting location:', error);
           setLoading(false);
         }
       );

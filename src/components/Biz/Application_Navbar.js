@@ -28,11 +28,9 @@ export default function AppNavbar() {
       if (response.status === 200) {
         const data = response.data;
         setUser(data);
-      } else {
-        console.error('Failed to fetch user details');
       }
     } catch (error) {
-      console.error('Error:', error);
+
     }
   };
 

@@ -41,7 +41,7 @@ export default function AccountDetails({ user }) {
         const response = await axios.get(`${apiUrl}/api/v1/business/retrieve/biz/${userId}`);
         setBusinessData(response.data);
       } catch (error) {
-        console.error('Error fetching business data:', error);
+
       } finally {
         setLoading(false);
       }
@@ -54,11 +54,8 @@ export default function AccountDetails({ user }) {
     setLoading(true);
     try {
       const response = await axios.get(`${apiUrl}/api/v1/business/retrieve/biz/${userId}`);
-      // console.log(response.data);
-      // Handle success (e.g., show a success message or redirect)
     } catch (error) {
-      console.error('Error:', error);
-      // Handle errors (e.g., show an error message)
+
     } finally {
       setLoading(false);
     }

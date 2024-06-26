@@ -11,7 +11,6 @@ export default function Account() {
 
 
     if (!token) {
-      // console.log('Redirecting to login...'); // Check if this gets logged
       navigate('/login');
     }
   }, [navigate]);

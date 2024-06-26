@@ -38,10 +38,10 @@ export default function BundleAdvanced({ selected }) {
             setUser(response.data);
 
           } else {
-            // console.error('Failed to fetch user details');
-          }
+
+        }
         } catch (error) {
-          // console.error('Error:', error);
+
         }
     };
 
@@ -66,8 +66,6 @@ export default function BundleAdvanced({ selected }) {
         const paymentUrl = stripePaymentLinks[selected];
         if (paymentUrl) {
             window.location.href = paymentUrl;
-        } else {
-            // console.error('Invalid subscription type selected');
         }
     };
 

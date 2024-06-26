@@ -335,11 +335,9 @@ export default function NewSignUp() {
           if (response.status === 200) {
             const data = response.data;
             setUser(data);
-          } else {
-            // console.error('Failed to fetch user details');
-          }
+          } 
         } catch (error) {
-          // console.error('Error:', error);
+
         }
     };
 
@@ -387,11 +385,9 @@ export default function NewSignUp() {
                     return true; 
                 }
             } else {
-                // console.log("Existed already!")
                 setMessage("Business already exists.");
             }
         } catch (error) {
-            // console.error('Registration error:', error);
             setMessage('Failed to register business.');
         } finally {
             setIsLoading(false);

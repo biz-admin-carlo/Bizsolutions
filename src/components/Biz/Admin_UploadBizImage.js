@@ -24,17 +24,14 @@ export default function UploadImageModal({ show, handleClose, bizID, adminId, on
             showFeedbackModal("Upload Error", "Please select a file before uploading.");
             return;
         }
-
         try {
             const result = await uploadBizImage(file, adminId, bizID);
-            console.log("Upload successful:", result);
             showFeedbackModal("Success", "Image uploaded successfully!");
             if (onRefreshBusinesses) {
                 onRefreshBusinesses(); // Trigger data refresh in the parent component
             }
             handleClose(); // Close the main modal after successful upload
         } catch (error) {
-            console.error("Error uploading image:", error);
             showFeedbackModal("Upload Failed", "Failed to upload image. Please try again.");
         }
     };

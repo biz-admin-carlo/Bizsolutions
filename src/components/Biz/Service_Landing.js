@@ -40,7 +40,6 @@ export default function ServiceLanding({ retrieveTeams }) {
                 const isAvailable = await checkTeamName(orgName);
                 setOrgNameStatus(isAvailable ? 'available' : 'unavailable');
             } catch (error) {
-                console.error('Error checking business name:', error);
                 setOrgNameStatus('error');
             }
         }, 500);

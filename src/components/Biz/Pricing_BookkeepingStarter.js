@@ -29,9 +29,7 @@ const BookkeepingStarter = ({ selected, packageOne, handleGetStartedClick }) => 
         const paymentUrl = stripePaymentLinks[selected];
         if (paymentUrl) {
             window.location.href = paymentUrl;
-        } else {
-            // console.error('Invalid subscription type selected');
-        }
+        } 
     };
 
     return (

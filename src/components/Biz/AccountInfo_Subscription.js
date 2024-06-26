@@ -30,7 +30,6 @@ export default function AccountDetails({ user }) {
           setMessage('No subscriptions found for this user.');
         }
       } catch (error) {
-        console.error('Error fetching subscription:', error);
         setMessage('No subscriptions found for this user.');
         setShowErrorModal(true);
       } finally {

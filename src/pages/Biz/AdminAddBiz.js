@@ -8,10 +8,7 @@ export default function Account() {
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
-
-
     if (!token) {
-      // console.log('Redirecting to login...'); // Check if this gets logged
       navigate('/login');
     }
   }, [navigate]);

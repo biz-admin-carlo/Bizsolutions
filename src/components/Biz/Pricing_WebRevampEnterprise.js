@@ -44,11 +44,9 @@ export default function ProfessionalRevamp({ selected }) {
           if (response.status === 200) {
             setUser(response.data);
 
-          } else {
-            // console.error('Failed to fetch user details');
-          }
+          } 
         } catch (error) {
-          // console.error('Error:', error);
+
         }
       };
 

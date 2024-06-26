@@ -59,9 +59,7 @@ export default function AdminLogin() {
                 setMessage('Access denied. Not an admin.');
             };
 
-            
         } catch (error) {
-                // console.error('An error occurred during authentication:', error);
             navigate('/admin-login');
             setMessage('Access denied. Not an admin.');
 

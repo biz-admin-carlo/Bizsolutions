@@ -40,9 +40,6 @@ const Feedbacks = ({ user }) => {
               oldPassword: oldPassword,
               newPassword: newPassword
           });
-
-          // console.log(response);
-
           setLoading(false);
 
           if (response.status === 200) {

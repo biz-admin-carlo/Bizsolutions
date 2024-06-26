@@ -314,10 +314,11 @@ export default function AdminDashboard() {
             handleClose={closeModal} 
             handleUpload={handleUpload}
             onUploadSuccess={handleUploadSuccess} 
-            onRefreshBusinesses={refreshBusinessData} // or onRefreshBusinesses={() => updateBusinessImages(bizId, newImages)}
+            onRefreshBusinesses={refreshBusinessData}
             bizID={currentBizId} 
             adminId={adminId}
           />
+
           <ArchiveBizModal 
             show={showModalArchive} 
             handleClose={closeArchiveModal} 

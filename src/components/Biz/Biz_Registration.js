@@ -7,7 +7,7 @@ import { BiLoaderCircle, BiCheckDouble, BiXCircle, BiInfoCircle } from "react-ic
 import HomeTestimony from './Home_Testimony.js';
 import SuccessBox from './Biz_Success.js';
 import FailBox from './Biz_Failure.js';
-import { assembleFormData, submitBizRegistration } from '../../utils/Biz/BizUtils.js';
+import { submitBizRegistration } from '../../utils/Biz/BizUtils.js';
 import '../../assets/Biz/styles/BizRegistration.css';
 
 
@@ -60,6 +60,12 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
     const [ selectedState, setSelectedState ] = useState(null);
     const [ selectedCity, setSelectedCity ] = useState(null);
 
+    const [ imageFile, setImageFile ] = useState(null);
+
+    const handleFileChange = (event) => {
+        setImageFile(event.target.files[0]);
+    };
+
     const countriesOptions = useMemo(() => {
         const countries = Country.getAllCountries().map((country) => ({
             label: country.name,
@@ -91,7 +97,6 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                     setLongitudeStatus('available');
                 },
                 (error) => {
-                    console.error("Error Code = " + error.code + " - " + error.message);
                     setIsLoading(false);
                     setLongitudeStatus('unavailable');
                 }
@@ -101,12 +106,6 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
         }
     };
 
-    // const handleImageUploadChange = event => {
-    //     const file = event.target.files[0];  // Get the first file (if multiple are not allowed)
-    //     if (file) {
-    //         setImageUrl(file);  // Update the state with the new file
-    //     }
-    // };
     const handleImageUrlChange = (event) => setImageUrl(event.target.value);
 
     const handleWebsiteUrlChange = (event) => setWebsiteUrl(event.target.value);
@@ -149,35 +148,43 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
     const handleSubmit = async (e) => {
         e.preventDefault();
     
-        if (!businessName || !imageUrl || !websiteUrl || !selectedCountry || !selectedState || !phoneNumber) {
+        if (!businessName || !websiteUrl || !selectedCountry || !selectedState || !phoneNumber) {
             alert("Please fill in all required fields.");
             return;
         }
     
-        const formData = assembleFormData({
-            businessName,
-            aliasName,
-            imageUrl,
-            websiteUrl,
-            selectedCategory,
-            transactionModes,
-            latitude,
-            longitude,
-            addressLine1,
-            addressLine2,
-            addressLine3,
-            selectedCity,
-            selectedState,
-            zipCode,
-            selectedCountry,
-            phoneNumber,
-            displayPhoneNumber,
-            emailAddress
-        });
+        const formData = new FormData();
+        formData.append('name', businessName);
+        formData.append('alias', aliasName);
+        if (imageFile) {
+            formData.append('image', imageFile);
+        }
+        formData.append('url', websiteUrl);
+        formData.append('categories', JSON.stringify([{ alias: selectedCategory, title: selectedCategory }])); // Correctly format categories
+        formData.append('coordinates', JSON.stringify({ latitude, longitude })); // Correctly format coordinates
+        formData.append('address1', addressLine1);
+        formData.append('address2', addressLine2);
+        formData.append('address3', addressLine3);
+        formData.append('city', selectedCity ? selectedCity.label : '');
+        formData.append('state', selectedState ? selectedState.label : '');
+        formData.append('zipCode', zipCode);
+        formData.append('country', selectedCountry ? selectedCountry.label : '');
+        formData.append('phone', phoneNumber);
+        formData.append('display_phone', displayPhoneNumber);
+        formData.append('email', emailAddress);
+        formData.append('transactions', JSON.stringify(Object.keys(transactionModes).filter(key => transactionModes[key]))); // Correctly format transactions
+        formData.append('location', JSON.stringify({ 
+            address1: addressLine1, 
+            address2: addressLine2, 
+            address3: addressLine3, 
+            city: selectedCity ? selectedCity.label : '', 
+            zip_code: zipCode, 
+            country: selectedCountry ? selectedCountry.label : '', 
+            state: selectedState ? selectedState.label : '' 
+        }));
     
         try {
             const result = await submitBizRegistration(formData);
-
             setResultStatus('success');
             setTimeout(() => {
                 navigate('/my-biz');
@@ -186,7 +193,7 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
             setResultStatus('failure');
         }
     };
-
+    
     useEffect(() => {
         if (!latitude) {
             setLatitudeStatus('idle');
@@ -260,27 +267,16 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                         </Col>
                                     </Row>
 
-                                    <Form.Group controlId="formBasicImageUrl">
-                                        <Form.Label>Image URL</Form.Label>
-                                        <Form.Control
-                                            required
-                                            type="text"
-                                            placeholder="Enter Image URL"
-                                            value={imageUrl}
-                                            onChange={handleImageUrlChange}
-                                            className='mb-2'
-                                        />
-                                    </Form.Group>
-                                    {/* <Form.Group controlId="formBasicImageUpload">
+                                    <Form.Group controlId="formBasicImageUpload">
                                         <Form.Label>Upload Image</Form.Label>
                                         <Form.Control
                                             required
                                             type="file"
-                                            accept="image/*"  // Ensures only image files can be selected
-                                            onChange={handleImageUploadChange}  // Handler function to process the image file
+                                            accept="image/*"
+                                            onChange={handleFileChange}
                                             className='mb-2'
                                         />
-                                    </Form.Group> */}
+                                    </Form.Group>
 
                                     <Form.Group controlId="formBasicWebsiteUrl">
                                         <Form.Label>Website URL</Form.Label>

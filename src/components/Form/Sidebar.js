@@ -123,8 +123,6 @@ const ServiceSection = ({ title, services, visible }) => {
     const path = serviceToPath[service];
     if (path) {
       navigate(path);
-    } else {
-      console.error("No path found for service:", service);
     }
   };
 
@@ -249,10 +247,6 @@ export default function AppNavbar() {
           setUserLocation('My Current Location');
           setUserCoordinates(coords);
           sessionStorage.setItem('userCoordinates', JSON.stringify(coords));
-          setLoading(false);
-        },
-        (error) => {
-          console.error('Error getting location:', error);
           setLoading(false);
         }
       );

@@ -32,7 +32,6 @@ export default function BizLanding({ businessData, hasBusiness }) {
                 const isAvailable = await checkBusinessName(businessName);
                 setNameStatus(isAvailable ? 'available' : 'unavailable');
             } catch (error) {
-                console.error('Error checking business name:', error);
                 setNameStatus('error');
             }
         }, 500);
@@ -50,7 +49,6 @@ export default function BizLanding({ businessData, hasBusiness }) {
                 const isAvailable = await checkBusinessAlias(aliasName);
                 setAliasStatus(isAvailable ? 'available' : 'unavailable');
             } catch (error) {
-                console.error('Error checking business alias:', error);
                 setAliasStatus('error');
             }
         }, 500);

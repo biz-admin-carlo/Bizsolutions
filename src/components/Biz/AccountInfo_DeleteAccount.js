@@ -26,15 +26,10 @@ export default function DeleteAccount({ user }) {
                 'Authorization': `Bearer ${token}`
               }
             });
-    
-            // console.log(response.data);
-            setSuccessfulDelete(true);
-            // Handle the response, e.g., redirect to login or home page
+                setSuccessfulDelete(true);
     
         } catch (error) {
-            console.error('Error deleting account:', error);
-            // Handle error, e.g., show an error message
-    
+
         } finally {
             setIsLoading(false);
         }

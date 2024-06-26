@@ -1,14 +1,17 @@
 import axios from 'axios';
 const apiUrl = process.env.REACT_APP_API_URL;
-// const apiURL = 'http://localhost:8001';
 
 export async function getBizViaCoords(latitude, longtitude, term) {
     try {
         const result = await axios.get(`${apiUrl}/api/v1/location/search/v1?latitude=${latitude}&longitude=${longtitude}&term=${term}`);
         return { success: true, data: result };
     } catch (error) {
-        console.error('There was an error during registration:', error);
-        return { success: false, message: "Registration failed due to an error" };
+        try {
+            const result = await axios.get(`${apiUrl}/api/v1/location/search/v2?state=California&category=${term}`);
+            return { success: true, data: result };
+        } catch (error) {
+            return { success: false, message: "Registration failed due to an error" };
+        }
     }
 }
 
@@ -17,7 +20,6 @@ export async function getBizViaState(state, term) {
         const result = await axios.get(`${apiUrl}/api/v1/location/search/v2?state=${state}&category=${term}`);
         return { success: true, data: result };
     } catch (error) {
-        console.error('There was an error during registration:', error);
         return { success: false, message: "Registration failed due to an error" };
     }
 }
@@ -35,10 +37,8 @@ export async function loggedVisitors(longitude, latitude, state, category) {
   
       return { success: true, data: result.data };
   
-    } catch (error) {
-      // console.error('There was an error during logging visitors:', error);
-  
-      return { success: false, message: "Logging failed due to an error" };
+    } catch (error) {  
+        return { success: false, message: "Logging failed due to an error" };
     }
 }
 
@@ -52,13 +52,8 @@ export const getUserCoordinates = (setUserCoordinates) => {
                 };
                 setUserCoordinates(coords);
                 sessionStorage.setItem('userCoordinates', JSON.stringify(coords));
-            },
-            (error) => {
-                console.error('Error getting location:', error);
             }
         );
-    } else {
-        console.error('Geolocation is not supported by this browser.');
     }
 };
 

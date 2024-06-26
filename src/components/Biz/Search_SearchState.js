@@ -21,7 +21,6 @@ export default function SearchState({location, category}) {
             }
             setBusinesses(result.data.data.businesses);
         } catch (error) {
-            console.error("Error fetching businesses:", error);
             setBusinesses([]);
         } 
     };

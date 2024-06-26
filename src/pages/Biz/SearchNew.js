@@ -22,15 +22,11 @@ export default function Search() {
   const [ resultState, setResultState ] = useState({ businesses: [] });
   const [ currentPage, setCurrentPage ] = useState(1);
   const itemsPerPage = 10;
-
-  console.log(resultState.by);
-  // Add a function that checks if sessionStorage has a key 'userCoordinates' if so collect them and together with the category that the user search from the searchParams and make sure it collects them
   
 useEffect(() => {
     const fetchBusinesses = async () => {
       try {
         let results;
-        // Check if coordinates are stored in sessionStorage
         const savedCoords = sessionStorage.getItem('userCoordinates');
         if (savedCoords) {
           const { latitude, longitude } = JSON.parse(savedCoords);
@@ -45,9 +41,9 @@ useEffect(() => {
         } else {
           results = await getBizViaState(location, category);
         }
-        setResultState({ businesses: results.data });  // Make sure to handle the response format correctly
+        setResultState({ businesses: results.data }); 
       } catch (error) {
-        console.error("Failed to fetch businesses:", error);
+
       } finally {
         setLoading(false);
       }
@@ -66,13 +62,9 @@ useEffect(() => {
       <Container>
 
         <Breadcrumb
-          // coordinates={coordinates}
           category={category}
-          // locationState={locationState}
         />
       
-        {/* <h3>{generateHeaderTitle()}</h3> */}
-
         {loading ? (
           <>
             {Array.from({ length: 10 }).map((_, index) => (
@@ -91,7 +83,6 @@ useEffect(() => {
                   totalItems={resultState.businesses.length}
                   itemsPerPage={itemsPerPage}
                   currentPage={currentPage}
-                  // onPageChange={handlePageChange}
                 />
               </div>
             )}

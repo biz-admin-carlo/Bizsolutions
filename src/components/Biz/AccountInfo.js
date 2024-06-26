@@ -41,27 +41,6 @@ export default function AccountInfo() {
     navigate(`/admin-dashboard/${userId}/`);
   };
 
-  // const handleAvatarClick = () => {
-  //   setShowModal(true); // Open modal on avatar click
-  // };
-
-  // const handleUploadClick = async () => {
-  //   if (file) {
-  //     try {
-  //       const result = await uploadUserAvatar(file);
-  //       console.log('Image uploaded successfully:', result.imageUrl);
-  //       setUser({ ...user, avatarUrl: result.imageUrl });
-  //       setShowModal(false);  // Close the modal after upload
-  //     } catch (error) {
-  //       console.error('Failed to upload image:', error.message);
-  //       // Optionally, handle UI feedback about the failure here, like showing an error message to the user
-  //     }
-  //   } else {
-  //     console.log('No file selected.');
-  //     // Optionally, alert the user to select a file if none is selected
-  //   }
-  // };
-
   const handleLogout = () => {
     unsetUser();
     window.location.reload();
@@ -86,11 +65,8 @@ export default function AccountInfo() {
         setUser(data);
         setUserId(data._id);
         setIsLoading(false);
-      } else {
-        console.error('Failed to fetch user details');
-      }
+      } 
     } catch (error) {
-      console.error('Error:', error);
     }
   };
 

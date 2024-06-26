@@ -42,11 +42,7 @@ export default function AccountDetails({ user }) {
       });
   
       const data = await response.json();
-        // console.log(data);
-      // Handle success (e.g., show a success message or redirect)
     } catch (error) {
-       // console.error('Error:', error);
-      // Handle errors (e.g., show an error message)
     } finally {
       setLoading(false);
     }

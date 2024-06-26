@@ -40,17 +40,13 @@ export default function NewLogin() {
             if (result.accessToken) {
                 window.location.reload();
                 sessionStorage.setItem('token', result.accessToken);
-
-                // Run a check-admin script
                 navigate('/');
-
             } else if (result.status === 403) {
                 setMessage('Account is already inactive.');
             } else {
                 setMessage('Password is incorrect!');
             }
         } catch (error) {
-                // console.error('An error occurred during authentication:', error);
             navigate('/login');
             setMessage('Password is incorrect!');
 

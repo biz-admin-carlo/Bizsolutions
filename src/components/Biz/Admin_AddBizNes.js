@@ -26,7 +26,6 @@ export default function UsersInfo() {
   const [ businessName, setBusinessName ] = useState('');
 
 
-  console.log( user.firstName);
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     if (token) {
@@ -47,11 +46,8 @@ export default function UsersInfo() {
         setUser(data);
         setUserId(data._id);
         setIsLoading(false);
-      } else {
-        console.error('Failed to fetch user details');
-      }
+      } 
     } catch (error) {
-      console.error('Error:', error);
     }
   };
 
@@ -64,11 +60,8 @@ export default function UsersInfo() {
       });
       if (response.status === 200) {
         setUsers(response.data.users); // Update the state with fetched users
-      } else {
-        console.error('Failed to fetch user details');
-      }
+      } 
     } catch (error) {
-      console.error('Error:', error);
     }
   }
   
