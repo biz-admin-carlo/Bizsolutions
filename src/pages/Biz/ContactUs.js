@@ -49,8 +49,8 @@ const ContactUs = () => {
                                         </div>
                                         <div className="col-sm-9">
                                             <p className='text-align-start'>
-                                                <a className='text-services-email' href="mailto:supportus@mybizsolutions.us?subject=Contact%20Support&body=Hi%20there,%20I%20need%20help%20with...">
-                                                    supportus@mybizsolutions.us
+                                                <a className='text-services-email' href="mailto:webdev@bizsolutions.us?subject=Contact%20Support&body=Hi%20there,%20I%20need%20help%20with...">
+                                                    webdev@bizsolutions.us
                                                 </a>
                                             </p>
                                         </div>

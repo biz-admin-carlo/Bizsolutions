@@ -38,20 +38,6 @@ import PageCustomerService from './components/Biz/Page_CustomerService';
 import PageSalesCollections from './components/Biz/Page_SalesCollections';
 import Cookies from './components/Biz/Application_Cookies';
 
-
-import FormsHome from './pages/Form/Landing';
-import FormsNavbar from './components/Form/Sidebar'
-
-function NavbarWrapper() {
-  const location = useLocation();
-
-  if (location.pathname === '/my-forms') {
-      return <FormsNavbar />;
-  }
-  return <AppNavbar />;
-}
-
-
 function App() {
   const [ user, setUser ] = useState({
     id: null,
@@ -83,7 +69,7 @@ function App() {
             <title>BizSolutions | Home</title>
           </Helmet>
         <ScrollToTop />
-          <NavbarWrapper />
+          <AppNavbar />;
           <Container />
               <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
@@ -143,10 +129,6 @@ function App() {
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
                     {/* <Route path="/admin-dashboard/:userId/users" element={<AdminUsers/>}/> */}
                     <Route path="/admin-dashboard/:userId/biz" element={<AdminAddBiz/>}/>
-
-
-                    {/* My Forms Project */}
-                    {/* <Route path="/my-forms" element={<FormsHome />}/> */}
 
                 </Routes>
               </Suspense>

@@ -58,7 +58,6 @@ const ReferralCode = ({ user }) => {
       setReferralToken(response.data.referralCode);
       setShowSuccessModal(true);
     } catch (error) {
-      console.error('Error fetching referral code:', error);
       setShowErrorModal(true);
     } finally {
       setLoading(false);
@@ -78,7 +77,6 @@ const ReferralCode = ({ user }) => {
       setReferralLink(response.data.referralLink);
       setShowSuccessModal(true);
     } catch (error) {
-      console.error('Error fetching referral link:', error);
       setShowErrorModal(true);
     } finally {
       setLoading(false);
