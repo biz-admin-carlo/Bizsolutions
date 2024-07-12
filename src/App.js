@@ -69,7 +69,7 @@ function App() {
             <title>BizSolutions | Home</title>
           </Helmet>
         <ScrollToTop />
-          <AppNavbar />;
+          <AppNavbar />
           <Container />
               <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
