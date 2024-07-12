@@ -80,7 +80,7 @@ export default function FreeTrialCard() {
             <Card className='card-shadow'>
                 <Card.Body className='ms-3'>
                     <Card.Title>Free Trial</Card.Title>
-                    <h3 className='card-text-amount'>Free</h3>
+                    <h3 className='card-text-amount'>Initiate Bizness with Us!</h3>
                     <Card.Subtitle className="mb-2 text-muted">Initiate Your Business With Us</Card.Subtitle>
 
                     <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleModalToggle}>Get Started</Button>

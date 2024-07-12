@@ -292,5 +292,5 @@ export default function AppNavbar() {
         </Navbar>
       )}
     </>
-  );
+  )
 }
