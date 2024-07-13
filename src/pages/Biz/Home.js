@@ -12,6 +12,9 @@ import HomeSalesCollection from '../../components/Biz/Home_SalesCollection.js';
 import HomeModal from '../../components/Biz/Home_Modal.js';
 import HomeTestimony from '../../components/Biz/Home_Testimony.js';
 import HomeNumbers from '../../components/Biz/Home_Numbers.js';
+import NewHomeCustomerService from '../../components/Biz/Home_New_CustomerService.js';
+import NewHomeSalesCollection from '../../components/Biz/Home_New_HomeSalesCollection.js';
+import NewHomeLanding from '../../components/Biz/Home_New_HomeLanding.js';
 
 export default function Home() {
 
@@ -36,6 +39,9 @@ export default function Home() {
       ) : (
         <>
           {!isSmallScreen && <div data-aos="fade-up"><HomeModal /></div>}
+            <div data-aos="fade-up"><NewHomeLanding /></div>
+            <div data-aos="fade-up"><NewHomeSalesCollection /></div>
+            <div data-aos="fade-up"><NewHomeCustomerService /></div>
             <div data-aos="fade-up"><HomeLanding /></div>
             <div data-aos="fade-up"><HomeTestimony /></div>
             <div data-aos="fade-up"><HomeNumbers /></div>
