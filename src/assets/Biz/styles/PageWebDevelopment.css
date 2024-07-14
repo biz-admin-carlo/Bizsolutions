@@ -6,9 +6,62 @@
     min-height: 95vh;
 }
 
+.section-container-website-development {
+    background-image: url(../../../assets/Biz/images/img-stock-bg.svg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.web-dev-h1, .web-dev-h5 {
+    font-size: 1rem;
+}
+
+@media (min-width: 576px) {
+    .web-dev-h1 {
+        font-size: 2.5rem;
+    }
+    .web-dev-h5 {
+        font-size: 1rem;
+        color: #FCF8F3;
+    }
+    .section-container-website-development {
+        padding: 50px;
+    }
+}
+
+@media (min-width: 768px) {
+    .web-dev-h1 {
+        font-size: 3rem;
+    }
+    .web-dev-h5 {
+        font-size: 1.25rem;
+        color: #FCF8F3;
+    }
+    .section-container-website-development {
+        padding: 100px;
+    }
+}
+
+@media (min-width: 992px) {
+    .web-dev-h1 {
+        font-size: 5rem;
+    }
+    .web-dev-h5 {
+        font-size: 2rem;
+        color: #FCF8F3;
+    }
+    .section-container-website-development {
+        padding: 200px;
+    }
+}
+
 .services-container {
     padding-top: 20px;
 }
+
 .text-services {
     font-size: 12px;
     text-transform: uppercase;
