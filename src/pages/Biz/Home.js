@@ -41,16 +41,16 @@ export default function Home() {
           {!isSmallScreen && <div data-aos="fade-up"><HomeModal /></div>}
             <div data-aos="fade-up"><NewHomeLanding /></div>
             <div data-aos="fade-up"><NewHomeSalesCollection /></div>
+            <div data-aos="fade-up"><HomeTestimony /></div>
             <div data-aos="fade-up"><NewHomeCustomerService /></div>
             <div data-aos="fade-up"><HomeLanding /></div>
-            <div data-aos="fade-up"><HomeTestimony /></div>
-            <div data-aos="fade-up"><HomeNumbers /></div>
             <div data-aos="fade-up"><HomeWebDevelopment /></div>
             <div data-aos="fade-up"><HomeWebRevamp /></div>
             <div data-aos="fade-up"><HomeTechnical /></div>
             <div data-aos="fade-up"><HomeBookkeeping /></div>
             <div data-aos="fade-up"><HomeSalesCollection /></div>
             <div data-aos="fade-up"><HomeCustomerService /></div>
+            <div data-aos="fade-up"><HomeNumbers /></div>
           <AppFooter />
         </>
       )}

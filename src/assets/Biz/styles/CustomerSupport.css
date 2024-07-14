@@ -8,8 +8,14 @@
 }
 
 .section-container-get {
-    padding: 150px; /* Adjust as needed */
+    padding: 180px; /* Adjust as needed */
     background-color: white;
+}
+
+.paragraph-text-behind {
+    font-size: 18px;
+    text-align: start;
+    color: black;
 }
 
 .section-container-video {
