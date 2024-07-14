@@ -33,8 +33,16 @@ const WebDevHome = () => {
 
 
             <div className='app-landing-page-service'>
+
+                <div className='section-container-website-development'>
+                    <div className='web-dev-div'>
+                        <h1 className='web-dev-h1'>Outsourcing</h1>
+                        <h1 className='web-dev-h1'>Redefined with Us</h1>
+                        <h5 className='web-dev-h5'>Expert Web Development Solutions</h5>
+                    </div>
+                </div>
+
                 <Container className="services-container mb-3 d-lg-block">
-                    
                     <div className="flex-container d-flex flex-column flex-lg-row">
                         
                         <div className='text-content pt-lg-5'>
@@ -128,6 +136,7 @@ const WebDevHome = () => {
 
 
                     </div>
+
                 </Container>
             </div>
             <AppFooter />
