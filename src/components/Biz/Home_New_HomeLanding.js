@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Container, Image } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import customerSupportImage from '../../assets/Biz/images/img-customer-support-stock.png';
 import '../../assets/Biz/styles/CustomerSupport.css';
 import stockVideo from '../../assets/Biz/videos/video-stock-landing.mp4';
 console.log(stockVideo);
@@ -15,7 +12,8 @@ const HomeLanding = () => {
         'of financial accuracy.',
         'of tech solutions.',
         'of customer connections.',
-        'of strategic sales.'
+        'of strategic sales.',
+        'of business analytics.'
     ];
 
     const [ currentTagline, setCurrentTagline ] = useState(0);
@@ -37,13 +35,28 @@ const HomeLanding = () => {
                 </video>
                 <div className="flex-row">
                     <div className="flex-col-video">
+                        <h1 className='title-brilliance pe-5'>
+                                Discover the Secret to Success
+                        </h1>
+                        <h1 className='title-secondary'>{taglines[currentTagline]}</h1>
+                    </div>
+                </div>
+            </div>
+
+            {/* <div className="section-container-video my-3">
+                <video autoPlay loop muted playsInline className="video-background">
+                    <source src={stockVideo} type="video/mp4" />
+                    Your browser does not support HTML5 video.
+                </video>
+                <div className="flex-row">
+                    <div className="flex-col-video">
                         <h1 className='title-brilliance px-5 ms-5'>
                                 Behind the brilliance
                         </h1>
                         <h1 className='title-secondary px-5 ms-5'>{taglines[currentTagline]}</h1>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 };
