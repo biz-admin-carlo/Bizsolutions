@@ -29,6 +29,7 @@ export default function AdminDashboard() {
   const [ adminId, setAdminId ] = useState(null);
   const [ activeBusinesses, setActiveBusinesses ] = useState(0);
   const [ inactiveBusinesses, setInactiveBusinesses ] = useState(0);
+  const [ currentBizName, setCurrentBizName ] = useState('');
 
   const totalPages = Math.ceil(businesses.length / itemsPerPage);
 
@@ -53,7 +54,8 @@ export default function AdminDashboard() {
     currentPage * itemsPerPage
   );
 
-  const openModal = (bizId) => {
+  const openModal = (bizId, bizName) => {
+    setCurrentBizName(bizName);
     setCurrentBizId(bizId);
     setShowModal(true);
     setAdminId(user._id);
@@ -279,7 +281,7 @@ export default function AdminDashboard() {
                     
                     <div className="d-flex justify-content-end">
                       {!biz.isArchived && <Button variant="danger" onClick={() => openArchiveModal(biz._id)}>Archive Biz</Button>}
-                      <Button className="mx-1" variant="warning" onClick={() => openModal(biz._id)}>Upload Biz Image</Button>
+                      <Button className="mx-1" variant="warning" onClick={() => openModal(biz._id, biz.alias)}>Upload Biz Image</Button>
                     </div>
                   </Accordion.Body>
               </Accordion.Item>
@@ -317,6 +319,7 @@ export default function AdminDashboard() {
             onRefreshBusinesses={refreshBusinessData}
             bizID={currentBizId} 
             adminId={adminId}
+            bizName={currentBizName}
           />
 
           <ArchiveBizModal 

@@ -1,9 +1,9 @@
 import { Modal, Button, Form } from 'react-bootstrap';
 import React, { useState } from 'react';
 import { uploadBizImage } from '../../utils/Biz/BizUtils'; 
-import FeedbackModal from './Admin_FeedbackModal'; // Import the FeedbackModal component
+import FeedbackModal from './Admin_FeedbackModal';
 
-export default function UploadImageModal({ show, handleClose, bizID, adminId, onRefreshBusinesses }) {
+export default function UploadImageModal({ show, handleClose, bizID, adminId, onRefreshBusinesses, bizName }) {
     const [file, setFile] = useState(null);
     const [feedbackModalShow, setFeedbackModalShow] = useState(false);
     const [feedbackTitle, setFeedbackTitle] = useState("");
@@ -25,7 +25,7 @@ export default function UploadImageModal({ show, handleClose, bizID, adminId, on
             return;
         }
         try {
-            const result = await uploadBizImage(file, adminId, bizID);
+            const result = await uploadBizImage(file, adminId, bizID, bizName);
             showFeedbackModal("Success", "Image uploaded successfully!");
             if (onRefreshBusinesses) {
                 onRefreshBusinesses(); // Trigger data refresh in the parent component
