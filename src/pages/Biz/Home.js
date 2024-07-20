@@ -2,19 +2,20 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../UserContext.js';
 import AppFooter from '../../components/Biz/Application_Footer';
-import HomeLanding from '../../components/Biz/Home_Landing.js'
-import HomeWebDevelopment from '../../components/Biz/Home_WebDevelopment.js';
-import HomeWebRevamp from '../../components/Biz/Home_WebRevamp.js';
-import HomeBookkeeping from '../../components/Biz//Home_Bookkeeping.js';
-import HomeTechnical from '../../components/Biz/Home_Technical.js';
-import HomeCustomerService from '../../components/Biz/Home_CustomerService.js';
-import HomeSalesCollection from '../../components/Biz/Home_SalesCollection.js';
+import MainLanding from '../../components/Biz/Home_Landing.js'
+import WebDevelopmentServices from '../../components/Biz/Home_WebDevelopment.js';
+import NEWWebDevelopmentServices from '../../components/Biz/Home_NewWebDevelopment.js';
+import WebRevampServices from '../../components/Biz/Home_WebRevamp.js';
+import BookkeepingServices from '../../components/Biz//Home_Bookkeeping.js';
+import TechnicalServices from '../../components/Biz/Home_Technical.js';
+import CustomerServiceContacts from '../../components/Biz/Home_CustomerService.js';
+import SalesHighlights from '../../components/Biz/Home_SalesCollection.js';
 import HomeModal from '../../components/Biz/Home_Modal.js';
-import HomeTestimony from '../../components/Biz/Home_Testimony.js';
-import HomeNumbers from '../../components/Biz/Home_Numbers.js';
-import NewHomeCustomerService from '../../components/Biz/Home_New_CustomerService.js';
-import NewHomeSalesCollection from '../../components/Biz/Home_New_HomeSalesCollection.js';
-import NewHomeLanding from '../../components/Biz/Home_New_HomeLanding.js';
+import CustomerTestimonials from '../../components/Biz/Home_Testimony.js';
+import KeyFigures from '../../components/Biz/Home_Numbers.js';
+import CustomerSupport from '../../components/Biz/Home_New_CustomerService.js';
+import PropertiesForSale from '../../components/Biz/Home_New_HomeSalesCollection.js';
+import FeaturedProperties from '../../components/Biz/Home_New_HomeLanding.js';
 
 export default function Home() {
 
@@ -39,18 +40,19 @@ export default function Home() {
       ) : (
         <>
           {!isSmallScreen && <div data-aos="fade-up"><HomeModal /></div>}
-            <div data-aos="fade-up"><NewHomeLanding /></div>
-            <div data-aos="fade-up"><NewHomeSalesCollection /></div>
-            <div data-aos="fade-up"><HomeTestimony /></div>
-            <div data-aos="fade-up"><NewHomeCustomerService /></div>
-            <div data-aos="fade-up"><HomeLanding /></div>
-            <div data-aos="fade-up"><HomeWebDevelopment /></div>
-            <div data-aos="fade-up"><HomeWebRevamp /></div>
-            <div data-aos="fade-up"><HomeTechnical /></div>
-            <div data-aos="fade-up"><HomeBookkeeping /></div>
-            <div data-aos="fade-up"><HomeSalesCollection /></div>
-            <div data-aos="fade-up"><HomeCustomerService /></div>
-            <div data-aos="fade-up"><HomeNumbers /></div>
+            <div data-aos="fade-up"><FeaturedProperties /></div>
+            <div data-aos="fade-up"><PropertiesForSale /></div>
+            <div data-aos="fade-up"><CustomerTestimonials /></div>
+            <div data-aos="fade-up"><CustomerSupport /></div>
+            <div data-aos="fade-up"><NEWWebDevelopmentServices /></div>
+            <div data-aos="fade-up"><MainLanding /></div>
+            {/* <div data-aos="fade-up"><WebDevelopmentServices /></div> */}
+            <div data-aos="fade-up"><WebRevampServices /></div>
+            {/* <div data-aos="fade-up"><TechnicalServices /></div> */}
+            <div data-aos="fade-up"><BookkeepingServices /></div>
+            <div data-aos="fade-up"><SalesHighlights /></div>
+            {/* <div data-aos="fade-up"><CustomerServiceContacts /></div> */}
+            <div data-aos="fade-up"><KeyFigures /></div>
           <AppFooter />
         </>
       )}

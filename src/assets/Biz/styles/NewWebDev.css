@@ -1,0 +1,30 @@
+.new-webdev-container {
+    display: flex;             
+    align-items: center;       
+    justify-content: center;   
+    gap: 20px;              
+    background-color: black;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.new-webdev-text {
+    max-width: 600px;          
+    margin-left: 50px;
+}
+
+.new-webdev-image {
+    width: 600px; 
+    height: auto; 
+}
+
+.title-webdev-text {
+    font-size: 3.8rem;
+    color: white !important;
+}
+
+.paragraph-webdev-text {
+    font-size: 18px;
+    text-align: start;
+    color: whitesmoke;
+}
