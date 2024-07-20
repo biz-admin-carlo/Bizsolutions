@@ -43,17 +43,19 @@ const HomeLanding = () => {
                 </div>
             </div>
 
-            <div className="section-container-video my-3">
-                <video autoPlay loop muted playsInline className="video-background">
-                    <source src={stockVideo} type="video/mp4" />
-                    Your browser does not support HTML5 video.
-                </video>
-                <div className="flex-row">
-                    <div className="flex-col-video">
-                        <h1 className='title-brilliance pe-5'>
-                                Discover the Secret to Success
-                        </h1>
-                        <h1 className='title-secondary'>{taglines[currentTagline]}</h1>
+            <div class="d-none d-md-block d-lg-none">
+                <div className="section-container-video my-3">
+                    <video autoPlay loop muted playsInline className="video-background">
+                        <source src={stockVideo} type="video/mp4" />
+                        Your browser does not support HTML5 video.
+                    </video>
+                    <div className="flex-row">
+                        <div className="flex-col-video">
+                            <h1 className='title-brilliance pe-5'>
+                                    Discover the Secret to Success
+                            </h1>
+                            <h1 className='title-secondary'>{taglines[currentTagline]}</h1>
+                        </div>
                     </div>
                 </div>
             </div>
