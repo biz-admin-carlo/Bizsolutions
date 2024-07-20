@@ -2,13 +2,21 @@ import axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export async function uploadBizImage(image, userID, bizID) {
+function toSnakeCase(str) {
+    return str
+        .replace(/[\s&-]+/g, '_')  
+        .replace(/[^a-z0-9_]/gi, '') 
+        .toLowerCase();
+}
+
+export async function uploadBizImage(image, userID, bizID, bizName) {
     const formData = new FormData();
+    const snakeCaseBizName = toSnakeCase(bizName);
     formData.append('image', image);
     formData.append('userID', userID);
     formData.append('bizID', bizID);
     try {
-        const response = await axios.post(`${apiUrl}/api/v1/biz/upload/biz-image`, formData, {
+        const response = await axios.post(`${apiUrl}/api/v1/biz/upload/biz-image?bizName=${snakeCaseBizName}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -169,3 +177,16 @@ export const getMyCreatedBiz = async () => {
         throw error; 
     }
 };
+
+export const getBizName = async (bizID) => {
+    console.log("Hellos!")
+    const url = `${apiUrl}/api/v1/biz/${bizID}`;
+    try {
+        const response = await axios.get(url, {
+        });
+        console.log(response);
+        return response.data.alias; 
+    } catch (error) {
+        throw error; 
+    }
+}
