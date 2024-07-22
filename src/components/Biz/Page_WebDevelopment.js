@@ -5,6 +5,8 @@ import { Helmet } from 'react-helmet';
 import AppFooter from './Application_Footer';
 import { Image } from 'react-bootstrap';
 import WebDevImage from '../../assets/Biz/images/img-partnership.jpg';
+import WebDevImageOne from '../../assets/Biz/images/img-digital-corporate.jpg';
+
 import '../../assets/Biz/styles/PageWebDevelopment.css';
 
 const WebDevHome = () => {
@@ -157,7 +159,7 @@ const WebDevHome = () => {
                 <div class="d-none d-lg-block">
                     <div className="webdev-container py-lg-5">
                         <div>
-                            <Image className="new-webdev-image" src={WebDevImage} alt="Group of people talking with each other" />
+                            <Image className="new-webdev-image" src={WebDevImageOne} alt="Corporate People in Tech Industry" />
                         </div>
                         <div className="new-webdev-text">
                             <h1 className='title-webdev-text text-start'>A Path To Digital Success</h1>    
