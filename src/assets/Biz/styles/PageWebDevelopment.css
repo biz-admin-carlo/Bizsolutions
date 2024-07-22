@@ -150,3 +150,34 @@ h6 a:active .email-text {
     align-items: center;
     flex-direction: column;
 }
+
+.webdev-container {
+    display: flex;             
+    align-items: center;       
+    justify-content: center;   
+    gap: 20px;              
+    background-color: #FF851A;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.one-webdev-container {
+    display: flex;             
+    align-items: center;       
+    justify-content: center;   
+    gap: 20px;              
+    background-color: white;
+    margin-bottom: 100px;
+    margin-top: 100px;
+}
+
+.title-webdev-h1 {
+    font-size: 3.8rem;
+    color: #000000 !important;
+}
+
+.p-webdev-text {
+    font-size: 16px;
+    text-align: start;
+    color: whitesmoke !important;
+}

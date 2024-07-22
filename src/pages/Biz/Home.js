@@ -40,11 +40,11 @@ export default function Home() {
       ) : (
         <>
           {!isSmallScreen && <div data-aos="fade-up"><HomeModal /></div>}
-            <div data-aos="fade-up"><FeaturedProperties /></div>
+            <div data-aos="fade-up"><FeaturedProperties /></div> {/* Landing Page */}
             <div data-aos="fade-up"><PropertiesForSale /></div>
-            <div data-aos="fade-up"><CustomerTestimonials /></div>
-            <div data-aos="fade-up"><CustomerSupport /></div>
-            <div data-aos="fade-up"><NEWWebDevelopmentServices /></div>
+            <div data-aos="fade-up"><CustomerTestimonials /></div> {/* Customer Testimony */}
+            <div data-aos="fade-up"><CustomerSupport /></div> {/* Customer Support Service */}
+            <div data-aos="fade-up"><NEWWebDevelopmentServices /></div> {/* Technical & IT Support Service */}
             <div data-aos="fade-up"><MainLanding /></div>
             {/* <div data-aos="fade-up"><WebDevelopmentServices /></div> */}
             <div data-aos="fade-up"><WebRevampServices /></div>

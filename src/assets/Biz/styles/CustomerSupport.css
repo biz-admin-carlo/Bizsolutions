@@ -26,6 +26,7 @@
 .title-brilliance {
     font-size: 5.8rem;
     color: white !important;
+    padding-right: 5rem;
 }
 
 .title-brilliance-sales {
@@ -109,4 +110,25 @@
 .text-secondary-long {
     color: orange;
     font-style: italic;
+}
+
+@media (max-width: 991px) {
+    .title-brilliance {
+        font-size: 4rem;
+    }
+}
+
+/* For small screens (e.g., large phones) */
+@media (max-width: 767px) {
+    .title-brilliance {
+        font-size: 3rem;
+    }
+}
+
+/* For extra small screens (e.g., small phones) */
+@media (max-width: 575px) {
+    .title-brilliance {
+        font-size: 2rem;
+        padding-right: 1rem; /* Reduce padding on very small screens */
+    }
 }

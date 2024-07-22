@@ -32,6 +32,15 @@ const TechnicalPage = () => {
             </Helmet>
 
             <div className='app-landing-page-service'>
+
+            <div className='section-container-website-development'>
+                    <div className='web-dev-div'>
+                        <h1 className='web-dev-h1'>Elevate</h1>
+                        <h1 className='web-dev-h1'>Technical Support with us</h1>
+                        <h5 className='web-dev-h5'>Expert In Technical Support Service</h5>
+                    </div>
+                </div>
+
                 <Container className="services-container mb-3 d-lg-block">
                     
                     <div className="flex-container d-flex flex-column flex-lg-row">
