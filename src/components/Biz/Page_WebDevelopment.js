@@ -3,6 +3,8 @@ import { Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; 
 import AppFooter from './Application_Footer';
+import { Image } from 'react-bootstrap';
+import WebDevImage from '../../assets/Biz/images/img-partnership.jpg';
 import '../../assets/Biz/styles/PageWebDevelopment.css';
 
 const WebDevHome = () => {
@@ -41,6 +43,19 @@ const WebDevHome = () => {
                         <h5 className='web-dev-h5'>Expert Web Development Solutions</h5>
                     </div>
                 </div>
+                
+                <div class="d-none d-lg-block">
+                    <div className="webdev-container py-lg-5">
+                        <div>
+                            <Image className="new-webdev-image" src={WebDevImage} alt="Group of people talking with each other" />
+                        </div>
+                        <div className="new-webdev-text">
+                            <h1 className='title-webdev-text text-end'>Your Partner in Digital Success</h1>    
+                            <p className='paragraph-webdev-text text-end pt-lg-3'>BizSolutions crafts websites that engage and convert, using the latest technologies for optimal design, performance, and visibility.</p>
+                        </div>
+                    </div>
+                </div>
+
 
                 <Container className="services-container mb-3 d-lg-block">
                     <div className="flex-container d-flex flex-column flex-lg-row">
@@ -53,7 +68,7 @@ const WebDevHome = () => {
 
                                 <div className='text-intro-landing pb-lg-4'>
 
-                                    <h2 className='pb-3 text-dark'>Website Development Services</h2>
+                                    {/* <h2 className='pb-3 text-dark'>Website Development Services</h2>
 
                                     <p className='text-intro-landing'>In today's digital era, your website is more than just an online brochure; it's the centerpiece of your digital marketing efforts, the first point of contact for many potential customers. However, is your current website living up to its potential? Are you attracting new customers and effectively converting visitors into leads?</p>
 
@@ -61,7 +76,7 @@ const WebDevHome = () => {
                                     Introducing BizSolutions - Your Partner in Digital Success
                                     </h4>
 
-                                    <p className='text-intro-landing'>At <span className='biz-color'>BizSolutions</span>, we don't just build websites; we create digital experiences that resonate with your target audience, drive user engagement, and foster conversions. Our team of seasoned developers, designers, and digital strategists leverages the latest technologies and design trends to craft websites that are not only visually stunning but also optimized for performance, usability, and search engine visibility.</p>
+                                    <p className='text-intro-landing'>At <span className='biz-color'>BizSolutions</span>, we don't just build websites; we create digital experiences that resonate with your target audience, drive user engagement, and foster conversions. Our team of seasoned developers, designers, and digital strategists leverages the latest technologies and design trends to craft websites that are not only visually stunning but also optimized for performance, usability, and search engine visibility.</p> */}
 
                                     <h4 className='pb-3 text-dark'>
                                     Why Choose BizSolutions for Website Development?
@@ -118,7 +133,7 @@ const WebDevHome = () => {
                             )}
                         </div>
 
-                        <div>
+                        {/* <div>
                             <h2 className='py-3 text-dark'>
                                 Take the First Step Towards a Winning Digital Strategy
                             </h2>
@@ -132,12 +147,24 @@ const WebDevHome = () => {
                             <p className='text-intro-landing'>
                                 Ready to transform your online presence? Contact us today for a free consultation. Discover how our innovative website development services can help you achieve your online goals and drive real business results. Let <span className='biz-color'>BizSolutions</span> be the partner you need for digital success in a competitive online world.
                             </p>
-                        </div>
+                        </div> */}
 
 
                     </div>
 
                 </Container>
+
+                <div class="d-none d-lg-block">
+                    <div className="webdev-container py-lg-5">
+                        <div>
+                            <Image className="new-webdev-image" src={WebDevImage} alt="Group of people talking with each other" />
+                        </div>
+                        <div className="new-webdev-text">
+                            <h1 className='title-webdev-text text-start'>A Path To Digital Success</h1>    
+                            <p className='p-webdev-text text-start pt-lg-3'>Your website should be a strong marketing tool, attracting and converting your target audience. Work with BizSolutions for modern, effective web solutions.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <AppFooter />
         </>
