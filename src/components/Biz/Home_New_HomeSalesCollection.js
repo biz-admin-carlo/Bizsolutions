@@ -20,7 +20,7 @@ const HomeSalesCollection = () => {
             </Container>
         </div>
 
-        <div>
+        <div className="d-lg-none">
             <Container className="section-container-get my-3">
                 <div className="flex-row">
                     <div className="flex-col ">
