@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
-import { Container, Row, Col, Card, ListGroup, Tab, Button, Modal } from 'react-bootstrap';
-import { FaPlus, FaUpload } from 'react-icons/fa';
+import { Container, Row, Col, Card, ListGroup, Tab, Button } from 'react-bootstrap';
 
 import AccountDetails from './AccountInfo_AccountDetails.js';
 import Messages from './AccountInfo_Messages.js';
-import ManageBiz from './AccountInfo_ManageBiz.js';
 import NewsFeed from './AccountInfo_NewsFeed.js';
 import Feedbacks from './AccountInfo_Feedbacks.js';
 import ChangePassword from './AccountInfo_ChangePassword.js';
@@ -19,7 +17,6 @@ import BarSpinner from './Reusable_BarSpinner.js';
 import AppFooter from './Application_Footer.js';
 
 import '../../assets/Biz/styles/AccountInfo.css';
-import { uploadUserAvatar } from '../../utils/Biz/UserUtils.js';
 
 import UserContext from '../../UserContext.js';
 
@@ -34,8 +31,6 @@ export default function AccountInfo() {
   const [ userId, setUserId ] = useState('');
   const [ isLoading, setIsLoading ] = useState(true);
   const [ showIcon, setShowIcon ] = useState(true);
-  const [file, setFile] = useState(null);
-  const [ showModal, setShowModal ] = useState(true);
   
   const handleAdminDashboardClick = () => {
     navigate(`/admin-dashboard/${userId}/`);
@@ -88,8 +83,6 @@ export default function AccountInfo() {
                   position: 'relative',
                   display: 'inline-block'
               }} onMouseEnter={() => setShowIcon(true)} onMouseLeave={() => setShowIcon(false)}>
-                {/* }}> */}
-
                   <Avatar name={`${user.firstName} ${user.lastName}`} size={50}  />
               </div>
 
@@ -130,9 +123,6 @@ export default function AccountInfo() {
                 <ListGroup.Item action onClick={handleLogout}>
                   Logout
                 </ListGroup.Item>
-                {/* <ListGroup.Item action href="#manage-biz">
-                  Manage Business
-                </ListGroup.Item> */}
               </ListGroup>
 
               {(user.isAdmin &&
@@ -161,9 +151,6 @@ export default function AccountInfo() {
                 <Tab.Pane eventKey="#delete-account">
                   <DeleteAccount user={user} />
                 </Tab.Pane>
-                {/* <Tab.Pane eventKey="#manage-biz">
-                  <ManageBiz user={user} />
-                </Tab.Pane> */}
                 <Tab.Pane eventKey="#referral-code">
                   <ReferralCode user={user} />
                 </Tab.Pane>
@@ -175,24 +162,6 @@ export default function AccountInfo() {
           </Row>
         </Tab.Container>
     </Container>
-
-    {/* <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Upload Avatar</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <input type="file" onChange={e => setFile(e.target.files[0])} />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleUploadClick}>
-            Upload
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
-
     <AppFooter />
     </>
   );

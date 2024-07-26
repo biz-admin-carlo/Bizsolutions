@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { getBizViaCoords, getBizViaState, haversineDistance } from '../../utils/Biz/ClientUtils';
+import { getBizViaCoords, getBizViaState } from '../../utils/Biz/ClientUtils';
 import { Card, Badge, Pagination } from 'react-bootstrap';
 import '../../assets/Biz/styles/SearchResult.css';
 
 const defaultImage = 'https://mybizsolutions.us/static/media/icon-app-logo.83ff8bf39a11df9fb7ac.jpg';
 
 export default function SearchState({location, category}) {
-    const [ latitude, setLatitude ] = useState(0);
-    const [ longitude, setLongitude ] = useState(0);
     const [ businesses, setBusinesses ] = useState([]);
     const [ currentPage, setCurrentPage ] = useState(1);
     const itemsPerPage = 12;

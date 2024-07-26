@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../../assets/Biz/styles/CustomerSupport.css';
 import stockVideo from '../../assets/Biz/videos/video-stock-landing.mp4';
-console.log(stockVideo);
 
-const HomeLanding = () => {
+const SectionA = () => {
 
     const taglines = [
         'of website innovation.',
@@ -28,7 +27,7 @@ const HomeLanding = () => {
 
     return (
         <>
-            <div className="section-container-video my-3 d-none d-lg-block">
+            <div className="section-container-video my-3">
                 <video autoPlay loop muted playsInline className="video-background">
                     <source src={stockVideo} type="video/mp4" />
                     Your browser does not support HTML5 video.
@@ -42,25 +41,8 @@ const HomeLanding = () => {
                     </div>
                 </div>
             </div>
-
-            <div class="d-none d-md-block d-lg-none">
-                <div className="section-container-video my-3">
-                    <video autoPlay loop muted playsInline className="video-background">
-                        <source src={stockVideo} type="video/mp4" />
-                        Your browser does not support HTML5 video.
-                    </video>
-                    <div className="flex-row">
-                        <div className="flex-col-video">
-                            <h1 className='title-brilliance pe-5'>
-                                    Discover the Secret to Success
-                            </h1>
-                            <h1 className='title-secondary'>{taglines[currentTagline]}</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </>
     );
 };
 
-export default HomeLanding;
+export default SectionA;

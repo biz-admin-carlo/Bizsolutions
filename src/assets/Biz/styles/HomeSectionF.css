@@ -1,0 +1,40 @@
+.paragraph-secondary-f {
+    color: #686D76 !important;
+    font-size: .9rem;
+    text-align: justify;
+    position: relative; 
+    padding-right: 80px; 
+}
+
+.title-other-f {
+    font-size: 4.5rem;
+    color: #FF851A;
+    text-align: center;    
+    text-transform: uppercase;
+}
+
+.title-secondary-f {
+    font-size: 2.5rem;
+    color: #232B2B !important;
+    margin: 0;
+}
+
+@media (max-width: 991px) {
+    .paragraph-secondary-f {
+        font-size: .9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .paragraph-secondary-f {
+        font-size: .7rem;
+        text-align: justify;
+        padding: 0px;
+    }.title-other-f {
+        font-size: 2.7rem;
+        text-transform: uppercase;
+    }
+    .title-secondary-f {
+        font-size: 2rem;
+    }
+}

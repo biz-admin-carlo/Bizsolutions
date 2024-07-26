@@ -1,0 +1,33 @@
+.title-other {
+    font-size: 4.5rem;
+    color: #FF851A;
+    text-align: center;    
+    text-transform: uppercase;
+}
+
+.title-secondary-other {
+    font-size: 2.5rem;
+    color: #232B2B !important;
+    margin: 0;
+}
+
+.flex-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px; 
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.paragraph-secondary {
+    color: #686D76 !important;
+    font-size: .9rem;
+    text-align: justify;
+    position: relative; 
+    padding-right: 80px; 
+}
+
+.see-more {
+    font-size: 1rem;
+    color: #232B2B !important;
+}

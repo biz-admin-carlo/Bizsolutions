@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import Typings from './Pricing_TypingsEffect.js'
 import FreeTrial from './Pricing_FreeTrial.js';
 import Trial15 from './Pricing_Trial15.js';
-import BundleStarter from './Pricing_WebDevBundleStarter.js';
-import BundleAdvanced from './Pricing_WebDevBundleAdvanced.js';
-import BundleExpert from './Pricing_WebDevBundleExpert.js';
 
 const Pricing_SectionB = () => {
     const [ loadVideo, setLoadVideo ] = useState(false);

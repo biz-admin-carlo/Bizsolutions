@@ -32,7 +32,7 @@
 }
 
 .learn-more {
-    color: #FF851A;
+    color: #FF851A !important;
     text-decoration: none;
 }
 
