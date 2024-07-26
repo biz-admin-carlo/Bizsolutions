@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; 
 import AppFooter from './Application_Footer';
 import { Image } from 'react-bootstrap';
 import WebDevImage from '../../assets/Biz/images/img-partnership.jpg';
 import WebDevImageOne from '../../assets/Biz/images/img-digital-corporate.jpg';
+import PropertiesForSale from './Home_New_HomeSalesCollection.js';
+
 
 import '../../assets/Biz/styles/PageWebDevelopment.css';
 

@@ -7,6 +7,11 @@
     background-color: #FF851A;
 }
 
+.see-more-team {
+    font-size: 1rem;
+    color: #686D76 !important;
+}
+
 .section-container-get {
     padding: 180px; /* Adjust as needed */
     background-color: white;
@@ -36,7 +41,7 @@
 
 .title-secondary {
     font-size: 4rem;
-    color: white !important;
+    color: #FF851A !important;
     
 }
 

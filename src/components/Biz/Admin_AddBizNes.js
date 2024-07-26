@@ -1,20 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Axios from 'axios';
-import { Container, Table } from 'react-bootstrap';
-
+import { Container } from 'react-bootstrap';
 import BarSpinner from './Reusable_BarSpinner.js';
-import BizLanding from './Biz_Landing.js'; 
 import BizAdd from './Biz_AddBiz.js';
 import BizRegistration from './Biz_Registration.js';
-import AppFooter from './Application_Footer.js';
-
 import '../../assets/Biz/styles/AccountInfo.css';
-
 import UserContext from '../../UserContext.js';
-
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export default function UsersInfo() {
+export default function AddBizNes() {
 
   const { user, setUser } = useContext(UserContext);
   const [ userId, setUserId ] = useState('');
