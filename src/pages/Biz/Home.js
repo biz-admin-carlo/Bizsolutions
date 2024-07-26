@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../UserContext.js';
-import SectionA from '../../components/Biz/Home_New_HomeLanding.js';
-import SectionB from '../../components/Biz/Home_New_HomeSalesCollection.js';
-import SectionC from '../../components/Biz/Home_Testimony.js';
-import SectionD from '../../components/Biz/Home_New_CustomerService.js';
-import SectionE from '../../components/Biz/Home_NewWebDevelopment.js';
-import SectionF from '../../components/Biz/Home_OtherServices.js';
-import SectionG from '../../components/Biz/Home_Landing.js';
-import SectionH from '../../components/Biz/Home_Numbers.js';
+import SectionA from '../../components/Biz/Home_SectionA.js';
+import SectionB from '../../components/Biz/Home_SectionB.js';
+import SectionC from '../../components/Biz/Home_SectionC.js';
+import SectionD from '../../components/Biz/Home_SectionD.js';
+import SectionE from '../../components/Biz/Home_SectionE.js';
+import SectionF from '../../components/Biz/Home_SectionF.js';
+import SectionG from '../../components/Biz/Home_SectionG.js';
+import SectionH from '../../components/Biz/Home_SectionH.js';
 import SectionFooter from '../../components/Biz/Application_Footer';
 
 export default function Home() {

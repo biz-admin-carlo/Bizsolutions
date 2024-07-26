@@ -7,8 +7,6 @@ import AppFooter from './Application_Footer';
 import { Image } from 'react-bootstrap';
 import WebDevImage from '../../assets/Biz/images/img-partnership.jpg';
 import WebDevImageOne from '../../assets/Biz/images/img-digital-corporate.jpg';
-import PropertiesForSale from './Home_New_HomeSalesCollection.js';
-
 
 import '../../assets/Biz/styles/PageWebDevelopment.css';
 

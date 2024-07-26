@@ -4,7 +4,7 @@ import Select from 'react-select';
 import { Country, State, City } from 'country-state-city';
 import { Container, Form, Col, Row } from 'react-bootstrap';
 import { BiLoaderCircle, BiCheckDouble, BiXCircle, BiInfoCircle } from "react-icons/bi";
-import HomeTestimony from './Home_Testimony.js';
+import HomeTestimony from './Home_SectionC.js';
 import SuccessBox from './Biz_Success.js';
 import FailBox from './Biz_Failure.js';
 import { submitBizRegistration } from '../../utils/Biz/BizUtils.js';

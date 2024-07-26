@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import '../../assets/Biz/styles/NumbersHome.css';
 import useTypingEffect from './Home_TypingEffect';
+import '../../assets/Biz/styles/HomeSectionH.css';
 
 
-const Numbers = () => {
+const HomeSectionH = () => {
     const count1 = useTypingEffect(7999, 8000);
     const count2 = useTypingEffect(2999, 8000);
     const count3 = useTypingEffect(1999, 8000);
@@ -12,7 +12,7 @@ const Numbers = () => {
 
     return (
         <>
-            <Container className="my-5 text-center d-none d-lg-block">
+            <Container className="my-5 text-center">
                 <div className="landing-container-numbers py-5">
                     <h3 className="numbers-text">Here at <span className='biz-color-white'> BizSolutions </span> we are currently provides this service to our loyal customers!</h3>
                     <div className="numbers-flex pt-lg-5">
@@ -45,4 +45,4 @@ const Numbers = () => {
     );
 };
 
-export default Numbers;
+export default HomeSectionH;
