@@ -15,7 +15,7 @@
     background-color: rgba(255, 255, 255, 0.9);
 }
 
-.web-dev-h1, .web-dev-h5 {
+.web-dev-h1, .landing-dev-h5 {
     font-size: 1rem;
 }
 
@@ -23,7 +23,7 @@
     .web-dev-h1 {
         font-size: 2.5rem;
     }
-    .web-dev-h5 {
+    .landing-dev-h5 {
         font-size: 1rem;
         color: #FCF8F3;
     }
@@ -36,7 +36,7 @@
     .web-dev-h1 {
         font-size: 3rem;
     }
-    .web-dev-h5 {
+    .landing-dev-h5 {
         font-size: 1.25rem;
         color: #FCF8F3;
     }
@@ -49,7 +49,7 @@
     .web-dev-h1 {
         font-size: 5rem;
     }
-    .web-dev-h5 {
+    .landing-dev-h5 {
         font-size: 2rem;
         color: #FCF8F3;
     }

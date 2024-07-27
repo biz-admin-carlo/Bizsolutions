@@ -37,7 +37,7 @@ const TechnicalPage = () => {
                     <div className='web-dev-div'>
                         <h1 className='web-dev-h1'>Elevate</h1>
                         <h1 className='web-dev-h1'>Technical Support with us</h1>
-                        <h5 className='web-dev-h5'>Expert In Technical Support Service</h5>
+                        <h5 className='landing-dev-h5'>Expert In Technical Support Service</h5>
                     </div>
                 </div>
 
