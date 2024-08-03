@@ -1,12 +1,13 @@
 import React from 'react';
 import '../../assets/Biz/styles/WebDevelopment.css';
-import { Image } from 'react-bootstrap';
+import { Image, Container } from 'react-bootstrap';
 import WebDevImageOne from '../../assets/Biz/images/img-customer-service-section-c-2.avif';
 
 const BookkeepingSectionE = () => {
 
     return (
         
+        <Container>
         <div>
             <div className="webdev-div-container-secondary py-lg-5">
                 <div>
@@ -18,6 +19,8 @@ const BookkeepingSectionE = () => {
                 </div>
             </div>
         </div>
+        </Container>
+
     );
 };
 

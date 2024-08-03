@@ -25,7 +25,6 @@
     align-items: center;       
     justify-content: center;   
     gap: 20px;              
-    background-color: #F6F6F6;
     flex-wrap: wrap;
 }
 
@@ -139,6 +138,26 @@ h1 {
 }
 
 @media (max-width: 576px) {
+    .section-landing-website-development {
+        padding: 50px 20px; 
+    }
+
+    .landing-dev-h5 {
+        color: #F6F6F6 !important;
+    }
+
+    .div-webdev-text {
+        align-items: center; 
+    }
+
+    .title-webdev-h2-secondary {
+        font-size: 1.2em;
+    }
+
+    .paragraph-webdev-p-secondary {
+        font-size: 0.85em;
+    }
+
     .text-services, .text-intro-landing, h1 {
         font-size: smaller;
     }
@@ -170,6 +189,10 @@ h1 {
 
     .web-dev-h1 {
         font-size: 2.5rem; 
+    }
+    
+    .div-margin {
+        margin-top: 20px;
     }
 }
 

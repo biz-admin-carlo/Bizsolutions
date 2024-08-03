@@ -1,61 +1,29 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import '../../assets/Biz/styles/HomeSectionF.css';
+import '../../assets/Biz/styles/HomeSectionE.css';
 
-const HomeSalesCollection = () => {
+const SectionF = () => {
     return (
         <>
-        <div className="d-lg-block">
-            <Container className="section-container-get my-3">
-                <div className="flex-row">
-                    <div className="flex-col" data-aos="fade-up">
-                        <h1 className='title-other-f'>
-                            Other Services That We Provide 
-                        </h1>           
-
-                        <div className='pt-5 flex-container' data-aos="fade-up">
-                            <h2 className='title-secondary-f'>
-                                Web Revamp
-                            </h2>  
-                            <p className='paragraph-secondary-f'>
-                                Upgrade your online presence with our targeted website revamp services. We transform your existing site into a modern, responsive, and visually appealing platform that engages and retains visitors. Our team enhances usability and performance, ensuring your site meets today's digital standards. Elevate your brand and captivate your audience with our comprehensive revamp solutions.
-                                <Link to="/website-revamp-solutions" style={{ textDecoration: 'none' }}>
-                                <p className='pt-3 see-more text-end learn-more'>See More ...</p>
-                                </Link>
-                            </p>
-                        </div>
-
-                        <div className='pt-5 flex-container' data-aos="fade-up">
-                            <h2 className='title-secondary-f'>
-                                Bookkeeping
-                            </h2>  
-                            <p className='paragraph-secondary-f'>
-                                Keep your financial records accurate and up-to-date with our professional bookkeeping services. We provide meticulous attention to detail, ensuring your finances are well-organized and compliant, giving you more time to focus on growing your business.
-                                <Link to="/bookkeeping-services" style={{ textDecoration: 'none' }}>
-                                    <p className='pt-3 see-more text-end learn-more'>See More ...</p>
-                                </Link>
-                            </p>
-                        </div>
-
-                        <div className='pt-5 flex-container' data-aos="fade-up">
-                            <h2 className='title-secondary-f'>
-                                Sales & Collections
-                            </h2>  
-                            <p className='paragraph-secondary-f'>
-                                Boost your revenue with our expert sales and collections services. We combine strategic insight with persuasive communication skills to effectively manage sales and collections, driving better business outcomes for you.
-                                <Link to="/sales-collection-services" style={{ textDecoration: 'none' }}>
-                                <p className='pt-3 see-more text-end learn-more'>See More ...</p>
-                                </Link>
-                            </p>
-                        </div>
-
+        <div class=" d-lg-block">
+            <div className="white-webdev-container py-lg-5">
+                <div className="new-webdev-text">
+                    <div className='text-center'>
+                        <h6 className='secondary-webdev-text'>Other Services</h6>
                     </div>
+                    <h1 className='dark-title-webdev-text text-center'>Website Revamp</h1>    
+                    <p className='dark-paragraph-webdev-text text-center pt-lg-3'>Upgrade your online presence with our targeted website revamp services. We transform your existing site into a modern, responsive, and visually appealing platform that engages and retains visitors. Our team enhances usability and performance, ensuring your site meets today's digital standards. Elevate your brand and captivate your audience with our comprehensive revamp solutions.</p>
+
+                    <p className='paragraph-webdev-text text-center pt-lg-3'>
+                        <Link to="/website-revamp-solutions" style={{ color: 'black' }}>
+                            Learn more
+                        </Link>
+                    </p>
                 </div>
-            </Container>
+            </div>
         </div>
         </>
     );
 };
 
-export default HomeSalesCollection;
+export default SectionF;

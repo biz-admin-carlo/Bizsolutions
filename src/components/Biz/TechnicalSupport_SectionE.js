@@ -1,12 +1,12 @@
 import React from 'react';
 import '../../assets/Biz/styles/WebDevelopment.css';
-import { Image } from 'react-bootstrap';
+import { Image, Container } from 'react-bootstrap';
 import WebDevImageOne from '../../assets/Biz/images/img-web-dev-section-c-2.jpg';
 
 const WebDevelopmentSectionE = () => {
 
     return (
-        
+        <Container>
         <div>
             <div className="webdev-div-container-secondary py-lg-5">
                 <div>
@@ -18,6 +18,7 @@ const WebDevelopmentSectionE = () => {
                 </div>
             </div>
         </div>
+        </Container>
     );
 };
 
