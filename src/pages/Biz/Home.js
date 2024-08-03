@@ -7,6 +7,8 @@ import SectionC from '../../components/Biz/Home_SectionC.js';
 import SectionD from '../../components/Biz/Home_SectionD.js';
 import SectionE from '../../components/Biz/Home_SectionE.js';
 import SectionF from '../../components/Biz/Home_SectionF.js';
+import SectionG from '../../components/Biz/Home_SectionG.js';
+import SectionI from '../../components/Biz/Home_SectionI.js';
 import SectionH from '../../components/Biz/Home_SectionH.js';
 import SectionFooter from '../../components/Biz/Application_Footer';
 
@@ -27,7 +29,9 @@ export default function Home() {
             <div data-aos="fade-up"><SectionD /></div>
             <div data-aos="fade-up"><SectionE /></div>
             <div data-aos="fade-up"><SectionF /></div>
-            <div data-aos="fade-up"><SectionH /></div>
+            <div data-aos="fade-up"><SectionG /></div>
+            <div data-aos="fade-up"><SectionH /></div> 
+            <div data-aos="fade-up"><SectionI /></div>
           <SectionFooter />
         </>
       )}

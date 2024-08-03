@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../UserContext.js';
-import SectionG from '../../components/Biz/Home_SectionG.js';
+import SectionA from '../../components/Biz/Search_SectionA.js';
 import SectionFooter from '../../components/Biz/Application_Footer';
 
 export default function Search() {
@@ -15,7 +15,7 @@ export default function Search() {
         navigate(`/admin-dashboard/${user._id}/`)
       ) : (
         <>
-            <div data-aos="fade-up"><SectionG /></div>
+            <div data-aos="fade-up"><SectionA /></div>
             <SectionFooter />
         </>
       )}

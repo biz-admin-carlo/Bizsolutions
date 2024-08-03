@@ -8,7 +8,7 @@ const SectionE = () => {
     return (
         <>
         <div class=" d-lg-block">
-            <div className="new-webdev-container py-lg-5">
+            <div className="dark-webdev-container py-lg-5">
                 <div>
                     <Image className="new-webdev-image" src={WebDevImage} alt="Group of people talking with each other" />
                 </div>
