@@ -239,12 +239,13 @@ export default function AppNavbar() {
                   <Nav.Link className="text-nav" as={Link} to="/">Home</Nav.Link>
                   <Nav.Link className="text-nav" as={Link} to="/pricing">Pricing</Nav.Link>
                   <div onClick={toggleSolutions}>
-                    <Nav.Link className="px-2 text-nav">
+                    <Nav.Link className="px-lg-2 text-nav">
                       Solutions {showSolutions ? <IoIosArrowUp /> : <IoIosArrowDown />}
                     </Nav.Link>
                   </div>
+                  <Nav.Link className="text-nav" as={Link} to="/search-biz">Local Biz</Nav.Link>
                   <div onClick={toggleServices}>
-                    <Nav.Link className="px-2 text-nav">
+                    <Nav.Link className="px-lg-2 text-nav">
                         Services {showServices ? <IoIosArrowUp /> : <IoIosArrowDown />}
                     </Nav.Link>
                   </div>

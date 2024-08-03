@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import Axios from 'axios';
 
 import AdminNavbar from './Application_AdminNavbar.js';
-import UserNavbar from './Application_UserNavbar_New.js';
+import UserNavbar from './Appliaction_UserNavbar.js';
 
 import '../../assets/Biz/styles/AppNavbar.css';
 import UserContext from '../../UserContext';

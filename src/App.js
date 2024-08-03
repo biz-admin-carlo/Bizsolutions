@@ -10,7 +10,8 @@ import Home from './pages/Biz/Home';
 import Login from './pages/Biz/Login';
 import SignUp from './pages/Biz/Signup';
 import Referral from './pages/Biz/Referral';
-import Search from './pages/Biz/Search';
+import Search from './pages/Biz/Search_Result';
+import SearchHome from './pages/Biz/Search_Home';
 import Account from './pages/Biz/Account';
 import Pricing from './pages/Biz/Pricing';
 import Terms from './pages/Biz/Terms';
@@ -79,6 +80,7 @@ function App() {
                     <Route path="/sign-up" element={<SignUp/>}/>
                     <Route path="/sign-up-with-referral" element={<SignUpReferralTokend/>}/>
                     <Route path="/search" element={<Search/>}/>
+                    <Route path="/search-biz" element={<SearchHome/>}/>
 
                     <Route path="/my-biz" element={<Biz/>}/>\
                     
