@@ -22,7 +22,7 @@ const Pricing_SectionB = () => {
     };
 
     const handleGetStartedClick = () => {
-        const token = sessionStorage.getItem('token');
+        const token = localStorage.getItem('token');
         if (token)  {
             const subject = encodeURIComponent("Interest in Starter Package");
             const body = encodeURIComponent("I am interested in the Starter Package. Please provide me with more information.");
@@ -35,7 +35,7 @@ const Pricing_SectionB = () => {
     };
 
     const handleGetStartedClickAdvanced = () => {
-        const token = sessionStorage.getItem('token');
+        const token = localStorage.getItem('token');
         if (token)  {
             const subject = encodeURIComponent("Interest in Advanced Package + Commission per Collection Rep");
             const body = encodeURIComponent("I am interested in the Advanced Package + Commission per Collection Rep. Please provide me with more information.");

@@ -11,7 +11,7 @@ export default function DeleteAccount({ user }) {
     const [ showModal, setShowModal ] = useState(false);
     const [ successfulDelete, setSuccessfulDelete ] = useState(false)
 
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
     const handleShowModal = () => setShowModal(true);
     const handleCloseModal = () => setShowModal(false);
@@ -36,7 +36,7 @@ export default function DeleteAccount({ user }) {
     };
 
     const handleLogout = () => {
-        sessionStorage.clear();
+        localStorage.clear();
         window.location.reload();
     };
 

@@ -16,7 +16,7 @@ export default function Admin() {
   const [ isLoading, setIsLoading ] = useState(true);
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (token) {
       fetchUserDetails(token);
     }

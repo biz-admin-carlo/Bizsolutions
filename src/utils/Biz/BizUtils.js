@@ -59,7 +59,7 @@ export async function checkBusinessAlias(name) {
 
 export async function checkUserBiz() {
     try {
-        const token = sessionStorage.getItem('token');
+        const token = localStorage.getItem('token');
         if (!token) {
             return false;
         };
@@ -82,7 +82,7 @@ export async function checkUserBiz() {
 
 export async function retrieveUserBiz() {
     try {
-        const token = sessionStorage.getItem('token');
+        const token = localStorage.getItem('token');
         if (!token) {
             return false;
         }
@@ -114,7 +114,7 @@ export async function archiveBiz(bizID) {
         };
     };
     const url = `${apiUrl}/api/v1/biz/${bizID}/archive`; 
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (!token) {
         return {
             success: false,
@@ -149,7 +149,7 @@ export async function archiveBiz(bizID) {
 
 export const submitBizRegistration = async (formData) => {
     const url = `${apiUrl}/api/v1/biz/create-biz`;
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     try {
         const response = await axios.post(url, formData, {
             headers: {
@@ -164,7 +164,7 @@ export const submitBizRegistration = async (formData) => {
 
 export const getMyCreatedBiz = async () => {
     const url = `${apiUrl}/api/v1/biz/get/all/my/bizness`;
-    const token = sessionStorage.getItem('token'); 
+    const token = localStorage.getItem('token'); 
 
     try {
         const response = await axios.get(url, {

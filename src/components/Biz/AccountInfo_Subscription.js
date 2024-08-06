@@ -12,7 +12,7 @@ export default function AccountDetails({ user }) {
   const [ showSuccessModal, setShowSuccessModal ] = useState(false);
   const [ showErrorModal, setShowErrorModal ] = useState(false);
 
-  const token = sessionStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const getSubscriptions = async () => {

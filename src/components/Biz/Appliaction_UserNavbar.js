@@ -78,8 +78,8 @@ export default function AppNavbar() {
       category: searchTerm,
       location: `Lat:${userCoordinates.latitude},Long:${userCoordinates.longitude}`
     }).toString();
-    sessionStorage.setItem('searchedLocation', JSON.stringify(location));
-    sessionStorage.setItem('searchedCategory', JSON.stringify(searchTerm));
+    localStorage.setItem('searchedLocation', JSON.stringify(location));
+    localStorage.setItem('searchedCategory', JSON.stringify(searchTerm));
 
   
     navigate(`/search?${queryParams}`);
@@ -136,7 +136,7 @@ export default function AppNavbar() {
 
   useEffect(() => {
     const checkToken = () => {
-      const token = sessionStorage.getItem('token');
+      const token = localStorage.getItem('token');
       setIsTokenPresent(!!token);
     };
 
@@ -153,7 +153,7 @@ export default function AppNavbar() {
           };
           setUserLocation('My Current Location');
           setUserCoordinates(coords);
-          sessionStorage.setItem('userCoordinates', JSON.stringify(coords));
+          localStorage.setItem('userCoordinates', JSON.stringify(coords));
           setLoading(false);
         },
         (error) => {

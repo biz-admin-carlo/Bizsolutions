@@ -7,7 +7,7 @@ export default function Account() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (!token) {
       navigate('/login');
     }
@@ -16,7 +16,7 @@ export default function Account() {
   return (
       <>
         <Helmet>
-          <title>BizSolutions | Admin Biz</title>
+          <title>BizSolutions | Add Biz</title>
         </Helmet>
 
         <AdminAddBiz />

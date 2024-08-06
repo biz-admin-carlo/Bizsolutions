@@ -19,7 +19,7 @@ export default function AccountDetails({ user }) {
     aboutMe: user.aboutMe || ''
   });
 
-  const token = sessionStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

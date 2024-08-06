@@ -15,14 +15,14 @@ export default function ProfessionalRevamp({ selected }) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
+        const token = localStorage.getItem('token');
         if (token) {
             fetchUserDetails(token);
         }
     }, []);
 
     const handleGetStartedEnterprise = () => {
-        const token = sessionStorage.getItem('token');
+        const token = localStorage.getItem('token');
         if (token)  {
             const subject = encodeURIComponent("Interest in Enterprise Revamp Package");
             const body = encodeURIComponent("I am interested in the Enterprise Revamp Package. Please provide me with more information.");

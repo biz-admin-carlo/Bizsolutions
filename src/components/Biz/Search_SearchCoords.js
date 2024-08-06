@@ -9,7 +9,7 @@ export default function SearchState({location, category}) {
     const [ businesses, setBusinesses ] = useState([]);
     const [ currentPage, setCurrentPage ] = useState(1);
     const itemsPerPage = 12;
-
+    
     const fetchBusinesses = async () => {
         let result = null;
         try {

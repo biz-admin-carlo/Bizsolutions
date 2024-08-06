@@ -4,11 +4,14 @@ import { Card, Badge, Pagination } from 'react-bootstrap';
 import '../../assets/Biz/styles/SearchResult.css';
 
 const defaultImage = 'https://mybizsolutions.us/static/media/icon-app-logo.83ff8bf39a11df9fb7ac.jpg';
+const url = 'https://aws-n-california-may-29-2024.s3.us-west-1.amazonaws.com/biz/images/andrew_i_renner_md_burbank_california_1_b17df820-7330-4b5e-ad51-a2d32768cec0_.jpeg';
 
 export default function SearchState({location, category}) {
     const [ businesses, setBusinesses ] = useState([]);
     const [ currentPage, setCurrentPage ] = useState(1);
     const itemsPerPage = 12;
+
+    console.log(businesses);
 
     const fetchBusinesses = async () => {
         let result = null;
@@ -53,6 +56,7 @@ export default function SearchState({location, category}) {
         );
     }
     
+    // console.log(currentItems[0].biz_images[0].url);
 
     return (
         <div>
@@ -61,7 +65,22 @@ export default function SearchState({location, category}) {
                 {currentItems.map((business, index) => (
                     <div key={index} className="business-card">
                         <Card style={{ width: '18rem' }} className='my-2'>
-                        <Card.Img variant="top" src={business.image_url || defaultImage} onError={(e) => { e.target.onerror = null; e.target.src = defaultImage; }} alt={`Image of ${business.name}`} />
+                        <Card.Img 
+                            variant="top" 
+                            src={
+                                business && (business.biz_images && business.biz_images.length > 0 ? business.biz_images[0].url : 
+                                business.image_url ? business.image_url : 
+                                defaultImage)
+                            } 
+                            onError={(e) => { 
+                                if (e.target.src !== defaultImage) {
+                                e.target.onerror = null; 
+                                e.target.src = defaultImage;
+                                }
+                            }} 
+                            alt={`Image of ${business ? business.name : 'Business Image'}`} 
+                        />
+
                             <Card.Body>
                                 <h5 className='biz-color text-start'>{toTitleCase(business.name)}</h5>                                <h6>{business.location.address1}</h6>
                                 <Badge pill bg="primary">{business.phone}</Badge><br/>

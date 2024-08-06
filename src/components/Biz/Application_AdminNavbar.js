@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Navbar, Container, Nav } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import UserContext from '../../UserContext';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -11,15 +11,17 @@ export default function UserNavbar() {
   const { user, unsetUser } = useContext(UserContext);
   const navigate = useNavigate(); // This should be outside of handleLogout
 
-  const handleLogout = () => {
-    unsetUser(); // This function should clear all auth tokens and user data
-    navigate('/login',);
-  };
-
   if (user.isAdmin === 'false') {
-    sessionStorage.removeItem('token'); 
+    localStorage.removeItem('token'); 
     window.location.reload();
   }
+
+  const handleLogout = () => {
+    unsetUser();
+    localStorage.clear();
+    navigate('/login');
+    window.location.reload();
+  };
 
   return (
     <>
@@ -33,22 +35,54 @@ export default function UserNavbar() {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              {/* <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/users`} className="navbar-options">Users</Nav.Link> */}
-              <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/biz`} className="navbar-options">Add Biz</Nav.Link>
+              {
+                (user.isAdmin) && (
+                  <>
+                    {
+                      (user.isSuperAdmin) && (
+                        <>
+                          <NavDropdown title="User" id="basic-nav-dropdown">
+                            <NavDropdown.Item>
+                              <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/add-biz`} className="navbar-options">
+                                View User
+                              </Nav.Link>
+                            </NavDropdown.Item>
+                          </NavDropdown>
+                        </>
+                      )
+                    }
+                    {
+                      (user.isVendor) && (
+                        <>
+                          <NavDropdown title="Representatives" id="basic-nav-dropdown">
+                            <NavDropdown.Item>
+                              <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/add-biz`} className="navbar-options">
+                                View Agent
+                              </Nav.Link>
+                            </NavDropdown.Item>
+                          </NavDropdown>
+                        </>
+                      )
+                    }
+                      <NavDropdown title="Biz" id="basic-nav-dropdown">
+                        <NavDropdown.Item>
+                          <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/add-biz`} className="navbar-options">
+                            Add Biz
+                          </Nav.Link>
+                        </NavDropdown.Item>
+                        <NavDropdown.Item>
+                          <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/see-biz`} className="navbar-options">
+                            See Biz
+                          </Nav.Link>
+                        </NavDropdown.Item>
+                      </NavDropdown>
+                  </>
+                  
+                )
+              }
 
-              {/* <Nav>
-                <NavDropdown
-                  id="nav-dropdown-dark-example"
-                  title="Settings"
-                  className="navbar-options"
-                >
-                  <NavDropdown.Item as={Link}>Users</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/bookkeeping-services">Bookkeeping</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/technical-support-services">Technical & IT Support</NavDropdown.Item>
-                </NavDropdown>
-              </Nav> */}
+              <Nav.Link action onClick={handleLogout} className="navbar-options">Logout</Nav.Link>
 
-              {/* <Nav.Link as={Link} className="navbar-options" onClick={handleLogout}>Logout</Nav.Link> */}
 
             </Nav>
           </Navbar.Collapse>

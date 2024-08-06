@@ -42,7 +42,7 @@ export default function HomeLanding() {
     const getUserLocation = () => {
         setLoading(true);
         setLocationStatus('checking');
-        const cachedCoords = sessionStorage.getItem('userCoordinates');
+        const cachedCoords = localStorage.getItem('userCoordinates');
     
         if (cachedCoords) {
             const coords = JSON.parse(cachedCoords);
@@ -63,7 +63,7 @@ export default function HomeLanding() {
                     };
                     setLocation('My Current Location');  // Update the value, not placeholder
                     setUserCoordinates(coords);
-                    sessionStorage.setItem('userCoordinates', JSON.stringify(coords));
+                    localStorage.setItem('userCoordinates', JSON.stringify(coords));
                     setLocationStatus('available');
                     setLoading(false);
                     setTypedLocation(false);  // Reset this as location is now auto-detected
@@ -83,7 +83,7 @@ export default function HomeLanding() {
     // Function to submit/navigate to <SearchResult />
     const handleSubmit = async (event) => {
         event.preventDefault(); 
-        sessionStorage.setItem('searchedCategory', JSON.stringify(category));
+        localStorage.setItem('searchedCategory', JSON.stringify(category));
 
         // Use more explicit checking for location type
         if (typedLocation && location.trim() !== '') {
@@ -91,8 +91,8 @@ export default function HomeLanding() {
                 category: category,
                 location: location
             }).toString();
-            sessionStorage.removeItem('userCoordinates');
-            sessionStorage.setItem('searchedLocation', JSON.stringify(location));
+            localStorage.removeItem('userCoordinates');
+            localStorage.setItem('searchedLocation', JSON.stringify(location));
             const result = await loggedVisitors(null, null, location, category)
 
     
@@ -102,7 +102,7 @@ export default function HomeLanding() {
                 category: category,
                 location: `Lat:${userCoordinates.latitude},Long:${userCoordinates.longitude}` 
             }).toString();
-            sessionStorage.setItem('searchedLocation', JSON.stringify(`Lat:${userCoordinates.latitude},Long:${userCoordinates.longitude}`));
+            localStorage.setItem('searchedLocation', JSON.stringify(`Lat:${userCoordinates.latitude},Long:${userCoordinates.longitude}`));
             const result = await loggedVisitors(userCoordinates.longitude, userCoordinates.latitude, location, category)
 
             navigate(`/search?${queryParams}`);
@@ -113,9 +113,9 @@ export default function HomeLanding() {
     
     // Typing Effect Category field
     useEffect(() => {
-        sessionStorage.removeItem('userCoordinates');
-        sessionStorage.removeItem('searchedLocation');
-        sessionStorage.removeItem('searchedCategory');
+        localStorage.removeItem('userCoordinates');
+        localStorage.removeItem('searchedLocation');
+        localStorage.removeItem('searchedCategory');
 
         const typingStrings = [
             "Restaurants",
