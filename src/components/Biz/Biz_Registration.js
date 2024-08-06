@@ -25,7 +25,6 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
 
     const [ businessName, setBusinessName ] = useState(initialBusinessName || '');
     const [ aliasName, setAliasName ] = useState(initialAliasName || '');
-    const [ imageUrl, setImageUrl ] = useState('');
     const [ websiteUrl, setWebsiteUrl ] = useState('');
     const [ showCategories, setShowCategories ] = useState(false);
     const [ transactionModes, setTransactionModes ] = useState({
@@ -59,12 +58,6 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
     const [ selectedCountry, setSelectedCountry ] = useState(null);
     const [ selectedState, setSelectedState ] = useState(null);
     const [ selectedCity, setSelectedCity ] = useState(null);
-
-    const [ imageFile, setImageFile ] = useState(null);
-
-    const handleFileChange = (event) => {
-        setImageFile(event.target.files[0]);
-    };
 
     const countriesOptions = useMemo(() => {
         const countries = Country.getAllCountries().map((country) => ({
@@ -105,8 +98,6 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
             alert("Geolocation is not supported by this browser.");
         }
     };
-
-    const handleImageUrlChange = (event) => setImageUrl(event.target.value);
 
     const handleWebsiteUrlChange = (event) => setWebsiteUrl(event.target.value);
     const handleTransactionChange = (event) => {
@@ -156,9 +147,6 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
         const formData = new FormData();
         formData.append('name', businessName);
         formData.append('alias', aliasName);
-        if (imageFile) {
-            formData.append('image', imageFile);
-        }
         formData.append('url', websiteUrl);
         formData.append('categories', JSON.stringify([{ alias: selectedCategory, title: selectedCategory }])); // Correctly format categories
         formData.append('coordinates', JSON.stringify({ latitude, longitude })); // Correctly format coordinates
@@ -184,6 +172,7 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
         }));
     
         try {
+            console.log(formData);
             const result = await submitBizRegistration(formData);
             setResultStatus('success');
             setTimeout(() => {
@@ -266,17 +255,6 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                             </Form.Group>
                                         </Col>
                                     </Row>
-
-                                    <Form.Group controlId="formBasicImageUpload">
-                                        <Form.Label>Upload Image</Form.Label>
-                                        <Form.Control
-                                            required
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={handleFileChange}
-                                            className='mb-2'
-                                        />
-                                    </Form.Group>
 
                                     <Form.Group controlId="formBasicWebsiteUrl">
                                         <Form.Label>Website URL</Form.Label>

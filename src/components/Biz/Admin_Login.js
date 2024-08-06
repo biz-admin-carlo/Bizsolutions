@@ -24,7 +24,7 @@ export default function AdminLogin() {
     const [ password, setPassword ] = useState('');
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
+        const token = localStorage.getItem('token');
         if (token) {
             navigate(`/home`);
         }
@@ -44,7 +44,7 @@ export default function AdminLogin() {
             
             if (result.accessToken) {
                 window.location.reload();
-                sessionStorage.setItem('token', result.accessToken);
+                localStorage.setItem('token', result.accessToken);
                 navigate(`/admin-dashboard/${result.userId}/`);
 
             } else if (result.code === 1) {

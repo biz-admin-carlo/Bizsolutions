@@ -24,6 +24,8 @@ import Biz from './pages/Biz/Bizness';
 import AdminDashboard from './pages/Biz/Admin';
 import AdminLogin from './pages/Biz/LoginAdmin';
 import AdminAddBiz from './pages/Biz/AdminAddBiz';
+import AdminSeeBiz from './pages/Biz/AdminSeeBiz';
+import AdminUsers from './pages/Biz/AdminUsers';
 import Result from './pages/Biz/Result';
 
 import AppNavbar from './components/Biz/Application_Navbar';
@@ -43,20 +45,19 @@ function App() {
     isAdmin: null,
     details: {}
   });
-  const [ cookiesConsent, setCookiesConsent ] = useState(sessionStorage.getItem('cookiesConsent'));
+  const [ cookiesConsent, setCookiesConsent ] = useState(localStorage.getItem('cookiesConsent'));
 
   const unsetUser = () => {
-    sessionStorage.clear();
     localStorage.clear();
   };
 
   useEffect(() => {
-    const consent = sessionStorage.getItem('cookiesConsent');
+    const consent = localStorage.getItem('cookiesConsent');
     setCookiesConsent(consent);
   }, []);
 
   const handleCookieConsent = () => {
-    sessionStorage.setItem('cookiesConsent', 'true');
+    localStorage.setItem('cookiesConsent', 'true');
     setCookiesConsent(true);
   };
 
@@ -125,10 +126,23 @@ function App() {
 
                     <Route path="/search?category=Hotel&location=California"/>
 
-                    <Route path="/admin-login" element={<AdminLogin/>}/>
+                    {/* Super Admin Links Only */}
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
-                    {/* <Route path="/admin-dashboard/:userId/users" element={<AdminUsers/>}/> */}
-                    <Route path="/admin-dashboard/:userId/biz" element={<AdminAddBiz/>}/>
+                    <Route path="/admin-dashboard/:userId/users" element={<AdminUsers/>}/>
+                    <Route path="/admin-dashboard/:userId/add-biz" element={<AdminAddBiz/>}/>
+                    <Route path="/admin-dashboard/:userId/see-biz" element={<AdminSeeBiz/>}/>
+
+                    {/* Vendor Manager Links Only */}
+                    <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
+                    <Route path="/admin-dashboard/:userId/add-agents" element={<AdminUsers/>}/>
+                    <Route path="/admin-dashboard/:userId/see-agents" element={<AdminUsers/>}/>
+                    <Route path="/admin-dashboard/:userId/add-biz" element={<AdminAddBiz/>}/>
+                    <Route path="/admin-dashboard/:userId/see-biz" element={<AdminSeeBiz/>}/>
+
+                    {/* Vendor Agent Links Only */}
+                    <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
+                    <Route path="/admin-dashboard/:userId/add-biz" element={<AdminAddBiz/>}/>
+                    <Route path="/admin-dashboard/:userId/see-biz" element={<AdminSeeBiz/>}/>
 
                 </Routes>
               </Suspense>

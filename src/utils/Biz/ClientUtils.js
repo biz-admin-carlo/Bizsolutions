@@ -51,7 +51,7 @@ export const getUserCoordinates = (setUserCoordinates) => {
                     longitude: position.coords.longitude
                 };
                 setUserCoordinates(coords);
-                sessionStorage.setItem('userCoordinates', JSON.stringify(coords));
+                localStorage.setItem('userCoordinates', JSON.stringify(coords));
             }
         );
     }

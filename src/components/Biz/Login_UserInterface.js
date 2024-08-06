@@ -19,7 +19,7 @@ export default function NewLogin() {
     const [ password, setPassword ] = useState('');
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
+        const token = localStorage.getItem('token');
         if (token) {
             navigate('/home');
         }
@@ -39,7 +39,7 @@ export default function NewLogin() {
             
             if (result.accessToken) {
                 window.location.reload();
-                sessionStorage.setItem('token', result.accessToken);
+                localStorage.setItem('token', result.accessToken);
                 navigate('/');
             } else if (result.status === 403) {
                 setMessage('Account is already inactive.');

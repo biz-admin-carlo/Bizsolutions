@@ -27,7 +27,7 @@ useEffect(() => {
     const fetchBusinesses = async () => {
       try {
         let results;
-        const savedCoords = sessionStorage.getItem('userCoordinates');
+        const savedCoords = localStorage.getItem('userCoordinates');
         if (savedCoords) {
           const { latitude, longitude } = JSON.parse(savedCoords);
           results = await getBizViaCoords(latitude, longitude, category);

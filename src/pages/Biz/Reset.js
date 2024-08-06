@@ -8,7 +8,7 @@ import '../../assets/Biz/styles/AppLanding.css';
 export default function Login() {
 
   const isLoggedIn = () => {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     return token != null;
   };
 

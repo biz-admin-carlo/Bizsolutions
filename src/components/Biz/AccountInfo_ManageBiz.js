@@ -31,7 +31,7 @@ export default function AccountDetails({ user }) {
 
   const [businessData, setBusinessData] = useState(initialBusinessState);
 
-  const token = sessionStorage.getItem('token');
+  const token = localStorage.getItem('token');
   const userId = user._id;
 
   useEffect(() => {

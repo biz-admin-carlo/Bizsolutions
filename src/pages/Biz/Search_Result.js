@@ -18,9 +18,9 @@ export default function Search() {
   const [ category, setCategory ] = useState(query.get('category'));
   const [ location, setLocation ] = useState(query.get('location'));
 
-  // Will always collect the userCoordinates and store them in sessionStorage
+  // Will always collect the userCoordinates and store them in localStorage
   useEffect(() => {
-    const coords = sessionStorage.getItem('userCoordinates');
+    const coords = localStorage.getItem('userCoordinates');
     if (!coords) {
       getUserCoordinates((newCoords) => {
       });

@@ -12,15 +12,15 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const ReferralCode = ({ user }) => {
   const [showCopyAlert, setShowCopyAlert] = useState('');
   const [loading, setLoading] = useState(false);
-  const [referralToken, setReferralToken] = useState(sessionStorage.getItem('referralToken') || user.referralCode);
-  const [referralLink, setReferralLink] = useState(sessionStorage.getItem('referralLink') || user.referralLink);
+  const [referralToken, setReferralToken] = useState(localStorage.getItem('referralToken') || user.referralCode);
+  const [referralLink, setReferralLink] = useState(localStorage.getItem('referralLink') || user.referralLink);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedToken = sessionStorage.getItem('referralToken');
+    const storedToken = localStorage.getItem('referralToken');
     if (storedToken) {
       setReferralToken(storedToken);
     }
@@ -47,14 +47,14 @@ const ReferralCode = ({ user }) => {
 
   const getReferralCode = async () => {
     setLoading(true);
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     try {
       const response = await axios.get(`${apiUrl}/api/v1/users/${user._id}/referral-code`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      sessionStorage.setItem('referralToken', response.data.referralCode);
+      localStorage.setItem('referralToken', response.data.referralCode);
       setReferralToken(response.data.referralCode);
       setShowSuccessModal(true);
     } catch (error) {
@@ -66,14 +66,14 @@ const ReferralCode = ({ user }) => {
 
   const getReferralLink = async () => {
     setLoading(true);
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     try {
       const response = await axios.get(`${apiUrl}/api/v1/users/${user._id}/referral-link`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      sessionStorage.setItem('referralLink', response.data.referralLink);
+      localStorage.setItem('referralLink', response.data.referralLink);
       setReferralLink(response.data.referralLink);
       setShowSuccessModal(true);
     } catch (error) {

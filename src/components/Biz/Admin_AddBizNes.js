@@ -21,7 +21,7 @@ export default function AddBizNes() {
 
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (token) {
       fetchUserDetails(token);
       fetchAllUsers(token);
@@ -68,12 +68,11 @@ export default function AddBizNes() {
     <>
     <Container style={{ minHeight: '85vh' }}>
       <div className='pt-5'>
-        <p className='text-secondary'>Hi <span className='biz-color'>{user.firstName}</span>! This is an admin only feature, please add biz here:</p>
+        <p className="paragraph-text">Hi <span className='biz-color'>{user.firstName}</span>! This is an agent only feature, please add biz here:</p>
       </div>
 
       <div>
         <BizAdd />
-
         {registrationVisible && <div data-aos="fade-up"><BizRegistration businessName={businessName} aliasName={aliasName} /></div>}
 
       </div>

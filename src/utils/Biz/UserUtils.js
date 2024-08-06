@@ -37,3 +37,29 @@ export async function registerUser(userData) {
         return { success: false, message: "Registration failed due to an error" };
     }
 }
+
+export async function searchFeature(data) {
+    try {
+        const url = `${apiUrl}/api/v1/users/search-user/`;
+
+        const response = await axios.get(url, {
+            inputField: data
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.data.message === "User details retrieved successfully!") {
+            return {
+                success: true,
+                userDetails: response.data.userDetails
+            };
+        } else {
+            return { success: false };
+        }
+    } catch (error) {
+        console.error("Error in searchFeature:", error.response ? error.response.data : error.message);
+        return { success: false };
+    }
+}

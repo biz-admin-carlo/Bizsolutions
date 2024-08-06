@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; 
-import AccountInfo from '../../components/Biz/AccountInfo.js';
+import SeeBizNes from '../../components/Biz/Admin_SeeBizNes';
 
 export default function Account() {
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-
-
     if (!token) {
       navigate('/login');
     }
@@ -18,10 +16,10 @@ export default function Account() {
   return (
       <>
         <Helmet>
-          <title>BizSolutions | Account Details</title>
+          <title>BizSolutions | See All Biz</title>
         </Helmet>
 
-        <AccountInfo />
+        <SeeBizNes />
       </>
   );
 }

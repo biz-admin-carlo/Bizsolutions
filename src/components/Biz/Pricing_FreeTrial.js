@@ -29,14 +29,14 @@ export default function FreeTrialCard() {
     }, []);
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
+        const token = localStorage.getItem('token');
         if (token) {
             fetchUserDetails(token);
         }
     }, []);
 
     const handleModalToggle = () => {
-        const token = sessionStorage.getItem('token');
+        const token = localStorage.getItem('token');
         if (!token) {
             navigate('/login/pricing');
         } else {

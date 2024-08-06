@@ -3,7 +3,6 @@ import Axios from 'axios';
 import { Container, Table } from 'react-bootstrap';
 
 import BarSpinner from './Reusable_BarSpinner.js';
-import AppFooter from './Application_Footer.js';
 
 import '../../assets/Biz/styles/AccountInfo.css';
 
@@ -19,7 +18,7 @@ export default function UsersInfo() {
   const [ users, setUsers ] = useState([]);
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (token) {
       fetchUserDetails(token);
       fetchAllUsers(token);
@@ -76,12 +75,11 @@ export default function UsersInfo() {
               <th>#</th> 
               <th>First Name</th>
               <th>Last Name</th>
+              <th>Referral Code</th>
               <th>Email</th>
               <th>Admin</th>
               <th>Active</th>
-              <th>Location</th>
-              <th>Created At</th>
-              <th>Updated At</th>
+              <th>Referred By</th>
             </tr>
           </thead>
           <tbody>
@@ -90,19 +88,17 @@ export default function UsersInfo() {
                 <td>{index + 1}</td>
                 <td>{user.firstName}</td>
                 <td>{user.lastName}</td>
+                <td>{user.referralCode}</td>
                 <td>{user.email}</td>
                 <td>{user.isAdmin ? 'Yes' : 'No'}</td>
                 <td>{user.isActive ? 'Yes' : 'No'}</td>
-                <td>{user.location.join(', ')}</td>
-                <td>{new Date(user.createdAt).toLocaleString()}</td>
-                <td>{new Date(user.updatedAt).toLocaleString()}</td>
+                <td>{user.referredBy}</td>
               </tr>
             ))}
           </tbody>
         </Table>
       </div>
     </Container>
-    <AppFooter />
   </>
   );
 }
