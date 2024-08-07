@@ -56,7 +56,7 @@ export default function UserNavbar() {
                         <>
                           <NavDropdown title="Representatives" id="basic-nav-dropdown">
                             <NavDropdown.Item>
-                              <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/add-biz`} className="navbar-options">
+                              <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/see-agents`} className="navbar-options">
                                 View Agent
                               </Nav.Link>
                             </NavDropdown.Item>
@@ -80,7 +80,18 @@ export default function UserNavbar() {
                   
                 )
               }
-
+              <NavDropdown title="Payment" id="basic-nav-dropdown">
+                <NavDropdown.Item>
+                  <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/payment-link/monthly`} className="navbar-options">
+                    Monthly
+                  </Nav.Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/payment-link/annually`} className="navbar-options">
+                    Annually
+                  </Nav.Link>
+                </NavDropdown.Item>
+              </NavDropdown>
               <Nav.Link action onClick={handleLogout} className="navbar-options">Logout</Nav.Link>
 
 

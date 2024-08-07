@@ -4,14 +4,11 @@ import { Card, Badge, Pagination } from 'react-bootstrap';
 import '../../assets/Biz/styles/SearchResult.css';
 
 const defaultImage = 'https://mybizsolutions.us/static/media/icon-app-logo.83ff8bf39a11df9fb7ac.jpg';
-const url = 'https://aws-n-california-may-29-2024.s3.us-west-1.amazonaws.com/biz/images/andrew_i_renner_md_burbank_california_1_b17df820-7330-4b5e-ad51-a2d32768cec0_.jpeg';
 
 export default function SearchState({location, category}) {
     const [ businesses, setBusinesses ] = useState([]);
     const [ currentPage, setCurrentPage ] = useState(1);
     const itemsPerPage = 12;
-
-    console.log(businesses);
 
     const fetchBusinesses = async () => {
         let result = null;
@@ -56,8 +53,6 @@ export default function SearchState({location, category}) {
         );
     }
     
-    // console.log(currentItems[0].biz_images[0].url);
-
     return (
         <div>
             <h1>Bizness Listings</h1>

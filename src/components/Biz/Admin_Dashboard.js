@@ -10,6 +10,7 @@ import UploadImageModal from './Admin_UploadBizImage.js';
 import ArchiveBizModal from './Admin_ArchiveBizModal.js';
 import userIcon from '../../assets/Biz/icons/icon-round-image.png';
 import '../../assets/Biz/styles/AccountInfo.css';
+import { Link } from 'react-router-dom';
 
 import UserContext from '../../UserContext';
 
@@ -30,8 +31,6 @@ export default function AdminDashboard() {
   const [ activeBusinesses, setActiveBusinesses ] = useState(0);
   const [ inactiveBusinesses, setInactiveBusinesses ] = useState(0);
   const [ currentBizName, setCurrentBizName ] = useState('');
-
-  console.log(user);
 
   const totalPages = Math.ceil(businesses.length / itemsPerPage);
 
@@ -152,6 +151,13 @@ export default function AdminDashboard() {
                     <h6 className="responsive-title">
                         Hello, {user.firstName} {user.lastName}!
                     </h6>
+                    <Card.Subtitle className='text-secondary'>
+                      {user.referralCode ? (
+                        user.referralCode
+                      ) : (
+                        <Link to="/account#referral-code">Get your Referral Code now!</Link>
+                      )}
+                    </Card.Subtitle>
                 </div>
 
               </div>

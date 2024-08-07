@@ -27,6 +27,9 @@ import AdminAddBiz from './pages/Biz/AdminAddBiz';
 import AdminSeeBiz from './pages/Biz/AdminSeeBiz';
 import AdminUsers from './pages/Biz/AdminUsers';
 import Result from './pages/Biz/Result';
+import AdminSeeAgents from './pages/Biz/AdminSeeAgents';
+import AdminMonthlyPayLink from './pages/Biz/AdminMonthly';
+import AdminAnnualPayLink from './pages/Biz/AdminAnnual';
 
 import AppNavbar from './components/Biz/Application_Navbar';
 import ScrollToTop from './components/Biz/Reusable_ScrollToTop';
@@ -135,7 +138,7 @@ function App() {
                     {/* Vendor Manager Links Only */}
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
                     <Route path="/admin-dashboard/:userId/add-agents" element={<AdminUsers/>}/>
-                    <Route path="/admin-dashboard/:userId/see-agents" element={<AdminUsers/>}/>
+                    <Route path="/admin-dashboard/:userId/see-agents" element={<AdminSeeAgents/>}/>
                     <Route path="/admin-dashboard/:userId/add-biz" element={<AdminAddBiz/>}/>
                     <Route path="/admin-dashboard/:userId/see-biz" element={<AdminSeeBiz/>}/>
 
@@ -143,6 +146,8 @@ function App() {
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
                     <Route path="/admin-dashboard/:userId/add-biz" element={<AdminAddBiz/>}/>
                     <Route path="/admin-dashboard/:userId/see-biz" element={<AdminSeeBiz/>}/>
+                    <Route path="/admin-dashboard/:userId/payment-link/monthly" element={<AdminMonthlyPayLink/>}/>
+                    <Route path="/admin-dashboard/:userId/payment-link/annually" element={<AdminAnnualPayLink/>}/>
 
                 </Routes>
               </Suspense>

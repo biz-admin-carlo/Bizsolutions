@@ -59,7 +59,6 @@ export async function searchFeature(data) {
             return { success: false };
         }
     } catch (error) {
-        console.error("Error in searchFeature:", error.response ? error.response.data : error.message);
         return { success: false };
     }
 }
