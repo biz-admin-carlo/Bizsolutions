@@ -56,7 +56,7 @@ export default function UserNavbar() {
                         <>
                           <NavDropdown title="Representatives" id="basic-nav-dropdown">
                             <NavDropdown.Item>
-                              <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/add-biz`} className="navbar-options">
+                              <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/see-agents`} className="navbar-options">
                                 View Agent
                               </Nav.Link>
                             </NavDropdown.Item>

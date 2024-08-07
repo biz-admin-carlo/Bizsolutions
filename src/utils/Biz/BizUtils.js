@@ -179,12 +179,10 @@ export const getMyCreatedBiz = async () => {
 };
 
 export const getBizName = async (bizID) => {
-    console.log("Hellos!")
     const url = `${apiUrl}/api/v1/biz/${bizID}`;
     try {
         const response = await axios.get(url, {
         });
-        console.log(response);
         return response.data.alias; 
     } catch (error) {
         throw error; 

@@ -53,8 +53,6 @@ export default function SearchState({location, category}) {
         );
     }
     
-    // console.log(currentItems[0].biz_images[0].url);
-
     return (
         <div>
             <h1>Bizness Listings</h1>

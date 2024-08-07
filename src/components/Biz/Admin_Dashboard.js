@@ -32,8 +32,6 @@ export default function AdminDashboard() {
   const [ inactiveBusinesses, setInactiveBusinesses ] = useState(0);
   const [ currentBizName, setCurrentBizName ] = useState('');
 
-  console.log(user);
-
   const totalPages = Math.ceil(businesses.length / itemsPerPage);
 
   const handleItemsPerPageChange = (eventKey, event) => {

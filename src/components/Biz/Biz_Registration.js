@@ -172,7 +172,6 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
         }));
     
         try {
-            console.log(formData);
             const result = await submitBizRegistration(formData);
             setResultStatus('success');
             setTimeout(() => {
