@@ -7,6 +7,24 @@ import 'aos/dist/aos.css';
 import 'leaflet/dist/leaflet.css';
 import ReactGA from 'react-ga';
 
+const APP_VERSION = '1.0.0';
+
+function checkStorageVersion() {
+    const storedLocalVersion = localStorage.getItem('appVersion');
+    if (storedLocalVersion !== APP_VERSION) {
+        localStorage.clear();
+        localStorage.setItem('appVersion', APP_VERSION);
+    }
+
+    const storedSessionVersion = sessionStorage.getItem('appVersion');
+    if (storedSessionVersion !== APP_VERSION) {
+        sessionStorage.clear();
+        sessionStorage.setItem('appVersion', APP_VERSION);
+    }
+}
+
+checkStorageVersion();
+
 ReactGA.pageview(window.location.pathname + window.location.search);
 
 AOS.init();
