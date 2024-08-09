@@ -8,6 +8,7 @@ import BarSpinner from './Reusable_BarSpinner.js';
 import AppFooter from './Application_Footer.js';
 import UploadImageModal from './Admin_UploadBizImage.js';
 import ArchiveBizModal from './Admin_ArchiveBizModal.js';
+import TransactModal from './Admin_TransactModal.js';
 import userIcon from '../../assets/Biz/icons/icon-round-image.png';
 import '../../assets/Biz/styles/AccountInfo.css';
 
@@ -30,6 +31,7 @@ export default function SeeBizNez() {
   const [ activeBusinesses, setActiveBusinesses ] = useState(0);
   const [ inactiveBusinesses, setInactiveBusinesses ] = useState(0);
   const [ currentBizName, setCurrentBizName ] = useState('');
+  const [ showModalTransact, setShowModalTransact ] = useState(false)
 
   const totalPages = Math.ceil(businesses.length / itemsPerPage);
 
@@ -70,12 +72,22 @@ export default function SeeBizNez() {
     setShowModalArchive(true);
   };
 
+  const openTransactModal = (bizId) => {
+    setCurrentBizId(bizId);
+    setShowModalTransact(true);
+    setAdminId(user._id);
+  };
+
   const closeModal = () => {
     setShowModal(false);
   };
 
   const closeArchiveModal = () => {
     setShowModalArchive(false);
+  };
+
+  const closeTransactModal = () => {
+    setShowModalTransact(false);
   };
 
   const handleArchive = async (bizId) => {
@@ -209,8 +221,8 @@ export default function SeeBizNez() {
               <Accordion.Item eventKey={index.toString()}>
                 <Accordion.Header>
                   {biz.name}
-                  <GoDotFill style={{ color: biz.biz_images.length === 0 ? 'red' : 'green' }} />
-                  <GoDotFill style={{ color: biz.isArchived === 0 ? 'red' : 'green' }} />
+                  {/* <GoDotFill style={{ color: biz.biz_images.length === 0 ? 'red' : 'green' }} />
+                  <GoDotFill style={{ color: biz.isArchived === 0 ? 'red' : 'green' }} /> */}
                 </Accordion.Header>                 
                 <Accordion.Body>
 
@@ -304,6 +316,7 @@ export default function SeeBizNez() {
                     
                     <div className="d-flex justify-content-end">
                       {!biz.isArchived && <Button variant="danger" onClick={() => openArchiveModal(biz._id)}>Archive Biz</Button>}
+                      <Button className="mx-1" variant="success" onClick={() => openTransactModal(biz._id, biz.alias)}>Transact Biz</Button>
                       <Button className="mx-1" variant="warning" onClick={() => openModal(biz._id, biz.alias)}>Upload Biz Image</Button>
                     </div>
                   </Accordion.Body>
@@ -350,6 +363,16 @@ export default function SeeBizNez() {
             handleClose={closeArchiveModal} 
             handleArchive={handleArchive}
             bizID={currentBizId}
+          />
+
+          <TransactModal 
+            show={showModalTransact} 
+            handleClose={closeTransactModal} 
+            onUploadSuccess={handleUploadSuccess} 
+            onRefreshBusinesses={refreshBusinessData}
+            bizID={currentBizId} 
+            adminId={adminId}
+            bizName={currentBizName}
           />
         </div>
 
