@@ -17,8 +17,6 @@ export default function TransactModal({ show, handleClose, bizID, adminId }) {
     const [ serviceValue, setServiceValue ] = useState('');
     const [ resultStatus, setResultStatus ] = useState('pending');
 
-    console.log(serviceValue);
-
     useEffect(() => {
         const token = localStorage.getItem('token');
         setAdminToken(token)

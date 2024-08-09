@@ -9,7 +9,7 @@ export async function addTransaction(token, bizId, contactEmail, type, packageAc
         const response = await axios.post(url, {
             bizId: bizId,
             contactEmail: contactEmail,
-            status: [{ type: type }],
+            status: type,
             packageAcquired: packageAcquired,
             value: value,
             agentName: agentName
@@ -19,7 +19,6 @@ export async function addTransaction(token, bizId, contactEmail, type, packageAc
                 'Authorization': `Bearer ${token}`
             }
         });
-        console.log(response)
         if (response.data.httpCode === "201") {
             return true;
         } else {
