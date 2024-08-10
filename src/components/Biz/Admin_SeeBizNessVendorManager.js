@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Card, Accordion, Button, Pagination, Dropdown, ListGroup } from 'react-bootstrap';
 import { IoRefreshCircle } from "react-icons/io5";
 import { GoDotFill } from "react-icons/go";
-import { getMyCreatedBiz, archiveBiz } from '../../utils/Biz/BizUtils.js';
-import { retrieveTransaction } from '../../utils/Biz/AdminUtils.js';
+import { getMyVendorManagerBizNess, archiveBiz } from '../../utils/Biz/BizUtils.js';
+import { retrieveAllTransaction } from '../../utils/Biz/AdminUtils.js';
 import BarSpinner from './Reusable_BarSpinner.js';
 import AppFooter from './Application_Footer.js';
 import UploadImageModal from './Admin_UploadBizImage.js';
@@ -15,7 +15,7 @@ import '../../assets/Biz/styles/AccountInfo.css';
 
 import UserContext from '../../UserContext';
 
-export default function SeeBizNez() {
+export default function SeeBizNezManager() {
 
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
@@ -36,6 +36,8 @@ export default function SeeBizNez() {
   const [ adminToken, setAdminToken ] = useState(''); 
   const [ transactions, setTransactions ] = useState({});
   const [ visibleTransactions, setVisibleTransactions ] = useState({});
+
+  console.log(transactions);
 
   
   const totalPages = Math.ceil(businesses.length / itemsPerPage);
@@ -102,14 +104,14 @@ export default function SeeBizNez() {
     setAdminId(user._id);
 
     if (!transactions[bizId] || transactions[bizId].length === 0) {
-      const fetchedTransactions = await retrieveTransaction(adminToken, bizId);
+      const fetchedTransactions = await retrieveAllTransaction(adminToken, bizId);
       setTransactions(prev => ({ ...prev, [bizId]: fetchedTransactions }));
     }
   };
 
   const handleTransactionComplete = async () => {
     if (currentBizId) {
-        const updatedTransactions = await retrieveTransaction(adminToken, currentBizId);
+        const updatedTransactions = await retrieveAllTransaction(adminToken, currentBizId);
         setTransactions(updatedTransactions);
     }
   };
@@ -154,7 +156,7 @@ export default function SeeBizNez() {
   };
 
   async function loadBusinesses() {
-    const bizData = await getMyCreatedBiz();
+    const bizData = await getMyVendorManagerBizNess();
     if (bizData && !bizData.error) {
       setBusinesses(bizData.httpMessage);
       setIsLoading(false);
@@ -170,7 +172,7 @@ export default function SeeBizNez() {
   
       // Load transactions for all businesses
       const transactionsData = await Promise.all(
-        bizData.httpMessage.map(biz => retrieveTransaction(adminToken, biz._id))
+        bizData.httpMessage.map(biz => retrieveAllTransaction(adminToken, biz._id))
       );
       const transactionsMap = {};
       bizData.httpMessage.forEach((biz, index) => {
@@ -185,7 +187,7 @@ export default function SeeBizNez() {
 
   useEffect(() => {
     async function loadBusinesses() {
-      const bizData = await getMyCreatedBiz();
+      const bizData = await getMyVendorManagerBizNess();
       if (bizData && !bizData.error) {
         setBusinesses(bizData.httpMessage);
         setIsLoading(false);
@@ -362,30 +364,11 @@ export default function SeeBizNez() {
                         <span style={{ fontWeight: 'bold' }}>Updated Last: </span> 
                         {formatDate(biz.updatedAt)}
                       </ListGroup.Item>
-                    </ListGroup>
 
-                    {/* {transactions[biz._id] && transactions[biz._id].length > 0 && (
-                      <>
-                        <h3>Transaction Updates:</h3>
-                        {transactions[biz._id].map((transaction, index) => (
-                          <div className='my-lg-2' key={index}>
-                            <Card>
-                              <Card.Body>
-                                <span style={{ fontWeight: 'bold' }}>Agent Name:</span> {transaction.agentName} <br />       
-                                <span style={{ fontWeight: 'bold' }}>Transaction for:</span> {transaction.bizName} <br />      
-                                <span style={{ fontWeight: 'bold' }}>Biz-ness Id:</span> {transaction.bizId} <br />       
-                                <span style={{ fontWeight: 'bold' }}>Contact Person:</span> {transaction.contactEmail} <br />                                                     
-                                <span style={{ fontWeight: 'bold' }}>Package Acquired:</span> {transaction.packageAcquired} <br />   
-                                <span style={{ fontWeight: 'bold' }}>Package Amount:</span> {transaction.value} <br />                                                                                                       
-                                <span style={{ fontWeight: 'bold' }}>Transaction Made:</span> {formatDate(transaction.transactionDate)} <br />
-                                <span style={{ fontWeight: 'bold' }}>Status:</span> 
-                                <span style={getStatusStyle(transaction.status)}> {transaction.status}</span> <br />        
-                              </Card.Body>
-                            </Card>
-                          </div>
-                        ))}
-                      </>
-                    )} */}
+                      <ListGroup.Item action disabled>
+                        <span style={{ fontWeight: 'bold' }}>Agent UserID: </span> {biz.userID}
+                      </ListGroup.Item>
+                    </ListGroup>
 
                     {transactions[biz._id] && transactions[biz._id].length > 0 && (
                       <>
@@ -404,7 +387,9 @@ export default function SeeBizNez() {
                                   <span style={{ fontWeight: 'bold' }}>Package Amount:</span> {transaction.value} <br />                                                                                                       
                                   <span style={{ fontWeight: 'bold' }}>Transaction Made:</span> {formatDate(transaction.transactionDate)} <br />
                                   <span style={{ fontWeight: 'bold' }}>Status:</span> 
-                                  <span style={getStatusStyle(transaction.status)}> {transaction.status}</span> <br />        
+                                  <span style={getStatusStyle(transaction.status)}> {transaction.status}</span> <br />   
+                                  <span style={{ fontWeight: 'bold' }}>AgentID:</span> {transaction.agentUserId} <br />                
+                                  <span style={{ fontWeight: 'bold' }}>Agent Name:</span> {transaction.agentName} <br />                                                                                                     
                                 </Card.Body>
                               </Card>
                             </div>
