@@ -154,7 +154,7 @@ function App() {
             <Container />
         </Router>
       </UserProvider>
-      {!cookiesConsent && <Cookies onConsent={handleCookieConsent} />}
+      {/* {!cookiesConsent && <Cookies onConsent={handleCookieConsent} />} */}
       <SpeedInsights />
     </>
   );

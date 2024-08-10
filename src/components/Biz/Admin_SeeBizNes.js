@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Card, Table, Accordion, Button, Pagination, Dropdown, ListGroup } from 'react-bootstrap';
+import { Container, Card, Accordion, Button, Pagination, Dropdown, ListGroup } from 'react-bootstrap';
 import { IoRefreshCircle } from "react-icons/io5";
 import { GoDotFill } from "react-icons/go";
 import { getMyCreatedBiz, archiveBiz } from '../../utils/Biz/BizUtils.js';
+import { retrieveTransaction } from '../../utils/Biz/AdminUtils.js';
 import BarSpinner from './Reusable_BarSpinner.js';
 import AppFooter from './Application_Footer.js';
 import UploadImageModal from './Admin_UploadBizImage.js';
@@ -31,12 +32,35 @@ export default function SeeBizNez() {
   const [ activeBusinesses, setActiveBusinesses ] = useState(0);
   const [ inactiveBusinesses, setInactiveBusinesses ] = useState(0);
   const [ currentBizName, setCurrentBizName ] = useState('');
-  const [ showModalTransact, setShowModalTransact ] = useState(false)
+  const [ showModalTransact, setShowModalTransact ] = useState(false);
+  const [ adminToken, setAdminToken ] = useState(''); 
+  const [ transactions, setTransactions ] = useState({});
+  const [ visibleTransactions, setVisibleTransactions ] = useState({});
 
+  
   const totalPages = Math.ceil(businesses.length / itemsPerPage);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setAdminToken(token)
+    if (!token) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const alertClicked = () => {
     alert('You clicked the third ListGroupItem');
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const optionsDate = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+    const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+  
+    const formattedDate = date.toLocaleDateString('en-US', optionsDate);
+    const formattedTime = date.toLocaleTimeString('en-US', optionsTime);
+  
+    return `${formattedDate} at ${formattedTime}`;
   };
 
   const handleItemsPerPageChange = (eventKey, event) => {
@@ -72,10 +96,37 @@ export default function SeeBizNez() {
     setShowModalArchive(true);
   };
 
-  const openTransactModal = (bizId) => {
+  const openTransactModal = async (bizId) => {
     setCurrentBizId(bizId);
     setShowModalTransact(true);
     setAdminId(user._id);
+
+    if (!transactions[bizId] || transactions[bizId].length === 0) {
+      const fetchedTransactions = await retrieveTransaction(adminToken, bizId);
+      setTransactions(prev => ({ ...prev, [bizId]: fetchedTransactions }));
+    }
+  };
+
+  const handleTransactionComplete = async () => {
+    if (currentBizId) {
+        const updatedTransactions = await retrieveTransaction(adminToken, currentBizId);
+        setTransactions(updatedTransactions);
+    }
+  };
+
+  const getStatusStyle = (status) => {
+    switch (status) {
+      case 'Active':
+        return { color: 'green', fontWeight: 'bold' };
+      case 'Closed':
+        return { color: 'teal', fontWeight: 'bold' };
+      case 'Cancelled':
+        return { color: 'red', fontWeight: 'bold' };
+      case 'Declined':
+        return { color: 'orange', fontWeight: 'bold' };
+      default:
+        return { fontWeight: 'bold' };
+    }
   };
 
   const closeModal = () => {
@@ -91,25 +142,44 @@ export default function SeeBizNez() {
   };
 
   const handleArchive = async (bizId) => {
-    const result = await archiveBiz(bizId); // Use the function from BizUtils
+    const result = await archiveBiz(bizId); 
     if (result.success) {
-      // Optionally update the local state to reflect the archive without re-fetching from the server
       setBusinesses(businesses.map(biz => {
         if (biz._id === bizId) return { ...biz, isArchived: true };
         return biz;
       }));
     } else {
     }
-    closeArchiveModal(); // Close the modal after action
+    closeArchiveModal();
   };
 
   async function loadBusinesses() {
     const bizData = await getMyCreatedBiz();
     if (bizData && !bizData.error) {
-      setBusinesses(bizData.httpMessage); 
+      setBusinesses(bizData.httpMessage);
       setIsLoading(false);
+      setTotalBusinesses(bizData.httpMessage.length);
+  
+      const withImagesCount = bizData.httpMessage.filter(biz => biz.biz_images && biz.biz_images.length > 0).length;
+      setNumberOfBizWithImages(withImagesCount);
+  
+      const activeBusinessesCount = bizData.httpMessage.filter(biz => !biz.isArchived).length;
+      const inactiveBusinessesCount = bizData.httpMessage.filter(biz => biz.isArchived).length;
+      setActiveBusinesses(activeBusinessesCount);
+      setInactiveBusinesses(inactiveBusinessesCount);
+  
+      // Load transactions for all businesses
+      const transactionsData = await Promise.all(
+        bizData.httpMessage.map(biz => retrieveTransaction(adminToken, biz._id))
+      );
+      const transactionsMap = {};
+      bizData.httpMessage.forEach((biz, index) => {
+        transactionsMap[biz._id] = transactionsData[index];
+      });
+      setTransactions(transactionsMap);
+
     } else {
-      navigate('/login'); 
+      navigate('/login');
     }
   }
 
@@ -285,35 +355,78 @@ export default function SeeBizNez() {
 
                       <ListGroup.Item action disabled>
                         <span style={{ fontWeight: 'bold' }}>Created On: </span> 
-                        {
-                          new Date(biz.createdAt).toLocaleString('en-US', {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            second: '2-digit'
-                          })
-                        }
+                        {formatDate(biz.createdAt)}
                       </ListGroup.Item>
 
                       <ListGroup.Item action disabled>
                         <span style={{ fontWeight: 'bold' }}>Updated Last: </span> 
-                        {
-                          new Date(biz.updatedAt).toLocaleString('en-US', {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            second: '2-digit'
-                          })
-                        }
+                        {formatDate(biz.updatedAt)}
                       </ListGroup.Item>
                     </ListGroup>
-                    
+
+                    {/* {transactions[biz._id] && transactions[biz._id].length > 0 && (
+                      <>
+                        <h3>Transaction Updates:</h3>
+                        {transactions[biz._id].map((transaction, index) => (
+                          <div className='my-lg-2' key={index}>
+                            <Card>
+                              <Card.Body>
+                                <span style={{ fontWeight: 'bold' }}>Agent Name:</span> {transaction.agentName} <br />       
+                                <span style={{ fontWeight: 'bold' }}>Transaction for:</span> {transaction.bizName} <br />      
+                                <span style={{ fontWeight: 'bold' }}>Biz-ness Id:</span> {transaction.bizId} <br />       
+                                <span style={{ fontWeight: 'bold' }}>Contact Person:</span> {transaction.contactEmail} <br />                                                     
+                                <span style={{ fontWeight: 'bold' }}>Package Acquired:</span> {transaction.packageAcquired} <br />   
+                                <span style={{ fontWeight: 'bold' }}>Package Amount:</span> {transaction.value} <br />                                                                                                       
+                                <span style={{ fontWeight: 'bold' }}>Transaction Made:</span> {formatDate(transaction.transactionDate)} <br />
+                                <span style={{ fontWeight: 'bold' }}>Status:</span> 
+                                <span style={getStatusStyle(transaction.status)}> {transaction.status}</span> <br />        
+                              </Card.Body>
+                            </Card>
+                          </div>
+                        ))}
+                      </>
+                    )} */}
+
+                    {transactions[biz._id] && transactions[biz._id].length > 0 && (
+                      <>
+                        <h3>Transaction Updates:</h3>
+                        {transactions[biz._id]
+                          .slice(0, visibleTransactions[biz._id] ? transactions[biz._id].length : 3)
+                          .map((transaction, index) => (
+                            <div className='my-lg-2' key={index}>
+                              <Card>
+                                <Card.Body>
+                                  <span style={{ fontWeight: 'bold' }}>Agent Name:</span> {transaction.agentName} <br />       
+                                  <span style={{ fontWeight: 'bold' }}>Transaction for:</span> {transaction.bizName} <br />      
+                                  <span style={{ fontWeight: 'bold' }}>Biz-ness Id:</span> {transaction.bizId} <br />       
+                                  <span style={{ fontWeight: 'bold' }}>Contact Person:</span> {transaction.contactEmail} <br />                                                     
+                                  <span style={{ fontWeight: 'bold' }}>Package Acquired:</span> {transaction.packageAcquired} <br />   
+                                  <span style={{ fontWeight: 'bold' }}>Package Amount:</span> {transaction.value} <br />                                                                                                       
+                                  <span style={{ fontWeight: 'bold' }}>Transaction Made:</span> {formatDate(transaction.transactionDate)} <br />
+                                  <span style={{ fontWeight: 'bold' }}>Status:</span> 
+                                  <span style={getStatusStyle(transaction.status)}> {transaction.status}</span> <br />        
+                                </Card.Body>
+                              </Card>
+                            </div>
+                        ))}
+                        {transactions[biz._id].length > 3 && !visibleTransactions[biz._id] && (
+                          <div className="text-center">
+                            <Button variant="link" style={{ textDecoration: 'none', color: 'black' }} onClick={() => setVisibleTransactions(prev => ({ ...prev, [biz._id]: true }))}>
+                              See More
+                            </Button>
+                          </div>
+                        )}
+                        {visibleTransactions[biz._id] && (
+                          <div className="text-center">
+                            <Button variant="link" style={{ textDecoration: 'none', color: 'black' }} onClick={() => setVisibleTransactions(prev => ({ ...prev, [biz._id]: false }))}>
+                              See Less
+                            </Button>
+                          </div>
+                        )}
+                      </>
+                    )}
+
+
                     <div className="d-flex justify-content-end">
                       {!biz.isArchived && <Button variant="danger" onClick={() => openArchiveModal(biz._id)}>Archive Biz</Button>}
                       <Button className="mx-1" variant="success" onClick={() => openTransactModal(biz._id, biz.alias)}>Transact Biz</Button>
@@ -366,13 +479,14 @@ export default function SeeBizNez() {
           />
 
           <TransactModal 
-            show={showModalTransact} 
-            handleClose={closeTransactModal} 
-            onUploadSuccess={handleUploadSuccess} 
-            onRefreshBusinesses={refreshBusinessData}
-            bizID={currentBizId} 
-            adminId={adminId}
-            bizName={currentBizName}
+              show={showModalTransact} 
+              handleClose={closeTransactModal} 
+              onUploadSuccess={handleUploadSuccess} 
+              onRefreshBusinesses={refreshBusinessData}
+              onTransactionComplete={handleTransactionComplete}
+              bizID={currentBizId} 
+              adminId={adminId}
+              bizName={currentBizName}
           />
         </div>
 

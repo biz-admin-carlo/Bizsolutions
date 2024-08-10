@@ -29,3 +29,25 @@ export async function addTransaction(token, bizId, contactEmail, type, packageAc
         return false;
     }
 }
+
+export async function retrieveTransaction(token, bizId) {
+    try {
+        const url = `${apiUrl}/api/v1/transaction/retrieve/${bizId}`;
+
+        const response = await axios.get(url,  {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        console.log(response.data);
+        if (response.data.httpCode === "200") {
+            return response.data.transactions;
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error("Failed to add transaction:", error);
+        return false;
+    }
+}
