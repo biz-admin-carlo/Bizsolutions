@@ -178,6 +178,23 @@ export const getMyCreatedBiz = async () => {
     }
 };
 
+export const getMyVendorManagerBizNess = async () => {
+    const token = localStorage.getItem('token'); 
+    console.log(token);
+    const url = `${apiUrl}/api/v1/biz/retrieve/biz-ness`;
+    try {
+        const response = await axios.get(url,  {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data; 
+    } catch (error) {
+        throw error; 
+    }
+}
+
 export const getBizName = async (bizID) => {
     const url = `${apiUrl}/api/v1/biz/${bizID}`;
     try {
