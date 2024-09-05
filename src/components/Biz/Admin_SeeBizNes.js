@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Card, Accordion, Button, Pagination, Dropdown, ListGroup } from 'react-bootstrap';
 import { IoRefreshCircle } from "react-icons/io5";
+import { BsFileEarmarkSpreadsheetFill } from "react-icons/bs";
 import { GoDotFill } from "react-icons/go";
 import { getMyCreatedBiz, archiveBiz } from '../../utils/Biz/BizUtils.js';
 import { retrieveTransaction } from '../../utils/Biz/AdminUtils.js';
@@ -12,6 +13,7 @@ import ArchiveBizModal from './Admin_ArchiveBizModal.js';
 import TransactModal from './Admin_TransactModal.js';
 import userIcon from '../../assets/Biz/icons/icon-round-image.png';
 import '../../assets/Biz/styles/AccountInfo.css';
+import * as XLSX from 'xlsx';
 
 import UserContext from '../../UserContext';
 
@@ -36,7 +38,6 @@ export default function SeeBizNez() {
   const [ adminToken, setAdminToken ] = useState(''); 
   const [ transactions, setTransactions ] = useState({});
   const [ visibleTransactions, setVisibleTransactions ] = useState({});
-
   
   const totalPages = Math.ceil(businesses.length / itemsPerPage);
 
@@ -151,6 +152,68 @@ export default function SeeBizNez() {
     } else {
     }
     closeArchiveModal();
+  };
+
+  const generateSpreadsheet = () => {
+    const sheetSize = 100; // Number of businesses per sheet
+    const sheets = Math.ceil(businesses.length / sheetSize); // Total number of sheets
+  
+    const workbook = XLSX.utils.book_new(); // Create a new workbook
+
+    const formatDate = (dateString) => {
+      const date = new Date(dateString);
+      return date.toLocaleString(); // This will format as "MM/DD/YYYY, HH:MM:SS AM/PM"
+    };
+  
+    for (let i = 0; i < sheets; i++) {
+      const start = i * sheetSize;
+      const end = start + sheetSize;
+      const sheetBusinesses = businesses.slice(start, end); // Get up to 100 businesses for this sheet
+  
+      // Prepare the business data for the spreadsheet, including a number column
+      const data = sheetBusinesses.map((biz, index) => ({
+        Number: start + index + 1, // Add a number column to track the business number
+        Name: biz.name,
+        Alias: biz.alias,
+        Status: biz.isArchived ? 'Archived' : 'Active',
+        Phone: biz.display_phone,
+        Location: `${biz.location.address1}, ${biz.location.city}`,
+        Rating: biz.rating || 'N/A',
+        ReviewCount: biz.review_count || 'N/A',
+        CreatedAt: formatDate(biz.createdAt),
+        UpdatedAt: formatDate(biz.updatedAt),
+      }));
+  
+      // Create a new worksheet
+      const worksheet = XLSX.utils.json_to_sheet(data);
+  
+      // Calculate the max width of each column and auto-size
+      const columnWidths = data.reduce((widths, row) => {
+        Object.keys(row).forEach((key, index) => {
+          const valueLength = row[key] ? row[key].toString().length : 10; // Default to 10 if empty
+          if (!widths[index]) {
+            widths[index] = valueLength;
+          } else {
+            widths[index] = Math.max(widths[index], valueLength);
+          }
+        });
+        return widths;
+      }, []);
+  
+      // Set the worksheet column widths
+      worksheet['!cols'] = columnWidths.map(width => ({ wch: width }));
+  
+      // Add the worksheet to the workbook, name it "Businesses 1", "Businesses 2", etc.
+      XLSX.utils.book_append_sheet(workbook, worksheet, `Businesses ${i + 1}`);
+    }
+  
+    // Get the current date and format it as YYYYMMDD
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().slice(0, 10).replace(/-/g, ''); // Format as YYYYMMDD
+  
+    // Generate a download for the file with the format YYYYMMDD_BizSolutions-Bizs.xlsx
+    const fileName = `${formattedDate}_BizSolutions-Bizs.xlsx`;
+    XLSX.writeFile(workbook, fileName);
   };
 
   async function loadBusinesses() {
@@ -436,6 +499,16 @@ export default function SeeBizNez() {
               </Accordion.Item>
             ))}
           </Accordion>
+        
+          <div className='pt-lg-3' style={{ textAlign: 'right' }}>
+            <p>Extract these data?</p>
+              <BsFileEarmarkSpreadsheetFill 
+                style={{ fontSize: '32px', cursor: 'pointer' }} 
+                className='biz-color'
+                onClick={generateSpreadsheet} // Add onClick event to generate the spreadsheet
+              />
+          </div>
+
 
           <Pagination className="justify-content-center py-5">
             <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
@@ -458,7 +531,6 @@ export default function SeeBizNez() {
             <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
             <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
           </Pagination>
-
 
           <UploadImageModal 
             show={showModal} 
