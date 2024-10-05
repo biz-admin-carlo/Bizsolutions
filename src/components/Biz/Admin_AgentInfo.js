@@ -85,22 +85,22 @@ export default function SeeAgents() {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>#</th> 
-              <th>First Name</th>
-              <th>Last Name</th>
+              <th>#</th>
+              <th>Agent ID</th>
+              <th>Full Name</th>
               <th>Referral Code</th>
-              <th>Email</th>
-              <th>Vendor Agent Account</th>
-              <th>Active</th>
-              <th>Referred By</th>
+              <th>Email Address</th>
+              <th>Vendor Account</th>
+              <th>Status</th>
+              <th>Referrer</th>
             </tr>
           </thead>
           <tbody>
             {agentsDetails.map((user, index) => (
               <tr key={user._id}>
                 <td>{index + 1}</td>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
+                <td>{user._id}</td>
+                <td>{user.lastName}, {user.firstName}</td>
                 <td>{user.referralCode}</td>
                 <td>{user.email}</td>
                 <td>{user.isVendorAgent ? 'Yes' : 'No'}</td>

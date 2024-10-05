@@ -36,9 +36,6 @@ export default function SeeBizNezManager() {
   const [ adminToken, setAdminToken ] = useState(''); 
   const [ transactions, setTransactions ] = useState({});
   const [ visibleTransactions, setVisibleTransactions ] = useState({});
-
-  console.log(transactions);
-
   
   const totalPages = Math.ceil(businesses.length / itemsPerPage);
 

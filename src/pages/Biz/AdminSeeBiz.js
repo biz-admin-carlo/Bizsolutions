@@ -9,8 +9,6 @@ export default function Account() {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
 
-  console.log(user);
-
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
