@@ -63,7 +63,6 @@ export async function retrieveAllTransaction(bizId) {
                 'Authorization': `Bearer ${token}`
             }
         });
-        console.log(response.data);
         if (response.data.httpCode === "200") {
             return response.data.transactions;
         } else {
