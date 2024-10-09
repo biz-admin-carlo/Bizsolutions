@@ -9,8 +9,6 @@ export default function Account() {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
 
-  console.log(user);
-
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -19,13 +17,18 @@ export default function Account() {
   }, [navigate]);
 
   return (
-      <>
-        <Helmet>
-          <title>BizSolutions | See All Biz</title>
-        </Helmet>
-        
-        {user.isAdmin && user.isVendor && <SeeBizNesVendorManager />}
-        {user.isAdmin && <SeeBizNes />}
-      </>
+<>
+      <Helmet>
+        <title>BizSolutions | See All Biz</title>
+      </Helmet>
+      
+      {
+        !(user.isAdmin && user.isVendor) && user.isAdmin && <SeeBizNes />
+      }
+
+      {
+        user.isAdmin && user.isVendor && <SeeBizNesVendorManager />
+      }
+    </>
   );
 }

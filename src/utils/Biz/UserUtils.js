@@ -62,3 +62,58 @@ export async function searchFeature(data) {
         return { success: false };
     }
 }
+
+export async function returnFullName (userId) {
+
+    try {
+        const url = `${apiUrl}/api/v1/users/retrieve/${userId}`;
+        const token = localStorage.getItem('token');
+
+        const response = await axios.get(url, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (response.status === 200) {
+            return {
+                success: true,
+                fullName: response.data.fullName
+            };
+        } else {
+            return { success: false };
+        }
+    } catch (error) {
+        return { success: false };
+    }
+}
+
+export async function addPaymentLog(bizID, paymentLogs) {
+    const formData = new FormData();
+    
+    formData.append('bizID', bizID);
+
+    paymentLogs.forEach((log, index) => {
+        formData.append(`paymentLog[${index}][userID]`, log.userID);
+        formData.append(`paymentLog[${index}][status]`, log.status);
+        formData.append(`paymentLog[${index}][timestamp]`, log.timestamp);
+    });
+
+    try {
+        const url = `${apiUrl}/api/v1/users/add-payment-logs`;
+        const token = localStorage.getItem('token'); 
+
+        const response = await axios.post(url, formData, {
+            headers: {
+                'Authorization': `Bearer ${token}`, 
+            }
+        });
+
+        // Handle successful response
+        return response.data;
+    } catch (error) {
+        // Handle error
+        // console.error('Error adding payment log:', error);
+        throw error;
+    }
+}

@@ -180,7 +180,6 @@ export const getMyCreatedBiz = async () => {
 
 export const getMyVendorManagerBizNess = async () => {
     const token = localStorage.getItem('token'); 
-    console.log(token);
     const url = `${apiUrl}/api/v1/biz/retrieve/biz-ness`;
     try {
         const response = await axios.get(url,  {

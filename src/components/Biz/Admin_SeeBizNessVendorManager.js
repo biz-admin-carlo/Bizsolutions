@@ -2,17 +2,16 @@ import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Card, Accordion, Button, Pagination, Dropdown, ListGroup } from 'react-bootstrap';
 import { IoRefreshCircle } from "react-icons/io5";
-import { GoDotFill } from "react-icons/go";
 import { getMyVendorManagerBizNess, archiveBiz } from '../../utils/Biz/BizUtils.js';
 import { retrieveAllTransaction } from '../../utils/Biz/AdminUtils.js';
-import BarSpinner from './Reusable_BarSpinner.js';
+import { returnFullName } from '../../utils/Biz/UserUtils.js';
 import AppFooter from './Application_Footer.js';
 import UploadImageModal from './Admin_UploadBizImage.js';
 import ArchiveBizModal from './Admin_ArchiveBizModal.js';
 import TransactModal from './Admin_TransactModal.js';
 import userIcon from '../../assets/Biz/icons/icon-round-image.png';
 import '../../assets/Biz/styles/AccountInfo.css';
-
+import { Link } from 'react-router-dom';
 import UserContext from '../../UserContext';
 
 export default function SeeBizNezManager() {
@@ -36,11 +35,24 @@ export default function SeeBizNezManager() {
   const [ adminToken, setAdminToken ] = useState(''); 
   const [ transactions, setTransactions ] = useState({});
   const [ visibleTransactions, setVisibleTransactions ] = useState({});
+  const [fullNames, setFullNames] = useState({});
 
-  console.log(transactions);
-
-  
   const totalPages = Math.ceil(businesses.length / itemsPerPage);
+
+  const fetchFullName = async (userId, bizId) => {
+    const result = await returnFullName(userId);
+    if (result.success) {
+      setFullNames(prev => ({
+        ...prev,
+        [bizId]: result.fullName, // Associate the full name with the business ID
+      }));
+    } else {
+      setFullNames(prev => ({
+        ...prev,
+        [bizId]: 'Full Name Not Available',
+      }));
+    }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -102,12 +114,22 @@ export default function SeeBizNezManager() {
     setCurrentBizId(bizId);
     setShowModalTransact(true);
     setAdminId(user._id);
-
-    if (!transactions[bizId] || transactions[bizId].length === 0) {
+  
+    if (!transactions[bizId]) {
       const fetchedTransactions = await retrieveAllTransaction(adminToken, bizId);
       setTransactions(prev => ({ ...prev, [bizId]: fetchedTransactions }));
     }
   };
+
+  useEffect(() => {
+    // Fetch full names for all businesses
+    displayedBusinesses.forEach(biz => {
+      if (biz.userID && !fullNames[biz._id]) {
+        fetchFullName(biz.userID, biz._id);
+      }
+    });
+  }, [displayedBusinesses]);
+  
 
   const handleTransactionComplete = async () => {
     if (currentBizId) {
@@ -186,7 +208,14 @@ export default function SeeBizNezManager() {
   }
 
   useEffect(() => {
-    async function loadBusinesses() {
+    const loadBusinesses = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+  
+      setAdminToken(token);
       const bizData = await getMyVendorManagerBizNess();
       if (bizData && !bizData.error) {
         setBusinesses(bizData.httpMessage);
@@ -196,17 +225,18 @@ export default function SeeBizNezManager() {
         const withImagesCount = bizData.httpMessage.filter(biz => biz.biz_images && biz.biz_images.length > 0).length;
         setNumberOfBizWithImages(withImagesCount);
   
-        const activeBusinesses = bizData.httpMessage.filter(biz => !biz.isArchived).length;
-        const inactiveBusinesses = bizData.httpMessage.filter(biz => biz.isArchived).length;
-        setActiveBusinesses(activeBusinesses);
-        setInactiveBusinesses(inactiveBusinesses);
+        const activeBusinessesCount = bizData.httpMessage.filter(biz => !biz.isArchived).length;
+        const inactiveBusinessesCount = bizData.httpMessage.filter(biz => biz.isArchived).length;
+        setActiveBusinesses(activeBusinessesCount);
+        setInactiveBusinesses(inactiveBusinessesCount);
       } else {
         navigate('/login');
       }
-    }
-    loadBusinesses();
+    };
+  
+    loadBusinesses(); 
   }, [navigate]);
-
+  
   const handleUpload = useCallback((file) => {
     if (!file) return;
     closeModal();
@@ -268,6 +298,9 @@ export default function SeeBizNezManager() {
             <Card.Subtitle className='text-secondary'>
               Inactive Businesses (Archived): <a className='biz-color' style={{ textDecoration: 'none' }}>{inactiveBusinesses} archived</a>.
             </Card.Subtitle>
+            <Card.Subtitle className='text-secondary'>
+              Manager's Account  
+            </Card.Subtitle>
         </div>
         <div className='py-3'>
           <Dropdown onSelect={handleItemsPerPageChange}>
@@ -293,8 +326,6 @@ export default function SeeBizNezManager() {
               <Accordion.Item eventKey={index.toString()}>
                 <Accordion.Header>
                   {biz.name}
-                  {/* <GoDotFill style={{ color: biz.biz_images.length === 0 ? 'red' : 'green' }} />
-                  <GoDotFill style={{ color: biz.isArchived === 0 ? 'red' : 'green' }} /> */}
                 </Accordion.Header>                 
                 <Accordion.Body>
 
@@ -368,6 +399,11 @@ export default function SeeBizNezManager() {
                       <ListGroup.Item action disabled>
                         <span style={{ fontWeight: 'bold' }}>Agent UserID: </span> {biz.userID}
                       </ListGroup.Item>
+
+                      <ListGroup.Item action disabled>
+                        <span style={{ fontWeight: 'bold' }}>Agent fullName: </span> {fullNames[biz._id] || 'Loading...'}
+                      </ListGroup.Item>
+
                     </ListGroup>
 
                     {transactions[biz._id] && transactions[biz._id].length > 0 && (
@@ -389,7 +425,9 @@ export default function SeeBizNezManager() {
                                   <span style={{ fontWeight: 'bold' }}>Status:</span> 
                                   <span style={getStatusStyle(transaction.status)}> {transaction.status}</span> <br />   
                                   <span style={{ fontWeight: 'bold' }}>AgentID:</span> {transaction.agentUserId} <br />                
+                                  <span style={{ fontWeight: 'bold' }}>Agent Name:</span> {transaction.agentName} <br />    
                                   <span style={{ fontWeight: 'bold' }}>Agent Name:</span> {transaction.agentName} <br />                                                                                                     
+                                                                                                 
                                 </Card.Body>
                               </Card>
                             </div>
@@ -410,13 +448,86 @@ export default function SeeBizNezManager() {
                         )}
                       </>
                     )}
+                  <div className="d-flex justify-content-between align-items-center">
+                  {/* Left side: Text */}
+                  <div className="ms-2">
+                    <Link 
+                      // to={`/admin-dashboard/${adminID}/see-biz/${bizID}`} 
+                      // to={`/admin-dashboard/adminID/see-biz/bizID`} 
+                      style={{ textDecoration: 'underline', color: 'orange' }}
+                    >
+                      <p>View Biz Status</p>
+                    </Link>
+                  </div>
 
 
-                    <div className="d-flex justify-content-end">
-                      {!biz.isArchived && <Button variant="danger" onClick={() => openArchiveModal(biz._id)}>Archive Biz</Button>}
-                      <Button className="mx-1" variant="success" onClick={() => openTransactModal(biz._id, biz.alias)}>Transact Biz</Button>
-                      <Button className="mx-1" variant="warning" onClick={() => openModal(biz._id, biz.alias)}>Upload Biz Image</Button>
-                    </div>
+                  <div className="d-flex align-items-center">
+
+                    <Dropdown className="mx-1">
+                      <Dropdown.Toggle variant="info" id="dropdown-payment-status">
+                        Payment Status
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Header>Successful Payments</Dropdown.Header>
+                        <Dropdown.Item href="#/action-1">✅ Paid</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">💸 Refunded</Dropdown.Item>
+
+                        <Dropdown.Header>Payment Issues</Dropdown.Header>
+                        <Dropdown.Item href="#/action-2">❌ Failed</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">🔄 Chargeback</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">🚫 Cancelled</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">🔒 Blocked</Dropdown.Item>
+
+                        <Dropdown.Header>Visibility Status</Dropdown.Header>
+                        <Dropdown.Item href="#/action-3">🙈 Not Visible</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+
+                    <Dropdown className="mx-1">
+                      <Dropdown.Toggle variant="secondary" id="dropdown-biz-status">
+                        Biz Status
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Header>Communication Status</Dropdown.Header>
+                        <Dropdown.Item href="#/action-1" title="Business requirement message has been sent">
+                          <span role="img" aria-label="envelope">📩</span> Sent Business Requirement Message
+                        </Dropdown.Item>
+                        <Dropdown.Item href="#/action-2" title="Already in communication with the business">
+                          <span role="img" aria-label="chat">💬</span> Already in Communication
+                        </Dropdown.Item>
+
+                        <Dropdown.Header>Development Status</Dropdown.Header>
+                        <Dropdown.Item href="#/action-3" title="Business is already under development">
+                          <span role="img" aria-label="hammer">🔨</span> Business Under Development
+                        </Dropdown.Item>
+                        <Dropdown.Item href="#/action-4" title="Business has already been deployed">
+                          <span role="img" aria-label="rocket">🚀</span> Business Deployed
+                        </Dropdown.Item>
+
+                        <Dropdown.Header>Response Status</Dropdown.Header>
+                        <Dropdown.Item href="#/action-5" title="Business is not responding">
+                          <span role="img" aria-label="no-response">🛑</span> Business Not Responding
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+
+                    <Button className="mx-1" variant="success" onClick={() => openTransactModal(biz._id, biz.alias)}>
+                      Transact Biz
+                    </Button>
+
+                    <Button className="mx-1" variant="warning" onClick={() => openModal(biz._id, biz.alias)}>
+                      Upload Biz Image
+                    </Button>
+
+                    {!biz.isArchived && (
+                      <Button variant="danger" onClick={() => openArchiveModal(biz._id)} className="mx-1">
+                        Archive Biz
+                      </Button>
+                    )}
+                  </div>
+                </div>
+
+
                   </Accordion.Body>
               </Accordion.Item>
             ))}
