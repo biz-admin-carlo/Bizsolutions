@@ -117,3 +117,40 @@ export async function addPaymentLog(bizID, paymentLogs) {
         throw error;
     }
 }
+
+export const fetchUserDetails = async (token) => {
+  try {
+    const response = await axios.get(`${apiUrl}/api/v1/users/details`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    if (response.status === 200) {
+      return response.data;
+    }
+    throw new Error('Failed to fetch user details');
+  } catch (error) {
+    console.error('Error in fetchUserDetails:', error);
+    throw error;
+  }
+};
+
+export const fetchAgentDetails = async (token, referralCode) => {
+  try {
+    const response = await axios.post(`${apiUrl}/api/v1/admin/vendor-manager/view-all-agents`,
+      { referralCode },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    if (response.status === 200) {
+      return response.data;
+    }
+    throw new Error('Failed to fetch agent details');
+  } catch (error) {
+    console.error('Error in fetchAgentDetails:', error);
+    throw error;
+  }
+};

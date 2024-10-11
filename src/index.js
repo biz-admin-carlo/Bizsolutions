@@ -7,7 +7,7 @@ import 'aos/dist/aos.css';
 import 'leaflet/dist/leaflet.css';
 import ReactGA from 'react-ga';
 
-const APP_VERSION = '1.2.2';
+const APP_VERSION = '1.2.4';
 
 function checkStorageVersion() {
     const storedLocalVersion = localStorage.getItem('appVersion');
