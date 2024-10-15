@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; 
 import { Container } from 'react-bootstrap';
 
-import { getBizViaCoords, getBizViaState, loggedVisitors } from '../../utils/Biz/ClientUtils';
+import { getBizViaCoords, getBizViaState, loggedVisitors } from '../../../utils/Biz/ClientUtils';
 import BusinessCard from '../../components/Biz/Search_BusinessCard';
 import Pagination from '../../components/Biz/Search_Pagination';
 import Breadcrumb from '../../components/Biz/Search_Breadcrumb';

@@ -130,7 +130,7 @@ export const fetchUserDetails = async (token) => {
     }
     throw new Error('Failed to fetch user details');
   } catch (error) {
-    console.error('Error in fetchUserDetails:', error);
+    // console.error('Error in fetchUserDetails:', error);
     throw error;
   }
 };
@@ -150,7 +150,19 @@ export const fetchAgentDetails = async (token, referralCode) => {
     }
     throw new Error('Failed to fetch agent details');
   } catch (error) {
-    console.error('Error in fetchAgentDetails:', error);
+    // console.error('Error in fetchAgentDetails:', error);
     throw error;
   }
+};
+
+export const loginUser = async (email, password) => {
+    try {
+        const response = await axios.post(`${apiUrl}/api/v1/users/login`, {
+            email: email,
+            password: password,
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
 };

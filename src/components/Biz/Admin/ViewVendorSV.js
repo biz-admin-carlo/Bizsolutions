@@ -13,6 +13,7 @@ import userIcon from '../../../assets/icons/icon-round-image.png';
 import '../../../assets/styles/AccountInfo.css';
 import { Link } from 'react-router-dom';
 import UserContext from '../../../utils/Contexts/userContext.js';
+import ProcessedAccounts from './Table/RetrieveBizSV.js';
 
 export default function SeeBizNezManager() {
 
@@ -121,14 +122,14 @@ export default function SeeBizNezManager() {
     }
   };
 
-  useEffect(() => {
-    // Fetch full names for all businesses
-    displayedBusinesses.forEach(biz => {
-      if (biz.userID && !fullNames[biz._id]) {
-        fetchFullName(biz.userID, biz._id);
-      }
-    });
-  }, [displayedBusinesses]);
+  // useEffect(() => {
+  //   // Fetch full names for all businesses
+  //   displayedBusinesses.forEach(biz => {
+  //     if (biz.userID && !fullNames[biz._id]) {
+  //       fetchFullName(biz.userID, biz._id);
+  //     }
+  //   });
+  // }, [displayedBusinesses]);
   
 
   const handleTransactionComplete = async () => {
@@ -271,11 +272,7 @@ export default function SeeBizNezManager() {
                   <Card.Subtitle className='text-secondary'>
                       {user.vendorName ? user.vendorName : "This is all your added biz-ness!"}
                   </Card.Subtitle>
-              </div>
-              <IoRefreshCircle 
-                style={{ fontSize: '44px', color: 'green', cursor: 'pointer' }} 
-                onClick={() => loadBusinesses()}  
-              />       
+              </div>    
             </div>
       </div>
 
@@ -302,288 +299,11 @@ export default function SeeBizNezManager() {
               Manager's Account  
             </Card.Subtitle>
         </div>
-        <div className='py-3'>
-          <Dropdown onSelect={handleItemsPerPageChange}>
-            <Dropdown.Toggle variant="dark" id="dropdown-basic">
-              Items per page: {itemsPerPage}
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              {[5, 10, 20, 50, 100].map((number) => (
-                <Dropdown.Item key={number} eventKey={number}>
-                  {number}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
         
       </div>
 
-        <div className="table-responsive">
-          <Accordion defaultActiveKey="0">
-            {displayedBusinesses.map((biz, index) => (
-              <Accordion.Item eventKey={index.toString()}>
-                <Accordion.Header>
-                  {biz.name}
-                </Accordion.Header>                 
-                <Accordion.Body>
-
-                    <ListGroup defaultActiveKey="#link1" className='py-2'>
-                      <ListGroup.Item action href="#link1">
-                        <span style={{ fontWeight: 'bold' }}>Biz-ness ID: </span> {biz._id}
-                      </ListGroup.Item>
-                      <ListGroup.Item action disabled>
-                        <span style={{ fontWeight: 'bold' }}>Status: </span>
-                        <span style={{ fontWeight: 'bold', color: biz.isArchived ? 'red' : 'green' }}>
-                          {biz.isArchived ? "Archived" : "Active"}
-                        </span>
-                      </ListGroup.Item>
-                      <ListGroup.Item action disabled>
-                        <span style={{ fontWeight: 'bold' }}>Name: </span> {biz.name}
-                      </ListGroup.Item>
-                      <ListGroup.Item action disabled>
-                        <span style={{ fontWeight: 'bold' }}>Alias: </span> {biz.alias}
-                      </ListGroup.Item>
-
-                      {biz.image_url && (
-                        <ListGroup.Item action disabled>
-                          <span style={{ fontWeight: 'bold' }}>Photo URL: </span>  {biz.image_url}
-                        </ListGroup.Item>
-                      )}
-
-                      {biz.biz_images && biz.biz_images.length > 0 ? (
-                        <ListGroup.Item action disabled>
-                          {biz.biz_images.slice(-3).reverse().map((image, index) => (
-                            <img key={index} src={image.url} alt={`Image ${index + 1} of ${biz.name}`} style={{ width: "120px", marginLeft: index !== 0 ? "5px" : "0px" }}/>
-                          ))}
-                        </ListGroup.Item>
-                      ) : (
-                        <span className="ms-2 my-2"><span style={{ fontWeight: 'bold' }}>Photo URL: </span> No image available</span>
-                      )}
-
-                      <ListGroup.Item action disabled>
-                        <span style={{ fontWeight: 'bold' }}>Phone Number: </span> {biz.display_phone}
-                      </ListGroup.Item>
-
-                      <ListGroup.Item action disabled>
-                        <span style={{ fontWeight: 'bold' }}>Location: </span> {`${biz.location.address1}, ${biz.location.city}`}
-                      </ListGroup.Item>
-
-                      <ListGroup.Item action disabled>
-                        <span style={{ fontWeight: 'bold' }}>Category: </span> {biz.categories.map(cat => cat.title).join(', ')}
-                      </ListGroup.Item>
-
-                      <ListGroup.Item action disabled>
-                       <span style={{ fontWeight: 'bold' }}>Type of Transactions: </span> {biz.transactions.join(', ')}
-                      </ListGroup.Item>
-
-                      <ListGroup.Item action disabled>
-                        <span style={{ fontWeight: 'bold' }}>Rating: </span>  {biz.rating !== null && biz.rating !== undefined ? biz.rating : <em>None available</em>}
-                      </ListGroup.Item>
-
-                      <ListGroup.Item action disabled>
-                        <span style={{ fontWeight: 'bold' }}>Review Count: </span> {biz.review_count || "None available"}
-                      </ListGroup.Item>
-
-                      <ListGroup.Item action disabled>
-                        <span style={{ fontWeight: 'bold' }}>Created On: </span> 
-                        {formatDate(biz.createdAt)}
-                      </ListGroup.Item>
-
-                      <ListGroup.Item action disabled>
-                        <span style={{ fontWeight: 'bold' }}>Updated Last: </span> 
-                        {formatDate(biz.updatedAt)}
-                      </ListGroup.Item>
-
-                      <ListGroup.Item action disabled>
-                        <span style={{ fontWeight: 'bold' }}>Agent UserID: </span> {biz.userID}
-                      </ListGroup.Item>
-
-                      <ListGroup.Item action disabled>
-                        <span style={{ fontWeight: 'bold' }}>Agent fullName: </span> {fullNames[biz._id] || 'Loading...'}
-                      </ListGroup.Item>
-
-                    </ListGroup>
-
-                    {transactions[biz._id] && transactions[biz._id].length > 0 && (
-                      <>
-                        <h3>Transaction Updates:</h3>
-                        {transactions[biz._id]
-                          .slice(0, visibleTransactions[biz._id] ? transactions[biz._id].length : 3)
-                          .map((transaction, index) => (
-                            <div className='my-lg-2' key={index}>
-                              <Card>
-                                <Card.Body>
-                                  <span style={{ fontWeight: 'bold' }}>Agent Name:</span> {transaction.agentName} <br />       
-                                  <span style={{ fontWeight: 'bold' }}>Transaction for:</span> {transaction.bizName} <br />      
-                                  <span style={{ fontWeight: 'bold' }}>Biz-ness Id:</span> {transaction.bizId} <br />       
-                                  <span style={{ fontWeight: 'bold' }}>Contact Person:</span> {transaction.contactEmail} <br />                                                     
-                                  <span style={{ fontWeight: 'bold' }}>Package Acquired:</span> {transaction.packageAcquired} <br />   
-                                  <span style={{ fontWeight: 'bold' }}>Package Amount:</span> {transaction.value} <br />                                                                                                       
-                                  <span style={{ fontWeight: 'bold' }}>Transaction Made:</span> {formatDate(transaction.transactionDate)} <br />
-                                  <span style={{ fontWeight: 'bold' }}>Status:</span> 
-                                  <span style={getStatusStyle(transaction.status)}> {transaction.status}</span> <br />   
-                                  <span style={{ fontWeight: 'bold' }}>AgentID:</span> {transaction.agentUserId} <br />                
-                                  <span style={{ fontWeight: 'bold' }}>Agent Name:</span> {transaction.agentName} <br />    
-                                  <span style={{ fontWeight: 'bold' }}>Agent Name:</span> {transaction.agentName} <br />                                                                                                     
-                                                                                                 
-                                </Card.Body>
-                              </Card>
-                            </div>
-                        ))}
-                        {transactions[biz._id].length > 3 && !visibleTransactions[biz._id] && (
-                          <div className="text-center">
-                            <Button variant="link" style={{ textDecoration: 'none', color: 'black' }} onClick={() => setVisibleTransactions(prev => ({ ...prev, [biz._id]: true }))}>
-                              See More
-                            </Button>
-                          </div>
-                        )}
-                        {visibleTransactions[biz._id] && (
-                          <div className="text-center">
-                            <Button variant="link" style={{ textDecoration: 'none', color: 'black' }} onClick={() => setVisibleTransactions(prev => ({ ...prev, [biz._id]: false }))}>
-                              See Less
-                            </Button>
-                          </div>
-                        )}
-                      </>
-                    )}
-                  <div className="d-flex justify-content-between align-items-center">
-                  {/* Left side: Text */}
-                  <div className="ms-2">
-                    <Link 
-                      // to={`/admin-dashboard/${adminID}/see-biz/${bizID}`} 
-                      // to={`/admin-dashboard/adminID/see-biz/bizID`} 
-                      style={{ textDecoration: 'underline', color: 'orange' }}
-                    >
-                      <p>View Biz Status</p>
-                    </Link>
-                  </div>
-
-
-                  <div className="d-flex align-items-center">
-
-                    <Dropdown className="mx-1">
-                      <Dropdown.Toggle variant="info" id="dropdown-payment-status">
-                        Payment Status
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        <Dropdown.Header>Successful Payments</Dropdown.Header>
-                        <Dropdown.Item href="#/action-1">✅ Paid</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">💸 Refunded</Dropdown.Item>
-
-                        <Dropdown.Header>Payment Issues</Dropdown.Header>
-                        <Dropdown.Item href="#/action-2">❌ Failed</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">🔄 Chargeback</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">🚫 Cancelled</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">🔒 Blocked</Dropdown.Item>
-
-                        <Dropdown.Header>Visibility Status</Dropdown.Header>
-                        <Dropdown.Item href="#/action-3">🙈 Not Visible</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-
-                    <Dropdown className="mx-1">
-                      <Dropdown.Toggle variant="secondary" id="dropdown-biz-status">
-                        Biz Status
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        <Dropdown.Header>Communication Status</Dropdown.Header>
-                        <Dropdown.Item href="#/action-1" title="Business requirement message has been sent">
-                          <span role="img" aria-label="envelope">📩</span> Sent Business Requirement Message
-                        </Dropdown.Item>
-                        <Dropdown.Item href="#/action-2" title="Already in communication with the business">
-                          <span role="img" aria-label="chat">💬</span> Already in Communication
-                        </Dropdown.Item>
-
-                        <Dropdown.Header>Development Status</Dropdown.Header>
-                        <Dropdown.Item href="#/action-3" title="Business is already under development">
-                          <span role="img" aria-label="hammer">🔨</span> Business Under Development
-                        </Dropdown.Item>
-                        <Dropdown.Item href="#/action-4" title="Business has already been deployed">
-                          <span role="img" aria-label="rocket">🚀</span> Business Deployed
-                        </Dropdown.Item>
-
-                        <Dropdown.Header>Response Status</Dropdown.Header>
-                        <Dropdown.Item href="#/action-5" title="Business is not responding">
-                          <span role="img" aria-label="no-response">🛑</span> Business Not Responding
-                        </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-
-                    <Button className="mx-1" variant="success" onClick={() => openTransactModal(biz._id, biz.alias)}>
-                      Transact Biz
-                    </Button>
-
-                    <Button className="mx-1" variant="warning" onClick={() => openModal(biz._id, biz.alias)}>
-                      Upload Biz Image
-                    </Button>
-
-                    {!biz.isArchived && (
-                      <Button variant="danger" onClick={() => openArchiveModal(biz._id)} className="mx-1">
-                        Archive Biz
-                      </Button>
-                    )}
-                  </div>
-                </div>
-
-
-                  </Accordion.Body>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-
-          <Pagination className="justify-content-center py-5">
-            <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
-            <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
-
-            {currentPage > 4 && <Pagination.Item onClick={() => handlePageChange(1)}>{1}</Pagination.Item>}
-            {currentPage > 4 && <Pagination.Ellipsis disabled />}
-
-            {currentPage > 2 && <Pagination.Item onClick={() => handlePageChange(currentPage - 2)}>{currentPage - 2}</Pagination.Item>}
-            {currentPage > 1 && <Pagination.Item onClick={() => handlePageChange(currentPage - 1)}>{currentPage - 1}</Pagination.Item>}
-
-            <Pagination.Item active>{currentPage}</Pagination.Item>
-
-            {currentPage < totalPages && <Pagination.Item onClick={() => handlePageChange(currentPage + 1)}>{currentPage + 1}</Pagination.Item>}
-            {currentPage < totalPages - 1 && <Pagination.Item onClick={() => handlePageChange(currentPage + 2)}>{currentPage + 2}</Pagination.Item>}
-
-            {currentPage < totalPages - 3 && <Pagination.Ellipsis disabled />}
-            {currentPage < totalPages - 3 && <Pagination.Item onClick={() => handlePageChange(totalPages)}>{totalPages}</Pagination.Item>}
-
-            <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
-            <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
-          </Pagination>
-
-
-          <UploadImageModal 
-            show={showModal} 
-            handleClose={closeModal} 
-            handleUpload={handleUpload}
-            onUploadSuccess={handleUploadSuccess} 
-            onRefreshBusinesses={refreshBusinessData}
-            bizID={currentBizId} 
-            adminId={adminId}
-            bizName={currentBizName}
-          />
-
-          <ArchiveBizModal 
-            show={showModalArchive} 
-            handleClose={closeArchiveModal} 
-            handleArchive={handleArchive}
-            bizID={currentBizId}
-          />
-
-          <TransactModal 
-              show={showModalTransact} 
-              handleClose={closeTransactModal} 
-              onUploadSuccess={handleUploadSuccess} 
-              onRefreshBusinesses={refreshBusinessData}
-              onTransactionComplete={handleTransactionComplete}
-              bizID={currentBizId} 
-              adminId={adminId}
-              bizName={currentBizName}
-          />
+        <div>
+          <ProcessedAccounts/>
         </div>
 
       </Container>

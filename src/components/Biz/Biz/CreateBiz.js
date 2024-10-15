@@ -5,6 +5,7 @@ import BarSpinner from '../Shared/Spinner/BarSpinner.js';
 import BizRegistration from './Registration.js';
 import { checkBusinessName, checkBusinessAlias } from '../../../utils/Biz/BizUtils.js';
 import '../../../assets/styles/NewLoginInterface.css';
+import '../../../assets/styles/BizRegistration.css';
 
 export default function BizLanding({ businessData, hasBusiness }) {
 
@@ -130,21 +131,28 @@ export default function BizLanding({ businessData, hasBusiness }) {
                                 )}
                             </div>
                             <div className='pb-3 ps-3'>
-                                <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
-                                <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
-                                    Please use proper spelling, spacing, and capitalization.
-                                </p>
+                                <div className='d-inline-flex align-items-center'>
+                                    <BiInfoCircle style={{ marginRight: '5px' }} />
+                                    <p className='text-subtitle-below m-0'>
+                                        Please use proper spelling, spacing, and capitalization.
+                                    </p>
+                                </div>
                                 <br/>
-                                <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
-                                <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
-                                    Enter your business name exactly as it should appear.
-                                </p>
+                                <div className='d-inline-flex align-items-center'>
+                                    <BiInfoCircle style={{ marginRight: '5px' }} />
+                                    <p className='text-subtitle-below m-0'>
+                                        Enter your business name exactly as it should appear.
+                                    </p>
+                                </div>
                                 <br/>
-                                <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
-                                <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
-                                    This information will be shown publicly and cannot be edited later.
-                                </p>
+                                <div className='d-inline-flex align-items-center'>
+                                    <BiInfoCircle style={{ marginRight: '5px' }} />
+                                    <p className='text-subtitle-below m-0'>
+                                        This information will be shown publicly and cannot be edited later.
+                                    </p>
+                                </div>
                             </div>
+
                         </Form.Group>
 
                         <Form.Group controlId="formBasicBusinessName">

@@ -1,26 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 
 import ProfessionalRevamp from '../WebRevamp/Professional.js';
 import EnterpriseRevamp from '../WebRevamp/Enterprise.js';
+import WebRevamp from '../WebRevamp/Main.js';
 
 import '../../../../assets/styles/AppInformation.css';
 
 const Pricing_SectionC = () => {
-    const [ loadVideo, setLoadVideo ] = useState(false);
     const [ selected, setSelected ] = useState('annual');
 
     const handleSelect = (button) => {
         setSelected(button);
     };
 
-    useEffect(() => {
-        setLoadVideo(true);
-    }, []);
-
     return (
         <>
             <Container>
+                <hr/>
+
+                <div className='pb-lg-3'>
+                    <div className='text-center'>
+                        <h2>Website Revamp</h2>
+                        <h4>Bundle Package</h4>
+                    </div>
+                    <div className='container'>
+                        <WebRevamp />
+                    </div>
+                </div>
 
                 <hr/>
 

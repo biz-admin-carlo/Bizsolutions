@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; 
-import AdminUsersInfo from '../../../components/Biz/Admin/Admin_UsersInfo.js';
-import AgentsInfo from '../../../components/Biz/Admin/AgentInfo.js'
-import AdminEditProfile from '../../../components/Biz/Admin/EditProfile.js';
+import { Container } from 'react-bootstrap';
+import RetrieveAgents from '../../../components/Biz/Admin/Table/RetrieveAgents';
 import Footer from '../../../components/Biz/Shared/Footer/MainFooter.js'
 
 export default function SeeAgents() {
@@ -21,12 +20,12 @@ export default function SeeAgents() {
   return (
       <>
         <Helmet>
-          <title>Vendor Manager | See Agents</title>
+          <title>Vendor Manager | Retrieve Agents</title>
         </Helmet>
 
-        {/* <AdminUsersInfo /> */}
-        <AgentsInfo />
-        {/* <AdminEditProfile /> */}
+        <Container>
+          <RetrieveAgents />
+        </Container>
         <Footer />
       </>
   );

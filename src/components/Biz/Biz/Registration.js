@@ -406,10 +406,12 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                                 )}
                                             </div>
                                             <div className='pb-3 ps-3'>
-                                                <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
-                                                <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
-                                                    Enter the latitude as a number between -90 and 90. Latitude indicates the north-south position of a location on the Earth.
-                                                </p>
+                                                <div className='d-inline-flex align-items-center'>
+                                                    <BiInfoCircle style={{ marginRight: '5px' }} />
+                                                    <p className='text-subtitle-below m-0'>
+                                                        Enter the latitude as a number between -90 and 90. Latitude indicates the north-south position of a location on the Earth.
+                                                    </p>
+                                                </div>
                                             </div>
                                         </Form.Group>
                                         </Col>

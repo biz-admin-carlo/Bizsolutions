@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { Container, Form } from 'react-bootstrap';
 import Footer from '../Shared/Footer/MainFooter.js';
-import landingImage from '../../../assets/images/img-app-landing-banner.png'
+import landingImage from '../../../assets/images/img-app-landing-banner.png';
 import BarSpinner from '../Shared/Spinner/BarSpinner.js';
 import { PiEye, PiEyeSlash } from 'react-icons/pi';
 import '../../../assets/styles/NewLoginInterface.css';
+import { loginUser } from '../../../utils/Biz/UserUtils.js';
 
-const apiUrl = process.env.REACT_APP_API_URL;
-
-export default function NewLogin() {
+export default function Login() {
     const navigate = useNavigate();
     const [ message, setMessage ] = useState('')
     const [ loading, setLoading ] = useState(false);
@@ -28,18 +26,17 @@ export default function NewLogin() {
     const authenticate = async (event) => {
         event.preventDefault();
         setLoading(true);
-
+    
         try {
-            const response = await axios.post(`${apiUrl}/api/v1/users/login`, {
-                email: email,
-                password: password
-            });
-
-            const result = response.data;
-            
+            const result = await loginUser(email, password);
+    
             if (result.accessToken) {
-                window.location.reload();
                 localStorage.setItem('token', result.accessToken);
+    
+                const loginTime = new Date().toISOString();
+                localStorage.setItem('loggedInTime', loginTime);
+    
+                window.location.reload();
                 navigate('/');
             } else if (result.status === 403) {
                 setMessage('Account is already inactive.');
@@ -47,9 +44,8 @@ export default function NewLogin() {
                 setMessage('Password is incorrect!');
             }
         } catch (error) {
-            navigate('/login');
             setMessage('Password is incorrect!');
-
+            navigate('/login');
         } finally {
             setLoading(false);
         }
@@ -139,7 +135,7 @@ export default function NewLogin() {
                             </Form>
                         </div>
                         <div className="login-image">
-                            <img className="img-fluid" src={landingImage} alt="BizSolutions LLC Login Interface Image " />
+                            <img className="img-fluid" src={landingImage} alt="BizSolutions LLC Login Interface" />
                         </div>
                     </div>
                 </Container>

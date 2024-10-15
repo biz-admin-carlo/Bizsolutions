@@ -7,9 +7,9 @@
   animation: spin 1s linear infinite;
 }
 .text-subtitle-below {
-  font-size: .8rem;
-  color: gray;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-size: .8rem !important;
+  color: gray !important;
+  font-family: 'Helvetica Neue', sans-serif !important;
 }
 
 .text-subtitle-fields {

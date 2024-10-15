@@ -50,7 +50,7 @@ export default function SeeAgents() {
       setUserId(data._id);
       setIsLoading(false);
     } catch (error) {
-      console.error('Error fetching user details:', error);
+      // console.error('Error fetching user details:', error);
       setIsLoading(false);
     }
   };
@@ -60,7 +60,7 @@ export default function SeeAgents() {
       const result = await fetchAgentDetails(token, referralCode);
       setAgentsDetails(result.users);
     } catch (error) {
-      console.error('Error fetching agent details:', error);
+      // console.error('Error fetching agent details:', error);
     }
   };
 

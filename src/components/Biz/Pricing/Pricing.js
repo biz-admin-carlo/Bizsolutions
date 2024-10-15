@@ -16,9 +16,9 @@ export default function Pricing() {
                 <div className='pt-lg-5'>
                     <div data-aos="fade-down"><SectionA /></div>
                     <div data-aos="fade-down"><SectionB /></div>
-                    <div data-aos="fade-down"><SectionC /></div>
+                    {/* <div data-aos="fade-down"><SectionC /></div>
                     <div data-aos="fade-down"><SectionD /></div>
-                    <div data-aos="fade-down"><SectionE /></div>
+                    <div data-aos="fade-down"><SectionE /></div> */}
                 </div>
             </div>
         </>
