@@ -1,0 +1,52 @@
+.app-background {
+    background-image: url(../../../assets/images/img-app-landing-page-bg.png);
+	background-size: cover; 
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-position: center;
+    min-height: 100vh;
+}
+
+.navbar-search {
+    background: #FF851A;
+}
+
+.navbar-form {
+    display: flex;
+    align-items: center;
+    width: 100%
+}
+
+.navbar-form-control {
+    width: 100%;
+    border: none;
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
+  
+.pagination .page-link {
+    color: black; 
+    transition: color 0.3s ease-in-out;
+}
+
+.pagination .page-item:hover .page-link {
+    color: #FF851A ;
+}
+
+.no-text-decoration a {
+    text-decoration: none;
+    color: #9a9a9a;
+  }
+
+  .card-container-new {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+  }
+  

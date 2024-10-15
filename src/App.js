@@ -1,46 +1,48 @@
 import { useState, useEffect, Suspense } from 'react';
-import { UserProvider } from './UserContext';
+import { UserProvider } from './utils/Contexts/userContext.js';
 import { Helmet } from 'react-helmet'; 
+import { ChakraProvider } from '@chakra-ui/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
 import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import Home from './pages/Biz/Home';
-import Login from './pages/Biz/Login';
-import SignUp from './pages/Biz/Signup';
-import Referral from './pages/Biz/Referral';
-import Search from './pages/Biz/Search_Result';
-import SearchHome from './pages/Biz/Search_Home';
-import Account from './pages/Biz/Account';
-import Pricing from './pages/Biz/Pricing';
-import Terms from './pages/Biz/Terms';
-import Privacy from './pages/Biz/Privacy';
-import ContactUs from './pages/Biz/ContactUs';
-import AboutUs from './pages/Biz/AboutUs';
-import Career from './pages/Biz/Career';
-import Reset from './pages/Biz/Reset';
-import Biz from './pages/Biz/Bizness';
-import AdminDashboard from './pages/Biz/Admin';
-import AdminLogin from './pages/Biz/LoginAdmin';
-import AdminAddBiz from './pages/Biz/AdminAddBiz';
-import AdminSeeBiz from './pages/Biz/AdminSeeBiz';
-import AdminUsers from './pages/Biz/AdminUsers';
-import Result from './pages/Biz/Result';
-import AdminSeeAgents from './pages/Biz/AdminSeeAgents';
-import AdminMonthlyPayLink from './pages/Biz/AdminMonthly';
-import AdminAnnualPayLink from './pages/Biz/AdminAnnual';
+import Home from './pages/Biz/Shared/Home.js';
+import Pricing from './pages/Biz/Shared/Pricing.js';
+import Terms from './pages/Biz/Shared/Terms.js';
+import Privacy from './pages/Biz/Shared/Privacy.js';
+import ContactUs from './pages/Biz/Shared/Contact.js';
+import AboutUs from './pages/Biz/Shared/About.js';
+import Career from './pages/Biz/Shared/Careers.js';
+import CreateBizness from './pages/Biz/Shared/CreateBizness.js';
+import SearchHome from './pages/Biz/Shared/Search_Home.js';
+import Result from './pages/Biz/Shared/Result.js';
+import Search from './pages/Biz/Shared/Search_Result.js';
+import Login from './pages/Biz/Shared/Login.js';
+import SignUp from './pages/Biz/Shared/Signup.js';
+import Reset from './pages/Biz/Shared/Reset.js';
 
-import AppNavbar from './components/Biz/Application_Navbar';
-import ScrollToTop from './components/Biz/Reusable_ScrollToTop';
-import SignUpReferralTokend from './components/Biz/SignupReferralToken';
-import PageWebDevelopment from './components/Biz/Page_WebDevelopment';
-import PageWebRevamp from './components/Biz/Page_WebRevamp';
-import PageBookkeeping from './components/Biz/Page_Bookkeeping';
-import PageTechnicalSupport from './components/Biz/Page_TechnicalSupport';
-import PageCustomerService from './components/Biz/Page_CustomerService';
-import PageSalesCollections from './components/Biz/Page_SalesCollections';
-import Cookies from './components/Biz/Application_Cookies';
+import AdminDashboard from './pages/Biz/Admin/Admin.js';
+import AdminSeeBiz from './pages/Biz/Admin/AdminSeeBiz.js';
+import AdminUsers from './pages/Biz/Admin/AdminUsers.js';
+import AdminSeeAgents from './pages/Biz/Admin/AdminSeeAgents.js';
+import AdminMonthlyPayLink from './pages/Biz/Admin/AdminMonthly.js';
+
+import Referral from './pages/Biz/User/Referral.js';
+import Account from './pages/Biz/User/Account.js';
+import Biz from './pages/Biz/User/Bizness.js';
+
+import AppNavbar from './components/Biz/Shared/Navbar/MainNavbar.js';
+import ScrollToTop from './components/Biz/Shared/ScrollToTop.js';
+import Cookies from './components/Biz/Shared/Cookies.js';
+
+import SignupReferralToken from './components/Biz/SignUp/SignupReferralToken.js';
+import PageWebDevelopment from './components/Biz/Solutions/Main/WebDevelopment.js';
+import PageWebRevamp from './components/Biz/Solutions/Main/WebRevamp.js';
+import PageBookkeeping from './components/Biz/Services/Main/Bookkeeping.js';
+import PageTechnicalSupport from './components/Biz/Services/Main/TechnicalSupport.js';
+import PageCustomerService from './components/Biz/Services/Main/CustomerService.js';
+import PageSalesCollections from './components/Biz/Services/Main/SalesCollection.js';
 
 function App() {
   const [ user, setUser ] = useState({
@@ -66,6 +68,7 @@ function App() {
 
   return (
     <>
+      <ChakraProvider>
       <UserProvider value={{ user, setUser, unsetUser }}>
         <Router>
           <Helmet>
@@ -82,7 +85,7 @@ function App() {
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/login/pricing" element={<Login/>}/>
                     <Route path="/sign-up" element={<SignUp/>}/>
-                    <Route path="/sign-up-with-referral" element={<SignUpReferralTokend/>}/>
+                    <Route path="/sign-up-with-referral" element={<SignupReferralToken/>}/>
                     <Route path="/search" element={<Search/>}/>
                     <Route path="/search-biz" element={<SearchHome/>}/>
 
@@ -132,28 +135,28 @@ function App() {
                     {/* Super Admin Links Only */}
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
                     <Route path="/admin-dashboard/:userId/users" element={<AdminUsers/>}/>
-                    <Route path="/admin-dashboard/:userId/add-biz" element={<AdminAddBiz/>}/>
+                    <Route path="/admin-dashboard/:userId/add-biz" element={<CreateBizness/>}/>
                     <Route path="/admin-dashboard/:userId/see-biz" element={<AdminSeeBiz/>}/>
 
                     {/* Vendor Manager Links Only */}
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
                     <Route path="/admin-dashboard/:userId/add-agents" element={<AdminUsers/>}/>
                     <Route path="/admin-dashboard/:userId/see-agents" element={<AdminSeeAgents/>}/>
-                    <Route path="/admin-dashboard/:userId/add-biz" element={<AdminAddBiz/>}/>
+                    <Route path="/admin-dashboard/:userId/add-biz" element={<CreateBizness/>}/>
                     <Route path="/admin-dashboard/:userId/see-biz" element={<AdminSeeBiz/>}/>
 
                     {/* Vendor Agent Links Only */}
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
-                    <Route path="/admin-dashboard/:userId/add-biz" element={<AdminAddBiz/>}/>
+                    <Route path="/admin-dashboard/:userId/add-biz" element={<CreateBizness/>}/>
                     <Route path="/admin-dashboard/:userId/see-biz" element={<AdminSeeBiz/>}/>
-                    <Route path="/admin-dashboard/:userId/payment-link/monthly" element={<AdminMonthlyPayLink/>}/>
-                    <Route path="/admin-dashboard/:userId/payment-link/annually" element={<AdminAnnualPayLink/>}/>
+                    <Route path="/admin-dashboard/:userId/payment-link/" element={<AdminMonthlyPayLink/>}/>
 
                 </Routes>
               </Suspense>
             <Container />
         </Router>
       </UserProvider>
+      </ChakraProvider>
       {/* {!cookiesConsent && <Cookies onConsent={handleCookieConsent} />} */}
       <SpeedInsights />
     </>
