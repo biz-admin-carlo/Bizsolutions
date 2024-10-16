@@ -5,11 +5,11 @@ import { fetchUserDetails, fetchAgentDetails } from '../../../../utils/Biz/UserU
 import BarSpinner from '../../Shared/Spinner/BarSpinner.js';
 
 export default function SeeAgents() {
-  const { user, setUser } = useContext(UserContext);
-  const [userId, setUserId] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const [agentsDetails, setAgentsDetails] = useState([]);
-  const [generatedReferralCode, setGeneratedReferralCode] = useState('');
+  const { setUser } = useContext(UserContext);
+  const [ setUserId ] = useState('');
+  const [ isLoading, setIsLoading ] = useState(true);
+  const [ agentsDetails, setAgentsDetails ] = useState([]);
+  const [ generatedReferralCode, setGeneratedReferralCode ] = useState('');
 
   const evenRowBg = useColorModeValue('gray.100', 'gray.700');
 

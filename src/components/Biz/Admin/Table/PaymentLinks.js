@@ -18,37 +18,37 @@ const paymentData = [
     package: "Starter Setup Monthly",
     price: "$49.99 (Monthly)",
     stripeLink: "https://buy.stripe.com/4gw29odeP9xB1HO7sN",
-    squareLink: "https://checkout.square.site/merchant/ML4WQW0VAJ3PH/checkout/EN7JYLKA5EJJCH2QVAJZU3WG"
+    squareLink: "https://square.link/u/IlumVicQ"
   },
   {
     package: "Starter Setup Annually",
     price: "$539.88 (Annually)",
     stripeLink: "https://buy.stripe.com/bIYdS65Mn115cms28u",
-    squareLink: "-"
+    squareLink: "https://square.link/u/2Kpylrur"
   },
   {
     package: "Advanced Setup Monthly",
     price: "$99.99 Monthly",
     stripeLink: "https://buy.stripe.com/8wM5lA8Yz7ptaekbJc",
-    squareLink: "-"
+    squareLink: "https://square.link/u/SuyBCBGX"
   },
   {
     package: "Advanced Setup Annually",
     price: "$1,079.88 (Annually)",
     stripeLink: "https://buy.stripe.com/dR6eWafmXbFJ728aF9",
-    squareLink: "-"
+    squareLink: "https://square.link/u/4Ng3UBmV"
   },
   {
     package: "Professional Revamp Monthly",
     price: "$44.99 Monthly",
     stripeLink: "https://buy.stripe.com/6oEaFUgr1fVZ86c4gI",
-    squareLink: "-"
+    squareLink: "https://square.link/u/Y6UYxPe7"
   },
   {
     package: "Professional Revamp Annually",
     price: "$399.99 (Annually)",
     stripeLink: "https://buy.stripe.com/6oE01g3Ef7ptcmsfZr",
-    squareLink: "-"
+    squareLink: "https://square.link/u/cZq0Ozt8"
   }
 ];
 
@@ -94,7 +94,7 @@ export default function PaymentLinks() {
                       textDecoration="underline"
                       fontStyle="italic"
                     >
-                      [ External Link ]
+                      {item.squareLink}
                     </Link>
                   ) : (
                     "-"
