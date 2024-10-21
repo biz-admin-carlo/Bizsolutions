@@ -1,12 +1,9 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Card, Accordion, Button, Pagination, Dropdown, ListGroup } from 'react-bootstrap';
+import { Container, Card } from 'react-bootstrap';
 import { IoRefreshCircle } from "react-icons/io5";
-import { BsFileEarmarkSpreadsheetFill } from "react-icons/bs";
-import { GoDotFill } from "react-icons/go";
 import { getMyCreatedBiz, archiveBiz } from '../../../utils/Biz/BizUtils.js';
 import { retrieveTransaction } from '../../../utils/Biz/AdminUtils.js';
-import BarSpinner from '../Shared/Spinner/BarSpinner.js';
 import Footer from '../Shared/Footer/MainFooter.js';
 import UploadImageModal from './UploadImage.js';
 import ArchiveBizModal from './Modal/ArchivedBizModal.js';
@@ -303,11 +300,7 @@ export default function SeeBizNez() {
                   <Card.Subtitle className='text-secondary'>
                       {user.vendorName ? user.vendorName : "This is all your added biz-ness!"}
                   </Card.Subtitle>
-              </div>
-              <IoRefreshCircle 
-                style={{ fontSize: '44px', color: 'green', cursor: 'pointer' }} 
-                onClick={() => loadBusinesses()}  
-              />       
+              </div>     
             </div>
       </div>
 
@@ -331,22 +324,6 @@ export default function SeeBizNez() {
               Inactive Businesses (Archived): <a className='biz-color' style={{ textDecoration: 'none' }}>{inactiveBusinesses} archived</a>.
             </Card.Subtitle>
         </div>
-        <div className='py-3'>
-          <Dropdown onSelect={handleItemsPerPageChange}>
-            <Dropdown.Toggle variant="dark" id="dropdown-basic">
-              Items per page: {itemsPerPage}
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              {[5, 10, 20, 50, 100].map((number) => (
-                <Dropdown.Item key={number} eventKey={number}>
-                  {number}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
-        
       </div>
 
       <RetrieveBizAgent />
