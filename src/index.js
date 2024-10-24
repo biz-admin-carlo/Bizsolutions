@@ -7,7 +7,8 @@ import 'aos/dist/aos.css';
 import 'leaflet/dist/leaflet.css';
 import ReactGA from 'react-ga';
 
-const APP_VERSION = '1.3.2';
+const APP_VERSION = '1.3.4';
+
 
 function checkStorageVersion() {
     const storedLocalVersion = localStorage.getItem('appVersion');
@@ -37,8 +38,7 @@ function checkStorageVersion() {
     }
 }
 
-checkStorageVersion();
-
+checkStorageVersion()
 
 ReactGA.pageview(window.location.pathname + window.location.search);
 
