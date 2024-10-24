@@ -15,6 +15,9 @@ import {
   Text
 } from '@chakra-ui/react';
 import { getMyVendorManagerBizNess } from '../../../../utils/Biz/BizUtils.js';
+import { FaFile, FaTrash, FaEdit } from "react-icons/fa";
+import GeneratePDF from './Generate/PDFFile.js';
+
 
 export default function RetrieveBizSV() {
   const [businesses, setBusinesses] = useState([]);
@@ -125,6 +128,7 @@ export default function RetrieveBizSV() {
           <TableCaption>List of Processed Business Accounts</TableCaption>
           <Thead>
             <Tr>
+              <Th>Actions</Th>
               <Th>Tracking Log</Th>
               <Th>Biz Name</Th>
               <Th>Agent Name</Th>
@@ -140,6 +144,9 @@ export default function RetrieveBizSV() {
           <Tbody>
             {currentBusinesses.map((business, index) => (
               <Tr key={business._id} bg={index % 2 === 0 ? 'gray.50' : 'white'}>
+                <Td>
+                  <GeneratePDF business={business} />
+                </Td>
                 <Td>{`biz-${business._id.slice(-10)}`}</Td>
                 <Td>{business.name}</Td>
                 <Td>{`${business.agent.firstName} ${business.agent.lastName}`}</Td>
@@ -162,6 +169,9 @@ export default function RetrieveBizSV() {
                 <Td>{`${business.location.city || '-'}, ${business.location.state || '-'}`}</Td>
                 <Td>{business.url || '-'}</Td>
                 <Td>{business.name}</Td>
+                {/* <Td style={{ display: 'flex', alignItems: 'center' }}>
+                  <FaFile style={{ marginRight: '8px' }} />
+                </Td> */}
               </Tr>
             ))}
           </Tbody>
