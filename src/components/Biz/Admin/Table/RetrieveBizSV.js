@@ -145,8 +145,20 @@ export default function RetrieveBizSV() {
                 <Td>{`${business.agent.firstName} ${business.agent.lastName}`}</Td>
                 <Td>{formatDateTime(business.createdAt || '-')}</Td>
                 <Td>{`${business.bizAge} Days ` || '-'}</Td>
-                <Td>{business.bizStatus || '-'}</Td>
-                <Td>{business.paymentStatus || '-'}</Td>
+                <Td>
+                  {business.bizStatus === 'pending' && business.paymentStatus === 'pending' ? (
+                    <em>Pending</em>
+                  ) : (
+                    <em>{business.bizStatus || '-'}</em>
+                  )}
+                </Td>
+                <Td>
+                  {business.bizStatus === 'pending' && business.paymentStatus === 'pending' ? (
+                    <em>Pending</em>
+                  ) : (
+                    <em>{business.paymentStatus || '-'}</em> 
+                  )}
+                </Td>
                 <Td>{`${business.location.city || '-'}, ${business.location.state || '-'}`}</Td>
                 <Td>{business.url || '-'}</Td>
                 <Td>{business.name}</Td>

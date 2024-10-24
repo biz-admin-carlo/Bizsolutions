@@ -9,6 +9,7 @@ import SuccessBox from './Response/SuccessMessage.js';
 import FailBox from './Response/ErroMessage.js';
 import { submitBizRegistration } from '../../../utils/Biz/BizUtils.js';
 import '../../../assets/styles/BizRegistration.css';
+import { Link } from 'react-router-dom';
 
 
 export default function BizRegistration({ businessName: initialBusinessName, aliasName: initialAliasName }) {
@@ -58,6 +59,11 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
     const [ selectedCountry, setSelectedCountry ] = useState(null);
     const [ selectedState, setSelectedState ] = useState(null);
     const [ selectedCity, setSelectedCity ] = useState(null);
+    const [ isChecked, setIsChecked ] = useState(false);
+
+    const handleCheckboxChange = (e) => {
+        setIsChecked(e.target.checked);
+    };
 
     const countriesOptions = useMemo(() => {
         const countries = Country.getAllCountries().map((country) => ({
@@ -405,10 +411,10 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                                     />
                                                 )}
                                             </div>
-                                            <div className='pb-3 ps-3'>
+                                            <div className='pb-3'>
                                                 <div className='d-inline-flex align-items-center'>
                                                     <BiInfoCircle style={{ marginRight: '5px' }} />
-                                                    <p className='text-subtitle-below m-0'>
+                                                    <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
                                                         Enter the latitude as a number between -90 and 90. Latitude indicates the north-south position of a location on the Earth.
                                                     </p>
                                                 </div>
@@ -467,11 +473,13 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                                     />
                                                 )}
                                             </div>
-                                            <div className='pb-3 ps-3'>
-                                                <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
-                                                <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
-                                                    Enter the longitude as a number between -180 and 180. Longitude indicates the east-west position of a location on the Earth.
-                                                </p>
+                                            <div className='pb-3'>
+                                                <div className='d-inline-flex align-items-center'>
+                                                    <BiInfoCircle style={{ marginRight: '5px' }} />
+                                                    <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
+                                                        Enter the longitude as a number between -180 and 180. Longitude indicates the east-west position of a location on the Earth.
+                                                    </p>
+                                                </div>
                                             </div>
                                         </Form.Group>
                                         </Col>
@@ -492,11 +500,13 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                             onChange={handleChange(setAddressLine1)}
                                             className='mb-2'
                                         />
-                                        <div className='pb-3 ps-3'>
-                                            <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
-                                            <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
+                                        <div className='pb-3'>
+                                            <div className='d-inline-flex align-items-center'>
+                                                <BiInfoCircle style={{ marginRight: '5px' }} />
+                                                <p className='text-subtitle-below m-0'>
                                                 Enter the street part of your business address. This address will be shown publicly to help customers locate your business.
-                                            </p>
+                                                </p>
+                                            </div>
                                         </div>
                                     </Form.Group>
 
@@ -510,11 +520,13 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                             onChange={handleChange(setAddressLine2)}
                                             className='mb-2'
                                         />
-                                        <div className='pb-3 ps-3'>
-                                            <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
-                                            <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
+                                        <div className='pb-3'>
+                                            <div className='d-inline-flex align-items-center'>
+                                                <BiInfoCircle style={{ marginRight: '5px' }} />
+                                                <p className='text-subtitle-below m-0'>
                                                 Enter any additional details such as suite or apartment number that are crucial for locating your business. This information will be shown publicly.
-                                            </p>
+                                                </p>
+                                            </div>
                                         </div>
                                     </Form.Group>
 
@@ -528,11 +540,13 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                             onChange={handleChange(setAddressLine3)}
                                             className='mb-2'
                                         />
-                                        <div className='pb-3 ps-3'>
-                                            <BiInfoCircle style={{ verticalAlign: 'middle', marginRight: '5px' }} />
-                                            <p style={{ display: 'inline', verticalAlign: 'middle' }} className='text-subtitle-below'>
-                                                Provide any landmarks or additional directions to help further pinpoint your business location. This information will also be shown publicly.
-                                            </p>
+                                        <div className='pb-3'>
+                                            <div className='d-inline-flex align-items-center'>
+                                                <BiInfoCircle style={{ marginRight: '5px' }} />
+                                                <p className='text-subtitle-below m-0'>
+                                                    Provide any landmarks or additional directions to help further pinpoint your business location. This information will also be shown publicly.
+                                                </p>
+                                            </div>
                                         </div>
                                     </Form.Group>
                                     
@@ -659,11 +673,32 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                         </Col>
                                     </Row>
                                 </div>
+                                <div className="relative flex flex-wrap items-center">
+                                    <Form>
+                                        <div className="mb-3">
+                                        <Form.Check
+                                            type="checkbox"
+                                            id="terms-agreement"
+                                            label={
+                                            <>
+                                                I acknowledge and agree to the{' '}
+                                                <Link to="/terms" className="text-black" style={{ textDecoration: 'underline' }} target="_blank" rel="noopener noreferrer">
+                                                BizSolutions LLC Terms & Conditions
+                                                </Link>
+                                                , and I fully understand the legal implications of adding this business.
+                                            </>
+                                            }
+                                            onChange={handleCheckboxChange}
+                                        />
+                                        </div>
+                                    </Form>
+                                </div>
 
                                 <div>
                                     <button
                                         type='button'
-                                        className="custom-button my-2"
+                                        className={`custom-button my-2 ${!isChecked ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                        disabled={!isChecked}                                       
                                         onClick={handleSubmit}
                                     >
                                         Create Biz
