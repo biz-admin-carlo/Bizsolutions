@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { getBizViaCoords, getBizViaState } from '../../../utils/Biz/ClientUtils';
-import { Card, Badge, Pagination } from 'react-bootstrap';
-import '../../../assets/styles/SearchResult.css';
+import { getBizViaCoords, getBizViaState } from '../../../utils/Biz/ClientUtils.js';
+import BusinessCard from './BusinessCardsV2.js';
+import '../../../assets/styles/NewSearchResults.css';
+import Pagination from './Pagination.js';
+import AOS from 'aos';
 
-const defaultImage = 'https://mybizsolutions.us/static/media/icon-app-logo.83ff8bf39a11df9fb7ac.jpg';
-
-export default function SearchState({location, category}) {
+export default function SearchState({ location, category }) {
     const [ businesses, setBusinesses ] = useState([]);
     const [ currentPage, setCurrentPage ] = useState(1);
-    const itemsPerPage = 12;
+    const itemsPerPage = 10;
 
     const fetchBusinesses = async () => {
         let result = null;
@@ -29,70 +29,33 @@ export default function SearchState({location, category}) {
         fetchBusinesses();
     }, [location, category]);
 
+    useEffect(() => {
+        AOS.init({ duration: 1000 });
+    }, []);
+
     const lastItemIndex = currentPage * itemsPerPage;
     const firstItemIndex = lastItemIndex - itemsPerPage;
-    const currentItems = businesses.slice(firstItemIndex, lastItemIndex);
+    const currentItems = businesses.slice(firstItemIndex, lastItemIndex); 
 
-    const totalPages = Math.ceil(businesses.length / itemsPerPage);
-    const paginationItems = [];
-    for (let number = 1; number <= totalPages; number++) {
-        paginationItems.push(
-            <Pagination.Item key={number} active={number === currentPage} onClick={() => setCurrentPage(number)}>
-                {number}
-            </Pagination.Item>
-        );
-    }
-
-    function toTitleCase(str) {
-        if (!str) return ''; 
-        return str.replace(
-            /\w\S*/g,
-            function(txt) {
-                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-            }
-        );
-    }
-    
     return (
-        <div>
-            <h1>Bizness Listings</h1>
-            <div className="business-container">
+        <>
+            <div>
+                <h1>Recommended {category} in {location}</h1>
+            </div>
+            <div>
                 {currentItems.map((business, index) => (
-                    <div key={index} className="business-card">
-                        <Card style={{ width: '18rem' }} className='my-2'>
-                        <Card.Img 
-                            variant="top" 
-                            src={
-                                business && (business.biz_images && business.biz_images.length > 0 ? business.biz_images[0].url : 
-                                business.image_url ? business.image_url : 
-                                defaultImage)
-                            } 
-                            onError={(e) => { 
-                                if (e.target.src !== defaultImage) {
-                                e.target.onerror = null; 
-                                e.target.src = defaultImage;
-                                }
-                            }} 
-                            alt={`Image of ${business ? business.name : 'Business Image'}`} 
-                        />
-
-                            <Card.Body>
-                                <h5 className='biz-color text-start'>{toTitleCase(business.name)}</h5>                                <h6>{business.location.address1}</h6>
-                                <Badge pill bg="primary">{business.phone}</Badge><br/>
-                                <Badge pill bg="danger">{business.categories[0].title}</Badge><br/>
-                                <Badge pill bg="success">Create Website with Us!</Badge><br/>
-                                {business.isBizDB ? (
-                                    <Badge pill bg="warning">Powered By BizSolutions</Badge>
-                                ) : null}                            
-                            </Card.Body>
-                        </Card>
-                    </div>
+                    <BusinessCard key={index} business={business} index={firstItemIndex + index} /> 
                 ))}
             </div>
-            {businesses.length === 0 && <p>No businesses found.</p>}
-            {businesses.length > 0 && (
-                <Pagination className="justify-content-center">{paginationItems}</Pagination>
-            )}
-        </div>
+
+            <div>
+                <Pagination
+                    itemsPerPage={itemsPerPage}
+                    totalItems={businesses.length}
+                    currentPage={currentPage} 
+                    setCurrentPage={setCurrentPage}
+                />
+            </div>
+        </>
     );
 }

@@ -7,7 +7,7 @@ import 'aos/dist/aos.css';
 import 'leaflet/dist/leaflet.css';
 import ReactGA from 'react-ga';
 
-const APP_VERSION = '1.3.5';
+const APP_VERSION = '1.3.6';
 
 
 function checkStorageVersion() {
