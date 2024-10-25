@@ -1,0 +1,16 @@
+.hover-card {
+    transition: all 0.3s ease;
+}
+
+.hover-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.restaurant-image {
+    border-radius: 8px;
+}
+
+.icon-orange {
+    color: #FF851A;
+}

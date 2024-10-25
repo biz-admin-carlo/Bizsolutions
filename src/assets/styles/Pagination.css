@@ -1,0 +1,31 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.page-item {
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: 1px solid #FF851A;
+    border-radius: 5px;
+    background-color: white;
+    color: #FF851A;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.page-item:hover {
+    background-color: rgba(255, 133, 26, 0.1);
+}
+
+.page-item.active {
+    background-color: #FF851A;
+    color: white;
+}
+
+.page-item.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
