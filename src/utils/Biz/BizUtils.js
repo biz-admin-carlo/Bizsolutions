@@ -204,3 +204,14 @@ export const getBizName = async (bizID) => {
         throw error; 
     }
 }
+
+export const getBizDetails = async (bizID) => {
+    const url = `${apiUrl}/api/v1/biz/${bizID}`;
+    try {
+        const response = await axios.get(url, {
+        });
+        return response.data.data; 
+    } catch (error) {
+        throw error; 
+    }
+}

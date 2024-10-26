@@ -21,6 +21,7 @@ import Search from './pages/Biz/Shared/Search_Result.js';
 import Login from './pages/Biz/Shared/Login.js';
 import SignUp from './pages/Biz/Shared/Signup.js';
 import Reset from './pages/Biz/Shared/Reset.js';
+import BizDetails from './pages/Biz/Shared/Biz.js';
 
 import AdminDashboard from './pages/Biz/Admin/Admin.js';
 import AdminSeeBiz from './pages/Biz/Admin/AdminSeeBiz.js';
@@ -131,6 +132,8 @@ function App() {
                     <Route path="/forgot-password" element={<Reset/>}/>
 
                     <Route path="/search?category=Hotel&location=California"/>
+                    <Route path="/biz/:bizID/details" element={<BizDetails/>}/>
+
 
                     {/* Super Admin Links Only */}
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
