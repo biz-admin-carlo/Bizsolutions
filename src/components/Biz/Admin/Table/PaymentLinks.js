@@ -47,7 +47,7 @@ const paymentData = [
   {
     package: "Professional Revamp Annually",
     price: "$399.99 (Annually)",
-    stripeLink: "https://buy.stripe.com/6oE01g3Ef7ptcmsfZr",
+    stripeLink: "https://buy.stripe.com/6oEaFU2AbbFJ7283cN",
     squareLink: "https://square.link/u/cZq0Ozt8"
   }
 ];
