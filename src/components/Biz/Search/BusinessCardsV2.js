@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 import { FaStar, FaRegStarHalfStroke } from 'react-icons/fa6';
@@ -9,7 +10,7 @@ import { SiGooglemaps } from "react-icons/si";
 const defaultImage = 'https://mybizsolutions.us/static/media/icon-app-logo.83ff8bf39a11df9fb7ac.jpg';
 
 export default function BusinessCard({ business, index }) {
-  const { biz_images, image_url, name, location, phone, categories, isBizDB, rating, review_count } = business;
+  const { biz_images, image_url, name, _id, location, phone, categories, isBizDB, rating, review_count } = business;
 
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
@@ -33,7 +34,14 @@ export default function BusinessCard({ business, index }) {
 
   const currencySymbol = getCurrencySymbol(business.country);
 
+  const bizUrl = `/biz/${_id}/details`;
+
   return (
+  <Link 
+    to={bizUrl} 
+    style={{ textDecoration: 'none' }}
+    onClick={(e) => !_id && e.preventDefault()}
+  >    
     <Card className='my-3 mx-3 p-3 d-flex flex-row hover-card' style={{ border: 'none' }} data-aos="fade-up">
       <Card.Img
         src={biz_images && biz_images.length > 0 ? biz_images[0].url : image_url || defaultImage}
@@ -61,7 +69,7 @@ export default function BusinessCard({ business, index }) {
                 <span className="badge bg-success ms-1">Is Open Now!</span>
                 )}
                 {/* <SiGooglemaps className="ms-2 icon-orange" /> */}
-</div>
+            </div>
         </div>
 
         <div className="d-flex align-items-center gap-2 mb-2">
@@ -80,5 +88,6 @@ export default function BusinessCard({ business, index }) {
         {isBizDB && <Badge pill bg="warning" className="mt-2">Powered By BizSolutions</Badge>}
       </Card.Body>
     </Card>
+    </Link>
   );
 }

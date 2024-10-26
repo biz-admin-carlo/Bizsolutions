@@ -54,7 +54,6 @@ export async function retrieveTransaction(token, bizId) {
 
 export async function retrieveAllTransaction(bizId) {
     try {
-        console.log(bizId);
         const url = `${apiUrl}/api/v1/transaction/retrieve/vendor-manager/${bizId}`;
         const token = localStorage.getItem('token');
 
