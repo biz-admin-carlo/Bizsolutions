@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Table,
   TableContainer,
@@ -11,32 +11,67 @@ import {
   Button,
   Select,
   HStack,
+  VStack,
   Box,
-  Text
+  Text,
+  Icon,
+  Spinner,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  Tooltip,
+  Flex,
+  useToast,
+  Input,
 } from '@chakra-ui/react';
-import { getMyVendorManagerBizNess } from '../../../../utils/Biz/BizUtils.js';
-import { FaFile, FaTrash, FaEdit } from "react-icons/fa";
+import { getMyVendorManagerBizNess, archiveBiz } from '../../../../utils/Biz/BizUtils.js';
 import GeneratePDF from './Generate/PDFFile.js';
-
+import { FaCircle } from "react-icons/fa";
+import { BiSolidTrash } from "react-icons/bi";
+import DeleteConfirmationModal from '../Modal/DeleteConfirmationModa.js';
+import BizDetailsModal from '../Modal/BizDetailsModal.js';
+import UserContext from '../../../../utils/Contexts/userContext.js';
 
 export default function RetrieveBizSV() {
+  const { user } = useContext(UserContext);
+  const userID = user ? user._id : null;
+
   const [businesses, setBusinesses] = useState([]);
+  const [filteredBusinesses, setFilteredBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-  // Add pagination states
+
+  // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+
+  // Search states
+  const [searchText, setSearchText] = useState('');
+  const [searchDate, setSearchDate] = useState('');
+
+  // Delete Modal states
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [businessToDelete, setBusinessToDelete] = useState(null);
+
+  // Details Modal states
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [selectedBusiness, setSelectedBusiness] = useState(null);
+
+  const toast = useToast();
 
   useEffect(() => {
     loadBusinesses();
   }, []);
 
+  useEffect(() => {
+    filterBusinesses();
+  }, [businesses, searchText, searchDate]);
+
   // Pagination calculations
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentBusinesses = businesses.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(businesses.length / itemsPerPage);
+  const currentBusinesses = filteredBusinesses.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredBusinesses.length / itemsPerPage);
 
   async function loadBusinesses() {
     try {
@@ -49,6 +84,7 @@ export default function RetrieveBizSV() {
           bizAge: calculateAge(business.createdAt),
         }));
         setBusinesses(businessesWithAge);
+        setFilteredBusinesses(businessesWithAge);
       } else {
         setError('Failed to load businesses');
       }
@@ -58,6 +94,17 @@ export default function RetrieveBizSV() {
       setLoading(false);
     }
   }
+
+  const getStatusColor = (status) => {
+    switch(status) {
+      case false:
+        return 'green.500';
+      case true:
+        return 'red.500';
+      default:
+        return 'gray.500';
+    }
+  };
 
   function calculateAge(createdAt) {
     const createdDate = new Date(createdAt);
@@ -81,6 +128,45 @@ export default function RetrieveBizSV() {
     return date.toLocaleString('en-US', options);
   }
 
+  // Filtering function
+  function filterBusinesses() {
+    let filtered = [...businesses];
+
+    // Text search across multiple fields
+    if (searchText.trim() !== '') {
+      const lowerSearchText = searchText.toLowerCase();
+      filtered = filtered.filter(business =>
+        (business.name && business.name.toLowerCase().includes(lowerSearchText)) ||
+        (business.agent.firstName && business.agent.firstName.toLowerCase().includes(lowerSearchText)) ||
+        (business.agent.lastName && business.agent.lastName.toLowerCase().includes(lowerSearchText)) ||
+        (business.bizStatus && business.bizStatus.toLowerCase().includes(lowerSearchText)) ||
+        (business.paymentStatus && business.paymentStatus.toLowerCase().includes(lowerSearchText)) ||
+        (business.url && business.url.toLowerCase().includes(lowerSearchText)) ||
+        (business.location.city && business.location.city.toLowerCase().includes(lowerSearchText)) ||
+        (business.location.state && business.location.state.toLowerCase().includes(lowerSearchText)) ||
+        (business.bizAge && business.bizAge.toString().includes(lowerSearchText))
+      );
+    }
+
+    // Date filter (Created Date)
+    if (searchDate !== '') {
+      const searchDateFormatted = new Date(searchDate).toISOString().split('T')[0];
+      filtered = filtered.filter(business => {
+        const businessDate = new Date(business.createdAt).toISOString().split('T')[0];
+        return businessDate === searchDateFormatted;
+      });
+    }
+
+    setFilteredBusinesses(filtered);
+    setCurrentPage(1); // Reset to first page when filtering
+  }
+
+  // Clear all searches
+  const handleClearSearch = () => {
+    setSearchText('');
+    setSearchDate('');
+  };
+
   // Pagination handlers
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -91,43 +177,212 @@ export default function RetrieveBizSV() {
     setCurrentPage(1);
   };
 
-  if (loading) return <div className="p-4">Loading...</div>;
-  if (error) return <div className="p-4 text-red-500">Error: {error}</div>;
+  // Delete Modal handlers
+  const openDeleteModal = (business) => {
+    setBusinessToDelete(business);
+    setIsDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setBusinessToDelete(null);
+  };
+
+  // Function to confirm deletion (archiving)
+  const confirmDeleteBusiness = async () => {
+    if (!businessToDelete) return;
+
+    try {
+      const result = await archiveBiz(businessToDelete._id);
+
+      if (result.success) {
+        // Update the business's isArchived status in the state
+        setBusinesses((prevBusinesses) =>
+          prevBusinesses.map((biz) =>
+            biz._id === result.bizID ? { ...biz, isArchived: true } : biz
+          )
+        );
+        setFilteredBusinesses((prevFiltered) =>
+          prevFiltered.map((biz) =>
+            biz._id === result.bizID ? { ...biz, isArchived: true } : biz
+          )
+        );
+
+        // Show success toast
+        toast({
+          title: "Business Archived.",
+          description: `"${businessToDelete.name}" has been successfully archived.`,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        // Show error toast
+        toast({
+          title: "Archiving Failed.",
+          description: result.error || "Unable to archive the business.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } catch (err) {
+      toast({
+        title: "An error occurred.",
+        description: "Unable to archive the business.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+
+    // Close the modal
+    closeDeleteModal();
+  };
+
+  // Details Modal handlers
+  const openDetailsModal = (business) => {
+    setSelectedBusiness(business);
+    setIsDetailsModalOpen(true);
+  };
+
+  const closeDetailsModal = () => {
+    setIsDetailsModalOpen(false);
+    setSelectedBusiness(null);
+  };
+
+  // Function to render action icons
+  const renderActionIcons = (business) => {
+    const actions = [
+      {
+        icon: GeneratePDF,
+        label: "Generate PDF",
+        // Assuming GeneratePDF is a component that handles its own click
+      },
+    ];
+
+    // Conditionally add the Delete icon if the business is not archived
+    if (!business.isArchived) {
+      actions.push({
+        icon: BiSolidTrash,
+        label: "Delete Business",
+        onClick: (e) => {
+          e.stopPropagation(); // Prevent triggering row click
+          openDeleteModal(business);
+        }
+      });
+    }
+
+    return actions;
+  };
+
+  if (loading) {
+    return (
+      <div className="p-4 flex flex-col items-center">
+        <Spinner size="xl" />
+        <Text mt={2}>Loading...</Text>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-4">
+        <Alert status="error">
+          <AlertIcon />
+          <AlertTitle>{error}</AlertTitle>
+        </Alert>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Processed Accounts</h1>
 
-      {/* Pagination controls - top */}
-      <HStack spacing={4} mb={4} justify="space-between">
+      {/* Search Controls */}
+      <VStack spacing={4} mb={4} align="stretch">
         <HStack spacing={4}>
-          <Select
-            size="sm"
-            width="auto"
-            value={itemsPerPage}
-            onChange={handleItemsPerPageChange}
-          >
-            <option value={5}>5 per page</option>
-            <option value={10}>10 per page</option>
-            <option value={20}>20 per page</option>
-            <option value={50}>50 per page</option>
-          </Select>
-          
-          <Text fontSize="sm">
-            Showing {indexOfFirstItem + 1} - {Math.min(indexOfLastItem, businesses.length)} of {businesses.length} items
-          </Text>
+          {/* Text Search Input */}
+          <Input
+            placeholder='Search by Name, Agent, Status, Website, Location, Age'
+            size='md'
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+
+          {/* Date Search Input */}
+          <Input
+            placeholder='Select Date'
+            size='md'
+            type='date'
+            value={searchDate}
+            onChange={(e) => setSearchDate(e.target.value)}
+          />
         </HStack>
 
-        <Button colorScheme="teal" size="sm" onClick={loadBusinesses}>
-          Refresh Data
-        </Button>
-      </HStack>
+        <HStack justify="space-between">
+          <HStack spacing={4}>
+            <Select 
+              width="auto"
+              value={itemsPerPage}
+              onChange={handleItemsPerPageChange}
+              size="sm"
+            >
+              <option value={5}>5 per page</option>
+              <option value={10}>10 per page</option>
+              <option value={20}>20 per page</option>
+              <option value={50}>50 per page</option>
+            </Select>
+
+            <Text fontSize="sm">
+              Showing {indexOfFirstItem + 1} - {Math.min(indexOfLastItem, filteredBusinesses.length)} of {filteredBusinesses.length} items
+            </Text>
+          </HStack>
+
+          <Button
+            size="sm"
+            onClick={handleClearSearch}
+            isDisabled={searchText === '' && searchDate === ''}
+          >
+            Clear Filters
+          </Button>
+        </HStack>
+      </VStack>
+
+      {/* Show message when no results found */}
+      {filteredBusinesses.length === 0 && (
+        <Alert status="info" mb={4}>
+          <AlertIcon />
+          <Text>No businesses found matching the search criteria.</Text>
+        </Alert>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {businessToDelete && (
+        <DeleteConfirmationModal
+          isOpen={isDeleteModalOpen}
+          onClose={closeDeleteModal}
+          onConfirm={confirmDeleteBusiness}
+          businessName={businessToDelete.name}
+        />
+      )}
+
+      {/* BizDetailsModal */}
+      {selectedBusiness && (
+        <BizDetailsModal
+          isOpen={isDetailsModalOpen}
+          onClose={closeDetailsModal}
+          business={selectedBusiness}
+        />
+      )}
 
       <TableContainer>
         <Table size="sm">
           <TableCaption>List of Processed Business Accounts</TableCaption>
           <Thead>
             <Tr>
+              <Th>Status</Th>
               <Th>Actions</Th>
               <Th>Tracking Log</Th>
               <Th>Biz Name</Th>
@@ -138,20 +393,59 @@ export default function RetrieveBizSV() {
               <Th>Payment Status</Th>
               <Th>Location</Th>
               <Th>Website</Th>
-              <Th>Biz Name</Th>
             </Tr>
           </Thead>
           <Tbody>
             {currentBusinesses.map((business, index) => (
-              <Tr key={business._id} bg={index % 2 === 0 ? 'gray.50' : 'white'}>
+              <Tr
+                key={business._id}
+                bg={index % 2 === 0 ? 'gray.50' : 'white'}
+                cursor="pointer"
+                onClick={() => openDetailsModal(business)}
+                _hover={{ bg: 'gray.100' }}
+              >
+                <Td>                    
+                  <Icon 
+                    as={FaCircle} 
+                    boxSize={3} 
+                    color={getStatusColor(business.isArchived)} 
+                  />
+                </Td>
                 <Td>
-                  <GeneratePDF business={business} />
+                  <Flex gap={4} alignItems="center">
+                    {renderActionIcons(business).map((item, idx) => {
+                      const IconComponent = item.icon;
+                      return (
+                        <Tooltip
+                          key={idx}
+                          label={item.label}
+                          placement="top"
+                          hasArrow
+                          bg="gray.700"
+                          color="white"
+                        >
+                          <span>
+                            {item.icon === GeneratePDF ? (
+                              <GeneratePDF business={business} />
+                            ) : (
+                              <IconComponent
+                                size={18}
+                                style={{ cursor: 'pointer' }}
+                                onClick={item.onClick}
+                                aria-label={item.label}
+                              />
+                            )}
+                          </span>
+                        </Tooltip>
+                      );
+                    })}
+                  </Flex>
                 </Td>
                 <Td>{`biz-${business._id.slice(-10)}`}</Td>
                 <Td>{business.name}</Td>
                 <Td>{`${business.agent.firstName} ${business.agent.lastName}`}</Td>
                 <Td>{formatDateTime(business.createdAt || '-')}</Td>
-                <Td>{`${business.bizAge} Days ` || '-'}</Td>
+                <Td>{`${business.bizAge} Days` || '-'}</Td>
                 <Td>
                   {business.bizStatus === 'pending' && business.paymentStatus === 'pending' ? (
                     <em>Pending</em>
@@ -168,10 +462,6 @@ export default function RetrieveBizSV() {
                 </Td>
                 <Td>{`${business.location.city || '-'}, ${business.location.state || '-'}`}</Td>
                 <Td>{business.url || '-'}</Td>
-                <Td>{business.name}</Td>
-                {/* <Td style={{ display: 'flex', alignItems: 'center' }}>
-                  <FaFile style={{ marginRight: '8px' }} />
-                </Td> */}
               </Tr>
             ))}
           </Tbody>
@@ -204,14 +494,14 @@ export default function RetrieveBizSV() {
         <Button
           size="sm"
           onClick={() => handlePageChange(currentPage + 1)}
-          isDisabled={currentPage === totalPages}
+          isDisabled={currentPage === totalPages || totalPages === 0}
         >
           Next
         </Button>
         <Button
           size="sm"
           onClick={() => handlePageChange(totalPages)}
-          isDisabled={currentPage === totalPages}
+          isDisabled={currentPage === totalPages || totalPages === 0}
         >
           Last
         </Button>

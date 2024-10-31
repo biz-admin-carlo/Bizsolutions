@@ -2,6 +2,31 @@ import axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
+export async function checkToken() {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+        return false;
+    }
+    
+    try {
+        const url = `${apiUrl}/api/v1/users/check-token-validity`;
+        
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            }
+        });
+
+        return response.data.valid;
+
+    } catch (error) {
+        console.error('Token validation error:', error);
+        return false;
+    }
+}
+
 export async function checkEmailAvailability(email) {
     try {
         const url = `${apiUrl}/api/v1/users/check-email/${email}`;

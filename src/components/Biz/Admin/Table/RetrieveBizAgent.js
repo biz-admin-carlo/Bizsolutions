@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Table,
   TableContainer,
@@ -11,6 +11,7 @@ import {
   Button,
   Spinner,
   Alert,
+  Icon,
   AlertIcon,
   AlertTitle,
   Select,
@@ -19,16 +20,33 @@ import {
   Box,
   Input,
   Text,
-  SimpleGrid
+  Tooltip,
+  Flex,
+  SimpleGrid,
+  useToast
 } from '@chakra-ui/react';
-import { getMyCreatedBiz } from '../../../../utils/Biz/BizUtils.js';
+import { getMyCreatedBiz, archiveBiz } from '../../../../utils/Biz/BizUtils.js';
+import { BiSolidImageAdd, BiSolidTrash } from "react-icons/bi";
+import ImageUploadModal from '../Modal/UploadImageModal.js';
+import BizDetailsModal from '../Modal/BizDetailsModal.js';
+import DeleteConfirmationModal from '../Modal/DeleteConfirmationModa.js';
+import UserContext from '../../../../utils/Contexts/userContext.js';
+import { FaCircle } from "react-icons/fa";
 
 export default function RetrieveBizAgent() {
+
+  const { user } = useContext(UserContext);
+  const userID = user ? user._id : null;
   const [businesses, setBusinesses] = useState([]);
   const [filteredBusinesses, setFilteredBusinesses] = useState([]);
+  const [currentBusiness, setCurrentBusiness] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [businessToDelete, setBusinessToDelete] = useState(null);
+
+  const toast = useToast();
+
   // Search states
   const [searchTerms, setSearchTerms] = useState({
     date: '',
@@ -40,6 +58,13 @@ export default function RetrieveBizAgent() {
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+
+  // Modal states
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // New states for BizDetailsModal
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [selectedBusiness, setSelectedBusiness] = useState(null);
 
   useEffect(() => {
     loadBusinesses();
@@ -55,6 +80,60 @@ export default function RetrieveBizAgent() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentBusinesses = filteredBusinesses.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredBusinesses.length / itemsPerPage);
+
+  // Function to open the delete confirmation modal
+  const openDeleteModal = (business) => {
+    setBusinessToDelete(business);
+    setIsDeleteModalOpen(true);
+  };
+
+  // Function to close the delete confirmation modal
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setBusinessToDelete(null);
+  };
+
+  // Function to confirm deletion (archiving)
+  const confirmDeleteBusiness = async () => {
+    if (!businessToDelete) return;
+
+    const result = await archiveBiz(businessToDelete._id);
+
+    if (result.success) {
+      // Update the business's isArchived status in the state
+      setBusinesses((prevBusinesses) =>
+        prevBusinesses.map((biz) =>
+          biz._id === result.bizID ? { ...biz, isArchived: true } : biz
+        )
+      );
+      setFilteredBusinesses((prevFiltered) =>
+        prevFiltered.map((biz) =>
+          biz._id === result.bizID ? { ...biz, isArchived: true } : biz
+        )
+      );
+
+      // Show success toast
+      toast({
+        title: "Business Archived.",
+        description: `"${businessToDelete.name}" has been successfully archived.`,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      // Show error toast
+      toast({
+        title: "Archiving Failed.",
+        description: result.error || "Unable to archive the business.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+
+    // Close the modal
+    closeDeleteModal();
+  };
 
   function formatDateTime(dateTime) {
     const date = new Date(dateTime);
@@ -128,14 +207,25 @@ export default function RetrieveBizAgent() {
         setBusinesses(businessesWithAge);
         setFilteredBusinesses(businessesWithAge);
       } else {
-        setError('Failed to load businesses');
+        setError('Failed to load businesses.');
       }
     } catch (err) {
-      setError('An error occurred while fetching data');
+      setError('An error occurred while fetching data.');
     } finally {
       setLoading(false);
     }
   }
+
+  const getStatusColor = (status) => {
+    switch(status) {
+      case false:
+        return 'green.500';
+      case true:
+        return 'red.500';
+      default:
+        return 'gray.500';
+    }
+  };
 
   function calculateAge(createdAt) {
     const createdDate = new Date(createdAt);
@@ -173,11 +263,38 @@ export default function RetrieveBizAgent() {
     setCurrentPage(1);
   };
 
+  // Modal handlers
+  const openModal = (business) => {
+    setCurrentBusiness(business);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setCurrentBusiness(null);
+  };
+
+  // Handlers for BizDetailsModal
+  const openDetailsModal = (business) => {
+    setSelectedBusiness(business);
+    setIsDetailsModalOpen(true);
+  };
+
+  const closeDetailsModal = () => {
+    setIsDetailsModalOpen(false);
+    setSelectedBusiness(null);
+  };
+
+  // Callback after successful upload to refresh data
+  const handleUploadSuccess = () => {
+    loadBusinesses();
+  };
+
   if (loading) {
     return (
-      <div className="p-4">
+      <div className="p-4 flex flex-col items-center">
         <Spinner size="xl" />
-        Loading...
+        <Text mt={2}>Loading...</Text>
       </div>
     );
   }
@@ -192,6 +309,33 @@ export default function RetrieveBizAgent() {
       </div>
     );
   }
+
+  const icons = (business) => {
+    const iconsArray = [
+      {
+        icon: BiSolidImageAdd,
+        label: "Add Biz Images",
+        onClick: (e) => {
+          e.stopPropagation(); // Prevent triggering row click
+          openModal(business);
+        } // Open modal with business object
+      },
+    ];
+  
+    // Conditionally add the Delete icon if the business is not archived
+    if (!business.isArchived) {
+      iconsArray.push({
+        icon: BiSolidTrash,
+        label: "Delete Biz",
+        onClick: (e) => {
+          e.stopPropagation();
+          openDeleteModal(business);
+        }
+      });
+    }
+  
+    return iconsArray;
+  };  
 
   return (
     <div className="container mx-auto p-4">
@@ -263,12 +407,54 @@ export default function RetrieveBizAgent() {
         </Alert>
       )}
 
-      {/* Rest of your table code remains the same */}
+      {/* Delete Confirmation Modal */}
+      {businessToDelete && (
+        <DeleteConfirmationModal
+          isOpen={isDeleteModalOpen}
+          onClose={closeDeleteModal}
+          onConfirm={confirmDeleteBusiness}
+          businessName={businessToDelete.name}
+        />
+      )}
+
+      {/* ImageUploadModal */}
+      {currentBusiness && (
+        <ImageUploadModal 
+          isOpen={isModalOpen} 
+          onClose={closeModal} 
+          business={currentBusiness} 
+          userID={userID} 
+          onUploadSuccess={handleUploadSuccess} 
+        />
+      )}
+
+      {/* Edit Biz Modal
+      {businessToEdit && (
+        <EditBizModal
+          isOpen={isEditModalOpen}
+          onClose={closeEditModal}
+          business={businessToEdit}
+          onUpdateSuccess={handleUpdateSuccess}
+        />
+      )} */}
+
+      {/* BizDetailsModal */}
+      {selectedBusiness && (
+        <BizDetailsModal
+          isOpen={isDetailsModalOpen}
+          onClose={closeDetailsModal}
+          business={selectedBusiness}
+        />
+      )}
+
+      {/* Business Table */}
       <TableContainer>
         <Table size="sm">
           <TableCaption>List of Processed Business Accounts</TableCaption>
           <Thead>
             <Tr>
+              <Th>Status</Th>
+              <Th>Action</Th>
               <Th>Tracking Log</Th>
               <Th>Biz Name</Th>
               <Th>Created On</Th>
@@ -282,11 +468,50 @@ export default function RetrieveBizAgent() {
           </Thead>
           <Tbody>
             {currentBusinesses.map((business, index) => (
-              <Tr key={business._id} bg={index % 2 === 0 ? 'gray.50' : 'white'}>
+              <Tr
+                key={business._id}
+                bg={index % 2 === 0 ? 'gray.50' : 'white'}
+                cursor="pointer"
+                onClick={() => openDetailsModal(business)}
+                _hover={{ bg: 'gray.100' }}
+              >
+                <Td>                    
+                  <Icon 
+                      as={FaCircle} 
+                      boxSize={3} 
+                      color={getStatusColor(business.isArchived)} 
+                    />
+                </Td>
+                <Td onClick={(e) => e.stopPropagation()}>
+                  <Flex gap={4} alignItems="center">
+                    {icons(business).map((item, idx) => {
+                      const IconComponent = item.icon;
+                      return (
+                        <Tooltip
+                          key={idx}
+                          label={item.label}
+                          placement="top"
+                          hasArrow
+                          bg="gray.700"
+                          color="white"
+                        >
+                          <span>
+                            <IconComponent
+                              size={18}
+                              style={{ cursor: 'pointer' }}
+                              onClick={item.onClick}
+                              aria-label={item.label}
+                            />
+                          </span>
+                        </Tooltip>
+                      );
+                    })}
+                  </Flex>
+                </Td>
                 <Td>{`biz-${business._id.slice(-10)}`}</Td>
-                <Td>{business.name}</Td>
+                <Td>{business.name}</Td>            
                 <Td>{formatDateTime(business.createdAt)}</Td>
-                <Td>{`${business.bizAge} Days ` || '-'}</Td>
+                <Td>{`${business.bizAge} Days` || '-'}</Td>
                 <Td>
                   {business.bizStatus === 'pending' && business.paymentStatus === 'pending' ? (
                     <em>Pending</em>
@@ -334,14 +559,14 @@ export default function RetrieveBizAgent() {
         <Button
           size="sm"
           onClick={() => handlePageChange(currentPage + 1)}
-          isDisabled={currentPage === totalPages}
+          isDisabled={currentPage === totalPages || totalPages === 0}
         >
           Next
         </Button>
         <Button
           size="sm"
           onClick={() => handlePageChange(totalPages)}
-          isDisabled={currentPage === totalPages}
+          isDisabled={currentPage === totalPages || totalPages === 0}
         >
           Last
         </Button>
