@@ -9,7 +9,6 @@ import ReactGA from 'react-ga';
 
 const APP_VERSION = '1.3.10';
 
-
 function checklistUser() {
     const storedLocalVersion = localStorage.getItem('appVersion');
     const loginTime = localStorage.getItem('loginTime');
