@@ -61,6 +61,16 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
     const [ selectedCity, setSelectedCity ] = useState(null);
     const [ isChecked, setIsChecked ] = useState(false);
 
+    const [subscriptionName, setSubscriptionName] = useState('');
+    const [paymentGateway, setPaymentGateway] = useState('');
+    const [customerEmail, setCustomerEmail] = useState('');
+    const [amountTransacted, setAmountTransacted] = useState('');
+
+    const handleSubscriptionNameChange = (e) => setSubscriptionName(e.target.value);
+    const handlePaymentGatewayChange = (e) => setPaymentGateway(e.target.value);
+    const handleCustomerEmailChange = (e) => setCustomerEmail(e.target.value);
+    const handleAmountTransactedChange = (e) => setAmountTransacted(e.target.value);
+
     const handleCheckboxChange = (e) => {
         setIsChecked(e.target.checked);
     };
@@ -142,6 +152,23 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
         setSelectedCity(option);
     };
 
+    const subscriptionOptions = [
+        { value: 'No Subscription', label: 'No Subscription' },
+        { value: 'Starter Setup Monthly', label: 'Starter Setup Monthly' },
+        { value: 'Starter Setup Annually', label: 'Starter Setup Annually' },
+        { value: 'Advanced Setup Monthly', label: 'Advanced Setup Monthly' },
+        { value: 'Advanced Setup Annually', label: 'Advanced Setup Annually' },
+        { value: 'Professional Revamp Monthly', label: 'Professional Revamp Monthly' },
+        { value: 'Professional Revamp Annually', label: 'Professional Revamp Annually' },
+    ];
+
+    const paymentGatewayOptions = [
+        { value: 'Stripe', label: 'Stripe' },
+        { value: 'Square', label: 'Square' },
+        { value: 'Others', label: 'Others' },
+    ];
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
     
@@ -151,6 +178,10 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
         }
     
         const formData = new FormData();
+        formData.append('subscriptionName', subscriptionName);
+        formData.append('paymentGateway', paymentGateway);
+        formData.append('customerEmail', customerEmail);
+        formData.append('amountTransacted', amountTransacted);
         formData.append('name', businessName);
         formData.append('alias', aliasName);
         formData.append('url', websiteUrl);
@@ -623,7 +654,7 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
 
                                 </div>
 
-                                {/* Biz Contacts */}
+                                {/* Biz Contact Details */}
                                 <div className='pt-3'>
                                     <h4 style={{ fontSize: '1.3rem' }} className='biz-color'>Biz Contact Details</h4>
 
@@ -673,6 +704,78 @@ export default function BizRegistration({ businessName: initialBusinessName, ali
                                         </Col>
                                     </Row>
                                 </div>
+
+                                {/* Biz Payment Details */}
+                                <div className='pt-3'>
+                                    <h4 style={{ fontSize: '1.3rem' }} className='biz-color'>Payment Details*</h4>
+                                    <h6 style={{ fontSize: '1rem' }}><em>*Optional to those accounts without payment process</em></h6>
+
+                                    <Row>
+                                        <Col lg={6}>
+                                            <Form.Group controlId="formSubscriptionName">
+                                                <Form.Label>Subscription Name</Form.Label>
+                                                <Form.Control
+                                                    as="select"
+                                                    required
+                                                    value={subscriptionName}
+                                                    onChange={handleSubscriptionNameChange}
+                                                    className='mb-2'
+                                                >
+                                                    <option value="">Select Subscription</option>
+                                                    {subscriptionOptions.map((option, index) => (
+                                                        <option key={index} value={option.value}>{option.label}</option>
+                                                    ))}
+                                                </Form.Control>
+                                            </Form.Group>
+                                        </Col>
+
+                                        <Col lg={6}>
+                                            <Form.Group controlId="formPaymentGateway">
+                                                <Form.Label>Payment Gateway</Form.Label>
+                                                <Form.Control
+                                                    as="select"
+                                                    value={paymentGateway}
+                                                    onChange={handlePaymentGatewayChange}
+                                                    className='mb-2'
+                                                >
+                                                    <option value="">Select Payment Gateway</option>
+                                                    {paymentGatewayOptions.map((option, index) => (
+                                                        <option key={index} value={option.value}>{option.label}</option>
+                                                    ))}
+                                                </Form.Control>
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+
+                                    <Row>
+                                        <Col lg={6}>
+                                            <Form.Group controlId="formCustomerEmail">
+                                                <Form.Label>Customer's Email Address</Form.Label>
+                                                <Form.Control
+                                                    type="email"
+                                                    placeholder="Enter Customer's Email Address"
+                                                    value={customerEmail}
+                                                    onChange={handleCustomerEmailChange}
+                                                    className='mb-2'
+                                                />
+                                            </Form.Group>
+                                        </Col>
+                                        <Col lg={6}>
+                                            <Form.Group controlId="formAmountTransacted">
+                                                <Form.Label>Amount Transacted</Form.Label>
+                                                <Form.Control
+                                                    type="number"
+                                                    placeholder="Enter Amount Transacted"
+                                                    value={amountTransacted}
+                                                    onChange={handleAmountTransactedChange}
+                                                    className='mb-2'
+                                                />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                </div>
+
+
                                 <div className="relative flex flex-wrap items-center">
                                     <Form>
                                         <div className="mb-3">
