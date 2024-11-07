@@ -443,7 +443,11 @@ export default function RetrieveBizSV() {
                 </Td>
                 <Td>{`biz-${business._id.slice(-10)}`}</Td>
                 <Td>{business.name}</Td>
-                <Td>{`${business.agent.firstName} ${business.agent.lastName}`}</Td>
+                <Td>
+                  {business.agent && business.agent.firstName && business.agent.lastName
+                    ? `${business.agent.firstName} ${business.agent.lastName}`
+                    : '-'}
+                </Td>                
                 <Td>{formatDateTime(business.createdAt || '-')}</Td>
                 <Td>{`${business.bizAge} Days` || '-'}</Td>
                 <Td>
