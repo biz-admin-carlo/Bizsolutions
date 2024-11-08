@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../../../../assets/styles/AppPreFooter.css';
-import { FaFacebook, FaInstagram, FaTiktok, FaYoutube, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTiktok, FaYoutube, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 export default function AppPreFooter() {
   return (
@@ -15,6 +15,9 @@ export default function AppPreFooter() {
             <Link to="/careers" className="footer-link"><h6>Careers</h6></Link>
             
             <div className='social-media-icons mt-3'>
+              <a href="https://www.linkedin.com/company/bizsolutions-llc/posts/" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
+                <FaLinkedin />
+              </a>
               <a href="https://www.facebook.com/SupportusBizSolutions" target="_blank" rel="noopener noreferrer" className="me-2 text-decoration-none">
                 <FaFacebook />
               </a>
