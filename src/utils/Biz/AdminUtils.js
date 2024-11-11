@@ -73,3 +73,27 @@ export async function retrieveAllTransaction(bizId) {
         return false;
     }
 }
+
+export async function retrieveAllCustomers() {
+    try {
+      const url = `${apiUrl}/api/v1/customer/retrieve/all`;
+      const token = localStorage.getItem('token');
+  
+      const response = await axios.get(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      console.error('Failed to retrieve customers:', error);
+      return false;
+    }
+  }
+  
