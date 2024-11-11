@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import '../../../../assets/styles/AppNavbar.css';
 
-export default function UserNavbar() {
+export default function AdminNavbar() {
 
   const { user, unsetUser } = useContext(UserContext);
   const navigate = useNavigate(); // This should be outside of handleLogout
@@ -39,32 +39,24 @@ export default function UserNavbar() {
                 (user.isAdmin) && (
                   <>
                     {
-                      (user.isSuperAdmin) && (
-                        <>
-                          <NavDropdown title="User" id="basic-nav-dropdown">
-                            <NavDropdown.Item>
-                              <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/add-biz`} className="navbar-options">
-                                View User
-                              </Nav.Link>
-                            </NavDropdown.Item>
-                          </NavDropdown>
-                        </>
-                      )
-                    }
-                    {
                       (user.isVendor) && (
                         <>
-                          <NavDropdown title="Representatives" id="basic-nav-dropdown">
+                          <NavDropdown title="Super Admin" id="basic-nav-dropdown">
                             <NavDropdown.Item>
                               <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/see-agents`} className="navbar-options">
                                 View Agent
                               </Nav.Link>
                             </NavDropdown.Item>
+                            <NavDropdown.Item>
+                              <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/see-transactions`} className="navbar-options">
+                              Payments
+                              </Nav.Link>
+                            </NavDropdown.Item>
                           </NavDropdown>
                         </>
                       )
                     }
-                      <NavDropdown title="Biz" id="basic-nav-dropdown">
+                      <NavDropdown title="Transactions" id="basic-nav-dropdown">
                         <NavDropdown.Item>
                           <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/add-biz`} className="navbar-options">
                             Add Biz

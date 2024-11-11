@@ -28,6 +28,8 @@ import AdminSeeBiz from './pages/Biz/Admin/AdminSeeBiz.js';
 import AdminUsers from './pages/Biz/Admin/AdminUsers.js';
 import AdminSeeAgents from './pages/Biz/Admin/AdminSeeAgents.js';
 import AdminMonthlyPayLink from './pages/Biz/Admin/AdminMonthly.js';
+import AdminSeeTransactions from './pages/Biz/Admin/AdminSeeTransactions.js';
+
 
 import Referral from './pages/Biz/User/Referral.js';
 import Account from './pages/Biz/User/Account.js';
@@ -140,6 +142,8 @@ function App() {
                     <Route path="/admin-dashboard/:userId/users" element={<AdminUsers/>}/>
                     <Route path="/admin-dashboard/:userId/add-biz" element={<CreateBizness/>}/>
                     <Route path="/admin-dashboard/:userId/see-biz" element={<AdminSeeBiz/>}/>
+                    <Route path="/admin-dashboard/:userId/see-transactions" element={<AdminSeeTransactions/>}/>
+
 
                     {/* Vendor Manager Links Only */}
                     <Route path="/admin-dashboard/:userId/" element={<AdminDashboard/>}/>
