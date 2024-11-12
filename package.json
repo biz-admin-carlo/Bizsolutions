@@ -1,5 +1,5 @@
 {
-  "name": "discussion",
+  "name": "bizsolutions-llc-2023",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,7 +11,6 @@
     "aos": "^2.3.4",
     "axios": "^1.6.5",
     "bootstrap": "^5.3.3",
-    "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "country-state-city": "^3.2.1",
     "emotion": "^11.0.0",
