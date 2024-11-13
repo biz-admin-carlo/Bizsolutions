@@ -61,8 +61,9 @@ const ContactUs = () => {
                                             <p className="font-weight-bold">Call Us</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            <p className='text-services-email'>(415) 609-9342</p>
+                                            <a href="tel:+18332497418" className="text-services-email">+1 833-249-7418</a>
                                         </div>
+
                                     </div>
 
                                     <div className="row mb-3">
