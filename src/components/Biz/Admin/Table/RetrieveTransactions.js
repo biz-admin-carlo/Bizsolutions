@@ -212,7 +212,7 @@ export default function CustomerTable() {
       <Container maxW="container.xl" minH="85vh" p={5}>
         <Box py={5}>
           <Heading as="h4" size="xl" letterSpacing="wider">
-            Customers ({data.count})
+            Customers
           </Heading>
         </Box>
 

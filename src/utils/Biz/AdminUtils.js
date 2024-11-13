@@ -95,5 +95,33 @@ export async function retrieveAllCustomers() {
       console.error('Failed to retrieve customers:', error);
       return false;
     }
+}
+
+export async function retrieveTransactionSuccessful(data) {
+  try {
+    const url = `${apiUrl}/api/v1/customer/retrieve/cross-match`;
+    const token = localStorage.getItem('token');
+
+    const response = await axios.post(url, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log("HElloe");
+    console.log(response.data);
+
+    if (response.status === 200) {
+
+      return response.data;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.log(error);
+    console.error('Failed to retrieve transaction:', error);
+    return false;
   }
+}
   
