@@ -109,9 +109,6 @@ export async function retrieveTransactionSuccessful(data) {
       },
     });
 
-    console.log("HElloe");
-    console.log(response.data);
-
     if (response.status === 200) {
 
       return response.data;
@@ -119,7 +116,6 @@ export async function retrieveTransactionSuccessful(data) {
       return [];
     }
   } catch (error) {
-    console.log(error);
     console.error('Failed to retrieve transaction:', error);
     return false;
   }
