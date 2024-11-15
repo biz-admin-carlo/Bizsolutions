@@ -66,7 +66,7 @@ export default function PaymentLinks() {
               <Th>Package</Th>
               <Th>Price</Th>
               <Th>Stripe Link</Th>
-              <Th>Square Link</Th>
+              {/* <Th>Square Link</Th> */}
             </Tr>
           </Thead>
           <Tbody>
@@ -85,7 +85,7 @@ export default function PaymentLinks() {
                     {item.stripeLink}
                   </Link>
                 </Td>
-                <Td>
+                {/* <Td>
                   {item.squareLink !== "-" ? (
                     <Link
                       href={item.squareLink}
@@ -99,7 +99,7 @@ export default function PaymentLinks() {
                   ) : (
                     "-"
                   )}
-                </Td>
+                </Td> */}
               </Tr>
             ))}
           </Tbody>

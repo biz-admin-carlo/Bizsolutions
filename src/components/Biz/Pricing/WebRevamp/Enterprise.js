@@ -27,7 +27,7 @@ export default function ProfessionalRevamp({ selected }) {
             const subject = encodeURIComponent("Interest in Enterprise Revamp Package");
             const body = encodeURIComponent("I am interested in the Enterprise Revamp Package. Please provide me with more information.");
 
-            const mailtoLink = `mailto:supportus@mybizsolutions.us?subject=${subject}&body=${body}`;
+            const mailtoLink = `mailto:webconsultant@bizsolutions.us?subject=${subject}&body=${body}`;
             window.location.href = mailtoLink;
         } else {
             navigate('/login/pricing'); 
@@ -55,7 +55,7 @@ export default function ProfessionalRevamp({ selected }) {
         <Card.Body className='ms-3'>
             <Card.Title>Enterprise Revamp Package</Card.Title>
             <h3 className='card-text-amount'>
-                Let's Talk!<p><Badge pill bg="warning" text="dark">supportus@mybizsolutions.us</Badge></p>
+                Let's Talk!<p><Badge pill bg="warning" text="dark">webconsultant@bizsolutions.us</Badge></p>
             </h3>
             
                 <Button variant="outline-warning" className='my-3 full-width-button' onClick={handleGetStartedEnterprise}>

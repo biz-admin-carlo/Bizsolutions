@@ -44,7 +44,7 @@ export default function BundleExpert() {
     const handleGetStartedClick = () => {
         const token = localStorage.getItem('token');
         if (token)  {
-            const mailtoLink = `mailto:supportus@mybizsolutions.us?subject=Interest in Human Resources Payroll Pemium Setup&body=I am interested in the Human Resources Payroll Pemium Setup. Please provide me with more information.`;
+            const mailtoLink = `mailto:webconsultant@bizsolutions.us?subject=Interest in Human Resources Payroll Pemium Setup&body=I am interested in the Human Resources Payroll Pemium Setup. Please provide me with more information.`;
             window.location.href = mailtoLink;
         } else {
             navigate('/login/pricing'); 
@@ -73,7 +73,7 @@ export default function BundleExpert() {
             <Card.Body>
                 <Card.Title>Premium Setup</Card.Title>
                 <h3 className='card-text-amount'>
-                    Let's Talk!<p><Badge pill bg="warning" text="dark">supportus@mybizsolutions.us</Badge></p>
+                    Let's Talk!<p><Badge pill bg="warning" text="dark">webconsultant@bizsolutions.us</Badge></p>
                 </h3>
                 <Card.Subtitle className="mb-2 text-muted">Scalable HR for Growing Teams</Card.Subtitle>
 

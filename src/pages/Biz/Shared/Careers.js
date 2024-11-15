@@ -30,13 +30,13 @@ const CareerPage = () => {
 
                                 <p className='text-intro-landing py-3'>We currently do not have any open positions, but we are always keen to meet talented professionals who would like to join our team. If you believe that your skills and experience align with our company's goals and values, we would love to hear from you.</p>
 
-                                <p className='text-intro-landing'>Please feel free to send your resume and a cover letter to <span className='biz-color'>supportus@mybizsolutions.us</span>. We will review your application and keep it on file for future opportunities.</p>
+                                <p className='text-intro-landing'>Please feel free to send your resume and a cover letter to <span className='biz-color'>webconsultant@bizsolutions.us</span>. We will review your application and keep it on file for future opportunities.</p>
 
                                 <h4>Stay Connected</h4>
 
                                 <p className='text-intro-landing py-3'>We encourage you to check back periodically as new opportunities can arise at any time.</p>
 
-                                <p className='text-intro-landing'>Thank you for considering a career with <span className='biz-color'>supportus@mybizsolutions.us</span>. We appreciate your interest in joining our team and look forward to the possibility of working together in the future.</p>
+                                <p className='text-intro-landing'>Thank you for considering a career with <span className='biz-color'>webconsultant@bizsolutions.us</span>. We appreciate your interest in joining our team and look forward to the possibility of working together in the future.</p>
 
 
                             </div>
