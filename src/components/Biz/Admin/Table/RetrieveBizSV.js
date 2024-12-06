@@ -26,11 +26,15 @@ import {
 } from '@chakra-ui/react';
 import { getMyVendorManagerBizNess, archiveBiz } from '../../../../utils/Biz/BizUtils.js';
 import GeneratePDF from './Generate/PDFFile.js';
-import { FaCircle } from "react-icons/fa";
+import { FaCircle, FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaInfoCircle } from "react-icons/fa";
 import { BiSolidTrash } from "react-icons/bi";
 import DeleteConfirmationModal from '../Modal/DeleteConfirmationModa.js';
 import BizDetailsModal from '../Modal/BizDetailsModal.js';
+import PaymentModalDetails from '../Modal/PaymentModalDetails.js';
 import UserContext from '../../../../utils/Contexts/userContext.js';
+
+// Import retrieveTransactionSuccessful
+import { retrieveTransactionSuccessful } from '../../../../utils/Biz/AdminUtils.js';
 
 export default function RetrieveBizSV() {
   const { user } = useContext(UserContext);
@@ -57,6 +61,12 @@ export default function RetrieveBizSV() {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [selectedBusiness, setSelectedBusiness] = useState(null);
 
+  // Payment states
+  const [paymentStatuses, setPaymentStatuses] = useState({});
+  const [paymentDetails, setPaymentDetails] = useState({});
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [selectedPaymentDetails, setSelectedPaymentDetails] = useState(null);
+
   const toast = useToast();
 
   useEffect(() => {
@@ -66,6 +76,13 @@ export default function RetrieveBizSV() {
   useEffect(() => {
     filterBusinesses();
   }, [businesses, searchText, searchDate]);
+
+  useEffect(() => {
+    // Fetch payment statuses whenever filteredBusinesses change
+    if (filteredBusinesses.length > 0) {
+      fetchPaymentStatuses();
+    }
+  }, [filteredBusinesses]);
 
   // Pagination calculations
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -128,11 +145,10 @@ export default function RetrieveBizSV() {
     return date.toLocaleString('en-US', options);
   }
 
-  // Filtering function
   function filterBusinesses() {
     let filtered = [...businesses];
 
-    // Text search across multiple fields
+    // Text search
     if (searchText.trim() !== '') {
       const lowerSearchText = searchText.toLowerCase();
       filtered = filtered.filter(business =>
@@ -148,7 +164,7 @@ export default function RetrieveBizSV() {
       );
     }
 
-    // Date filter (Created Date)
+    // Date filter
     if (searchDate !== '') {
       const searchDateFormatted = new Date(searchDate).toISOString().split('T')[0];
       filtered = filtered.filter(business => {
@@ -158,16 +174,14 @@ export default function RetrieveBizSV() {
     }
 
     setFilteredBusinesses(filtered);
-    setCurrentPage(1); // Reset to first page when filtering
+    setCurrentPage(1);
   }
 
-  // Clear all searches
   const handleClearSearch = () => {
     setSearchText('');
     setSearchDate('');
   };
 
-  // Pagination handlers
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
@@ -177,7 +191,6 @@ export default function RetrieveBizSV() {
     setCurrentPage(1);
   };
 
-  // Delete Modal handlers
   const openDeleteModal = (business) => {
     setBusinessToDelete(business);
     setIsDeleteModalOpen(true);
@@ -188,7 +201,6 @@ export default function RetrieveBizSV() {
     setBusinessToDelete(null);
   };
 
-  // Function to confirm deletion (archiving)
   const confirmDeleteBusiness = async () => {
     if (!businessToDelete) return;
 
@@ -196,7 +208,6 @@ export default function RetrieveBizSV() {
       const result = await archiveBiz(businessToDelete._id);
 
       if (result.success) {
-        // Update the business's isArchived status in the state
         setBusinesses((prevBusinesses) =>
           prevBusinesses.map((biz) =>
             biz._id === result.bizID ? { ...biz, isArchived: true } : biz
@@ -208,7 +219,6 @@ export default function RetrieveBizSV() {
           )
         );
 
-        // Show success toast
         toast({
           title: "Business Archived.",
           description: `"${businessToDelete.name}" has been successfully archived.`,
@@ -217,7 +227,6 @@ export default function RetrieveBizSV() {
           isClosable: true,
         });
       } else {
-        // Show error toast
         toast({
           title: "Archiving Failed.",
           description: result.error || "Unable to archive the business.",
@@ -236,11 +245,9 @@ export default function RetrieveBizSV() {
       });
     }
 
-    // Close the modal
     closeDeleteModal();
   };
 
-  // Details Modal handlers
   const openDetailsModal = (business) => {
     setSelectedBusiness(business);
     setIsDetailsModalOpen(true);
@@ -251,23 +258,82 @@ export default function RetrieveBizSV() {
     setSelectedBusiness(null);
   };
 
-  // Function to render action icons
+  // Convert amount to cents
+  function convertAmountToCents(amount) {
+    const amountNum = parseFloat(amount);
+    if (isNaN(amountNum)) {
+      return null; 
+    }
+    return Math.round(amountNum * 100);
+  }
+
+  async function fetchPaymentStatuses() {
+    const updatedStatuses = { ...paymentStatuses };
+    const updatedDetails = { ...paymentDetails };
+
+    const statusPromises = currentBusinesses.map(async (business) => {
+      updatedStatuses[business._id] = 'loading';
+      setPaymentStatuses({ ...updatedStatuses });
+
+      const amountInCents = convertAmountToCents(business.amountTransacted);
+
+      const data = {
+        name: business.alias || "",
+        email: business.email || "",
+        subscriptionPackage: amountInCents || "",
+        createdTimeDate: business.createdAt || "",
+      };
+
+      try {
+        const result = await retrieveTransactionSuccessful(data);
+
+        updatedDetails[business._id] = result;
+
+        if (result.result === 'successful') {
+          updatedStatuses[business._id] = 'success';
+        } else if (result.result === 'warning') {
+          updatedStatuses[business._id] = 'warning';
+        } else {
+          updatedStatuses[business._id] = 'failed';
+        }
+      } catch (error) {
+        updatedStatuses[business._id] = 'failed';
+        updatedDetails[business._id] = null;
+      }
+
+      setPaymentStatuses({ ...updatedStatuses });
+      setPaymentDetails({ ...updatedDetails });
+    });
+
+    await Promise.all(statusPromises);
+  }
+
+  const openPaymentModal = (business) => {
+    const paymentData = paymentDetails[business._id];
+    setSelectedPaymentDetails(paymentData);
+    setIsPaymentModalOpen(true);
+  };
+
+  const closePaymentModal = () => {
+    setIsPaymentModalOpen(false);
+    setSelectedPaymentDetails(null);
+  };
+
+  // Action Icons
   const renderActionIcons = (business) => {
     const actions = [
       {
         icon: GeneratePDF,
         label: "Generate PDF",
-        // Assuming GeneratePDF is a component that handles its own click
       },
     ];
 
-    // Conditionally add the Delete icon if the business is not archived
     if (!business.isArchived) {
       actions.push({
         icon: BiSolidTrash,
         label: "Delete Business",
         onClick: (e) => {
-          e.stopPropagation(); // Prevent triggering row click
+          e.stopPropagation();
           openDeleteModal(business);
         }
       });
@@ -303,7 +369,6 @@ export default function RetrieveBizSV() {
       {/* Search Controls */}
       <VStack spacing={4} mb={4} align="stretch">
         <HStack spacing={4}>
-          {/* Text Search Input */}
           <Input
             placeholder='Search by Name, Agent, Status, Website, Location, Age'
             size='md'
@@ -311,7 +376,6 @@ export default function RetrieveBizSV() {
             onChange={(e) => setSearchText(e.target.value)}
           />
 
-          {/* Date Search Input */}
           <Input
             placeholder='Select Date'
             size='md'
@@ -350,7 +414,6 @@ export default function RetrieveBizSV() {
         </HStack>
       </VStack>
 
-      {/* Show message when no results found */}
       {filteredBusinesses.length === 0 && (
         <Alert status="info" mb={4}>
           <AlertIcon />
@@ -358,7 +421,6 @@ export default function RetrieveBizSV() {
         </Alert>
       )}
 
-      {/* Delete Confirmation Modal */}
       {businessToDelete && (
         <DeleteConfirmationModal
           isOpen={isDeleteModalOpen}
@@ -368,12 +430,19 @@ export default function RetrieveBizSV() {
         />
       )}
 
-      {/* BizDetailsModal */}
       {selectedBusiness && (
         <BizDetailsModal
           isOpen={isDetailsModalOpen}
           onClose={closeDetailsModal}
           business={selectedBusiness}
+        />
+      )}
+
+      {isPaymentModalOpen && selectedPaymentDetails && (
+        <PaymentModalDetails
+          isOpen={isPaymentModalOpen}
+          onClose={closePaymentModal}
+          paymentDetails={selectedPaymentDetails}
         />
       )}
 
@@ -383,6 +452,8 @@ export default function RetrieveBizSV() {
           <Thead>
             <Tr>
               <Th>Status</Th>
+              {/* New Payment Column */}
+              <Th>Payment</Th>
               <Th>Actions</Th>
               <Th>Tracking Log</Th>
               <Th>Biz Name</Th>
@@ -404,14 +475,57 @@ export default function RetrieveBizSV() {
                 onClick={() => openDetailsModal(business)}
                 _hover={{ bg: 'gray.100' }}
               >
-                <Td>                    
+                <Td>
                   <Icon 
                     as={FaCircle} 
                     boxSize={3} 
                     color={getStatusColor(business.isArchived)} 
                   />
                 </Td>
-                <Td>
+
+                {/* Payment Status Icon */}
+                <Td onClick={(e) => {
+                  e.stopPropagation(); // Prevent row click
+                  openPaymentModal(business);
+                }}>
+                  {(() => {
+                    const status = paymentStatuses[business._id];
+
+                    let icon;
+                    let label;
+
+                    if (status === 'loading') {
+                      icon = <Spinner size="sm" />;
+                      label = 'Loading payment status...';
+                    } else if (status === 'success') {
+                      icon = <Icon as={FaCheckCircle} color="green.500" />;
+                      label = 'Payment Successful';
+                    } else if (status === 'warning') {
+                      icon = <Icon as={FaExclamationTriangle} color="yellow.500" />;
+                      label = 'Subscription Package does not match';
+                    } else if (status === 'failed') {
+                      icon = <Icon as={FaTimesCircle} color="red.500" />;
+                      label = 'Payment Failed';
+                    } else {
+                      icon = <Icon as={FaInfoCircle} color="gray.500" />;
+                      label = 'No Payment Data';
+                    }
+
+                    return (
+                      <Tooltip
+                        label={label}
+                        placement="top"
+                        hasArrow
+                        bg="gray.700"
+                        color="white"
+                      >
+                        <span>{icon}</span>
+                      </Tooltip>
+                    );
+                  })()}
+                </Td>
+
+                <Td onClick={(e) => e.stopPropagation()}>
                   <Flex gap={4} alignItems="center">
                     {renderActionIcons(business).map((item, idx) => {
                       const IconComponent = item.icon;
@@ -447,7 +561,7 @@ export default function RetrieveBizSV() {
                   {business.agent && business.agent.firstName && business.agent.lastName
                     ? `${business.agent.firstName} ${business.agent.lastName}`
                     : '-'}
-                </Td>                
+                </Td>
                 <Td>{formatDateTime(business.createdAt || '-')}</Td>
                 <Td>{`${business.bizAge} Days` || '-'}</Td>
                 <Td>
@@ -472,7 +586,6 @@ export default function RetrieveBizSV() {
         </Table>
       </TableContainer>
 
-      {/* Pagination controls - bottom */}
       <HStack spacing={2} justify="center" mt={4}>
         <Button
           size="sm"
