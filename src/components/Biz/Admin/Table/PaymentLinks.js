@@ -18,37 +18,37 @@ const paymentData = [
     package: "Starter Setup Monthly",
     price: "$49.99 (Monthly)",
     stripeLink: "https://buy.stripe.com/4gw29odeP9xB1HO7sN",
-    squareLink: "https://square.link/u/IlumVicQ"
+    paypalLink: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-2JS91766G6110130RM5JEZIY"
   },
   {
     package: "Starter Setup Annually",
     price: "$539.88 (Annually)",
     stripeLink: "https://buy.stripe.com/bIYdS65Mn115cms28u",
-    squareLink: "https://square.link/u/2Kpylrur"
+    paypalLink: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-8K26323796537934EM5JFAVQ"
   },
   {
     package: "Advanced Setup Monthly",
     price: "$99.99 Monthly",
     stripeLink: "https://buy.stripe.com/8wM5lA8Yz7ptaekbJc",
-    squareLink: "https://square.link/u/SuyBCBGX"
+    paypalLink: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-91081387UM580043TM5JFCHQ"
   },
   {
     package: "Advanced Setup Annually",
     price: "$1,079.88 (Annually)",
     stripeLink: "https://buy.stripe.com/dR6eWafmXbFJ728aF9",
-    squareLink: "https://square.link/u/4Ng3UBmV"
+    paypalLink: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-2DX8940294236090NM5JFDIQ"
   },
   {
     package: "Professional Revamp Monthly",
     price: "$44.99 Monthly",
     stripeLink: "https://buy.stripe.com/6oEaFUgr1fVZ86c4gI",
-    squareLink: "https://square.link/u/Y6UYxPe7"
+    paypalLink: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-7RT28047U6240935EM5JFELQ"
   },
   {
     package: "Professional Revamp Annually",
     price: "$399.99 (Annually)",
     stripeLink: "https://buy.stripe.com/6oEaFU2AbbFJ7283cN",
-    squareLink: "https://square.link/u/cZq0Ozt8"
+    paypalLink: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-3SG86075BS189571RM5JFFMQ"
   }
 ];
 
@@ -66,7 +66,7 @@ export default function PaymentLinks() {
               <Th>Package</Th>
               <Th>Price</Th>
               <Th>Stripe Link</Th>
-              {/* <Th>Square Link</Th> */}
+              <Th>PayPal Link</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -85,26 +85,27 @@ export default function PaymentLinks() {
                     {item.stripeLink}
                   </Link>
                 </Td>
-                {/* <Td>
-                  {item.squareLink !== "-" ? (
+                <Td>
+                  {item.paypalLink !== "-" ? (
                     <Link
-                      href={item.squareLink}
+                      href={item.paypalLink}
                       isExternal
                       color={linkColor}
                       textDecoration="underline"
                       fontStyle="italic"
                     >
-                      {item.squareLink}
+                      {item.paypalLink}
                     </Link>
                   ) : (
                     "-"
                   )}
-                </Td> */}
+                </Td>
               </Tr>
             ))}
           </Tbody>
         </Table>
       </TableContainer>
     </Box>
+    
   );
 }

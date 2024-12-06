@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import Footer from '../Shared/Footer/MainFooter.js';
 import '../../../assets/styles/AccountInfo.css';
 
 import PaymentLinks from './Table/PaymentLinks.js';
