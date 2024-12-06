@@ -41,7 +41,7 @@ export default function AdminNavbar() {
                     {
                       (user.isVendor) && (
                         <>
-                          <NavDropdown title="Super Admin" id="basic-nav-dropdown">
+                          <NavDropdown title="Team" id="basic-nav-dropdown">
                             <NavDropdown.Item>
                               <Nav.Link as={Link} to={`/admin-dashboard/${user._id}/see-agents`} className="navbar-options">
                                 View Agent

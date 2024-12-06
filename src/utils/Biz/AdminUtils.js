@@ -120,4 +120,28 @@ export async function retrieveTransactionSuccessful(data) {
     return false;
   }
 }
+
+export async function retrievePaymentHistoryUtil(data) {
+  try {
+    const url = `${apiUrl}/api/v1/customer/check-payment-history`; // Update with the correct endpoint
+    const token = localStorage.getItem('token');
+
+    const response = await axios.post(url, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.warn('Unexpected status code:', response.status);
+      return [];
+    }
+  } catch (error) {
+    console.error('Failed to retrieve payment history:', error);
+    return false;
+  }
+}
   

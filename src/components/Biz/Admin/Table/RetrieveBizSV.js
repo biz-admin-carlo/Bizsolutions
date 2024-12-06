@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Table,
   TableContainer,
@@ -25,20 +26,19 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { getMyVendorManagerBizNess, archiveBiz } from '../../../../utils/Biz/BizUtils.js';
+import { retrieveTransactionSuccessful } from '../../../../utils/Biz/AdminUtils.js';
 import GeneratePDF from './Generate/PDFFile.js';
-import { FaCircle, FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaInfoCircle } from "react-icons/fa";
+import { FaCircle, FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaInfoCircle, FaHistory } from "react-icons/fa";
 import { BiSolidTrash } from "react-icons/bi";
 import DeleteConfirmationModal from '../Modal/DeleteConfirmationModa.js';
 import BizDetailsModal from '../Modal/BizDetailsModal.js';
 import PaymentModalDetails from '../Modal/PaymentModalDetails.js';
 import UserContext from '../../../../utils/Contexts/userContext.js';
 
-// Import retrieveTransactionSuccessful
-import { retrieveTransactionSuccessful } from '../../../../utils/Biz/AdminUtils.js';
-
 export default function RetrieveBizSV() {
   const { user } = useContext(UserContext);
   const userID = user ? user._id : null;
+  const navigate = useNavigate();
 
   const [businesses, setBusinesses] = useState([]);
   const [filteredBusinesses, setFilteredBusinesses] = useState([]);
@@ -52,6 +52,9 @@ export default function RetrieveBizSV() {
   // Search states
   const [searchText, setSearchText] = useState('');
   const [searchDate, setSearchDate] = useState('');
+
+  // **New state for package selection**
+  const [selectedPackage, setSelectedPackage] = useState('all');
 
   // Delete Modal states
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -69,13 +72,40 @@ export default function RetrieveBizSV() {
 
   const toast = useToast();
 
+  const paymentData = [
+    {
+      package: "Starter Setup Monthly",
+      price: "49.99",
+    },
+    {
+      package: "Starter Setup Annually",
+      price: "539.88",
+    },
+    {
+      package: "Advanced Setup Monthly",
+      price: "99.99",
+    },
+    {
+      package: "Advanced Setup Annually",
+      price: "1079.88",
+    },
+    {
+      package: "Professional Revamp Monthly",
+      price: "44.99",
+    },
+    {
+      package: "Professional Revamp Annually",
+      price: "399.99",
+    }
+  ];
+
   useEffect(() => {
     loadBusinesses();
   }, []);
 
   useEffect(() => {
     filterBusinesses();
-  }, [businesses, searchText, searchDate]);
+  }, [businesses, searchText, searchDate, selectedPackage]);
 
   useEffect(() => {
     // Fetch payment statuses whenever filteredBusinesses change
@@ -96,10 +126,17 @@ export default function RetrieveBizSV() {
       const bizData = await getMyVendorManagerBizNess();
 
       if (bizData.httpCode === '200') {
-        const businessesWithAge = bizData.httpMessage.map(business => ({
-          ...business,
-          bizAge: calculateAge(business.createdAt),
-        }));
+        const businessesWithAge = bizData.httpMessage.map(business => {
+          const bizAge = calculateAge(business.createdAt);
+          // Determine the matched package by amountTransacted
+          const matchedPackage = findPackageByAmount(business.amountTransacted);
+
+          return {
+            ...business,
+            bizAge,
+            matchedPackage, // store the package name here
+          };
+        });
         setBusinesses(businessesWithAge);
         setFilteredBusinesses(businessesWithAge);
       } else {
@@ -110,6 +147,18 @@ export default function RetrieveBizSV() {
     } finally {
       setLoading(false);
     }
+  }
+
+  function findPackageByAmount(amount) {
+    if (!amount) return null;
+    const amountNum = parseFloat(amount);
+    if (isNaN(amountNum)) return null;
+
+    // Match the package by comparing amounts
+    // We'll assume that floating point rounding isn't a big issue,
+    // but in production consider exact string matches or integers (cents).
+    const matched = paymentData.find(p => parseFloat(p.price) === amountNum);
+    return matched ? matched.package : null;
   }
 
   const getStatusColor = (status) => {
@@ -173,6 +222,11 @@ export default function RetrieveBizSV() {
       });
     }
 
+    // Package filter
+    if (selectedPackage !== 'all') {
+      filtered = filtered.filter(business => business.matchedPackage === selectedPackage);
+    }
+
     setFilteredBusinesses(filtered);
     setCurrentPage(1);
   }
@@ -180,6 +234,7 @@ export default function RetrieveBizSV() {
   const handleClearSearch = () => {
     setSearchText('');
     setSearchDate('');
+    setSelectedPackage('all'); // reset package filter as well
   };
 
   const handlePageChange = (newPage) => {
@@ -326,6 +381,13 @@ export default function RetrieveBizSV() {
         icon: GeneratePDF,
         label: "Generate PDF",
       },
+      {
+        icon: FaHistory,
+        label: "View Payment History",
+        onClick: () => {
+          navigate(`/admin-dashboard/${userID}/${business._id}/see-history`);
+        },
+      },
     ];
 
     if (!business.isArchived) {
@@ -385,6 +447,23 @@ export default function RetrieveBizSV() {
           />
         </HStack>
 
+        {/* Package Filter */}
+        <HStack spacing={4}>
+          <Select
+            width="auto"
+            size="md"
+            value={selectedPackage}
+            onChange={(e) => setSelectedPackage(e.target.value)}
+          >
+            <option value="all">All Packages</option>
+            {paymentData.map((pkg, idx) => (
+              <option key={idx} value={pkg.package}>
+                {pkg.package}
+              </option>
+            ))}
+          </Select>
+        </HStack>
+
         <HStack justify="space-between">
           <HStack spacing={4}>
             <Select 
@@ -407,7 +486,7 @@ export default function RetrieveBizSV() {
           <Button
             size="sm"
             onClick={handleClearSearch}
-            isDisabled={searchText === '' && searchDate === ''}
+            isDisabled={searchText === '' && searchDate === '' && selectedPackage === 'all'}
           >
             Clear Filters
           </Button>
@@ -452,7 +531,6 @@ export default function RetrieveBizSV() {
           <Thead>
             <Tr>
               <Th>Status</Th>
-              {/* New Payment Column */}
               <Th>Payment</Th>
               <Th>Actions</Th>
               <Th>Tracking Log</Th>
@@ -460,10 +538,9 @@ export default function RetrieveBizSV() {
               <Th>Agent Name</Th>
               <Th>Created On</Th>
               <Th>Age</Th>
-              <Th>Biz Status</Th>
-              <Th>Payment Status</Th>
               <Th>Location</Th>
               <Th>Website</Th>
+              <Th>Package</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -564,22 +641,9 @@ export default function RetrieveBizSV() {
                 </Td>
                 <Td>{formatDateTime(business.createdAt || '-')}</Td>
                 <Td>{`${business.bizAge} Days` || '-'}</Td>
-                <Td>
-                  {business.bizStatus === 'pending' && business.paymentStatus === 'pending' ? (
-                    <em>Pending</em>
-                  ) : (
-                    <em>{business.bizStatus || '-'}</em>
-                  )}
-                </Td>
-                <Td>
-                  {business.bizStatus === 'pending' && business.paymentStatus === 'pending' ? (
-                    <em>Pending</em>
-                  ) : (
-                    <em>{business.paymentStatus || '-'}</em> 
-                  )}
-                </Td>
                 <Td>{`${business.location.city || '-'}, ${business.location.state || '-'}`}</Td>
                 <Td>{business.url || '-'}</Td>
+                <Td>{business.matchedPackage || 'N/A'}</Td>
               </Tr>
             ))}
           </Tbody>

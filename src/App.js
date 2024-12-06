@@ -29,7 +29,7 @@ import AdminUsers from './pages/Biz/Admin/AdminUsers.js';
 import AdminSeeAgents from './pages/Biz/Admin/AdminSeeAgents.js';
 import AdminMonthlyPayLink from './pages/Biz/Admin/AdminMonthly.js';
 import AdminSeeTransactions from './pages/Biz/Admin/AdminSeeTransactions.js';
-
+import AdminTransactionHistory from './pages/Biz/Admin/AdminSeeHistory.js';
 
 import Referral from './pages/Biz/User/Referral.js';
 import Account from './pages/Biz/User/Account.js';
@@ -157,6 +157,7 @@ function App() {
                     <Route path="/admin-dashboard/:userId/add-biz" element={<CreateBizness/>}/>
                     <Route path="/admin-dashboard/:userId/see-biz" element={<AdminSeeBiz/>}/>
                     <Route path="/admin-dashboard/:userId/payment-link/" element={<AdminMonthlyPayLink/>}/>
+                    <Route path="/admin-dashboard/:userId/:bizId/see-history" element={<AdminTransactionHistory/>}/>
 
                 </Routes>
               </Suspense>
