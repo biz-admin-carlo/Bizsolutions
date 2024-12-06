@@ -7,7 +7,7 @@ import 'aos/dist/aos.css';
 import 'leaflet/dist/leaflet.css';
 import ReactGA from 'react-ga';
 
-const APP_VERSION = '1.3.19';
+const APP_VERSION = '1.3.19.1';
 
 function checklistUser() {
     const storedLocalVersion = localStorage.getItem('appVersion');
